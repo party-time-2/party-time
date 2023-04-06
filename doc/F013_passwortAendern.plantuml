@@ -1,0 +1,33 @@
+@startuml F013_passwortAendern
+title "Passwort ändern"
+
+actor "Angemeldeten Nutzer" as user
+boundary "Passwort ändern Maske" as changePwd
+control "Frontend Validator" as frontValid
+actor "Passwort ändern Controller" as controller
+database "Datenbank" as db
+
+' Initiale Registrierung
+user -> changePwd: Eingabe altes + neues Passwort
+activate user
+changePwd -> frontValid: Validiere neues Passwort
+changePwd <-- frontValid: neues Passwort valide
+user <-- changePwd: Aktiviere Senden-Knopf
+user -> changePwd: Starte Übermittlung der Daten
+
+changePwd -> controller: Übermittle altes und neues Passwort + Session Token
+activate controller
+controller -> db: Ermittle E-Mail für Session Token
+controller <-- db: E-Mail Adresse für Session Token
+controller -> db: Ermittle Passwort Hash für E-Mail Adresse
+controller <-- db: Passwort Hash für E-Mail-Adresse
+controller -> controller: Passwort-Hash für altes übermitteltes Passwort erstellen und mit gespeichertem Hash vergleichen
+controller -> controller: Hash von neuem Passwort erstellen
+controller -> db: Speichere neuen Passwort Hash für E-Mail Adresse
+controller <-- db: Bestätige Speicherung des neuen Passworts
+changePwd <-- controller: Bestätige Passwort Änderung
+deactivate controller
+
+user <-- changePwd: Zeige Passwort Änderung Bestätigung
+deactivate user
+@enduml
