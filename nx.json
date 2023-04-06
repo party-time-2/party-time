@@ -3,14 +3,15 @@
   "npmScope": "party-time",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": [
           "build",
           "lint",
           "test",
           "e2e"
-        ]
+        ],
+        "accessToken": "ODg1NGFlNjAtOTEyNS00NjI0LTg1ZDAtNjVhOWU4NTc3YmZmfHJlYWQtd3JpdGU="
       }
     }
   },
