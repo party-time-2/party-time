@@ -3,3 +3,13 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+@layer base {
+  :root {
+    --color-base: 255, 255, 255; /* white */
+    --color-base-inverted: 36, 41, 46; /* dark */
+    --primary: 64, 120, 192; /* blue */
+    --accent: 189, 46, 224; /* purple */
+    --success: 0, 255, 0; /* green */
+    --warning: 220, 53, 69; /* red */
+  }
+}

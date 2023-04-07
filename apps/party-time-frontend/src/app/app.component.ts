@@ -1,14 +1,16 @@
-import { Component } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { NxWelcomeComponent } from "./nx-welcome.component";
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '@party-time/ui';
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: "party-time-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  imports: [RouterModule, NavbarComponent],
+  selector: 'party-time-root',
+  template: `
+    <party-time-navbar></party-time-navbar>
+    <router-outlet></router-outlet>
+  `,
 })
 export class AppComponent {
-  title = "party-time-frontend";
+  title = 'party-time-frontend';
 }
