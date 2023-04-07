@@ -7,11 +7,10 @@
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
 			"installMaven": true,
-			"version": "latest",
+      "installGradle": false,
+			"version": "17",
 			"jdkDistro": "ms",
-			"gradleVersion": "latest",
-			"mavenVersion": "latest",
-			"antVersion": "latest"
+			"mavenVersion": "latest"
 		},
 		"ghcr.io/devcontainers/features/node:1": {
 			"nodeGypDependencies": true,
