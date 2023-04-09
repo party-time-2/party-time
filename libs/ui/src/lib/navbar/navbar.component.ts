@@ -25,7 +25,7 @@ import { CtaButtonComponent } from '../cta-button/cta-button.component';
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
-            class="inline-flex items-center rounded-lg p-2 text-sm text-on-primary-light dark:text-on-primary-dark bg-primary-light dark:bg-primary-dark md:hidden"
+            class="text-on-primary-light dark:text-on-primary-dark bg-primary-light dark:bg-primary-dark inline-flex items-center rounded-lg p-2 text-sm md:hidden"
             aria-controls="navbar-cta"
             aria-expanded="false"
             (click)="toggleMenu()"
@@ -57,7 +57,7 @@ import { CtaButtonComponent } from '../cta-button/cta-button.component';
             <li *ngFor="let link of links">
               <button
                 [routerLink]="link.routerLink"
-                class="      hover:text-on-secondary-dark
+                class="hover:text-on-surface-variant-light
       dark:hover:text-on-secondary-light block py-2 pl-3 pr-4 md:p-0 "
                 aria-current="page"
               >
