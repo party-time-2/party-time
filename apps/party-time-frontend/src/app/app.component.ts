@@ -8,12 +8,14 @@ import { NavbarComponent } from '@party-time/ui';
   imports: [RouterModule, NavbarComponent],
   selector: 'party-time-root',
   template: `
-    <party-time-navbar
-      [logo]="logo"
-      [links]="groups[0].links"
-      [cta]="groups[0].links[1]"
-    ></party-time-navbar>
-    <router-outlet></router-outlet>
+    <div class="h-screen">
+      <party-time-navbar
+        [logo]="logo"
+        [links]="groups[0].links"
+        [cta]="groups[0].links[1]"
+      ></party-time-navbar>
+      <router-outlet></router-outlet>
+    </div>
   `,
 })
 export class AppComponent {

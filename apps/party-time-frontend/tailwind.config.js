@@ -18,6 +18,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      transparent: 'transparent',
       /* light */
       'primary-light': withOpacity('--primary-light'),
       'on-primary-light': withOpacity('--on-primary-light'),
@@ -88,6 +89,6 @@ module.exports = {
       'scrim-dark': withOpacity('--scrim-dark'),
     },
   },
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   plugins: [],
 };
