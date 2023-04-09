@@ -10,9 +10,7 @@ import { CtaButtonComponent } from '../cta-button/cta-button.component';
   standalone: true,
   imports: [CommonModule, RouterModule, LogoComponent, CtaButtonComponent],
   template: `
-    <nav
-      class="px-2 py-2.5 sm:px-4 bg-primary-container-light dark:bg-primary-container-dark text-on-primary-container-light dark:text-on-primary-container-dark"
-    >
+    <nav class="px-2 py-2.5 sm:px-4 ">
       <div
         class="container mx-auto flex flex-wrap items-center justify-between"
       >

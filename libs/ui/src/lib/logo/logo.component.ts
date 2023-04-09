@@ -17,9 +17,8 @@ import { ILogo } from '@party-time/models';
     <div class="">
       <span
         class="
-      hover:text-on-secondary-dark
+      hover:text-on-primary-light
       dark:hover:text-on-secondary-light
-        hidden 
         self-center 
         bg-no-repeat 
         text-xl 
