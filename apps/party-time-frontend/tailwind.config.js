@@ -89,6 +89,6 @@ module.exports = {
       'scrim-dark': withOpacity('--scrim-dark'),
     },
   },
-  darkMode: 'media', // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   plugins: [],
 };
