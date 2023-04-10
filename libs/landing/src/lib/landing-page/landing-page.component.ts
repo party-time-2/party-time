@@ -33,9 +33,9 @@ gsap.registerPlugin(ScrollTrigger);
 })
 export class LandingPageComponent implements AfterViewInit {
   @ViewChild(HeadlineComponent) headlineComponent!: HeadlineComponent;
-  @ViewChild('headline')
+  @ViewChild('partyImage') partyImage!: ElementRef;
+
   headline!: HTMLElement;
-  @ViewChild('subline')
   subline!: HTMLElement;
 
   constructor(private elementRef: ElementRef) {}
@@ -65,6 +65,16 @@ export class LandingPageComponent implements AfterViewInit {
         this.subline,
         { duration: 1, x: -100, opacity: 0, ease: 'power3.out' },
         '-=0.5'
+      )
+      .from(
+        this.partyImage.nativeElement,
+        {
+          duration: 1,
+          y: 100,
+          opacity: 0,
+          ease: 'power3.out',
+        },
+        '-=1'
       );
   }
 }
