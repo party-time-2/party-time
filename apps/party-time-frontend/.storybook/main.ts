@@ -1,13 +1,18 @@
-import type { StorybookConfig } from '@storybook/core-common';
+import type { StorybookConfig } from '@storybook/angular';
 const config: StorybookConfig = {
-  core: {
-    builder: 'webpack5',
-  },
+  core: {},
   stories: [
     '../src/app/**/*.stories.mdx',
     '../src/app/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: ['@storybook/addon-essentials', 'storybook-addon-angular-router'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-mdx-gfm'],
+  framework: {
+    name: '@storybook/angular',
+    options: {},
+  },
+  docs: {
+    autodocs: true,
+  },
 };
 module.exports = config;
 

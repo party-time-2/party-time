@@ -1,28 +1,47 @@
-import { Meta } from '@storybook/angular';
+import { Meta, moduleMetadata } from '@storybook/angular';
 import { AppComponent } from './app.component';
+import { ActivatedRoute } from '@angular/router';
+
+const ballon = require('../assets/ballon.png');
 
 export default {
   title: 'AppComponent',
   component: AppComponent,
-} as Meta<AppComponent>;
-
-export const Primary = {
-  render: (args: AppComponent) => ({
-    props: args,
-  }),
+  decorators: [
+    moduleMetadata({
+      imports: [],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {},
+        },
+      ],
+    }),
+  ],
   args: {
-    title: 'Party Time',
+    title: 'party-time-frontend',
+    logo: {
+      src: ballon,
+      alt: 'ballon logo',
+      href: 'https://www.partytime.com',
+      name: 'Party Time',
+    },
     groups: [
       {
         name: 'Party Time',
         links: [
           { routerLink: '/', name: 'Startseite' },
-          { routerLink: 'parties', name: 'Parties' },
-          { routerLink: 'account', name: 'Account' },
+          { routerLink: 'party', name: 'Party' },
           { routerLink: 'datenschutz', name: 'Datenschutz' },
           { routerLink: 'impressum', name: 'Impressum' },
         ],
       },
     ],
   },
+} as Meta<AppComponent>;
+
+export const Primary = {
+  render: (args: AppComponent) => ({
+    props: args,
+  }),
 };
