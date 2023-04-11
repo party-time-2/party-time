@@ -44,7 +44,7 @@
     "@storybook/addon-actions": "^7.0.2",
     "@storybook/addon-essentials": "^7.0.2",
     "@storybook/addon-links": "^7.0.2",
-    "@storybook/addon-mdx-gfm": "^7.0.2",
+    "@storybook/addon-styling": "^1.0.0-next.1",
     "@storybook/angular": "^7.0.2",
     "@storybook/core-common": "^7.0.2",
     "@storybook/core-server": "^7.0.2",

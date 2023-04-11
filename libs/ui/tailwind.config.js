@@ -9,6 +9,6 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  darkMode: 'media', // or 'media' or 'class'
+  darkMode: ['class'],
   plugins: [],
 };
