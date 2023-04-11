@@ -16,14 +16,7 @@ import { ILogo } from '@party-time/models';
     <img [src]="logo.src" class="mr-3 h-9" [alt]="logo.alt" />
     <div class="">
       <span
-        class="
-      hover:text-on-surface-variant-light
-      dark:hover:text-on-secondary-light
-        self-center 
-        bg-no-repeat 
-        text-xl 
-        font-semibold 
-        sm:block"
+        class="self-center bg-no-repeat text-xl font-semibold hover:text-on-surface-variant-light dark:hover:text-on-secondary-light sm:block"
       >
         {{ logo.name }}
       </span>
