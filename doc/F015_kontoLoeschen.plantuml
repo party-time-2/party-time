@@ -11,16 +11,14 @@ activate user
 user <-- deleteUserMask: Nachfragen ob Konto tatsächlich gelöscht werden soll
 user -> deleteUserMask: Betätige tatsächliches Konto löschen
 
-deleteUserMask -> controller: Übermittle Session Token
+deleteUserMask -> controller: Übermittle Löschen-Anfrage mit JSON Web Token
 activate controller
-controller -> db: Ermittle E-Mail Adresse für Session Token
-controller <-- db: E-Mail Adresse für Session Token
 controller -> db: Lösche sämtliche mit E-Mail Adresse in Verbindung stehende Daten
 controller <-- db: Bestätige Löschung der Daten
 deleteUserMask <-- controller: Informiere über Löschung des Kontos
 deactivate controller
 
-deleteUserMask -> deleteUserMask: Lösche lokale Nutzerdaten (Cookies, ...)
-user <-- deleteUserMask: Zeige Konto gelöscht Info
+deleteUserMask -> deleteUserMask: Lösche lokale Nutzerdaten (JSON Web Token, ...)
+user <-- deleteUserMask: Zeige "Konto gelöscht" Information
 deactivate user
 @enduml
