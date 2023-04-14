@@ -15,13 +15,11 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -36,6 +34,9 @@ public class AuthController {
 
     private final AuthService authService;
 
+    /**
+     * F010 - Konto Erstellen
+     */
     @PostMapping("/register")
     @Operation(
         description = "Register a new Account",
@@ -56,6 +57,25 @@ public class AuthController {
         return AccountMapper.map(
             authService.registerAccount(body)
         );
+    }
+
+    @PostMapping("/verify/{code}")
+    @Operation(
+        description = "Verify the Email of an Account",
+        responses = {
+            @ApiResponse(
+                description = "Verification Success. User Account is active now!",
+                responseCode = "200"
+            ),
+            @ApiResponse(
+                description = "Account Verification failed",
+                responseCode = "400"
+            )
+        }
+    )
+    @SecurityRequirements
+    public void verifyMail(@PathVariable("code") @NotNull @NotEmpty String code) {
+        authService.verifyAccount(code);
     }
 
 }

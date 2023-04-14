@@ -15,6 +15,11 @@ spring:
   web:
     locale: en
     locale-resolver: fixed
+  mail:
+    host: smtp-relay.sendinblue.com
+    port: 587
+    username: lucas@dangl.io
+    password: 5J6fBw3zRADv0n7C
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
