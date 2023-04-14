@@ -9,20 +9,16 @@ actor "Nutzer" as user
 
 
 'E-Mail Validierung
-controller -> controller: Generiere Validierung-Token
-controller -> db: Speichere Validierung-Token zu E-Mail-Adresse
-controller <-- db: Bestätige Speicherung
-userMail <- controller: Sende Validierung-Link mit Validierung-Token
+controller -> controller: Generiere Validierung JSON Web Token
+userMail <- controller: Sende Validierung-Link mit JSON Web Token
 deactivate controller
 
 userMail -> user: Informiere neue E-Mail
 activate user
 userMail <-- user: Prüfe Mail
-userMail -> signupConfirm: öffne verlinkte Email-Validierung Webseite mit Validierung-Token
-signupConfirm -> controller: Bestätige Validität mit Token verknüpfter E-Mail-Adresse
+userMail -> signupConfirm: Öffne verlinkte Email-Validierung Webseite mit JSON Web Token
+signupConfirm -> controller: Bestätige Validität mit JSON Web Token verknüpfter E-Mail-Adresse
 activate controller
-controller -> db: suche E-Mail zu Token
-controller <-- db: Lieferere E-Mail zu Token
 controller -> db: Speichere E-Mail Validität
 controller <-- db: Bestätige Speicherung
 signupConfirm <-- controller: Bestätige E-Mail Validität
