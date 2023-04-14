@@ -2,20 +2,11 @@
 title "Konto abmelden"
 
 actor "Nutzer" as user
-boundary "Benutzer Maske" as userMask
-actor "Abmeldung Controller" as controller
-database "Datenbank" as db
+boundary "Abmelden Maske" as userMask
 
 user -> userMask: Betätige Abmelden Knopf
 activate user
-
-userMask -> controller: Übermittle Abmeldung-Anfrage und Session Token
-activate controller
-controller -> db: Invalidiere Session Token
-controller <-- db: Bestätige Session Token Invalidierung
-userMask <-- controller: Bestätige Abmeldung
-deactivate controller
-userMask -> userMask: Lösche alle lokalen Daten (Cookies, etc.)
+userMask -> userMask: Lösche JSON Web Token in Local Storage
 user <-- userMask: Bestätige erfolgte Anmeldung
 deactivate user
 @enduml
