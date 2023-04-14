@@ -15,10 +15,8 @@ changePwd <-- frontValid: neues Passwort valide
 user <-- changePwd: Aktiviere Senden-Knopf
 user -> changePwd: Starte Übermittlung der Daten
 
-changePwd -> controller: Übermittle altes und neues Passwort + Session Token
+changePwd -> controller: Übermittle altes und neues Passwort + JSON Web Token
 activate controller
-controller -> db: Ermittle E-Mail für Session Token
-controller <-- db: E-Mail Adresse für Session Token
 controller -> db: Ermittle Passwort Hash für E-Mail Adresse
 controller <-- db: Passwort Hash für E-Mail-Adresse
 controller -> controller: Passwort-Hash für altes übermitteltes Passwort erstellen und mit gespeichertem Hash vergleichen
