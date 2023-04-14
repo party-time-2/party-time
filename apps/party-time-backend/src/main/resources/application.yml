@@ -18,9 +18,3 @@ spring:
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
-  web:
-    locale: en
-    locale-resolver: fixed
-springdoc:
-  default-consumes-media-type: application/json
-  default-produces-media-type: application/json
