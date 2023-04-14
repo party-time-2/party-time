@@ -16,12 +16,12 @@ activate controller
 controller <-- db: Passwort-Hash für Nutzer mit E-Mail-Adresse
 controller -> controller: Hash von übermitteltem Passwort erstellen und vergleichen
 
-controller -> controller: JWT-Session Token generieren
+controller -> controller: JSON Web Token generieren
 
-signInMask <-- controller: Übermittlung JWT-Session Token
+signInMask <-- controller: Übermittlung JSON Web Token
 deactivate controller
 
-signInMask -> signInMask: Speichere JWT-Session Token in Local Storage
+signInMask -> signInMask: Speichere JSON Web Token in Local Storage
 user <-- signInMask: Bestätige erfolgte Anmeldung
 deactivate user
 @enduml
