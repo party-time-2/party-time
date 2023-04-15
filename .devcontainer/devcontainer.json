@@ -32,10 +32,7 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [
-		4200,
-		8080
-	],
+	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "sh /workspaces/party-time/.devcontainer/postCreateCommand.sh",
 	// Configure tool-specific properties.
@@ -53,26 +50,9 @@
 				"firefox-devtools.vscode-firefox-debug",
 				"ms-edgedevtools.vscode-edge-devtools",
 				"eamodio.gitlens",
-				"ms-vsliveshare.vsliveshare",
-				"rangav.vscode-thunder-client",
-				"github.copilot",
-				"github.copilot-labs",
-				"github.vscode-pull-request-github"
-			],
-			"settings": {
-				"css.lint.unknownAtRules": "ignore",
-				"scss.lint.unknownAtRules": "ignore",
-				"markdownlint.config": {
-					"default": true,
-					"MD025": false,
-					"MD033": false,
-					"no-hard-tabs": false
-				},
-				"[markdown]": {
-					"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
-				}
-			},
-		},
+				"ms-vsliveshare.vsliveshare"
+			]
+		}
 	},
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
