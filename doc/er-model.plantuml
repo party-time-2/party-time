@@ -21,7 +21,7 @@ entity EventParticipant {
 entity Event {
     * id: bigint <<generated>>
     --
-    * organizer_id: character varying(255) <<User FK>>
+    * organizer_id: bigint <<User FK>>
     * name: character varying(255)
     * dateTime: timestamp
     * address: character varying(255)
