@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 @Component({
   selector: 'party-time-landing-page',
   template: `<section
-    class="from-background-light dark:from-background-dark dark:to-surface-variant-dark to-surface-variant-light grid min-h-screen place-items-start bg-gradient-to-b"
+    class="grid min-h-screen place-items-start bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
   >
     <div
       class="mx-auto grid max-w-screen-xl place-items-center px-4 py-8  lg:py-16"
