@@ -2,18 +2,12 @@ package com.partytime.api.controller;
 
 import com.partytime.api.dto.AccountDTO;
 import com.partytime.api.dto.AccountRegisterDTO;
-import com.partytime.api.error.ApiErrorException;
 import com.partytime.jpa.mapper.AccountMapper;
 import com.partytime.service.AuthService;
-import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -59,6 +53,9 @@ public class AuthController {
         );
     }
 
+    /**
+     * F014 - Konto Verifizieren
+     */
     @PostMapping("/verify/{code}")
     @Operation(
         description = "Verify the Email of an Account",
