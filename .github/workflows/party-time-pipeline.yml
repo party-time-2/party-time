@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - setup/frontend
+      - f010-konto-erstellen
   pull_request:
 
 jobs:
@@ -25,6 +26,6 @@ jobs:
 
   agents:
     name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
+    uses: ./.github/workflows/nx-cloud-agents.yml
     with:
       number-of-agents: 3
