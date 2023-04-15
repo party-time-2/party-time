@@ -15,8 +15,6 @@ jobs:
     with:
       main-branch-name: main
       number-of-agents: 3
-      environment-variables: |
-        JAVA_HOME=$JAVA_HOME_17_X64
       init-commands: |
         npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
       parallel-commands: |
@@ -32,4 +30,4 @@ jobs:
     with:
       number-of-agents: 3
       environment-variables: |
-        JAVA_HOME=$JAVA_HOME_17_X64
+        JAVA_HOME=${JAVA_HOME_17_X64}
