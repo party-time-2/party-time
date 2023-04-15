@@ -10,16 +10,16 @@ import { RouterModule } from '@angular/router';
     type="button"
     [routerLink]="routerLink"
     class="
-        text-on-primary-container-dark
-        dark:text-on-primary-container-light
-        bg-primary-container-dark
-        dark:bg-primary-container-light
         mr-3
         h-9
         rounded-lg
+        bg-primary-container-dark
         px-5
+        text-on-primary-container-dark
         hover:bg-primary-container-light
         hover:text-on-primary-container-light
+        dark:bg-primary-container-light
+        dark:text-on-primary-container-light
         hover:dark:bg-primary-container-dark
         hover:dark:text-on-primary-container-dark
 "
