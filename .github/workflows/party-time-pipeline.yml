@@ -17,8 +17,9 @@ jobs:
       number-of-agents: 3
       init-commands: |
         npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-      parallel-commands: |
-        npx nx-cloud record -- npx nx format:check
+#      This causes problems... @Julian muss das mal angucken
+#      parallel-commands: |
+#        npx nx-cloud record -- npx nx format:check
       parallel-commands-on-agents: |
         npx nx affected --target=lint --parallel=3
         npx nx affected --target=test --parallel=3 --ci --code-coverage
