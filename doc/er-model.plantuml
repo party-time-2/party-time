@@ -3,15 +3,16 @@ title "Party Time ER-Modell"
 skinparam linetype ortho
 
 entity User {
-    * email: character varying(255)
+    * id: bigint <<generated>>
     --
+    * email: character varying(255)
     * emailVerified: boolean
     * displayName: character varying(255)
     * pwHash: character varying(255)
 }
 
 entity EventParticipant {
-    * user_id: character varying(255) <<User FK>>
+    * user_id: bigint <<User FK>>
     * event_id: bigint <<Event FK>>
     --
     * status: ENUM('eingeladen', 'teilnehmend', 'abgelehnt')
@@ -26,14 +27,7 @@ entity Event {
     * address: character varying(255)
 }
 
-entity jwtJit {
-    * id: bigint <<generated>>
-    --
-    * user_id: character varying(255) <<User FK>>
-}
-
 User ||--o{ Event
 User }o--o{ EventParticipant
 EventParticipant }o--o{ Event
-jwtJit }o--o{ User
 @enduml
