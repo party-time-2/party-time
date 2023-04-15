@@ -26,8 +26,6 @@ jobs:
 
   agents:
     name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
+    uses: nx-cloud-agents.yml
     with:
       number-of-agents: 3
-      environment-variables: |
-        JAVA_HOME=${JAVA_HOME_17_X64}
