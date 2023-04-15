@@ -22,8 +22,9 @@ controller <-- db: E-Mail-Adresse noch nicht verwendet
 controller -> controller: Passwort-Hash erstellen
 controller -> db: Speichere Anzeigename + E-Mail + Passwort-Hash
 controller <-- db: Bestätige Speicherung
-
 reg <-- controller: Bestätige Registrierung
+deactivate controller
+
 user <-- reg: Zeige Registrierung-Bestätigung
 deactivate user
 @enduml
