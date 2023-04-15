@@ -1,0 +1,39 @@
+@startuml er-model
+title "Party Time ER-Modell"
+skinparam linetype ortho
+
+entity User {
+    * email: character varying(255)
+    --
+    * emailVerified: boolean
+    * displayName: character varying(255)
+    * pwHash: character varying(255)
+}
+
+entity EventParticipant {
+    * user_id: character varying(255) <<User FK>>
+    * event_id: bigint <<Event FK>>
+    --
+    * status: ENUM('eingeladen', 'teilnehmend', 'abgelehnt')
+}
+
+entity Event {
+    * id: bigint <<generated>>
+    --
+    * organizer_id: character varying(255) <<User FK>>
+    * name: character varying(255)
+    * dateTime: timestamp
+    * address: character varying(255)
+}
+
+entity jwtJit {
+    * id: bigint <<generated>>
+    --
+    * user_id: character varying(255) <<User FK>>
+}
+
+User ||--o{ Event
+User }o--o{ EventParticipant
+EventParticipant }o--o{ Event
+jwtJit }o--o{ User
+@enduml
