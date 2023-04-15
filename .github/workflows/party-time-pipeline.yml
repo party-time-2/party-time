@@ -26,6 +26,6 @@ jobs:
 
   agents:
     name: Nx Cloud - Agents
-    uses: nx-cloud-agents.yml
+    uses: ./.github/workflows/nx-cloud-agents.yml
     with:
       number-of-agents: 3
