@@ -9,9 +9,7 @@ actor "Nutzer" as user
 
 
 'E-Mail Validierung
-controller -> db: Speichere neuen JSON Web Token jit für Nutzer
-controller <-- db: Bestätige JSON Web Token jit Speicherung
-controller -> controller: Generiere Validierung JSON Web Token mit jit
+controller -> controller: Generiere Validierung JSON Web Token
 userMail <- controller: Sende Validierung-Link mit JSON Web Token
 deactivate controller
 
@@ -21,12 +19,8 @@ userMail <-- user: Prüfe Mail
 userMail -> signupConfirm: Öffne verlinkte Email-Validierung Webseite mit JSON Web Token
 signupConfirm -> controller: Bestätige Validität mit JSON Web Token verknüpfter E-Mail-Adresse
 activate controller
-controller -> db: Prüfe Validität JSON Web Token jit
-controller <-- db: Bestätige JSON Web Token jit Validität
-controller -> db: Lösche JSON Web Token jit
-controller <-- db: Bestätige JSON Web Token jit Löschung
 controller -> db: Speichere E-Mail Validität
-controller <-- db: Bestätige Speicherung E-Mail Validität
+controller <-- db: Bestätige Speicherung
 signupConfirm <-- controller: Bestätige E-Mail Validität
 deactivate controller
 
