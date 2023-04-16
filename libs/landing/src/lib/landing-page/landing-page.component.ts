@@ -9,14 +9,14 @@ gsap.registerPlugin(ScrollTrigger);
     class="grid min-h-screen place-items-start bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
   >
     <div
-      class="mx-auto grid max-w-screen-xl place-items-center px-4 py-8  lg:py-16"
+      class="mx-auto grid max-w-screen-xl place-items-center px-4 py-8 lg:py-16"
     >
       <party-time-headline></party-time-headline>
       <div class="max-w pt-4 sm:pt-6 md:pt-10 lg:pt-16">
         <img
           #partyImage
           class="rounded-xl object-cover shadow-xl"
-          src="https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src="/assets/pexels-photo-3171837.webp"
           alt="Bild von einer Party"
         />
       </div>
