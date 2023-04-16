@@ -1,9 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'party-time-headline',
   template: `
-    <section #headlineSection>
+    <section class="headline">
       <h1
         class="headline h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:text-6xl"
       >
@@ -29,7 +29,4 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
     </section>
   `,
 })
-export class HeadlineComponent {
-  @ViewChild('headlineSection')
-  headlineSection!: ElementRef;
-}
+export class HeadlineComponent {}
