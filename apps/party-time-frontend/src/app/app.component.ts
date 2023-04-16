@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IGoup, ILogo } from '@party-time/models';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { NavbarComponent } from '@party-time/ui';
+import { FooterComponent, NavbarComponent } from '@party-time/ui';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, NavbarComponent],
+  imports: [RouterModule, NavbarComponent, FooterComponent],
   selector: 'party-time-root',
   template: `
-    <div class="h-screen">
+    <div class="min-h-screen">
       <party-time-navbar
         [logo]="logo"
         [links]="groups[0].links"
@@ -17,6 +17,7 @@ import { NavbarComponent } from '@party-time/ui';
       ></party-time-navbar>
       <router-outlet></router-outlet>
     </div>
+    <party-time-footer [logo]="logo" [groups]="groups"></party-time-footer>
   `,
 })
 export class AppComponent {
@@ -34,8 +35,9 @@ export class AppComponent {
       name: 'Party Time',
       links: [
         { routerLink: '/', name: 'Startseite' },
-        { routerLink: 'datenschutz', name: 'Datenschutz' },
-        { routerLink: 'impressum', name: 'Impressum' },
+        { routerLink: '/1', name: 'Page 1' },
+        { routerLink: '/2', name: 'Page 2' },
+        { routerLink: '/3', name: 'Page 3' },
       ],
     },
   ];
