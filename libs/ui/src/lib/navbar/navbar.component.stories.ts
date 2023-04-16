@@ -6,6 +6,7 @@ import {
 import { NavbarComponent } from './navbar.component';
 import { ActivatedRoute } from '@angular/router';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ballon = require('../../../../../apps/party-time-frontend/src/assets/ballon.png');
 
 const logo = {

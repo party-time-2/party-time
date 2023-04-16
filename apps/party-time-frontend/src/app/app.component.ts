@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IGoup, ILogo } from '@party-time/models';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { NavbarComponent } from '@party-time/ui';
 
 @Component({

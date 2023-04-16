@@ -1,6 +1,7 @@
 import { Meta, componentWrapperDecorator } from '@storybook/angular';
 import { LogoComponent } from './logo.component';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const ballon = require('../../../../../apps/party-time-frontend/src/assets/ballon.png');
 
 export default {
