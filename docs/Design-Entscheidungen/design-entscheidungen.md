@@ -86,7 +86,7 @@ Die Verwendung einer H2 Datenbank bietet mehrere Vorteile für das Projekt, eins
 
 - Plattformunabhängigkeit: H2 ist in Java geschrieben und somit plattformunabhängig. Es kann auf verschiedenen Betriebssystemen und Architekturen eingesetzt werden.
 
-- Kompatibilität: H2 bietet eine hohe Kompatibilität mit anderen JDBC-Datenbanken und ermöglicht so eine einfache Migration von anderen Datenbanken.
+- Kompatibilität: H2 ist vergleichbar mit anderen JDBC-Datenbanken und ermöglicht so eine einfache Migration zu anderen, evtl. für den Betrieb besser geeigneten Datenbanken.
 
 - Testfähigkeit: H2 eignet sich besonders gut für Integrationstests und automatisierte Tests, da es als eingebettete Datenbank leicht in Testumgebungen integriert werden kann.
 
