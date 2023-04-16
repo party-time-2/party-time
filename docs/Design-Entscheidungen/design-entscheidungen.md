@@ -120,7 +120,7 @@ Die Verwendung von NPM bietet mehrere Vorteile für das Projekt, einschließlich
 
 - Ökosystem: NPM verfügt über ein großes Ökosystem von Bibliotheken und Tools, die die Entwicklung und Wartung von Anwendungen erleichtern.
 
-- Skalierbarkeit: NPM ist skalierbar und kann mit der Größe und Komplexität des Projekts wachsen, was es einfach macht, das Projekt zu verwalten und zu skalieren.
+- Skalierbarkeit: NPM ist skalierbar und kann mit der Größe und Komplexität des Projekts wachsen, wodurch eine einfache Verwaltung und Entwicklung des Projekts möglich wird.
 
 ## Verwendung von Tailwind CSS
 
