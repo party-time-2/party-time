@@ -3,10 +3,9 @@ name: party-time-pipeline
 on:
   push:
     branches:
-      - main
-      - setup/frontend
-      - f010-konto-erstellen
+      - '**'
   pull_request:
+  
 
 jobs:
   main:
