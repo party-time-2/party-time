@@ -53,7 +53,7 @@ Die Verwendung von Spring Boot bietet mehrere Vorteile für das Projekt, einschl
 
 - Einfache Konfiguration: Spring Boot verwendet Konventionen und automatisierte Konfigurationen, die es einfach machen, verschiedene Aspekte der Anwendung zu konfigurieren, ohne dass manuelle Eingriffe erforderlich sind.
 
-- Erweiterbarkeit: Spring Boot ist einfach zu erweitern und bietet eine Vielzahl von Erweiterungen und Plugins, die die Implementierung von zusätzlichen Funktionen erleichtern können.
+- Erweiterbarkeit: Spring Boot ist einfach zu erweitern und bietet eine Vielzahl von Erweiterungen und Plugins, welche die Implementierung von zusätzlichen Funktionen erleichtern.
 
 - Standardisierung: Spring Boot ist ein etabliertes Framework, das eine Standardisierung in der Java-Entwicklung fördert und somit eine erhöhte Wiederverwendbarkeit von Code und Komponenten ermöglicht.
 
