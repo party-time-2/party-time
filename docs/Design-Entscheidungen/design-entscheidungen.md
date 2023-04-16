@@ -105,7 +105,7 @@ Die Verwendung von Angular bietet mehrere Vorteile für das Projekt, einschließ
 
 - TypeScript: Angular ist in TypeScript geschrieben, was zu einer besseren Codequalität und -wartbarkeit führt und die Entwicklung insgesamt effizienter macht.
 
-- Ökosystem: Angular verfügt über ein großes Ökosystem von Bibliotheken und Tools, die die Entwicklung und Wartung von Anwendungen erleichtern.
+- Ökosystem: Angular verfügt über ein großes Ökosystem von Bibliotheken und Tools, welche die Entwicklung und Wartung von unserer Anwendung erleichtert
 
 ## Verwendung von NPM (Node Package Manager)
 
