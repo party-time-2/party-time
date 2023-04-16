@@ -6,13 +6,7 @@ import { ILogo } from '@party-time/models';
   selector: 'party-time-logo',
   standalone: true,
   imports: [CommonModule],
-  template: ` <a
-    *ngIf="logo"
-    [href]="logo.href"
-    class="
-  flex 
-  items-center"
-  >
+  template: ` <a *ngIf="logo" [href]="logo.href" class="flex items-center">
     <img [src]="logo.src" class="mr-3 h-9" [alt]="logo.alt" />
     <div class="">
       <span
