@@ -78,7 +78,7 @@ Das Projekt verwendet eine integrierte H2-Datenbank für die lokale Entwicklung 
 
 **Begründung**:
 
-Die Verwendung von H2 bietet mehrere Vorteile für das Projekt, einschließlich:
+Die Verwendung einer H2 Datenbank bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Einfache Einrichtung: H2 kann als eingebettete Datenbank direkt im Projekt verwendet werden, was eine schnelle Einrichtung und Konfiguration ermöglicht.
 
