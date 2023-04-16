@@ -1,17 +1,9 @@
 {
-  "extends": [
-    "../../.eslintrc.json"
-  ],
-  "ignorePatterns": [
-    "*.stories.mdx",
-    "*.stories.ts",
-    "!**/*"
-  ],
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["*.stories.mdx", "*.stories.ts", "!**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "rules": {
         "@typescript-eslint/no-var-requires": 0,
         "@angular-eslint/directive-selector": [
@@ -37,12 +29,8 @@
       ]
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/angular-template"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@nrwl/nx/angular-template"],
       "rules": {}
     }
   ]
