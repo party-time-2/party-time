@@ -57,8 +57,7 @@ import { CtaButtonComponent } from '../cta-button/cta-button.component';
             <li *ngFor="let link of links">
               <button
                 [routerLink]="link.routerLink"
-                class="block
-      py-2 pl-3 pr-4 hover:text-on-surface-variant-light dark:hover:text-on-secondary-light md:p-0 "
+                class="block py-2 pl-3 pr-4 hover:text-on-surface-variant-light hover:underline dark:hover:text-on-secondary-light md:p-0 "
                 aria-current="page"
               >
                 {{ link.name }}
