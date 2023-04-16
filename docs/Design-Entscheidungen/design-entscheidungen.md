@@ -15,7 +15,6 @@ Die Verwendung von NX bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Skalierbarkeit: NX ist für die Entwicklung großer Anwendungen ausgelegt und ermöglicht es, ein Projekt in einer monolithischen Architektur zu skalieren, indem es eine klare Struktur für die Organisation von Code und Abhängigkeiten bietet.
 
-
 ## Verwendung von Client Server
 
 Die Client-Server-Architektur wird für die Implementierung der Anwendung verwendet. Die Anwendung besteht aus einem Frontend-Client, der über das Internet auf einen Back-End-Server zugreift, um Daten und Funktionalität zu erhalten.
@@ -94,7 +93,7 @@ Die Verwendung einer H2 Datenbank bietet mehrere Vorteile für das Projekt, eins
 
 Das Projekt verwendet das Angular-Framework für die Implementierung des Frontends. Angular ist ein leistungsfähiges und umfassendes Framework für die Entwicklung von Single-Page-Anwendungen (SPAs).
 
-**Begründung**: 
+**Begründung**:
 Die Verwendung von Angular bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Struktur: Angular bietet eine klare Struktur für die Organisation von Code, die es einfach macht, den Überblick über komplexe Anwendungen zu behalten.
@@ -111,7 +110,7 @@ Die Verwendung von Angular bietet mehrere Vorteile für das Projekt, einschließ
 
 Das Projekt verwendet den Node Package Manager (NPM) als zentrales Tool zur Verwaltung von Abhängigkeiten und zur Automatisierung von Abläufen im Frontend-Entwicklungsprozess.
 
-**Begründung**: 
+**Begründung**:
 Die Verwendung von NPM bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Verwaltung von Abhängigkeiten: NPM erleichtert die Verwaltung von Abhängigkeiten im Projekt und sorgt dafür, dass alle für das Frontend benötigten Bibliotheken und Tools auf dem neuesten Stand sind und gleiche Versionen konsistent verwendet werden.
@@ -126,7 +125,7 @@ Die Verwendung von NPM bietet mehrere Vorteile für das Projekt, einschließlich
 
 Das Projekt verwendet das Tailwind CSS Framework für die Gestaltung des Frontends. Tailwind ist ein Utility-First CSS-Framework, das es Entwicklern ermöglicht, schnell und einfach responsive Benutzeroberflächen zu erstellen.
 
-**Begründung**: 
+**Begründung**:
 Die Verwendung von Tailwind bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Effizienz: Tailwind bietet eine Vielzahl von vordefinierten Utility-Klassen um schneller und effizienter zu arbeiten.
@@ -139,7 +138,7 @@ Die Verwendung von Tailwind bietet mehrere Vorteile für das Projekt, einschlie�
 
 Das Projekt verwendet GitHub als Code-Repository und Kollaborationsplattform. GitHub ist eine Cloud-basierte Plattform, die es Entwicklern ermöglicht, Code zu teilen, zu speichern und zusammenzuarbeiten.
 
-**Begründung**: 
+**Begründung**:
 Die Verwendung von GitHub bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Kollaboration: GitHub bietet eine benutzerfreundliche und intuitive Plattform für die Zusammenarbeit zwischen Entwicklern, die es einfach macht, Code zu teilen, zu kommentieren und zusammenzuarbeiten.
@@ -154,7 +153,7 @@ Die Verwendung von GitHub bietet mehrere Vorteile für das Projekt, einschließl
 
 Das Projekt verwendet PlantUML als Werkzeug für die Erstellung von UML-Diagrammen. PlantUML ist ein Open-Source-Tool, das es einfach macht, UML-Diagramme in verschiedenen Formaten zu erstellen und zu exportieren.
 
-**Begründung**: 
+**Begründung**:
 Die Verwendung von PlantUML bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Einfache Syntax: PlantUML verwendet eine einfache, textbasierte Syntax, um UML-Diagramme zu erstellen.
