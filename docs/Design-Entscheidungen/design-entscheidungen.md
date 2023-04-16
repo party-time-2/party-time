@@ -74,7 +74,7 @@ Die Verwendung von Maven bietet mehrere Vorteile für das Projekt, einschließli
 
 ## Verwendung von H2
 
-Das Projekt verwendet die H2-Datenbank als eingebettete Datenbank für die lokale Entwicklung und Tests. H2 ist eine leichte, schnelle und plattformunabhängige Datenbank, die in Java geschrieben wurde und eine hohe Kompatibilität mit anderen JDBC-Datenbanken bietet.
+Das Projekt verwendet eine integrierte H2-Datenbank für die lokale Entwicklung und Tests. H2 ist eine leichte, schnelle und plattformunabhängige Datenbank, welche in Java geschrieben wurde und eine einfache Vergleichbarkeit mit anderen JDBC-Datenbanken ermöglicht.
 
 **Begründung**:
 
