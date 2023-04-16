@@ -59,7 +59,7 @@ Die Verwendung von Spring Boot bietet mehrere Vorteile für das Projekt, einschl
 
 ## Verwendung von Maven
 
-Das Projekt verwendet Apache Maven als Build-Management-Tool, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung der Anwendung zu erleichtern. Maven ist ein Open-Source-Tool, das auf Java basiert und in der Lage ist, ein Projekt von der Kompilierung bis zur Bereitstellung zu verwalten.
+Das Projekt verwendet Apache Maven als Build-Management-Tool, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung der Server-Anwendung zu erleichtern. Maven ist ein Open-Source-Tool, das auf Java basiert und in der Lage ist, ein Projekt von der Kompilierung bis zur Bereitstellung zu verwalten.
 
 **Begründung**:
 Die Verwendung von Maven bietet mehrere Vorteile für das Projekt, einschließlich:
