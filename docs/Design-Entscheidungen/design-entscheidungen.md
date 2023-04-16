@@ -23,7 +23,7 @@ Die Client-Server-Architektur wird für die Implementierung der Anwendung verwen
 **Begründung**:
 Die Verwendung der Client-Server-Architektur bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- kalierbarkeit: Durch die Trennung der Anwendung in Frontend- und Backend-Komponenten kann jeder Teil der Anwendung unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
+- Skalierbarkeit: Durch die Trennung der Anwendung in Frontend- und Backend-Komponenten kann jeder Teil der Anwendung unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
 
 - Sicherheit: Die Verwendung einer Client-Server-Architektur ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der Serverseite zu implementieren, um die Anwendung vor Angriffen zu schützen.
 
