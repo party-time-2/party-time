@@ -7,11 +7,11 @@ import { Component } from '@angular/core';
       <h1
         class="headline h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:text-6xl"
       >
-        Organisiere deine Party
+        Mach deine Party
         <span
           class="bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:from-primary-dark dark:to-tertiary-dark"
         >
-          übersichtlich
+          und behalte den Überblick
         </span>
       </h1>
       <div class="subline">
