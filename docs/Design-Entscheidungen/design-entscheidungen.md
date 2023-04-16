@@ -49,7 +49,7 @@ Die Anwendung verwendet das Spring Boot-Framework als Basis für die Implementie
 **Begründung**:
 Die Verwendung von Spring Boot bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Schnelle Entwicklung: Spring Boot bietet eine umfangreiche Bibliothek von vorgefertigten Modulen und Konfigurationen, die die Implementierung von Anwendungen beschleunigen können.
+- Schnelle Entwicklung: Spring Boot bietet eine umfangreiche Bibliothek von vorgefertigten Modulen und Konfigurationen, welche die Implementierung von Anwendungen beschleunigen können.
 
 - Einfache Konfiguration: Spring Boot verwendet Konventionen und automatisierte Konfigurationen, die es einfach machen, verschiedene Aspekte der Anwendung zu konfigurieren, ohne dass manuelle Eingriffe erforderlich sind.
 
