@@ -99,7 +99,7 @@ Die Verwendung von Angular bietet mehrere Vorteile für das Projekt, einschließ
 
 - Struktur: Angular bietet eine klare Struktur für die Organisation von Code, die es einfach macht, den Überblick über komplexe Anwendungen zu behalten.
 
-- Templates: Angular bietet eine leistungsfähige Vorlagen-Engine, die es einfach macht, dynamische und reaktive Benutzeroberflächen zu erstellen.
+- Templates: Angular bietet eine leistungsfähige Vorlagen-Engine für die Erstellung von dynamischen und reaktiven Benutzeroberflächen.
 
 - Komponenten: Angular arbeitet mit Komponenten, die unabhängig voneinander entwickelt werden können und wiederverwendbar sind, was die Entwicklung von komplexen Anwendungen erleichtert.
 
