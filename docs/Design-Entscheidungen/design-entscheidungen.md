@@ -109,7 +109,7 @@ Die Verwendung von Angular bietet mehrere Vorteile für das Projekt, einschließ
 
 ## Verwendung von NPM (Node Package Manager)
 
-Das Projekt verwendet den Node Package Manager (NPM) als zentrales Tool zur Verwaltung von Abhängigkeiten und zur Automatisierung von Prozessen im Frontend- und Backend-Entwicklungsprozess.
+Das Projekt verwendet den Node Package Manager (NPM) als zentrales Tool zur Verwaltung von Abhängigkeiten und zur Automatisierung von Abläufen im Frontend-Entwicklungsprozess.
 
 **Begründung**: 
 Die Verwendung von NPM bietet mehrere Vorteile für das Projekt, einschließlich:
