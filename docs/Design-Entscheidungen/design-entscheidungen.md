@@ -114,7 +114,7 @@ Das Projekt verwendet den Node Package Manager (NPM) als zentrales Tool zur Verw
 **Begründung**: 
 Die Verwendung von NPM bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Verwaltung von Abhängigkeiten: NPM erleichtert die Verwaltung von Abhängigkeiten im Projekt und sorgt dafür, dass alle benötigten Bibliotheken und Tools auf dem neuesten Stand und konsistent sind.
+- Verwaltung von Abhängigkeiten: NPM erleichtert die Verwaltung von Abhängigkeiten im Projekt und sorgt dafür, dass alle für das Frontend benötigten Bibliotheken und Tools auf dem neuesten Stand sind und gleiche Versionen konsistent verwendet werden.
 
 - Automatisierung von Prozessen: NPM ermöglicht es Entwicklern, wiederholende Aufgaben im Entwicklungsprozess zu automatisieren, wie z.B. die Ausführung von Tests oder die Bereitstellung von Builds.
 
