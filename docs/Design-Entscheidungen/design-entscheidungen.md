@@ -88,7 +88,7 @@ Die Verwendung einer H2 Datenbank bietet mehrere Vorteile für das Projekt, eins
 
 - Kompatibilität: H2 ist vergleichbar mit anderen JDBC-Datenbanken und ermöglicht so eine einfache Migration zu anderen, evtl. für den Betrieb besser geeigneten Datenbanken.
 
-- Testfähigkeit: H2 eignet sich besonders gut für Integrationstests und automatisierte Tests, da es als eingebettete Datenbank leicht in Testumgebungen integriert werden kann.
+- Testfähigkeit: H2 eignet sich besonders gut für Integrationstests und automatisierte Tests, da die eingebettete Datenbank leicht in Testumgebungen gestartet werden kann.
 
 ## Verwendung von Angular
 
