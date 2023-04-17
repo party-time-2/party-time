@@ -30,4 +30,4 @@ springdoc:
   default-produces-media-type: application/json
 party-time:
   mail:
-    enabled: true
+    enabled: false
