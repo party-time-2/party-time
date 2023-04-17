@@ -6,4 +6,9 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('@party-time/landing').then((m) => m.LandingModule),
   },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('@party-time/not-found').then((m) => m.NotFoundModule),
+  },
 ];
