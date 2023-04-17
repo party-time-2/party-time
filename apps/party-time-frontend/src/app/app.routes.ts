@@ -9,6 +9,7 @@ export const appRoutes: Route[] = [
   {
     path: '**',
     loadChildren: () =>
+      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import('@party-time/not-found').then((m) => m.NotFoundModule),
   },
 ];
