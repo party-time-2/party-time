@@ -1,0 +1,40 @@
+@startuml F010_kontoErstellen_act
+<style file=plantStyle.css>
+title "Konto erstellen"
+
+|Nutzer|
+start
+:Öffne Party Time Webseite;
+repeat
+    split
+        :Anzeigenamen eingeben;
+    split again
+        :E-Mail-Addresse eingeben;
+    split again
+        :Passwort eingeben;
+    end split
+    |Frontend Validator|
+    :Prüfe Eingabedaten;
+    backward:Fehlerhafte Felder markieren;
+repeatwhile () is (Prüfung fehlgeschlagen) not (Prüfung erfolgreich)
+|Nutzer|
+:Registration-Formular senden;
+|Registration Controller|
+:E-Mail-Adresse in Verwendung prüfen;
+if () then (E-Mail Adresse in Verwendung)
+    |Registration Controller|
+    :Übermittle "E-Mail Addresse bereits in Verwendung" Fehlermeldung;
+    |Nutzer|
+    :Empfange Fehlermeldung;
+    stop
+else (E-Mail Adresse nicht in Verwendung)
+    |Registration Controller|
+    :Passwort hashen;
+    :Anzeigename + E-Mail Adresse + Passwort-Hash speichern;
+    :Bestätige Registrierung;
+    |Nutzer|
+    :Empfange Bestätigung der Registrierung;
+    stop
+    
+endif
+@enduml
