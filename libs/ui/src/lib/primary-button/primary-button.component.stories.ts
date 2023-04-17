@@ -3,12 +3,12 @@ import {
   componentWrapperDecorator,
   moduleMetadata,
 } from '@storybook/angular';
-import { CtaButtonComponent } from './cta-button.component';
+import { PrimaryButtonComponent } from './primary-button.component';
 import { ActivatedRoute } from '@angular/router';
 
 export default {
-  title: 'CtaButtonComponent',
-  component: CtaButtonComponent,
+  title: 'PrimaryButtonComponent',
+  component: PrimaryButtonComponent,
   decorators: [
     componentWrapperDecorator(
       (story) =>
@@ -24,14 +24,14 @@ export default {
       ],
     }),
   ],
-} as Meta<CtaButtonComponent>;
+} as Meta<PrimaryButtonComponent>;
 
 export const Primary = {
-  render: (args: CtaButtonComponent) => ({
+  render: (args: PrimaryButtonComponent) => ({
     props: args,
   }),
   args: {
-    name: 'Party',
-    routerLink: 'party',
+    name: 'Primary',
+    routerLink: '',
   },
 };
