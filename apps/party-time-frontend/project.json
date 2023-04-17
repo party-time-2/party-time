@@ -96,6 +96,47 @@
       "options": {
         "buildTarget": "party-time-frontend:build"
       }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "apps/party-time-frontend/.storybook",
+        "browserTarget": "party-time-frontend:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/party-time-frontend",
+        "configDir": "apps/party-time-frontend/.storybook",
+        "browserTarget": "party-time-frontend:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nrwl/web:file-server",
+      "options": {
+        "buildTarget": "party-time-frontend:build-storybook",
+        "staticFilePath": "dist/storybook/party-time-frontend"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "party-time-frontend:build-storybook:ci"
+        }
+      }
     }
   }
 }

@@ -9,30 +9,22 @@
       "options": {
         "root": "apps/party-time-backend"
       },
-      "dependsOn": [
-        "^install"
-      ],
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend/target"
-      ]
+      "dependsOn": ["^install"],
+      "outputs": ["{workspaceRoot}/apps/party-time-backend/target"]
     },
     "install": {
       "executor": "@nxrocks/nx-spring-boot:install",
       "options": {
         "root": "apps/party-time-backend"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend/target"
-      ]
+      "outputs": ["{workspaceRoot}/apps/party-time-backend/target"]
     },
     "test": {
       "executor": "@nxrocks/nx-spring-boot:test",
       "options": {
         "root": "apps/party-time-backend"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend/target"
-      ]
+      "outputs": ["{workspaceRoot}/apps/party-time-backend/target"]
     },
     "clean": {
       "executor": "@nxrocks/nx-spring-boot:clean",
@@ -57,9 +49,7 @@
       "options": {
         "root": "apps/party-time-backend"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend/target"
-      ]
+      "outputs": ["{workspaceRoot}/apps/party-time-backend/target"]
     },
     "build-info": {
       "executor": "@nxrocks/nx-spring-boot:build-info",
