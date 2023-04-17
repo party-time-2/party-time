@@ -45,7 +45,7 @@ public class AuthService {
         mailService.sendMail(savedAccount.getEmail(), "Verify your Account!",
             MailService.TEMPLATE_VERIFY_ACCOUNT, VerifyAccountModel.builder()
                 .name(account.getName())
-                .verificationLink("https://partytime.de/profile/activation/" + account.getEmailVerificationCode())
+                .verificationLink("https://partytime.com/profile/activation/" + account.getEmailVerificationCode())
                 .build());
 
         return savedAccount;
