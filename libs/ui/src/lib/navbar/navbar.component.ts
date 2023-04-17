@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ILink, ILogo } from '@party-time/models';
 import { RouterModule } from '@angular/router';
 import { LogoComponent } from '../logo/logo.component';
-import { CtaButtonComponent } from '../cta-button/cta-button.component';
+import { PrimaryButtonComponent } from '../primary-button/primary-button.component';
 
 @Component({
   selector: 'party-time-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, LogoComponent, CtaButtonComponent],
+  imports: [CommonModule, RouterModule, LogoComponent, PrimaryButtonComponent],
   template: `
     <nav class="px-2 py-2.5 sm:px-4 ">
       <div
@@ -16,12 +16,12 @@ import { CtaButtonComponent } from '../cta-button/cta-button.component';
       >
         <party-time-logo [logo]="logo"></party-time-logo>
         <div class="flex md:order-2">
-          <party-time-cta-button
+          <party-time-primary-button
             *ngIf="cta.routerLink"
             [routerLink]="cta.routerLink"
             [name]="cta.name"
             class="hidden lg:block"
-          ></party-time-cta-button>
+          ></party-time-primary-button>
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
