@@ -37,7 +37,7 @@ public class MailService {
     private void sendMail(String to, String subject, String text) {
         if (configurationProperties.getMail().isEnabled()) {
             SimpleMailMessage simpleMessage = new SimpleMailMessage();
-            simpleMessage.setFrom("noreply@partytime.de");
+            simpleMessage.setFrom("noreply@partytime.com");
             simpleMessage.setTo(to);
             simpleMessage.setSubject(subject);
             simpleMessage.setText(text);
