@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <section class="partyImage">
       <img
-        class="my-12 rounded-xl object-cover shadow-xl"
+        class="max-w-xl rounded-xl object-cover pt-4 shadow-xl sm:pt-6 md:pt-10 lg:pt-16"
         src="/assets/pexels-photo-3171837.webp"
         alt="Bild von einer Party"
       />
