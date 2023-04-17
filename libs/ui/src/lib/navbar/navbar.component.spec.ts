@@ -45,4 +45,16 @@ describe('NavbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('test party-time.NavbarComponent.closeMenu', () => {
+    component.showMenu = true;
+    component.toggleMenu();
+    expect(component.showMenu).toBe(false);
+  });
+
+  it('test party-time.NavbarComponent.openMenu', () => {
+    component.showMenu = false;
+    component.toggleMenu();
+    expect(component.showMenu).toBe(true);
+  });
 });

@@ -15,7 +15,9 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
         [links]="groups[0].links"
         [cta]="groups[0].links[1]"
       ></party-time-navbar>
-      <router-outlet></router-outlet>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
     </div>
     <party-time-footer [logo]="logo" [groups]="groups"></party-time-footer>
   `,

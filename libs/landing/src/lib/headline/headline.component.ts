@@ -5,14 +5,14 @@ import { Component } from '@angular/core';
   template: `
     <section class="headline">
       <h1
-        class="headline h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:text-6xl"
+        class="my-12 text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:text-6xl"
       >
-        Mach deine Party
-        <span
-          class="bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:from-primary-dark dark:to-tertiary-dark"
+        Plane deine Party
+        <div
+          class="bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:from-primary-dark dark:to-tertiary-dark md:pt-4"
         >
           und behalte den Überblick
-        </span>
+        </div>
       </h1>
       <div class="subline">
         <p
