@@ -10,6 +10,7 @@ import java.time.temporal.TemporalUnit;
 public class PartyTimeConfigurationProperties {
 
     private Jwt jwt;
+    private Mail mail = new Mail();
 
     @Data
     public static class Jwt {
@@ -22,6 +23,11 @@ public class PartyTimeConfigurationProperties {
     public static class Expiration {
         private TemporalUnit unit;
         private long amount;
+    }
+
+    @Data
+    public static class Mail {
+        private boolean enabled = false;
     }
 
 }

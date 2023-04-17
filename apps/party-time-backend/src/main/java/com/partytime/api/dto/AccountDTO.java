@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 public class AccountDTO {
 
     @NotNull
+    private Long id;
+
+    @NotNull
     @NotEmpty
     private String name;
 

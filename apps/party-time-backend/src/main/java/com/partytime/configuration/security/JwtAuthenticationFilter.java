@@ -35,7 +35,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (authHeader == null || authHeader.isBlank()) {
-            failAuth(response);
+            filterChain.doFilter(request, response);
+//            failAuth(response);
             return;
         }
 
@@ -54,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             // Any Exception in Token parsing results in 401
             logger.debug("Failed to Parse Token", e);
-            failAuth(response);
+//            failAuth(response);
         }
     }
 

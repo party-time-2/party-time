@@ -27,7 +27,7 @@ public class AuthService {
      */
     @Transactional
     public Account registerAccount(AccountRegisterDTO accountRegisterDTO) {
-        if (accountRepository.existsById(accountRegisterDTO.getEmail())) {
+        if (accountRepository.existsByEmail(accountRegisterDTO.getEmail())) {
             // Account already exists!
             throw ApiError.badRequest("An Account with this Email already exists!")
                 .asException();

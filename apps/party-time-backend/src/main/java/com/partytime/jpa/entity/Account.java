@@ -2,10 +2,7 @@ package com.partytime.jpa.entity;
 
 import com.partytime.jpa.DatabaseConstants;
 import com.partytime.jpa.factory.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,9 +16,12 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Account extends BaseEntity<String> {
+public class Account extends BaseEntity<Long> {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Email
     @NotNull
     @NotEmpty
@@ -46,15 +46,5 @@ public class Account extends BaseEntity<String> {
 
     @Column(name = DatabaseConstants.Account.COLUMN_PASSWORD_VERIFICATION_CODE)
     private String passwordVerificationCode;
-
-    @Override
-    public String getId() {
-        return email;
-    }
-
-    @Override
-    public void setId(String id) {
-        this.email = id;
-    }
 
 }
