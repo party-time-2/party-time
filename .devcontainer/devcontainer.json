@@ -51,7 +51,8 @@
         "ms-edgedevtools.vscode-edge-devtools",
         "eamodio.gitlens",
         "ms-vsliveshare.vsliveshare",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "rangav.vscode-thunder-client"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
