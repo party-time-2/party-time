@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": ["*.stories.mdx", "*.stories.ts", "**/*"],
   "plugins": ["@nrwl/nx"],
   "overrides": [
     {
@@ -38,6 +38,5 @@
       },
       "rules": {}
     }
-  ],
-  "extends": ["plugin:storybook/recommended"]
+  ]
 }

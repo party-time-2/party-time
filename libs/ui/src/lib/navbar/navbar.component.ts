@@ -3,25 +3,25 @@ import { CommonModule } from '@angular/common';
 import { ILink, ILogo } from '@party-time/models';
 import { RouterModule } from '@angular/router';
 import { LogoComponent } from '../logo/logo.component';
-import { CtaButtonComponent } from '../cta-button/cta-button.component';
+import { PrimaryButtonComponent } from '../primary-button/primary-button.component';
 
 @Component({
   selector: 'party-time-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, LogoComponent, CtaButtonComponent],
+  imports: [CommonModule, RouterModule, LogoComponent, PrimaryButtonComponent],
   template: `
-    <nav class="px-2 py-2.5 sm:px-4 ">
+    <nav class="w-full max-w-full ">
       <div
         class="container mx-auto flex flex-wrap items-center justify-between"
       >
         <party-time-logo [logo]="logo"></party-time-logo>
         <div class="flex md:order-2">
-          <party-time-cta-button
+          <party-time-primary-button
             *ngIf="cta.routerLink"
             [routerLink]="cta.routerLink"
             [name]="cta.name"
             class="hidden lg:block"
-          ></party-time-cta-button>
+          ></party-time-primary-button>
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
@@ -57,8 +57,7 @@ import { CtaButtonComponent } from '../cta-button/cta-button.component';
             <li *ngFor="let link of links">
               <button
                 [routerLink]="link.routerLink"
-                class="block
-      py-2 pl-3 pr-4 hover:text-on-surface-variant-light dark:hover:text-on-secondary-light md:p-0 "
+                class="block py-2 pl-3 pr-4 hover:text-on-surface-variant-light hover:underline dark:hover:text-on-secondary-light md:p-0 "
                 aria-current="page"
               >
                 {{ link.name }}

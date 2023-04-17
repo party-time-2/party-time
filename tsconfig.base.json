@@ -17,6 +17,7 @@
     "paths": {
       "@party-time/landing": ["libs/landing/src/index.ts"],
       "@party-time/models": ["libs/models/src/index.ts"],
+      "@party-time/not-found": ["libs/not-found/src/index.ts"],
       "@party-time/ui": ["libs/ui/src/index.ts"]
     }
   },

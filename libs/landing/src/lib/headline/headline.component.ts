@@ -1,18 +1,18 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'party-time-headline',
   template: `
-    <section #headlineSection>
+    <section class="headline">
       <h1
-        class="headline h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:text-6xl"
+        class="my-12 text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:text-6xl"
       >
-        Organisiere deine Party
-        <span
-          class="bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:from-primary-dark dark:to-tertiary-dark"
+        Plane deine Party
+        <div
+          class="bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:from-primary-dark dark:to-tertiary-dark md:pt-4"
         >
-          übersichtlich
-        </span>
+          und behalte den Überblick
+        </div>
       </h1>
       <div class="subline">
         <p
@@ -29,7 +29,4 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
     </section>
   `,
 })
-export class HeadlineComponent {
-  @ViewChild('headlineSection')
-  headlineSection!: ElementRef;
-}
+export class HeadlineComponent {}

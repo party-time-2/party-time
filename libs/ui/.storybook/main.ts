@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const rootMain = require('../../../.storybook/main');
 import type { StorybookConfig } from '@storybook/angular';
 

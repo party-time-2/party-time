@@ -1,55 +1,59 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
-import { HeadlineComponent } from '../headline/headline.component';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'party-time-landing-page',
   template: `<section
-    class="grid min-h-screen place-items-start bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
+    class="grid min-h-screen place-items-center bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
   >
-    <div
-      class="mx-auto grid max-w-screen-xl place-items-center px-4 py-8  lg:py-16"
-    >
+    <div class="md:h-screen">
       <party-time-headline></party-time-headline>
-      <div class="max-w pt-4 sm:pt-6 md:pt-10 lg:pt-16">
-        <img
-          #partyImage
-          class="rounded-xl object-cover shadow-xl"
-          src="https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          alt="Bild von einer Party"
-        />
-      </div>
+      <party-time-image></party-time-image>
     </div>
+    <party-time-stepper></party-time-stepper>
   </section> `,
   styles: [],
 })
 export class LandingPageComponent implements AfterViewInit {
-  @ViewChild(HeadlineComponent) headlineComponent!: HeadlineComponent;
-  @ViewChild('partyImage') partyImage!: ElementRef;
-
+  partyImage!: HTMLElement;
   headline!: HTMLElement;
   subline!: HTMLElement;
+  stepper!: HTMLElement;
 
   constructor(private elementRef: ElementRef) {}
 
   ngAfterViewInit() {
-    this.headline =
-      this.headlineComponent.headlineSection.nativeElement.querySelector(
-        '.headline'
-      );
-    this.subline =
-      this.headlineComponent.headlineSection.nativeElement.querySelector(
-        '.subline'
-      );
+    this.headline = this.elementRef.nativeElement.querySelector('.headline');
+    this.subline = this.elementRef.nativeElement.querySelector('.subline');
+    this.partyImage =
+      this.elementRef.nativeElement.querySelector('.partyImage');
+    this.stepper = this.elementRef.nativeElement.querySelector('.stepper');
     this.animateTimeline();
+    this.animateScrollTrigger();
+  }
+  animateScrollTrigger() {
+    gsap.from(this.stepper, {
+      scrollTrigger: {
+        trigger: this.stepper,
+        start: 'top 80%',
+      },
+      duration: 1,
+      y: 100,
+      opacity: 0,
+      ease: 'power3.out',
+    });
+    gsap.from(this.stepper.children, {
+      scrollTrigger: {
+        trigger: this.stepper,
+      },
+      duration: 1,
+      x: 100,
+      opacity: 0,
+      ease: 'power3.out',
+      stagger: 0.2,
+    });
   }
 
   animateTimeline() {
@@ -59,22 +63,22 @@ export class LandingPageComponent implements AfterViewInit {
         duration: 1,
         y: 100,
         opacity: 0,
-        ease: 'power4.out',
+        ease: 'back.out(1.7)',
       })
       .from(
         this.subline,
-        { duration: 1, x: -100, opacity: 0, ease: 'power3.out' },
+        { duration: 1, y: 100, opacity: 0, ease: 'power3.out' },
         '-=0.5'
       )
       .from(
-        this.partyImage.nativeElement,
+        this.partyImage,
         {
-          duration: 1,
+          duration: 0.5,
           y: 100,
           opacity: 0,
-          ease: 'power3.out',
+          ease: 'power2.out',
         },
-        '-=1'
+        '-=0.8'
       );
   }
 }

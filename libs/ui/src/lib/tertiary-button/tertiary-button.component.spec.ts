@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CtaButtonComponent } from './cta-button.component';
+import { TertiaryButtonComponent } from './tertiary-button.component';
 import { ActivatedRoute } from '@angular/router';
 
-describe('CtaButtonComponent', () => {
-  let component: CtaButtonComponent;
-  let fixture: ComponentFixture<CtaButtonComponent>;
+describe('TertiaryButtonComponent', () => {
+  let component: TertiaryButtonComponent;
+  let fixture: ComponentFixture<TertiaryButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CtaButtonComponent],
+      imports: [TertiaryButtonComponent],
       providers: [
         {
           provide: ActivatedRoute,
@@ -17,7 +17,7 @@ describe('CtaButtonComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CtaButtonComponent);
+    fixture = TestBed.createComponent(TertiaryButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
