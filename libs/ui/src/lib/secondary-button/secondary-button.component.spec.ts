@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SecondaryButtonComponent } from './secondary-button.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('SecondaryButtonComponent', () => {
   let component: SecondaryButtonComponent;
@@ -8,6 +9,12 @@ describe('SecondaryButtonComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SecondaryButtonComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {},
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SecondaryButtonComponent);
