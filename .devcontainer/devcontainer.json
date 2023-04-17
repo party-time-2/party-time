@@ -55,7 +55,8 @@
         "firefox-devtools.vscode-firefox-debug",
         "ms-edgedevtools.vscode-edge-devtools",
         "eamodio.gitlens",
-        "ms-vsliveshare.vsliveshare"
+        "ms-vsliveshare.vsliveshare",
+        "bradlc.vscode-tailwindcss"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
