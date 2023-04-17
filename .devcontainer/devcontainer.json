@@ -32,12 +32,7 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [
-    4200,
-    4400,
-    4401,
-    8080
-  ],
+  "forwardPorts": [4200, 4400, 4401, 8080],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "sh /workspaces/party-time/.devcontainer/postCreateCommand.sh",
   // Configure tool-specific properties.
