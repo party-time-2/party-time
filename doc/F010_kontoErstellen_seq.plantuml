@@ -1,4 +1,4 @@
-@startuml F010_kontoErstellen
+@startuml F010_kontoErstellen_seq
 title "Konto erstellen"
 
 actor "Nutzer" as user
