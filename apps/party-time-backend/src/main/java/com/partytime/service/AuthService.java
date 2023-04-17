@@ -4,6 +4,8 @@ import com.partytime.api.dto.AccountRegisterDTO;
 import com.partytime.api.error.ApiError;
 import com.partytime.jpa.entity.Account;
 import com.partytime.jpa.repository.AccountRepository;
+import com.partytime.mail.MailService;
+import com.partytime.mail.model.verifyaccount.VerifyAccountModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,10 +42,11 @@ public class AuthService {
         Account savedAccount = accountRepository.save(account);
 
         // F014 - Konto Verifizieren
-        mailService.sendMail(savedAccount.getEmail(), "Verify your Account!", "Please verify your Account: \n\n" +
-            "Link: https://partytime.de/profile/activation/" + savedAccount.getEmailVerificationCode() + "\n\n" +
-            "Best Regards\n" +
-            "Herbert");
+        mailService.sendMail(savedAccount.getEmail(), "Verify your Account!",
+            MailService.TEMPLATE_VERIFY_ACCOUNT, VerifyAccountModel.builder()
+                .name(account.getName())
+                .verificationLink("https://partytime.de/profile/activation/" + account.getEmailVerificationCode())
+                .build());
 
         return savedAccount;
     }
