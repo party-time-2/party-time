@@ -5,12 +5,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'party-time-landing-page',
-  template: `<section class="grid place-items-center">
-    <div>
-      <party-time-headline></party-time-headline>
-      <div class="pt-7">
-        <party-time-image></party-time-image>
-      </div>
+  template: `<section class="flex flex-col items-center">
+    <party-time-headline></party-time-headline>
+    <div class="pt-7">
+      <party-time-image></party-time-image>
     </div>
     <div class="pt-7">
       <party-time-stepper></party-time-stepper>
@@ -76,7 +74,7 @@ export class LandingPageComponent implements AfterViewInit {
         this.partyImage,
         {
           duration: 0.5,
-          y: 100,
+          y: 85,
           opacity: 0,
           ease: 'power2.out',
         },
