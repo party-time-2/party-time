@@ -5,14 +5,16 @@ gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'party-time-landing-page',
-  template: `<section
-    class="grid min-h-screen place-items-center bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
-  >
-    <div class="md:h-screen">
+  template: `<section class="grid place-items-center">
+    <div>
       <party-time-headline></party-time-headline>
-      <party-time-image></party-time-image>
+      <div class="pt-7">
+        <party-time-image></party-time-image>
+      </div>
     </div>
-    <party-time-stepper></party-time-stepper>
+    <div class="pt-7">
+      <party-time-stepper></party-time-stepper>
+    </div>
   </section> `,
   styles: [],
 })

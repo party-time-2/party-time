@@ -9,17 +9,23 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
   imports: [RouterModule, NavbarComponent, FooterComponent],
   selector: 'party-time-root',
   template: `
-    <div class="min-h-screen">
+    <div class="w-screen max-w-full">
       <party-time-navbar
         [logo]="logo"
         [links]="groups[0].links"
         [cta]="groups[0].links[1]"
       ></party-time-navbar>
-      <main>
+      <main
+        class="min-h-screen bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
+      >
         <router-outlet></router-outlet>
       </main>
     </div>
-    <party-time-footer [logo]="logo" [groups]="groups"></party-time-footer>
+    <div
+      class="bg-gradient-to-b from-surface-variant-light to-background-light p-4 dark:from-surface-variant-dark dark:to-surface-dark"
+    >
+      <party-time-footer [logo]="logo" [groups]="groups"></party-time-footer>
+    </div>
   `,
 })
 export class AppComponent {
@@ -37,7 +43,7 @@ export class AppComponent {
       name: 'Party Time',
       links: [
         { routerLink: '/', name: 'Startseite' },
-        { routerLink: '/1', name: 'Page 1' },
+        { routerLink: 'account', name: 'Account' },
         { routerLink: '/2', name: 'Page 2' },
         { routerLink: '/3', name: 'Page 3' },
       ],
