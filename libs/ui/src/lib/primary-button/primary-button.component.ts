@@ -13,12 +13,12 @@ import { RouterModule } from '@angular/router';
             mr-3
             h-9
             rounded-lg
-            bg-primary-container-dark
+            bg-primary-container-light
             px-5
-            text-on-primary-container-dark
-            hover:bg-primary-container-light
-            hover:text-on-primary-container-light
-            dark:bg-primary-container-light
+            text-on-primary-container-light
+            hover:bg-primary-container-dark
+            hover:text-on-primary-container-dark
+            dark:bg-primary-container-dark
             dark:text-on-primary-container-light
             hover:dark:bg-primary-container-dark
             hover:dark:text-on-primary-container-dark
