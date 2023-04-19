@@ -16,17 +16,17 @@ import { Component } from '@angular/core';
       </div>
       <ol class="pt-5">
         <li
-          class="m-5 list-item list-inside list-disc text-lg font-normal text-on-surface-variant-light dark:text-on-surface-variant-dark lg:text-xl"
+          class="m-2 list-item list-inside list-disc text-lg font-normal text-on-surface-variant-light dark:text-on-surface-variant-dark lg:text-xl"
         >
           Party anlegen
         </li>
         <li
-          class="m-5 list-item list-inside list-disc text-lg  font-normal text-on-surface-variant-light dark:text-on-surface-variant-dark lg:text-xl"
+          class="m-4 list-item list-inside list-disc text-lg  font-normal text-on-surface-variant-light dark:text-on-surface-variant-dark lg:text-xl"
         >
           Lege Datum und Location fest
         </li>
         <li
-          class="m-5 list-item list-inside list-disc text-lg  font-normal text-on-surface-variant-light dark:text-on-surface-variant-dark lg:text-xl"
+          class="m-6 list-item list-inside list-disc text-lg  font-normal text-on-surface-variant-light dark:text-on-surface-variant-dark lg:text-xl"
         >
           Lade deine Gäste ein
         </li>

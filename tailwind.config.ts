@@ -75,4 +75,5 @@ export const theme = {
     'outline-variant-dark': withOpacity('--outline-variant-dark'),
     'scrim-dark': withOpacity('--scrim-dark'),
   },
+  plugins: [require('@tailwindcss/forms')],
 };

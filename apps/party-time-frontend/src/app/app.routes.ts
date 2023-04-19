@@ -7,9 +7,13 @@ export const appRoutes: Route[] = [
       import('@party-time/landing').then((m) => m.LandingModule),
   },
   {
+    path: 'account',
+    loadChildren: () =>
+      import('@party-time/account').then((m) => m.AccountModule),
+  },
+  {
     path: '**',
     loadChildren: () =>
-      // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
       import('@party-time/not-found').then((m) => m.NotFoundModule),
   },
 ];
