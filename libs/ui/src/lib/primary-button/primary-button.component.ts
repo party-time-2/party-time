@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
     type="button"
     [routerLink]="routerLink"
     class="
-            mr-3
             h-9
             rounded-lg
             bg-primary-container-light
