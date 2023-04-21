@@ -1,13 +1,13 @@
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as RegisterActions from './register.actions';
-import { AccountDTO, ApiError } from '@party-time/models';
+import { AccountDTO, AccountRegisterDTO, ApiError } from '@party-time/models';
 
 export const REGISTER_FEATURE_KEY = 'register';
 
 export interface RegisterStateInterface {
   registerd?: boolean; // has the Register Api request been completed
-  accountRegisterDTO?: AccountDTO; // last known value (if any)
+  accountRegisterDTO?: AccountRegisterDTO; // last known value (if any)
   accountDTO?: AccountDTO; // last known value (if any)
   loading: boolean; // is this request loading
   error?: ApiError | null; // last known error (if any)
@@ -26,14 +26,6 @@ const reducer = createReducer(
   on(RegisterActions.initRegisterPage, (state) => ({
     ...state,
   })),
-  on(RegisterActions.registeredLoading, (state) => ({
-    ...state,
-    loading: true,
-  })),
-  on(RegisterActions.registeredLoaded, (state) => ({
-    ...state,
-    loading: false,
-  })),
   on(RegisterActions.registeredSuccess, (state, { accountDTO }) => ({
     ...state,
     loading: false,
@@ -45,6 +37,11 @@ const reducer = createReducer(
     loading: false,
     registerd: false,
     error,
+  })),
+  on(RegisterActions.register, (state, { accountRegisterDTO }) => ({
+    ...state,
+    loading: true,
+    accountRegisterDTO,
   }))
 );
 

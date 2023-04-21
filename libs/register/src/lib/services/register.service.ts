@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AccountDTO, AccountRegisterDTO } from '@party-time/models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,7 @@ export class RegisterService {
 
   registerPath = '/api/auth/register';
 
-  registerAccount(account: AccountRegisterDTO) {
-    console.log('registerAccount', account);
+  registerAccount(account: AccountRegisterDTO): Observable<AccountDTO> {
     return this.http.post<AccountDTO>(this.registerPath, account);
   }
 }
