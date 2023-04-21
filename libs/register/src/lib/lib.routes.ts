@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
-import { provideStore, provideState } from '@ngrx/store';
+import { provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import * as fromRegister from './+state/register.reducer';
 import { RegisterEffects } from './+state/register.effects';
