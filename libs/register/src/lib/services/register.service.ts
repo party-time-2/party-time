@@ -11,6 +11,7 @@ export class RegisterService {
 
   registerPath = '/api/auth/register';
 
+  // Registers a new account
   registerAccount(account: AccountRegisterDTO): Observable<AccountDTO> {
     return this.http.post<AccountDTO>(this.registerPath, account);
   }
