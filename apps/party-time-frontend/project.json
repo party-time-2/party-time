@@ -56,7 +56,8 @@
           "browserTarget": "party-time-frontend:build:production"
         },
         "development": {
-          "browserTarget": "party-time-frontend:build:development"
+          "browserTarget": "party-time-frontend:build:development",
+          "proxyConfig": "apps/party-time-frontend/proxy.config.json"
         }
       },
       "defaultConfiguration": "development"

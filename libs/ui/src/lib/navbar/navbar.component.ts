@@ -10,7 +10,7 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
   standalone: true,
   imports: [CommonModule, RouterModule, LogoComponent, PrimaryButtonComponent],
   template: `
-    <nav class="w-full max-w-full ">
+    <nav class="w-full max-w-full pl-3 pr-6 pt-4">
       <div
         class="container mx-auto flex flex-wrap items-center justify-between"
       >

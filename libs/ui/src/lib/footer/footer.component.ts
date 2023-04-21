@@ -3,16 +3,14 @@ import { CommonModule } from '@angular/common';
 import { IGoup, ILogo } from '@party-time/models';
 import { RouterModule } from '@angular/router';
 import { LogoComponent } from '../logo/logo.component';
+import { DividerComponent } from '../divider/divider.component';
 
 @Component({
   selector: 'party-time-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule, LogoComponent],
-  template: ` <footer
-    class="bg-gradient-to-b from-surface-variant-light to-background-light p-4 dark:from-surface-variant-dark dark:to-surface-dark sm:p-6"
-  >
-    <hr class="pt-4 dark:border-outline-dark sm:pt-6 md:pt-10 lg:pt-16" />
-
+  imports: [CommonModule, RouterModule, LogoComponent, DividerComponent],
+  template: ` <footer class="sm:p-6">
+    <party-time-divider></party-time-divider>
     <div class="md:flex md:justify-between">
       <div class="mb-6 md:mb-0" *ngIf="logo">
         <party-time-logo [logo]="logo"></party-time-logo>
