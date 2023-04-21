@@ -12,11 +12,10 @@ spring:
     open-in-view: true
     database: h2
   h2:
-    defer-datasource-initialization: true
     console:
       enabled: true
   web:
-    locale: en
+    locale: de
     locale-resolver: fixed
   mail:
     host: smtp-relay.sendinblue.com
@@ -30,6 +29,6 @@ springdoc:
   default-produces-media-type: application/json
 party-time:
   mail:
-    enabled: false
+    enabled: true
 server:
   port: 8090
