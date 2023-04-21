@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: partytime
+  datasource:
+    url: jdbc:h2:mem:database
+    username: sa
+    password: partytime
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+    database: h2
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: false
