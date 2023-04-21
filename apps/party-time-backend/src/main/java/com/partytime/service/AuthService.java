@@ -7,12 +7,14 @@ import com.partytime.jpa.repository.AccountRepository;
 import com.partytime.mail.MailService;
 import com.partytime.mail.model.verifyaccount.VerifyAccountModel;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -29,7 +31,7 @@ public class AuthService {
     public Account registerAccount(AccountRegisterDTO accountRegisterDTO) {
         if (accountRepository.existsByEmail(accountRegisterDTO.getEmail())) {
             // Account already exists!
-            throw ApiError.badRequest("An Account with this Email already exists!")
+            throw ApiError.badRequest("Ein Account mit dieser Email existiert bereits!")
                 .asException();
         }
         Account account = Account.builder()
@@ -42,11 +44,13 @@ public class AuthService {
         Account savedAccount = accountRepository.save(account);
 
         // F014 - Konto Verifizieren
-        mailService.sendMail(savedAccount.getEmail(), "Verify your Account!",
+        mailService.sendMail(savedAccount.getEmail(), "Verifiziere deinen Account!",
             MailService.TEMPLATE_VERIFY_ACCOUNT, VerifyAccountModel.builder()
                 .name(account.getName())
                 .verificationLink("https://partytime.com/profile/activation/" + account.getEmailVerificationCode())
                 .build());
+
+        log.info("Account created! Verification Code: " + account.getEmailVerificationCode());
 
         return savedAccount;
     }
@@ -57,7 +61,7 @@ public class AuthService {
     @Transactional
     public void verifyAccount(String emailVerificationCode) {
         Account account = accountRepository.findByEmailVerificationCode(emailVerificationCode)
-            .orElseThrow(() -> ApiError.badRequest("Email Verification failed ").asException());
+            .orElseThrow(() -> ApiError.badRequest("Email Verifizierung fehlgeschlagen").asException());
         account.setEmailVerified(true);
         account.setEmailVerificationCode(null);
         accountRepository.save(account);
