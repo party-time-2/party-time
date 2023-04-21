@@ -43,7 +43,7 @@ export class AppComponent {
       name: 'Party Time',
       links: [
         { routerLink: '/', name: 'Startseite' },
-        { routerLink: 'account', name: 'Account' },
+        { routerLink: 'register', name: 'Regestrieren' },
         { routerLink: '/2', name: 'Page 2' },
         { routerLink: '/3', name: 'Page 3' },
       ],

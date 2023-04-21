@@ -14,6 +14,10 @@
       "es2017",
       "dom"
     ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -26,6 +30,18 @@
       ],
       "@party-time/not-found": [
         "libs/not-found/src/index.ts"
+      ],
+      "@party-time/ui": [
+        "libs/ui/src/index.ts"
+      ],
+      "@party-time/models": [
+        "libs/models/src/index.ts"
+      ],
+      "@party-time/not-found": [
+        "libs/not-found/src/index.ts"
+      ],
+      "@party-time/register": [
+        "libs/register/src/index.ts"
       ],
       "@party-time/ui": [
         "libs/ui/src/index.ts"
