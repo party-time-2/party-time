@@ -29,8 +29,8 @@ const reducer = createReducer(
   on(RegisterActions.registeredSuccess, (state, { accountDTO }) => ({
     ...state,
     loading: false,
-    accountDTO,
     registerd: true,
+    accountDTO,
   })),
   on(RegisterActions.registerFailure, (state, { error }) => ({
     ...state,

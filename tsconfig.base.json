@@ -10,46 +10,17 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@party-time/landing": [
-        "libs/landing/src/index.ts"
-      ],
-      "@party-time/models": [
-        "libs/models/src/index.ts"
-      ],
-      "@party-time/not-found": [
-        "libs/not-found/src/index.ts"
-      ],
-      "@party-time/ui": [
-        "libs/ui/src/index.ts"
-      ],
-      "@party-time/models": [
-        "libs/models/src/index.ts"
-      ],
-      "@party-time/not-found": [
-        "libs/not-found/src/index.ts"
-      ],
-      "@party-time/register": [
-        "libs/register/src/index.ts"
-      ],
-      "@party-time/ui": [
-        "libs/ui/src/index.ts"
-      ]
+      "@party-time/landing": ["libs/landing/src/index.ts"],
+      "@party-time/models": ["libs/models/src/index.ts"],
+      "@party-time/not-found": ["libs/not-found/src/index.ts"],
+      "@party-time/register": ["libs/register/src/index.ts"],
+      "@party-time/ui": ["libs/ui/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }
