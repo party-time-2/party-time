@@ -3,12 +3,17 @@ package com.partytime.mail;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.io.Reader;
@@ -34,14 +39,16 @@ public class MailService {
         sendMail(to, subject, content);
     }
 
-    private void sendMail(String to, String subject, String text) {
+    private void sendMail(String to, String subject, String text) throws MessagingException {
         if (configurationProperties.getMail().isEnabled()) {
-            SimpleMailMessage simpleMessage = new SimpleMailMessage();
-            simpleMessage.setFrom("noreply@partytime.com");
-            simpleMessage.setTo(to);
-            simpleMessage.setSubject(subject);
-            simpleMessage.setText(text);
-            javaMailSender.send(simpleMessage);
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            mimeMessage.setContent(text, "text/html; charset=utf-8");
+
+            mimeMessage.setFrom("noreply@partytime.com");
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            mimeMessage.setSubject(subject);
+            mimeMessage.setText(text);
+            javaMailSender.send(mimeMessage);
         } else {
             log.info("Would send a Mail now ;)");
             log.info("TO: " + to);
