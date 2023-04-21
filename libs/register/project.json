@@ -1,7 +1,7 @@
 {
-  "name": "account",
+  "name": "register",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/account/src",
+  "sourceRoot": "libs/register/src",
   "prefix": "party-time",
   "tags": [],
   "projectType": "library",
@@ -10,7 +10,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/account/jest.config.ts",
+        "jestConfig": "libs/register/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -24,7 +24,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/account/**/*.ts", "libs/account/**/*.html"]
+        "lintFilePatterns": ["libs/register/**/*.ts", "libs/register/**/*.html"]
       }
     }
   }

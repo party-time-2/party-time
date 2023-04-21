@@ -2,19 +2,14 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
-    path: 'account',
+    path: 'register',
     loadChildren: () =>
-      import('@party-time/account').then((m) => m.accountRoutes),
+      import('@party-time/register').then((m) => m.registerRoutes),
   },
   {
     path: '',
     loadChildren: () =>
       import('@party-time/landing').then((m) => m.LandingModule),
-  },
-  {
-    path: 'account',
-    loadChildren: () =>
-      import('@party-time/account').then((m) => m.AccountModule),
   },
   {
     path: '**',

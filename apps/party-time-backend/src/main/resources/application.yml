@@ -31,3 +31,5 @@ springdoc:
 party-time:
   mail:
     enabled: false
+server:
+  port: 8090

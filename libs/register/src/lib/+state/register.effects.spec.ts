@@ -5,32 +5,32 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { hot } from 'jasmine-marbles';
 import { Observable } from 'rxjs';
 
-import * as AccountsActions from './accounts.actions';
-import { AccountsEffects } from './accounts.effects';
+import * as RegisterActions from './register.actions';
+import { RegisterEffects } from './register.effects';
 
-describe('AccountsEffects', () => {
+describe('RegisterEffects', () => {
   let actions: Observable<Action>;
-  let effects: AccountsEffects;
+  let effects: RegisterEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [
-        AccountsEffects,
+        RegisterEffects,
         provideMockActions(() => actions),
         provideMockStore(),
       ],
     });
 
-    effects = TestBed.inject(AccountsEffects);
+    effects = TestBed.inject(RegisterEffects);
   });
 
   describe('init$', () => {
     it('should work', () => {
-      actions = hot('-a-|', { a: AccountsActions.initAccounts() });
+      actions = hot('-a-|', { a: RegisterActions.initRegister() });
 
       const expected = hot('-a-|', {
-        a: AccountsActions.loadAccountsSuccess({ accounts: [] }),
+        a: RegisterActions.loadRegisterSuccess({ register: [] }),
       });
 
       expect(effects.init$).toBeObservable(expected);
