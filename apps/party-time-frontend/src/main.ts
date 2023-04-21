@@ -5,7 +5,7 @@ import {
 } from '@angular/router';
 import { appRoutes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { provideStore, provideState } from '@ngrx/store';
+import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { importProvidersFrom } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
