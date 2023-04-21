@@ -28,12 +28,6 @@ import java.util.HashMap;
         description = "API Endpoints for Party Time Backend",
         version = "1.0.0"
     ),
-    servers = {
-        @Server(
-            description = "Local Host",
-            url = "http://localhost:8080"
-        )
-    },
     security = {
         @SecurityRequirement(
             name = "Authorization"
