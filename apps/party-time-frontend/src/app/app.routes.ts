@@ -10,11 +10,11 @@ export const appRoutes: Route[] = [
   {
     path: '',
     loadChildren: () =>
-      import('@party-time/landing').then((m) => m.LandingModule),
+      import('@party-time/landing').then((m) => m.landingRoutes),
   },
   {
     path: '**',
     loadChildren: () =>
-      import('@party-time/not-found').then((m) => m.NotFoundModule),
+      import('@party-time/not-found').then((m) => m.notFoundRoutes),
   },
 ];

@@ -1,10 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import { HeadlineComponent } from '../headline/headline.component';
+import { StepperComponent } from '../stepper/stepper.component';
+import { ImageComponent } from '../image/image.component';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'party-time-landing-page',
+  standalone: true,
+  imports: [
+    CommonModule,
+    HeadlineComponent,
+    LandingPageComponent,
+    StepperComponent,
+    ImageComponent,
+  ],
   template: `<section class="flex flex-col items-center">
     <party-time-headline></party-time-headline>
     <div class="pt-7">

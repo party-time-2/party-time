@@ -1,7 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'party-time-headline',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <section class="headline">
       <h1
