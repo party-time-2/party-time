@@ -27,12 +27,17 @@ import {
   templateUrl: './register.component.html',
 })
 export class RegisterComponent implements OnInit {
+  /// select the register state from the store
   registerState$ = this.store.select(selectRegisterState);
+
+  /// DTO for the register form
   accountRegisterDTO: AccountRegisterDTO = {
     email: '',
     password: '',
     name: '',
   };
+
+  /// form group for the register form
   registerForm = this.formBuilder.group({
     email: [
       this.accountRegisterDTO.email,
@@ -59,20 +64,24 @@ export class RegisterComponent implements OnInit {
     ],
   });
 
+  constructor(private store: Store, private formBuilder: FormBuilder) {}
+
+  /// convenience getter for easy access to form fields
   get f(): { [key: string]: AbstractControl } {
     return this.registerForm.controls;
   }
-
-  constructor(private store: Store, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.store.dispatch(initRegisterPage());
   }
 
+  /// submit the register form
   onSubmit(): void {
     if (this.registerForm.valid) {
+      /// get the values from the form
       const { email, password, name } = this.registerForm
         .value as AccountRegisterDTO;
+      /// dispatch the register action
       this.store.dispatch(
         register({ accountRegisterDTO: { email, password, name } })
       );
