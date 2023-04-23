@@ -1,7 +1,7 @@
 {
   "java.configuration.updateBuildConfiguration": "interactive",
-  "plantuml.diagramsRoot": "doc",
-  "plantuml.exportOutDir": "doc/png",
+  "plantuml.diagramsRoot": "docs/Modelle",
+  "plantuml.exportOutDir": "docs/Modelle/png",
   "plantuml.exportSubFolder": false,
   "plantuml.exportFormat": "png"
 }
