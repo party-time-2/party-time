@@ -19,7 +19,7 @@ jobs:
         with:
           # Starts web server for E2E tests - replace with your own server invocation
           # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
-          start: npx nx run party-time-frontend-e2e:e2e --tsConfig=apps/party-time-frontend-e2e/
+          start: npx nx run party-time-frontend-e2e:e2e --config-file apps/party-time-frontend-e2e/cypress.config
           # Records to Cypress Cloud 
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
           parallel: true # Runs test in parallel using settings above
