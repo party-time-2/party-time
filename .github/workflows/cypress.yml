@@ -15,15 +15,11 @@ jobs:
         uses: actions/checkout@v3
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v5.0.2
+        uses: cypress-io/github-action@v5
         with:
-          # Starts web server for E2E tests - replace with your own server invocation
-          # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
-          start: npx nx run party-time-frontend-e2e:e2e 
-          # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
-          record: false
-          parallel: true # Runs test in parallel using settings above
-          working-directory: apps/party-time-frontend-e2e
+          browser: chrome
+          browser: firefox
+          
         env:
           # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
           # in GitHub repo → Settings → Secrets → Actions
