@@ -25,7 +25,9 @@ jobs:
           # Runs E2E tests
           # https://docs.cypress.io/guides/continuous-integration/introduction#Run-your-tests
           wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
-          # Record results to Cypress Dashboard
+          # Set custom cypress config file
+          # https://docs.cypress.io/guides/references/configuration#Folders-Files
+          config-file: apps/party-time-frontend-e2e/cypress.config.ts
 
           # Records to Cypress Cloud 
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
