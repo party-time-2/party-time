@@ -19,22 +19,22 @@ repeat
             :Prüfe Anzeigenamen;
             backward:Fehlerhaften Anzeigenamen markieren;
             note right
-            test_user_too_short: Benutzername kürzer als 5 Zeichen
-            test_user_too_long: Benutzername länger als 20 Zeichen
+            should_user_too_short: Benutzername kürzer als 5 Zeichen
+            should_user_too_long: Benutzername länger als 20 Zeichen
             end note
         repeat while () is (Anzeigename fehlerhaft) not (Anzeigename fehlerfrei)
         :Prüfe E-Mail Adresse;
         backward:Fehlerhafte E-Mail Adresse markieren;
         note right
-            test_mail_invalid: E-Mail Adresse ungültig
+            should_mail_invalid: E-Mail Adresse ungültig
         end note
     repeat while () is (E-Mail Adresse fehlerhaft) not (E-Mail Adresse fehlerfrei)
     :Prüfe Passwort;
     backward: Fehlerhaftes Passwort markieren;
     note right
-        test_pw_short: Passwort kürzer als 8 Zeichen
-        test_pw_long: Passwort länger als 30 Zeichen
-        test_pw_symbols: Sonderzeichen nicht wie gefordert verwendet
+        should_pw_short: Passwort kürzer als 8 Zeichen
+        should_pw_long: Passwort länger als 30 Zeichen
+        should_pw_wrong_chars: Zeichen nicht wie gefordert verwendet
     end note
 repeat while () is (Passwort fehlerhaft) not (Passwort fehlerfrei)
 |Nutzer|
@@ -48,7 +48,7 @@ if () then (E-Mail Adresse in Verwendung)
     :Empfange Fehlermeldung;
     :Zeige Fehlermeldung;
     note right
-        test_mail_in_use: E-Mail Adresse bereits registriert
+        should_mail_in_use: E-Mail Adresse bereits registriert
     end note
     stop
 else (E-Mail Adresse nicht in Verwendung)
@@ -60,7 +60,7 @@ else (E-Mail Adresse nicht in Verwendung)
     :Empfange Bestätigung der Registrierung;
     :Zeige Bestätigung der Registrierung;
     note right
-        test_registration_success: Registrierung erfolgreich
+        should_registration_success: Registrierung erfolgreich
     end note
     stop
 endif
