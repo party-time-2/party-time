@@ -48,19 +48,22 @@ export class RegisterComponent implements OnInit {
       [
         Validators.required,
         Validators.minLength(8),
-        Validators.maxLength(20),
-        // explain the regex ^(?=.*[a-z])(?=.*[A-Z]).*$
-        // ^ - start of the string
-        // (?=.*[a-z]) - positive lookahead, at least one lowercase letter
-        // (?=.*[A-Z]) - positive lookahead, at least one uppercase letter
-        // .* - any number of characters
-        // $ - end of the string
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).*$'),
+        Validators.maxLength(30),
+        // explain the regex ^(?=.*[a-z])(?=.*[A-Z])(?=.+[0-9].+)(?=.*[a-zA-Z]+.*[ ,!"§$%&/()=?{}[\].+]+.*[a-zA-Z]+.*).*$
+        // 1. (?=.*[a-z]) at least one lowercase letter
+        // 2. (?=.*[A-Z]) at least one uppercase letter
+        // 3. (?=.+[0-9].+) at least one number
+        // 4. (?=.*[a-zA-Z]+.*[ ,!"§$%&/()=?{}[\].+]+.*[a-zA-Z]+.*) at least one special character
+        // 5. .* at least one character
+        Validators.pattern(
+          // eslint-disable-next-line no-useless-escape
+          '^(?=.*[a-z])(?=.*[A-Z])(?=.+[0-9].+)(?=.*[a-zA-Z]+.*[ ,!"§$%&/()=?{}[\\].+]+.*[a-zA-Z]+.*).*$'
+        ),
       ],
     ],
     name: [
       this.accountRegisterDTO.name,
-      [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+      [Validators.required, Validators.minLength(5), Validators.maxLength(20)],
     ],
   });
 
