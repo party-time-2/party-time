@@ -165,3 +165,38 @@ Die Verwendung von PlantUML bietet mehrere Vorteile für das Projekt, einschlie�
 - Open Source: PlantUML ist ein Open-Source-Tool und bietet daher eine breite Community-Unterstützung und regelmäßige Updates.
 
 - Export: PlantUML bietet eine Vielzahl von Exportoptionen, um die erstellten Diagramme in verschiedenen Formaten zu exportieren, z.B. als Bild-, PDF- oder ASCII-Art-Datei.
+
+## Anzeigename-Richtlinien
+
+Für Anzeigenamen gelten die folgenden Richtlinien:
+
+- Ein Anzeigename kann zwischen 5 und 20 Zeichen enthalten
+- Alle Zeichen sind zulässig
+
+Begründung:
+
+5 - 20 Zeichen bieten Nutzern eine ausreichende Länge ihres Anzeigename, um einen ihren Wünschen entsprechenden Anzeigename zu wählen.
+
+Für einen "Echte-Welt" Einsatz würden wir Zeichen wie ASCII- und UTF-Kontrollsequenzen, führende und folgende Leerzeichen, sowie mehrfach aufeinander folgende Leerzeichen verbieten. Die Entwicklung eines Algorithmus für die Prüfung dieser Regeln (insbesondere der Ausschluss aller nicht erlaubten Zeichen) würde allerdings den Umfang der Anwendung in seiner ersten Ausbaustufe sprengen.
+
+## E-Mail-Adresse Richtlinien
+
+E-Mail Adressen müssen dem HTML Standard für Valide E-Mail Adressen entsprechen und vom Angular Framework als valide empfunden werden.
+
+Begründung:
+
+Das verwendete Angular Framework hat einen [email Validator](https://angular.io/api/forms/Validators#email) für diesen Einsatzzweck, der zur Validierung von E-Mail-Adressen in Formularen mit geringem Entwickleraufwand eingesetzt werden kann.
+
+## Passwort-Richtlinien für Benutzer
+
+Passwörter für Benutzer müssen die folgenden Anforderungen erfüllen:
+
+- Mindestens 8 Zeichen lang sein
+- Maximal 30 Zeichen lang sein
+- 4 Zeichenarten verwenden (je min. 1 Großbuchstaben, Kleinbuchstaben, Ziffer und Sonderzeichen)
+- Die 1 benötigte Ziffer und das 1 benötigte Sonderzeichen dürfen nicht am Anfang oder Ende des Passworts stehen. Auch eine Folge von Sonderzeichen und Ziffern am Anfang und Ende erfüllen die Regel nicht.
+- Als Sonderzeichen anerkannt werden: ,!"§$%&/()=?{}[]\ und Leerzeichen
+
+Begründung:
+
+Einhaltung der [Bundesamt für Sicherheit in der Informationstechnik (BSI): Sichere Passwörter erstellen](https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Cyber-Sicherheitsempfehlungen/Accountschutz/Sichere-Passwoerter-erstellen/sichere-passwoerter-erstellen_node.html) Empfehlung
