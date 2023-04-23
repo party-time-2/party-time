@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Npm install
+        run: npm install
       - name: Cypress run
         # Uses the official Cypress GitHub action https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v5
@@ -22,7 +24,7 @@ jobs:
           start: npx nx run party-time-frontend:serve
           # Runs E2E tests
           # https://docs.cypress.io/guides/continuous-integration/introduction#Run-your-tests
-          wait-on: 'http://localhost:4200'
+          wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
           # Record results to Cypress Dashboard
 
           # Records to Cypress Cloud 
