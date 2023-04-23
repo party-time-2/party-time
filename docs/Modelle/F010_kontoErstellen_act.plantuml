@@ -6,17 +6,37 @@ title "Konto erstellen"
 start
 :Öffne Party Time Webseite;
 repeat
-    split
-        :Anzeigenamen eingeben;
-    split again
-        :E-Mail-Addresse eingeben;
-    split again
-        :Passwort eingeben;
-    end split
-    |Frontend Validator|
-    :Prüfe Eingabedaten;
-    backward:Fehlerhafte Felder markieren;
-repeatwhile () is (Prüfung fehlgeschlagen) not (Prüfung erfolgreich)
+    repeat
+        repeat
+            split
+                :Anzeigenamen eingeben;
+            split again
+                :E-Mail Adresse eingeben;
+            split again
+                :Passwort eingeben;
+            end split
+            |Frontend Validator|
+            :Prüfe Anzeigenamen;
+            backward:Fehlerhaften Anzeigenamen markieren;
+            note right
+            should_user_too_short: Benutzername kürzer als 5 Zeichen
+            should_user_too_long: Benutzername länger als 20 Zeichen
+            end note
+        repeat while () is (Anzeigename fehlerhaft) not (Anzeigename fehlerfrei)
+        :Prüfe E-Mail Adresse;
+        backward:Fehlerhafte E-Mail Adresse markieren;
+        note right
+            should_mail_invalid: E-Mail Adresse ungültig
+        end note
+    repeat while () is (E-Mail Adresse fehlerhaft) not (E-Mail Adresse fehlerfrei)
+    :Prüfe Passwort;
+    backward: Fehlerhaftes Passwort markieren;
+    note right
+        should_pw_short: Passwort kürzer als 8 Zeichen
+        should_pw_long: Passwort länger als 30 Zeichen
+        should_pw_wrong_chars: Zeichen nicht wie gefordert verwendet
+    end note
+repeat while () is (Passwort fehlerhaft) not (Passwort fehlerfrei)
 |Nutzer|
 :Registration-Formular senden;
 |Registration Controller|
@@ -26,6 +46,10 @@ if () then (E-Mail Adresse in Verwendung)
     :Übermittle "E-Mail Addresse bereits in Verwendung" Fehlermeldung;
     |Nutzer|
     :Empfange Fehlermeldung;
+    :Zeige Fehlermeldung;
+    note right
+        should_mail_in_use: E-Mail Adresse bereits registriert
+    end note
     stop
 else (E-Mail Adresse nicht in Verwendung)
     |Registration Controller|
@@ -34,7 +58,10 @@ else (E-Mail Adresse nicht in Verwendung)
     :Bestätige Registrierung;
     |Nutzer|
     :Empfange Bestätigung der Registrierung;
+    :Zeige Bestätigung der Registrierung;
+    note right
+        should_registration_success: Registrierung erfolgreich
+    end note
     stop
-    
 endif
 @enduml
