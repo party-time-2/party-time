@@ -4,6 +4,9 @@
   "sourceRoot": "apps/party-time-frontend-e2e/src",
   "projectType": "application",
   "targets": {
+    "e2e:fullstack": {
+      "command": "npx nx run party-time-backend:serve & npx nx run party-time-frontend-e2e:e2e"
+    },
     "e2e": {
       "executor": "@nrwl/cypress:cypress",
       "options": {
