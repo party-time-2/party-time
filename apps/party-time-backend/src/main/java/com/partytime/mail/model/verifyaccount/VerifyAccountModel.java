@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VerifyAccountModel {
 
+    private String homepage;
     private String name;
     private String verificationLink;
 

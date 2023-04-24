@@ -49,6 +49,7 @@ public class AuthService {
         mailService.sendMail(savedAccount.getEmail(), "Verifiziere deinen Account!",
             MailService.TEMPLATE_VERIFY_ACCOUNT, VerifyAccountModel.builder()
                 .name(account.getName())
+                    .homepage(configurationProperties.getUrl())
                 .verificationLink(configurationProperties.getUrl() + "/profile/activation/" + account.getEmailVerificationCode())
                 .build());
 
