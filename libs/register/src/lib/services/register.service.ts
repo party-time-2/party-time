@@ -1,3 +1,4 @@
+//implements F010
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AccountDTO, AccountRegisterDTO } from '@party-time/models';

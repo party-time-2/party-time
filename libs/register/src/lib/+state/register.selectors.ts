@@ -1,3 +1,4 @@
+//implements F010
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   REGISTER_FEATURE_KEY,

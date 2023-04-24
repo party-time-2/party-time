@@ -1,3 +1,4 @@
+//implements F010
 import { Route } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { provideState } from '@ngrx/store';

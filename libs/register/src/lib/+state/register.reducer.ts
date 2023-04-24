@@ -1,3 +1,4 @@
+//implements F010
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as RegisterActions from './register.actions';

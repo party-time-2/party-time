@@ -1,3 +1,4 @@
+//implements F010
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
