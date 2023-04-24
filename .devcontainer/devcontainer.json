@@ -58,7 +58,12 @@
       "settings": {
         "prettier.configPath": ".prettierrc",
         "prettier.resolveGlobalModules": true,
-        "remote.restoreForwardedPorts": true
+        "remote.restoreForwardedPorts": true,
+        "java.configuration.updateBuildConfiguration": "interactive",
+        "plantuml.diagramsRoot": "docs/Modelle",
+        "plantuml.exportOutDir": "docs/Modelle/png",
+        "plantuml.exportSubFolder": false,
+        "plantuml.exportFormat": "png"
       }
     }
   }
