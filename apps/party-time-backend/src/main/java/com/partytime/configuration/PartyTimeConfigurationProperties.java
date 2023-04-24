@@ -11,6 +11,7 @@ public class PartyTimeConfigurationProperties {
 
     private Jwt jwt;
     private Mail mail = new Mail();
+    private String url;
 
     @Data
     public static class Jwt {

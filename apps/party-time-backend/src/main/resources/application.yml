@@ -28,6 +28,7 @@ springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
 party-time:
+  url: http://localhost:4200
   mail:
     enabled: false
 server:

@@ -2,6 +2,7 @@ package com.partytime.service;
 
 import com.partytime.api.dto.AccountRegisterDTO;
 import com.partytime.api.error.ApiError;
+import com.partytime.configuration.PartyTimeConfigurationProperties;
 import com.partytime.jpa.entity.Account;
 import com.partytime.jpa.repository.AccountRepository;
 import com.partytime.mail.MailService;
@@ -22,6 +23,7 @@ public class AuthService {
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final PartyTimeConfigurationProperties configurationProperties;
 
     /**
      * F010 - Konto Erstellen
@@ -47,7 +49,7 @@ public class AuthService {
         mailService.sendMail(savedAccount.getEmail(), "Verifiziere deinen Account!",
             MailService.TEMPLATE_VERIFY_ACCOUNT, VerifyAccountModel.builder()
                 .name(account.getName())
-                .verificationLink("https://partytime.com/profile/activation/" + account.getEmailVerificationCode())
+                .verificationLink(configurationProperties.getUrl() + "/profile/activation/" + account.getEmailVerificationCode())
                 .build());
 
         log.info("Account created! Verification Code: " + account.getEmailVerificationCode());
