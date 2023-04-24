@@ -121,6 +121,26 @@ Die Verwendung von NPM bietet mehrere Vorteile für das Projekt, einschließlich
 
 - Skalierbarkeit: NPM ist skalierbar und kann mit der Größe und Komplexität des Projekts wachsen, wodurch eine einfache Verwaltung und Entwicklung des Projekts möglich wird.
 
+## Verwendung von NGRX
+
+Das Projekt verwendet das NGRX-Framework zur Implementierung eines zentralen Stores und zur Verwaltung des Anwendungsstatus in der Angular-Applikation. NGRX ist eine Bibliothek, die Redux-Architekturprinzipien in Angular-Anwendungen implementiert.
+
+**Begründung**:
+Die Verwendung von NGRX bietet mehrere Vorteile für das Projekt, einschließlich:
+
+- Zentralisierung des Anwendungsstatus: Durch die Verwendung von NGRX können alle Komponenten der Anwendung auf einen zentralen Store zugreifen, der den gesamten Anwendungsstatus verwaltet. Dadurch wird die Komplexität der Anwendung reduziert und die Wartbarkeit erhöht.
+
+- Vorhersehbarkeit: NGRX basiert auf dem Redux-Muster, das eine klare Trennung von Anwendungsstatus und Benutzerinteraktion ermöglicht. Dadurch wird die Vorhersehbarkeit des Verhaltens der Anwendung verbessert und die Testbarkeit erleichtert.
+
+## Verwendung von Cypress
+
+Das Projekt verwendet das Cypress-Testing-Framework für die Automatisierung von End-to-End-Tests im Frontend.
+
+**Begründung**:
+Die Verwendung von Cypress bietet mehrere Vorteile für das Projekt, einschließlich:
+
+- Integration: Cypress lässt sich nahtlos in die Continuous-Integration/Continuous-Delivery-Pipeline des Projekts integrieren und ermöglicht es dem Team, automatisierte Tests zu erstellen und auszuführen, bevor Code in die Produktion übernommen wird.
+
 ## Verwendung von Tailwind CSS
 
 Das Projekt verwendet das Tailwind CSS Framework für die Gestaltung des Frontends. Tailwind ist ein Utility-First CSS-Framework, das es Entwicklern ermöglicht, schnell und einfach responsive Benutzeroberflächen zu erstellen.
