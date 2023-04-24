@@ -21,7 +21,7 @@ jobs:
         npx nx affected --target=lint --parallel=4
         npx nx affected --target=test --parallel=4 --ci --code-coverage
         npx nx affected --target=build --parallel=4
-        npx nx affected --target=e2e:fullstack --parallel=4 --ci
+        npx nx affected --target:e2e:fullstack --command=npx nx run party-time-backend:serve
 
   agents:
     name: Nx Cloud - Agents
