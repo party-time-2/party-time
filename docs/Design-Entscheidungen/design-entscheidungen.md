@@ -190,7 +190,7 @@ Die Verwendung von PlantUML bietet mehrere Vorteile f체r das Projekt, einschlie�
 
 F체r Anzeigenamen gelten die folgenden Richtlinien:
 
-- Ein Anzeigename kann zwischen 5 und 20 Zeichen enthalten
+- Ein Anzeigename hat eine L채nge zwischen 5 und 20 Zeichen
 - Alle Zeichen sind zul채ssig
 
 Begr체ndung:
