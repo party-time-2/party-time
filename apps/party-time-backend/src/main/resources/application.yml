@@ -11,4 +11,25 @@ spring:
       ddl-auto: update
     open-in-view: true
     database: h2
-    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+  web:
+    locale: de
+    locale-resolver: fixed
+  mail:
+    host: smtp-relay.sendinblue.com
+    port: 587
+    username: lucas@dangl.io
+    password: 5J6fBw3zRADv0n7C
+  mustache:
+    prefix: classpath:/mail/
+springdoc:
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+party-time:
+  url: http://localhost:4200
+  mail:
+    enabled: false
+server:
+  port: 8090

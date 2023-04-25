@@ -32,7 +32,7 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [4200, 4400, 4401, 8080],
+  "forwardPorts": [],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "sh /workspaces/party-time/.devcontainer/postCreateCommand.sh",
   // Configure tool-specific properties.
@@ -51,11 +51,20 @@
         "ms-edgedevtools.vscode-edge-devtools",
         "eamodio.gitlens",
         "ms-vsliveshare.vsliveshare",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "rangav.vscode-thunder-client",
+        "github.vscode-pull-request-github"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
-        "prettier.resolveGlobalModules": true
+        "prettier.resolveGlobalModules": true,
+        "remote.restoreForwardedPorts": true,
+        "java.configuration.updateBuildConfiguration": "interactive",
+        "plantuml.diagramsRoot": "docs",
+        "plantuml.exportFormat": "png",
+        "plantuml.exportOutDir": "docs/PNG",
+        "plantuml.exportIncludeFolderHeirarchy": true,
+        "plantuml.exportSubFolder": false
       }
     }
   }

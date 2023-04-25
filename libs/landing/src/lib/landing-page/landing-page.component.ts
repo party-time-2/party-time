@@ -1,18 +1,30 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
+import { HeadlineComponent } from '../headline/headline.component';
+import { StepperComponent } from '../stepper/stepper.component';
+import { ImageComponent } from '../image/image.component';
 gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'party-time-landing-page',
-  template: `<section
-    class="grid min-h-screen place-items-center bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
-  >
-    <div class="md:h-screen">
-      <party-time-headline></party-time-headline>
+  standalone: true,
+  imports: [
+    CommonModule,
+    HeadlineComponent,
+    LandingPageComponent,
+    StepperComponent,
+    ImageComponent,
+  ],
+  template: `<section class="flex flex-col items-center">
+    <party-time-headline></party-time-headline>
+    <div class="pt-7">
       <party-time-image></party-time-image>
     </div>
-    <party-time-stepper></party-time-stepper>
+    <div class="pt-7">
+      <party-time-stepper></party-time-stepper>
+    </div>
   </section> `,
   styles: [],
 })
@@ -74,7 +86,7 @@ export class LandingPageComponent implements AfterViewInit {
         this.partyImage,
         {
           duration: 0.5,
-          y: 100,
+          y: 85,
           opacity: 0,
           ease: 'power2.out',
         },

@@ -1,13 +1,18 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
 } from '@angular/core';
+import { PrimaryButtonComponent } from '@party-time/ui';
 import { gsap } from 'gsap';
 
 @Component({
   selector: 'party-time-not-found-page',
+  standalone: true,
+  imports: [CommonModule, PrimaryButtonComponent],
   template: `<section
     class="grid min-h-screen place-items-center bg-gradient-to-b from-background-light to-surface-variant-light px-6 py-24 dark:from-background-dark dark:to-surface-variant-dark sm:py-32 lg:px-8"
   >
