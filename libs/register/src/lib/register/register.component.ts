@@ -2,7 +2,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { DividerComponent, PrimaryButtonComponent } from '@party-time/ui';
+import {
+  DividerComponent,
+  LoadingCircleComponent,
+  PrimaryButtonComponent,
+} from '@party-time/ui';
 import { Store } from '@ngrx/store';
 import { initRegisterPage, register } from '../+state/register.actions';
 import { selectRegisterState } from '../+state/register.selectors';
@@ -24,6 +28,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     DividerComponent,
+    LoadingCircleComponent,
   ],
   templateUrl: './register.component.html',
 })

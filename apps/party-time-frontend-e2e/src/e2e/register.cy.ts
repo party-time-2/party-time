@@ -30,7 +30,7 @@ describe('party-time-register-error-mail', () => {
     cy.get('#email').type('a');
     cy.get('#email').clear();
     cy.contains(
-      'Bitte gib deine E-Mail Adresse ein damit wir verifzieren können dass du eine echte Person bist und du zur Not dein Passwort zurück setzen kannst.'
+      'Bitte gib deine E-Mail Adresse ein damit wir verifizieren können dass du eine echte Person bist und du dein Passwort zurücksetzen kannst.'
     );
     cy.screenshot();
   });
@@ -38,7 +38,7 @@ describe('party-time-register-error-mail', () => {
     navigateRegister();
     cy.get('#email').type('a');
     cy.contains(
-      'Bitte gib eine Valide E-Mail Adresse ein damit wir verifzieren können dass du eine echte Person bist. Es wird eine Verfizierung an diese Adresse gesendet.'
+      'Bitte gib eine Valide E-Mail Adresse ein damit wir verifizieren können dass du eine echte Person bist. Es wird eine Verifizierung an diese Adresse gesendet.'
     );
     cy.screenshot();
   });

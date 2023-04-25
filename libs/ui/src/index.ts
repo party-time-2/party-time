@@ -13,3 +13,5 @@ export * from './lib/secondary-button/secondary-button.component';
 export * from './lib/tertiary-button/tertiary-button.component';
 
 export * from './lib/divider/divider.component';
+
+export * from './lib/loading-circle/loading-circle.component';
