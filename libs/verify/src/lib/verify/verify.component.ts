@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectVerifyState } from '../+state/verify.selectors';
 import { verify } from '../+state/verify.actions';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { PrimaryButtonComponent } from '@party-time/ui';
+import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
 import {
   AbstractControl,
   FormBuilder,
@@ -16,7 +16,12 @@ import {
 @Component({
   selector: 'party-time-verify',
   standalone: true,
-  imports: [CommonModule, PrimaryButtonComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    PrimaryButtonComponent,
+    ReactiveFormsModule,
+    LoadingCircleComponent,
+  ],
   templateUrl: './verify.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,14 +48,15 @@ export class VerifyComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
-    if (this.route !== undefined) {
-      // get the token segment from path verify/:token from the url
-      this.token = this.route.snapshot.url[0].path;
-      this.verifyForm.controls.token.setValue(this.token);
-    }
+    this.token = this.route.snapshot?.url[0]?.path;
+    this.verifyForm.controls.token.setValue(this.token);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.token) {
+      this.onSubmit();
+    }
+  }
 
   /// convenience getter for easy access to form fields
   get f(): { [key: string]: AbstractControl } {
