@@ -1,3 +1,4 @@
+//implements F014
 import { Action, createReducer, on } from '@ngrx/store';
 import * as VerifyActions from './verify.actions';
 import { ApiError } from '@party-time/models';

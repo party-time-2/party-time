@@ -1,3 +1,4 @@
+//implements F014
 import { Route } from '@angular/router';
 import { VerifyComponent } from './verify/verify.component';
 import * as fromVerify from './+state/verify.reducer';

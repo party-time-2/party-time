@@ -1,3 +1,4 @@
+//implements F014
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { VERIFY_FEATURE_KEY, VerifyStateInterface } from './verify.reducer';
 

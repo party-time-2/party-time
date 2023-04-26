@@ -1,3 +1,4 @@
+//implements F014
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -63,8 +64,8 @@ export class VerifyComponent implements OnInit {
     return this.verifyForm.controls;
   }
   onSubmit(): void {
-    if (this.token) {
-      this.store.dispatch(verify({ token: this.token }));
+    if (this.verifyForm.value.token && this.verifyForm.valid) {
+      this.store.dispatch(verify({ token: this.verifyForm.value.token }));
     }
   }
 }
