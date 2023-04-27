@@ -1,0 +1,128 @@
+<!-- implements F014 -->
+<section *ngIf="verifyState$ | async as verifyState">
+  <ng-template #verifydone>
+    <div *ngIf="verifyState.loading">
+      <div class="grid h-screen place-items-center">
+        <div role="status">
+          <party-time-loading-circle></party-time-loading-circle>
+        </div>
+        <p
+          class="m-10 h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:pt-5 lg:text-6xl"
+        >
+          Profil wird verifiziert
+        </p>
+      </div>
+    </div>
+    <ng-template #error>
+      <div class="grid h-screen place-items-center">
+        <div
+          class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+        >
+          <p class="">Hey!</p>
+          <p>Dein Account konnte leider nicht verifiziert werden.</p>
+          <p>Status: {{ verifyState.error?.status }}</p>
+          <div>
+            Fehler:
+            <p class="text-error-light dark:text-error-dark">
+              {{ verifyState.error?.message }}
+            </p>
+            <li
+              class="text-error-light dark:text-error-dark"
+              *ngFor="let error of verifyState.error?.additionalInformation"
+            >
+              {{ error['name'] }} {{ error['message'] }}
+            </li>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div *ngIf="verifyState.verified; else error">
+      <div class="grid h-screen place-items-center">
+        <div
+          class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+        >
+          <p
+            class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
+          >
+            Hey!
+          </p>
+          <p>Dein Account wurde verifiziert.</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <div
+    *ngIf="
+      !verifyState.verified && !verifyState.loading && !verifyState.error;
+      else verifydone
+    "
+  >
+    <h1
+      class="m-10 h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:pt-5 lg:text-6xl"
+    >
+      Profil verifizieren
+    </h1>
+    <form [formGroup]="verifyForm">
+      <div class="flex justify-center pl-12 pr-12 pt-12">
+        <div class="w-96">
+          <section>
+            <label
+              for="token"
+              class="mt-5 block text-sm font-medium leading-6 text-on-primary-container-light dark:text-on-primary-container-dark"
+            >
+              Token</label
+            >
+            <div
+              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+            >
+              <input
+                type="text"
+                name="token"
+                id="token"
+                required
+                formControlName="token"
+                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                placeholder="XXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXX"
+                [value]="token"
+              />
+            </div>
+            <div
+              *ngIf="
+                f['token'].errors && (f['token'].dirty || f['token'].touched)
+              "
+            >
+              <div *ngIf="f['token'].errors['required']">
+                <div
+                  class="flex text-error-light dark:text-error-dark"
+                  role=" alert"
+                >
+                  <div class="text-sm font-medium">
+                    Bitte gib den Token aus der E-Mail ein.
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="f['token'].errors['pattern']">
+                <div
+                  class="flex text-error-light dark:text-error-dark"
+                  role=" alert"
+                >
+                  <div class="text-sm font-medium">
+                    Bitte überprüfe den Token.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div class="flex w-full place-content-end pt-7">
+            <party-time-primary-button
+              (clicked)="onSubmit()"
+              [disabled]="!verifyForm.valid"
+              type="submit"
+              name="Verifizieren"
+            ></party-time-primary-button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

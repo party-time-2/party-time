@@ -3,6 +3,11 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
+    path: 'verify',
+    loadChildren: () =>
+      import('@party-time/verify').then((m) => m.verifyRoutes),
+  },
+  {
     path: 'register',
     loadChildren: () =>
       import('@party-time/register').then((m) => m.registerRoutes),
