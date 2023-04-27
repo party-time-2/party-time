@@ -192,9 +192,9 @@ Für die Authentifizierung von Benutzern sowie für soziale Komponenten der Part
 
 Begründung:
 
-- Anzeigename: Ein frei vom Nutzer gewählter Anzeigename, der anderen Nutzern beispielsweise in Party-Teilnehmerlisten gezeigt wird. Dieser ist frei wählbar und nicht etwa mit einem Echter-Name-Zwang verbunden, da letztendlich Nutzer selbst dafür verantwortlich sind, dass andere Party-Gäste einem Anzeigenamen einer Person zuordnen können. Wird beispielsweise ein Nickname als Anzeigename verwendet, stellt dies für andere Partygäste grundsätzlich kein Problem dar.
-- E-Mail Adresse: Da Anzeigenamen frei wählbar sind und daher eventuell auch mehrere Nutzer den gleichen Anzeigenamen verwenden können, benötigt der Anmelde-Vorgang eine E-Mail Adresse von Nutzern. Bei einzigartigen E-Mail Adressen besteht Sicherheit, dass mehrere Nutzer nicht dieselbe E-Mail Adresse verwenden.
-- Passwort: Um davor zu schützen, das sich Unbekannte sich mit bekannten E-Mail Adressen anmelden, erfolgt die Anmeldung an der Party Time Platform ausschließlich durch die Eingabe von E-Mail Adresse und Passwort.
+- [Anzeigename](#anzeigename-richtlinien): Ein frei vom Nutzer gewählter Anzeigename, der anderen Nutzern beispielsweise in Party-Teilnehmerlisten gezeigt wird. Dieser ist frei wählbar und nicht etwa mit einem Echter-Name-Zwang verbunden, da letztendlich Nutzer selbst dafür verantwortlich sind, dass andere Party-Gäste einem Anzeigenamen einer Person zuordnen können. Wird beispielsweise ein Nickname als Anzeigename verwendet, stellt dies für andere Partygäste grundsätzlich kein Problem dar.
+- [E-Mail Adresse](#e-mail-adresse-richtlinien): Da Anzeigenamen frei wählbar sind und daher eventuell auch mehrere Nutzer den gleichen Anzeigenamen verwenden können, benötigt der Anmelde-Vorgang eine E-Mail Adresse von Nutzern. Bei einzigartigen E-Mail Adressen besteht Sicherheit, dass mehrere Nutzer nicht dieselbe E-Mail Adresse verwenden.
+- [Passwort](#passwort-richtlinien-für-benutzer): Um davor zu schützen, dass sich dritte Personen mit E-Mail Adressen anderer Nutzer anmelden, erfolgt eine personalisierte Anmeldung an der Party Time Platform ausschließlich durch die Eingabe von E-Mail Adresse und vom Nutzer gewählten Passwort.
 
 ## Anzeigename-Richtlinien
 
