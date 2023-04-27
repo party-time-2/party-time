@@ -1,6 +1,6 @@
 {
   "root": true,
-  "ignorePatterns": ["**/*"],
+  "ignorePatterns": ["*.stories.mdx", "*.stories.ts", "**/*"],
   "plugins": ["@nrwl/nx"],
   "overrides": [
     {
@@ -18,7 +18,8 @@
               }
             ]
           }
-        ]
+        ],
+        "eslint no-useless-escape": "off"
       }
     },
     {
