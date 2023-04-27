@@ -3,6 +3,10 @@ import { Route } from '@angular/router';
 
 export const appRoutes: Route[] = [
   {
+    path: 'auth',
+    loadChildren: () => import('@party-time/auth').then((m) => m.authRoutes),
+  },
+  {
     path: 'verify',
     loadChildren: () =>
       import('@party-time/verify').then((m) => m.verifyRoutes),
