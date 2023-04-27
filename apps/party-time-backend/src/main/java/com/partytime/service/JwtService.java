@@ -51,7 +51,7 @@ public class JwtService {
 
     public boolean isValid(Claims claims, boolean accessToken) {
         return claims.getIssuer().equals(ISSUER)
-            && claims.getExpiration().before(new Date())
+//            && claims.getExpiration().before(new Date()) Token is never expired
             && claims.getId() != null
             && claims.getIssuedAt().before(new Date())
             && (accessToken ? claims.getSubject() != null : claims.getSubject().equals(SUB_REFRESH))

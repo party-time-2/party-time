@@ -2,6 +2,8 @@ package com.partytime.api.controller;
 
 import com.partytime.api.dto.AccountDTO;
 import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.login.LoginResponseDTO;
+import com.partytime.api.dto.login.LoginRequestDTO;
 import com.partytime.jpa.mapper.AccountMapper;
 import com.partytime.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,6 +53,26 @@ public class AuthController {
         return AccountMapper.map(
             authService.registerAccount(body)
         );
+    }
+
+    @PostMapping("/login")
+    @Operation(
+        description = "Login an Account",
+        responses = {
+            @ApiResponse(
+                description = "Login Success",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                description = "Login Failed",
+                responseCode = "401"
+            )
+        }
+    )
+    @SecurityRequirements
+    public LoginResponseDTO login(@RequestBody @Valid @NotNull LoginRequestDTO body) {
+        return null; // TODO
     }
 
     /**
