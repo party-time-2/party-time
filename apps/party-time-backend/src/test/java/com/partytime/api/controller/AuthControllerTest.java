@@ -69,10 +69,9 @@ class AuthControllerTest extends TestBase {
         AccountRegisterDTO registerDTO = AccountRegisterDTO.builder()
             .name(NAME)
             .email(MAIL)
-            .password("test")
+            .password("Password123!a")
             .build();
-        ResponseEntity<AccountDTO> response = executePostRequest("/register", new HttpEntity<>(registerDTO), AccountDTO.class);
-        return response;
+        return executePostRequest("/register", new HttpEntity<>(registerDTO), AccountDTO.class);
     }
 
 }
