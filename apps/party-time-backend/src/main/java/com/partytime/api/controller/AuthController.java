@@ -55,6 +55,9 @@ public class AuthController {
         );
     }
 
+    /**
+     * Implements F011
+     */
     @PostMapping("/login")
     @Operation(
         description = "Login an Account",
