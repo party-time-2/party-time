@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account erfolgreich angelegt</title>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        body {
+            background-color: #EDE7F6;
+            font-family: Arial, sans-serif;
+            color: #000;
+            font-size: 16px;
+            line-height: 1.4;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #000;
+            font-size: 24px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #555;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<h1>Account erfolgreich angelegt!</h1>
+<p>Hallo {{name}},</p>
+<p>Vielen Dank für die Erstellung deines Accounts auf <a href="{{homepage}}">{{homepage}}</a>. Dein Account wurde erfolgreich angelegt.</p>
+<p>Klicke auf den folgenden Button, um deine E-Mail-Adresse zu verifizieren:</p>
+<p><a href="{{verificationLink}}" class="btn">E-Mail-Adresse verifizieren</a></p>
+<p>Wenn du weitere Fragen hast oder Unterstützung benötigst, besuche unsere Website unter <a href="{{homepage}}">{{homepage}}</a>.</p>
+<p>Beste Grüße,</p>
+<p>Dein Partytime-Team</p>
+</body>
+</html>
