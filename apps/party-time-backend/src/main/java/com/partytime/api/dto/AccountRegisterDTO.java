@@ -1,8 +1,7 @@
 package com.partytime.api.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import com.partytime.api.ApiConstants;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +15,7 @@ public class AccountRegisterDTO {
 
     @NotNull
     @NotEmpty
+    @Size(min = 5, max = 20)
     private String name;
 
     @NotNull
@@ -25,6 +25,8 @@ public class AccountRegisterDTO {
 
     @NotNull
     @NotEmpty
+    @Size(min = 8, max = 30)
+    @Pattern(regexp = ApiConstants.REGEX_PASSWORD)
     private String password;
 
 }
