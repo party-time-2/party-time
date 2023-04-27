@@ -21,12 +21,12 @@ else (Verifiziere via Code-Eingabe)
             :Eingabefeld gefüllt prüfen;
             backward:Leeres Eingabefeld markieren;
             note right
-                should_show_token_required: Bitte gib den Token aus der E-Mail ein.
+                token_required: Bitte gib den Token aus der E-Mail ein.
             end note
         repeat while () is (Eingabefeld leer) not (Eingabefeld gefüllt)
         backward:Formell falschen Verifizieren Code markieren;
         note right
-            should_show_token_invalid: Bitte überprüfe den Token.
+            token_invalid: Bitte überprüfe den Token.
         end note
     repeat while () is (Eingabe formell falsch) not (Eingabe formell richtig)
 endif
@@ -39,7 +39,7 @@ if () then (Verifizieren Code unzulässig)
     |Nutzer|
     :Fehlermeldung empfangen und anzeigen;
     note right
-        should_show_verify_error: Dein Account konnte leider nicht verifiziert werden;
+        verify_error: Dein Account konnte leider nicht verifiziert werden;
     end note
     stop;
 else (Verifizieren Code zulässig)
@@ -48,7 +48,7 @@ else (Verifizieren Code zulässig)
     |Nutzer|
     : Bestätigung empfangen und anzeigen;
     note right
-        should_show_verify_success: Dein Account wurde verifiziert.
+        verify_success: Dein Account wurde verifiziert.
     end note
     stop
 endif
