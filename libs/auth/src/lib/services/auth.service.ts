@@ -1,3 +1,4 @@
+//implements F011
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginRequestDTO, LoginResponseDTO } from '@party-time/models';

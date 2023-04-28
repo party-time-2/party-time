@@ -1,3 +1,4 @@
+//implements F011
 import { Route } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';

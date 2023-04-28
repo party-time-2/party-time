@@ -1,3 +1,4 @@
+//implements F011
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AUTH_FEATURE_KEY, AuthStateInterface } from './auth.reducer';
 
