@@ -22,4 +22,15 @@ export class AuthEffects {
       )
     )
   );
+
+  storeToken$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginSuccess),
+        map(({ loginResponseDTO }) => {
+          this.authService.storeToken(loginResponseDTO.token);
+        })
+      ),
+    { dispatch: false }
+  );
 }

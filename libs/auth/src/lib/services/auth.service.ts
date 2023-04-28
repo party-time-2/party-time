@@ -16,4 +16,9 @@ export class AuthService {
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {
     return this.http.post<LoginResponseDTO>(this.loginPath, loginRequestDTO);
   }
+
+  // Stores the user token in the local storage
+  storeToken(token: string): void {
+    localStorage.setItem('auth_token', token);
+  }
 }
