@@ -20,7 +20,9 @@ export class RegisterEffects {
           map((accountDTO) =>
             RegisterActions.registeredSuccess({ accountDTO })
           ),
-          catchError((error) => of(RegisterActions.registerFailure({ error })))
+          catchError((res) =>
+            of(RegisterActions.registerFailure({ error: res.error }))
+          )
         )
       )
     )
