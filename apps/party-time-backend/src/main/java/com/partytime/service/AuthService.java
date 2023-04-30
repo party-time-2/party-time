@@ -1,6 +1,8 @@
 package com.partytime.service;
 
 import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.login.LoginRequestDTO;
+import com.partytime.api.dto.login.LoginResponseDTO;
 import com.partytime.api.error.ApiError;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
 import com.partytime.jpa.entity.Account;
@@ -20,9 +22,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AuthService {
 
+    private final AccountService accountService;
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final JwtService jwtService;
     private final PartyTimeConfigurationProperties configurationProperties;
 
     /**
@@ -68,6 +72,24 @@ public class AuthService {
         account.setEmailVerified(true);
         account.setEmailVerificationCode(null);
         accountRepository.save(account);
+    }
+
+    /**
+     * Implements F011
+     */
+    public LoginResponseDTO loginUser(LoginRequestDTO dto) {
+        Account account = accountService.getAccount(dto.getEmail());
+        if (!account.isEmailVerified()) {
+            throw ApiError.forbidden().asException();
+        }
+
+        boolean passwordMatch = passwordEncoder.matches(dto.getPassword(), account.getPwHash());
+        if (!passwordMatch) {
+            throw ApiError.unauthorized().asException();
+        }
+
+        String accessToken = jwtService.createAccessToken(account);
+        return new LoginResponseDTO(accessToken);
     }
 
 }

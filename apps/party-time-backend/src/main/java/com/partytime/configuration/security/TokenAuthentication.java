@@ -1,40 +1,31 @@
 package com.partytime.configuration.security;
 
-import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collections;
 
 public class TokenAuthentication extends AbstractAuthenticationToken {
 
-    private final Claims claims;
-    private final UserDetails principal;
+    private final PartyTimeUserDetails details;
 
     /**
      * Creates a token with the supplied array of authorities.
      */
-    public TokenAuthentication(Claims claims) {
+    public TokenAuthentication(PartyTimeUserDetails details) {
         super(Collections.emptyList());
-        this.claims = claims;
-        this.principal = User.withUsername(claims.get("email", String.class))
-            .authorities(Collections.emptyList())
-            .build();
-        this.setAuthenticated(true);
+        this.details = details;
+        setAuthenticated(true);
+        setDetails(details);
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return details.getPassword();
     }
 
     @Override
     public Object getPrincipal() {
-        return principal;
+        return details;
     }
 
-    public Claims getClaims() {
-        return claims;
-    }
 }
