@@ -50,7 +50,7 @@ public class AuthService {
             MailService.TEMPLATE_VERIFY_ACCOUNT, VerifyAccountModel.builder()
                 .name(account.getName())
                     .homepage(configurationProperties.getUrl())
-                .verificationLink(configurationProperties.getUrl() + "/profile/activation/" + account.getEmailVerificationCode())
+                .verificationLink(configurationProperties.getUrl() + "/verify/" + account.getEmailVerificationCode())
                 .build());
 
         log.info("Account created! Verification Code: " + account.getEmailVerificationCode());
