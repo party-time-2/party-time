@@ -1,0 +1,56 @@
+@startuml F011_kontoAnmelden_act
+<style file=plantStyle.css>
+title "Konto anmelden"
+
+|Nutzer|
+start
+:Öffne Party Time "Anmelden" Webseite;
+repeat
+    repeat
+        split
+            :E-Mail Adresse eingeben;
+        split again
+            :Passwort eingeben;
+        end split
+        |Frontend Validator|
+        :Prüfe E-Mail Adresse eingegeben;
+        backward:Leeres E-Mail Adresse Feld markieren;
+        note right
+            user_required: Bitte gib deine E-Mail Adresse ein.
+        end note
+    repeat while () is (E-Mail Adresse nicht eingegeben) not (E-Mail Adresse eingegeben)
+    :Prüfe Passwort eingegeben;
+    backward: Leeres Passwort Feld markieren;
+    note right
+        password_required: Bitte gib dein Passwort ein.
+    end note
+repeat while () is (Passwort nicht eingegeben) not (Passwort eingegeben)
+|Nutzer|
+:Anmelden-Formular senden;
+|Registration Controller|
+:Gespeicherten Passwort Hash für Nutzer ermitteln;
+if () then (Nutzer existiert in Datenbank und Passwort Hash wurde ermittelt)
+    :Hash von übermitteltes Passwort mit gespeichertem Hash vergleichen;
+    if () then (Übermittelter und gespeicherter Hash gleich)
+    :Generiere JSON Web Token;
+    :Übermittle JSON Web Token an Benutzer;
+    |Nutzer|
+    :Persistiere JSon Web Token in Local Storage;
+    :Zeige "Anmeldung Erfolgreich" Meldung;
+    note right
+       login_success: Du wurdest erfolgreich eingeloggt.
+    end note
+    stop
+    else (Übermittelter und gespeicherter Hash nicht gleich)
+    endif
+else (Nutzer existiert nicht in Datenbank)
+endif
+|Registration Controller|
+:Übermittle Fehlermeldung;
+|Nutzer|
+:Zeige "Anmeldung Fehler" Meldung;
+note right
+    login_error: Wir konnten dich leider nicht einloggen.
+end note
+stop
+@enduml
