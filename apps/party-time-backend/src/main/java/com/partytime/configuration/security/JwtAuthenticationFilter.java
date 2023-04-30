@@ -45,13 +45,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
 
-                filterChain.doFilter(request, response);
             }
         } catch (Exception e) {
             // Any Exception in Token parsing results in 401
             logger.debug("Failed to Parse Token", e);
         }
-
+        filterChain.doFilter(request, response);
     }
 
 }
