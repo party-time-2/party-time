@@ -1,0 +1,57 @@
+@startuml F014_kontoVerifizieren_act
+<style file=plantStyle.css>
+title "Konto verifizieren"
+
+|Verifizieren Controller|
+start
+:Verifizierung-Token für Nutzer generieren;
+:Verifizierung-Token an Nutzer via E-Mail senden;
+|Nutzer|
+:Verifizierung-Token via E-Mail empfangen;
+if () then (Verifizieren via Link)
+    :Verifizieren Link anklicken;
+    :Verifizieren Webseite öffnet sich;
+else (Verifiziere via Code-Eingabe)
+    :Verifizieren Webseite öffnen;
+    repeat
+        repeat
+            :Verifizierung-Token in Webseite eintragen;
+            |Frontend Validator|
+            :Eingabefeld gefüllt prüfen;
+            backward:Leeres Eingabefeld markieren;
+            note right
+                token_required: Bitte gib den Token aus der E-Mail ein.
+            end note
+        repeat while () is (Eingabefeld leer) not (Eingabefeld gefüllt)
+        backward:Formell falschen Verifizierung-Token markieren;
+        note right
+            token_invalid: Bitte überprüfe den Token.
+        end note
+        :Eingabefeld formell prüfen;
+    repeat while () is (Eingabe formell falsch) not (Eingabe formell richtig)
+endif
+|Nutzer|
+: Verifizierung-Token an Backend übermitteln;
+|Verifizieren Controller|
+:Validität Verifizierung Code prüfen;
+if () then (Verifizierung-Token zulässig)
+    |Verifizieren Controller|
+    :Verifikation der E-Mail des Benutzers persistieren;
+    :Sende Bestätigung an Nutzer;
+    |Nutzer|
+    : Bestätigung empfangen und anzeigen;
+    note right
+        verify_success: Dein Account wurde verifiziert.
+    end note
+    stop
+    
+else (Verifizierung-Token unzulässig)
+    |Verifizieren Controller|
+    :Sende Fehlermeldung an Frontend;
+    |Nutzer|
+    :Fehlermeldung empfangen und anzeigen;
+    note right
+        verify_error: Dein Account konnte leider nicht verifiziert werden;
+    end note
+    stop;
+@enduml

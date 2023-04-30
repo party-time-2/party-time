@@ -186,6 +186,16 @@ Die Verwendung von PlantUML bietet mehrere Vorteile für das Projekt, einschlie�
 
 - Export: PlantUML bietet eine Vielzahl von Exportoptionen, um die erstellten Diagramme in verschiedenen Formaten zu exportieren, z.B. als Bild-, PDF- oder ASCII-Art-Datei.
 
+## Erforderliche persönliche Daten von Benutzern
+
+Für die Authentifizierung von Benutzern sowie für soziale Komponenten der Party Time Plattform werden pro Nutzer einen Anzeigenamen, eine E-Mail Adresse sowie ein Passwort erhoben.
+
+Begründung:
+
+- [Anzeigename](#anzeigename-richtlinien): Ein frei vom Nutzer gewählter Anzeigename, der anderen Nutzern beispielsweise in Party-Teilnehmerlisten gezeigt wird. Dieser ist frei wählbar und nicht etwa mit einem Echter-Name-Zwang verbunden, da letztendlich Nutzer selbst dafür verantwortlich sind, dass andere Party-Gäste einem Anzeigenamen einer Person zuordnen können. Wird beispielsweise ein Nickname als Anzeigename verwendet, stellt dies für andere Partygäste grundsätzlich kein Problem dar.
+- [E-Mail Adresse](#e-mail-adresse-richtlinien): Da Anzeigenamen frei wählbar sind und daher eventuell auch mehrere Nutzer den gleichen Anzeigenamen verwenden können, benötigt der Anmelde-Vorgang eine E-Mail Adresse von Nutzern. Bei einzigartigen E-Mail Adressen besteht Sicherheit, dass mehrere Nutzer nicht dieselbe E-Mail Adresse verwenden.
+- [Passwort](#passwort-richtlinien-für-benutzer): Um davor zu schützen, dass sich dritte Personen mit E-Mail Adressen anderer Nutzer anmelden, erfolgt eine personalisierte Anmeldung an der Party Time Platform ausschließlich durch die Eingabe von E-Mail Adresse und vom Nutzer gewählten Passwort.
+
 ## Anzeigename-Richtlinien
 
 Für Anzeigenamen gelten die folgenden Richtlinien:

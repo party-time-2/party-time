@@ -14,7 +14,7 @@ import { gsap } from 'gsap';
   standalone: true,
   imports: [CommonModule, PrimaryButtonComponent],
   template: `<section
-    class="grid min-h-screen place-items-center bg-gradient-to-b from-background-light to-surface-variant-light px-6 py-24 dark:from-background-dark dark:to-surface-variant-dark sm:py-32 lg:px-8"
+    class="grid min-h-screen place-items-center  sm:py-32 lg:px-8"
   >
     <div
       class="container rounded-3xl bg-error-container-light text-center text-on-surface-light dark:bg-error-container-dark dark:text-on-surface-dark"
