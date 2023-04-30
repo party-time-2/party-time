@@ -1,70 +1,56 @@
-@startuml F010_kontoErstellen_act
+@startuml F011_kontoAnmelden_act
 <style file=plantStyle.css>
-title "Konto erstellen"
+title "Konto anmelden"
 
 |Nutzer|
 start
-:Öffne Party Time "Registrieren" Webseite;
+:Öffne Party Time "Anmelden" Webseite;
 repeat
     repeat
-        repeat
-            split
-                :Anzeigenamen eingeben;
-            split again
-                :E-Mail Adresse eingeben;
-            split again
-                :Passwort eingeben;
-            end split
-            |Frontend Validator|
-            :Prüfe Anzeigenamen;
-            backward:Fehlerhaften Anzeigenamen markieren;
-            note right
-            user_required: Benutzername nicht angegeben
-            user_too_short: Benutzername kürzer als 5 Zeichen
-            user_too_long: Benutzername länger als 20 Zeichen
-            end note
-        repeat while () is (Anzeigename fehlerhaft) not (Anzeigename fehlerfrei)
-        :Prüfe E-Mail Adresse;
-        backward:Fehlerhafte E-Mail Adresse markieren;
+        split
+            :E-Mail Adresse eingeben;
+        split again
+            :Passwort eingeben;
+        end split
+        |Frontend Validator|
+        :Prüfe E-Mail Adresse eingegeben;
+        backward:Leeres E-Mail Adresse Feld markieren;
         note right
-            mail_required: E-Mail Adresse nicht angegeben
-            mail_invalid: E-Mail Adresse ungültig
+            user_required: Bitte gib deine E-Mail Adresse ein.
         end note
-    repeat while () is (E-Mail Adresse fehlerhaft) not (E-Mail Adresse fehlerfrei)
-    :Prüfe Passwort;
-    backward: Fehlerhaftes Passwort markieren;
+    repeat while () is (E-Mail Adresse nicht eingegeben) not (E-Mail Adresse eingegeben)
+    :Prüfe Passwort eingegeben;
+    backward: Leeres Passwort Feld markieren;
     note right
-        pw_required: Passwort nicht angegeben
-        pw_short: Passwort kürzer als 8 Zeichen
-        pw_long: Passwort länger als 30 Zeichen
-        pw_wrong_chars: Zeichen nicht wie gefordert verwendet
+        password_required: Bitte gib dein Passwort ein.
     end note
-repeat while () is (Passwort fehlerhaft) not (Passwort fehlerfrei)
+repeat while () is (Passwort nicht eingegeben) not (Passwort eingegeben)
 |Nutzer|
-:Registration-Formular senden;
+:Anmelden-Formular senden;
 |Registration Controller|
-:E-Mail-Adresse in Verwendung prüfen;
-if () then (E-Mail Adresse in Verwendung)
-    |Registration Controller|
-    :Übermittle "E-Mail Addresse bereits in Verwendung" Fehlermeldung;
+:Gespeicherten Passwort Hash für Nutzer ermitteln;
+if () then (Nutzer existiert in Datenbank und Passwort Hash wurde ermittelt)
+    :Hash von übermitteltes Passwort mit gespeichertem Hash vergleichen;
+    if () then (Übermittelter und gespeicherter Hash gleich)
+    :Generiere JSON Web Token;
+    :Übermittle JSON Web Token an Benutzer;
     |Nutzer|
-    :Empfange Fehlermeldung;
-    :Zeige Fehlermeldung;
+    :Persistiere JSon Web Token in Local Storage;
+    :Zeige "Anmeldung Erfolgreich" Meldung;
     note right
-        mail_in_use: E-Mail Adresse bereits registriert
+       login_success: Du wurdest erfolgreich eingeloggt.
     end note
     stop
-else (E-Mail Adresse nicht in Verwendung)
-    |Registration Controller|
-    :Passwort hashen;
-    :Anzeigename + E-Mail Adresse + Passwort-Hash speichern;
-    :Bestätige Registrierung;
-    |Nutzer|
-    :Empfange Bestätigung der Registrierung;
-    :Zeige Bestätigung der Registrierung;
-    note right
-        registration_success: Registrierung erfolgreich
-    end note
-    stop
+    else (Übermittelter und gespeicherter Hash nicht gleich)
+    endif
+else (Nutzer existiert nicht in Datenbank)
 endif
+|Registration Controller|
+:Übermittle Fehlermeldung;
+|Nutzer|
+:Zeige "Anmeldung Fehler" Meldung;
+note right
+    login_error: Wir konnten dich leider nicht einloggen.
+end note
+stop
 @enduml
