@@ -1,4 +1,4 @@
-@startuml F012_kontoAbmelden
+@startuml F012_kontoAbmelden_seq
 title "Konto abmelden"
 
 actor "Nutzer" as user
