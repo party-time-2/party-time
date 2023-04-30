@@ -17,12 +17,12 @@ user -> changePwd: Sende Passwort ändern Formular
 
 changePwd -> controller: Übermittle altes und neues Passwort + JSON Web Token
 activate controller
-controller -> db: Ermittle Passwort Hash für E-Mail Adresse
-controller <-- db: Passwort Hash für E-Mail-Adresse
+controller -> db: Ermittle Passwort Hash für angemeldeten Nutzer
+controller <-- db: Passwort Hash für angemeldeten Nutzer
 controller -> controller: Passwort-Hash für altes übermitteltes Passwort erstellen und mit gespeichertem Hash vergleichen
 controller -> controller: Hash von neuem Passwort erstellen
 controller -> db: Speichere neuen Passwort Hash für angemeldeten Benutzer
-controller <-- db: Bestätige Speicherung des neuen Passworts
+controller <-- db: Bestätige Speicherung des neuen Passwort Hashs
 changePwd <-- controller: Bestätige Passwort Änderung
 deactivate controller
 
