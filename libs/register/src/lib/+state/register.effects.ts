@@ -1,7 +1,7 @@
 //implements F010
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { switchMap, catchError, of, map } from 'rxjs';
+import { switchMap, catchError, of, map, concatMap } from 'rxjs';
 import * as RegisterActions from './register.actions';
 import { RegisterService } from '../services/register.service';
 
@@ -15,13 +15,13 @@ export class RegisterEffects {
   register$ = createEffect(() =>
     this.actions$.pipe(
       ofType(RegisterActions.register),
-      switchMap(({ accountRegisterDTO }) =>
+      concatMap(({ accountRegisterDTO }) =>
         this.registerService.registerAccount(accountRegisterDTO).pipe(
           map((accountDTO) =>
             RegisterActions.registeredSuccess({ accountDTO })
           ),
-          catchError((error) =>
-            of(RegisterActions.registerFailure({ error: error.error }))
+          catchError((res) =>
+            of(RegisterActions.registerFailure({ error: res.error }))
           )
         )
       )

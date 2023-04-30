@@ -29,6 +29,8 @@ springdoc:
   default-produces-media-type: application/json
 party-time:
   url: http://localhost:4200
+  jwt:
+    secret: pJADh3HysJ0dbNNnvfTub2vnus9pg7ddP894ZFcyKu72XmX78qU97yuvpOuwEcoe
   mail:
     enabled: false
 server:

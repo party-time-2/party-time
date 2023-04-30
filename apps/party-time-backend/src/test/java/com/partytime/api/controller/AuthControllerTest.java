@@ -2,6 +2,8 @@ package com.partytime.api.controller;
 
 import com.partytime.api.dto.AccountDTO;
 import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.login.LoginRequestDTO;
+import com.partytime.api.dto.login.LoginResponseDTO;
 import com.partytime.base.TestBase;
 import com.partytime.service.AccountService;
 import org.junit.jupiter.api.Order;
@@ -63,6 +65,42 @@ class AuthControllerTest extends TestBase {
         ResponseEntity<Void> response = executePostRequest("/verify/10938425z4tu9hefowdjsia", HttpEntity.EMPTY, Void.class);
         assertThat(response.getStatusCode())
             .isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    @Order(5)
+    void login() {
+        LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
+            .email("verified1@partytime.de")
+            .password("Hallo123!party")
+            .build();
+        ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
+        assertThat(response.getStatusCode())
+            .isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    @Order(6)
+    void loginAccountNotExists() {
+        LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
+            .email("notexists@partytime.de")
+            .password("Hallo123!party")
+            .build();
+        ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
+        assertThat(response.getStatusCode())
+            .isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @Order(7)
+    void loginNotVerified() {
+        LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
+            .email("not_verified1@partytime.de")
+            .password("Hallo123!party")
+            .build();
+        ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
+        assertThat(response.getStatusCode())
+            .isEqualTo(HttpStatus.FORBIDDEN);
     }
 
     private ResponseEntity<AccountDTO> executeRegister() {

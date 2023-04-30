@@ -49,6 +49,6 @@ const reducer = createReducer(
 export function registerReducer(
   state: RegisterStateInterface | undefined,
   action: Action
-) {
+): RegisterStateInterface {
   return reducer(state, action);
 }
