@@ -3,7 +3,6 @@ package com.partytime.service;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
 import com.partytime.jpa.entity.Account;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -31,11 +30,7 @@ public class JwtService {
     private final PartyTimeConfigurationProperties configurationProperties;
 
     public String createAccessToken(Account account) {
-        return createToken(account, true);
-    }
-
-    public String createRefreshToken(Account account) {
-        return createToken(account, false);
+        return createToken(account);
     }
 
     public Claims extractClaims(String token) {
@@ -51,7 +46,6 @@ public class JwtService {
 
     public boolean isValid(Claims claims, boolean accessToken) {
         return claims.getIssuer().equals(ISSUER)
-            && claims.getExpiration().before(new Date())
             && claims.getId() != null
             && claims.getIssuedAt().before(new Date())
             && (accessToken ? claims.getSubject() != null : claims.getSubject().equals(SUB_REFRESH))
@@ -62,31 +56,18 @@ public class JwtService {
         return claims.get(CLAIM_EMAIL, String.class);
     }
 
-    private String createToken(Account account, boolean accessToken) {
-        PartyTimeConfigurationProperties.Jwt jwtConfig = configurationProperties.getJwt();
-        PartyTimeConfigurationProperties.Expiration tokenValidity;
-        if (accessToken) {
-            tokenValidity = jwtConfig.getTokenValidity();
-        } else {
-            tokenValidity = jwtConfig.getRefreshValidity();
-        }
-
-        JwtBuilder builder = Jwts.builder()
+    /**
+     * Implements F011
+     */
+    private String createToken(Account account) {
+        return Jwts.builder()
             .setId(UUID.randomUUID().toString())
-            .setExpiration(createDate(LocalDateTime.now()
-                .plus(tokenValidity.getAmount(), tokenValidity.getUnit())))
             .setIssuedAt(createDate(LocalDateTime.now()))
             .setIssuer(ISSUER)
-            .setSubject(accessToken ? UUID.randomUUID().toString() : SUB_REFRESH)
-            .claim(CLAIM_EMAIL, account.getEmail());
-
-        if (accessToken) {
-            builder = builder
-                .claim(CLAIM_NAME, account.getName())
-                .claim(CLAIM_EMAIL_VERIFIED, account.isEmailVerified());
-        }
-
-        return builder
+            .setSubject(UUID.randomUUID().toString())
+            .claim(CLAIM_EMAIL, account.getEmail())
+            .claim(CLAIM_NAME, account.getName())
+            .claim(CLAIM_EMAIL_VERIFIED, account.isEmailVerified())
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
     }
