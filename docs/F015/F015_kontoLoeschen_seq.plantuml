@@ -20,7 +20,7 @@ activate controller
 controller -> db: Ermittle Passwort Hash für angemeldeten Benutzer
 controller <-- db: Passwort Hash für angemeldeten Benutzer
 controller -> controller: Passwort-Hash für altes übermitteltes Passwort erstellen und mit gespeichertem Hash vergleichen
-controller -> db: Lösche sämtliche mit E-Mail Adresse in Verbindung stehende Daten
+controller -> db: Lösche sämtliche mit angemeldetem Nutzer in Verbindung stehende Daten
 controller <-- db: Bestätige Löschung der Daten
 deleteUserMask <-- controller: Informiere über Löschung des Kontos
 deactivate controller
