@@ -41,7 +41,7 @@ describe('party-time-login', () => {
     cy.get('#password').type('abc');
     cy.get('.w-full > party-time-primary-button > .h-9').click();
     cy.contains('401');
-    cy.contains('Wir konnten dich leider nicht einloggen');
+    cy.contains('Wir konnten dich leider nicht einloggen.');
     cy.screenshot();
   });
 
