@@ -24,7 +24,7 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
     }
 
     @Override
-    public Object getPrincipal() {
+    public PartyTimeUserDetails getPrincipal() {
         return details;
     }
 

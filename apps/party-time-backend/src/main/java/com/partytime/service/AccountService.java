@@ -23,4 +23,8 @@ public class AccountService {
         return accountRepository.findAccountByEmail(email);
     }
 
+    public void deleteAccount(Account account) {
+        accountRepository.delete(account);
+    }
+
 }
