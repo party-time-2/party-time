@@ -2,6 +2,8 @@ package com.partytime.api.controller;
 
 import com.partytime.api.dto.AccountDTO;
 import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.changepassword.ChangePasswordDTO;
+import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.api.dto.login.LoginResponseDTO;
 import com.partytime.api.dto.login.LoginRequestDTO;
 import com.partytime.jpa.mapper.AccountMapper;
@@ -84,6 +86,33 @@ public class AuthController {
     @SecurityRequirements
     public LoginResponseDTO login(@RequestBody @Valid @NotNull LoginRequestDTO body) {
         return authService.loginUser(body);
+    }
+
+    /**
+     * Implements F013
+     */
+    @PostMapping("/change")
+    @Operation(
+        description = "Change the Password of an Account",
+        responses = {
+            @ApiResponse(
+                description = "Password Change success",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                description = "The Old Password is Wrong",
+                responseCode = "401"
+            ),
+            @ApiResponse(
+                description = "New Password does not match requirements",
+                responseCode = "409"
+            )
+        }
+    )
+    public void changePassword(@RequestBody @Valid @NotNull ChangePasswordDTO body,
+                               TokenAuthentication authentication) {
+        authService.changePassword(body, authentication);
     }
 
     /**
