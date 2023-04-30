@@ -21,6 +21,13 @@
         },
         "ci": {
           "devServerTarget": "party-time-frontend:serve-static"
+        },
+        "watch": {
+          "cypressConfig": "apps/party-time-frontend-e2e/cypress.config.ts",
+          "devServerTarget": "party-time-frontend:serve:development",
+          "watch": true,
+          "testingType": "e2e",
+          "key": "9e642cd7-d4bf-4b6d-af73-8a0d5deeff44"
         }
       }
     },
