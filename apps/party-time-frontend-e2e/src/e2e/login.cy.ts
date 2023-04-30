@@ -31,8 +31,7 @@ describe('party-time-login', () => {
         body: {
           status: 'Login Failed',
           timestamp: '2023-04-26T19:12:55.474193286',
-          message:
-            'Wir konnten dich leider nicht einloggenLogin fehlgeschlagen',
+          message: 'Wir konnten dich leider nicht einloggen.',
         },
       }
     );
