@@ -112,7 +112,7 @@ public class AuthController {
     )
     public void changePassword(@RequestBody @Valid @NotNull ChangePasswordDTO body,
                                TokenAuthentication authentication) {
-        // TODO
+        authService.changePassword(body, authentication);
     }
 
     /**

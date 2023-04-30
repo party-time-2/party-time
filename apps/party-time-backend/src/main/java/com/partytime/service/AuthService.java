@@ -1,10 +1,12 @@
 package com.partytime.service;
 
 import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.changepassword.ChangePasswordDTO;
 import com.partytime.api.dto.login.LoginRequestDTO;
 import com.partytime.api.dto.login.LoginResponseDTO;
 import com.partytime.api.error.ApiError;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
+import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.jpa.entity.Account;
 import com.partytime.jpa.repository.AccountRepository;
 import com.partytime.mail.MailService;
@@ -90,6 +92,22 @@ public class AuthService {
 
         String accessToken = jwtService.createAccessToken(account);
         return new LoginResponseDTO(accessToken);
+    }
+
+    /**
+     * Implements F013
+     */
+    @Transactional
+    public void changePassword(ChangePasswordDTO changePasswordDTO, TokenAuthentication authentication) {
+        String email = authentication.getPrincipal().getUsername();
+        Account account = accountService.getAccount(email);
+        boolean oldPasswordMatches = passwordEncoder.matches(changePasswordDTO.getOldPassword(), account.getPwHash());
+        if (!oldPasswordMatches) {
+            throw ApiError.unauthorized().asException();
+        }
+        String newPasswordHash = passwordEncoder.encode(changePasswordDTO.getNewPassword());
+        account.setPwHash(newPasswordHash);
+        accountRepository.save(account);
     }
 
 }

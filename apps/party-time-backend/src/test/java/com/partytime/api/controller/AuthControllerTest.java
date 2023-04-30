@@ -2,6 +2,7 @@ package com.partytime.api.controller;
 
 import com.partytime.api.dto.AccountDTO;
 import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.changepassword.ChangePasswordDTO;
 import com.partytime.api.dto.login.LoginRequestDTO;
 import com.partytime.api.dto.login.LoginResponseDTO;
 import com.partytime.base.TestBase;
@@ -19,6 +20,7 @@ class AuthControllerTest extends TestBase {
 
     public static final String MAIL = "test@user.de";
     public static final String NAME = "Test User";
+    public static final String STANDARD_TEST_PASSSWORD = "Hallo123!party";
     @Autowired
     AccountService accountService;
 
@@ -72,7 +74,7 @@ class AuthControllerTest extends TestBase {
     void login() {
         LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
             .email("verified1@partytime.de")
-            .password("Hallo123!party")
+            .password(STANDARD_TEST_PASSSWORD)
             .build();
         ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
         assertThat(response.getStatusCode())
@@ -84,7 +86,7 @@ class AuthControllerTest extends TestBase {
     void loginAccountNotExists() {
         LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
             .email("notexists@partytime.de")
-            .password("Hallo123!party")
+            .password(STANDARD_TEST_PASSSWORD)
             .build();
         ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
         assertThat(response.getStatusCode())
@@ -96,11 +98,47 @@ class AuthControllerTest extends TestBase {
     void loginNotVerified() {
         LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
             .email("not_verified1@partytime.de")
-            .password("Hallo123!party")
+            .password(STANDARD_TEST_PASSSWORD)
             .build();
         ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
         assertThat(response.getStatusCode())
             .isEqualTo(HttpStatus.FORBIDDEN);
+    }
+
+    @Test
+    @Order(8)
+    void testChangePassword() {
+        authAsUser("verified1@partytime.de");
+        ResponseEntity<Void> response = executePostRequest("/change", new HttpEntity<>(ChangePasswordDTO.builder()
+            .oldPassword(STANDARD_TEST_PASSSWORD)
+            .newPassword(STANDARD_TEST_PASSSWORD + "time")
+            .build()), Void.class);
+        assertThat(response.getStatusCode())
+            .isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    @Order(9)
+    void testChangePasswordOldWrong() {
+        authAsUser("verified1@partytime.de");
+        ResponseEntity<Void> response = executePostRequest("/change", new HttpEntity<>(ChangePasswordDTO.builder()
+            .oldPassword(STANDARD_TEST_PASSSWORD + "FALSE")
+            .newPassword(STANDARD_TEST_PASSSWORD + "time")
+            .build()), Void.class);
+        assertThat(response.getStatusCode())
+            .isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    @Order(10)
+    void testChangePasswordNewPasswordNotStandard() {
+        authAsUser("verified1@partytime.de");
+        ResponseEntity<Void> response = executePostRequest("/change", new HttpEntity<>(ChangePasswordDTO.builder()
+            .oldPassword(STANDARD_TEST_PASSSWORD)
+            .newPassword("time")
+            .build()), Void.class);
+        assertThat(response.getStatusCode())
+            .isEqualTo(HttpStatus.CONFLICT);
     }
 
     private ResponseEntity<AccountDTO> executeRegister() {
