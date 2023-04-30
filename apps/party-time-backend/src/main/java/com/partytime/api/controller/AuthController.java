@@ -70,12 +70,20 @@ public class AuthController {
             @ApiResponse(
                 description = "Login Failed",
                 responseCode = "401"
+            ),
+            @ApiResponse(
+                description = "Account not verified",
+                responseCode = "403"
+            ),
+            @ApiResponse(
+                description = "Account existiert nicht",
+                responseCode = "404"
             )
         }
     )
     @SecurityRequirements
     public LoginResponseDTO login(@RequestBody @Valid @NotNull LoginRequestDTO body) {
-        return null; // TODO
+        return authService.loginUser(body);
     }
 
     /**
