@@ -34,15 +34,7 @@ endif
 : Verifizierung-Token an Backend übermitteln;
 |Verifizieren Controller|
 :Validität Verifizierung Code prüfen;
-if () then (Verifizierung-Token unzulässig)
-    :Sende Fehlermeldung an Frontend;
-    |Nutzer|
-    :Fehlermeldung empfangen und anzeigen;
-    note right
-        verify_error: Dein Account konnte leider nicht verifiziert werden;
-    end note
-    stop;
-else (Verifizierung-Token zulässig)
+if () then (Verifizierung-Token zulässig)
     |Verifizieren Controller|
     :Verifikation der E-Mail des Benutzers persistieren;
     :Sende Bestätigung an Nutzer;
@@ -52,4 +44,14 @@ else (Verifizierung-Token zulässig)
         verify_success: Dein Account wurde verifiziert.
     end note
     stop
+    
+else (Verifizierung-Token unzulässig)
+    |Verifizieren Controller|
+    :Sende Fehlermeldung an Frontend;
+    |Nutzer|
+    :Fehlermeldung empfangen und anzeigen;
+    note right
+        verify_error: Dein Account konnte leider nicht verifiziert werden;
+    end note
+    stop;
 @enduml
