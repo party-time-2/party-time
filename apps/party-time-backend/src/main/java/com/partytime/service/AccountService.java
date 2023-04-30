@@ -6,6 +6,8 @@ import com.partytime.jpa.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AccountService {
@@ -13,8 +15,12 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     public Account getAccount(String email) {
-        return accountRepository.findAccountByEmail(email)
+        return optAccount(email)
             .orElseThrow(() -> ApiError.badRequest("Es kann kein Account mit dieser Mail gefunden werden").asException());
+    }
+
+    public Optional<Account> optAccount(String email) {
+        return accountRepository.findAccountByEmail(email);
     }
 
 }
