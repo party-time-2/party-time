@@ -17,7 +17,9 @@ export class AuthEffects {
           map((loginResponseDTO) =>
             AuthActions.loginSuccess({ loginResponseDTO })
           ),
-          catchError((error) => of(AuthActions.loginFailure({ error })))
+          catchError((res) =>
+            of(AuthActions.loginFailure({ error: res.error }))
+          )
         )
       )
     )
