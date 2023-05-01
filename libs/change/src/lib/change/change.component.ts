@@ -1,14 +1,12 @@
-//implements F011
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'party-time-auth',
+  selector: 'party-time-change',
   standalone: true,
-  imports: [CommonModule, RouterModule],
-  template: `<router-outlet></router-outlet>`,
+  imports: [CommonModule],
+  template: `<p>change works!</p>`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthComponent {}
+export class ChangeComponent {}

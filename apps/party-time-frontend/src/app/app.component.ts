@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadAuth } from '@party-time/auth';
 import { IGoup, ILogo } from '@party-time/models';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
 
 @Component({
@@ -28,8 +30,10 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
     </div>
   `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'party-time-frontend';
+
+  constructor(private store: Store) {}
 
   public logo: ILogo = {
     src: '/assets/ballon.png',
@@ -43,10 +47,14 @@ export class AppComponent {
       name: 'Party Time',
       links: [
         { routerLink: '/', name: 'Startseite' },
-        { routerLink: 'register', name: 'Registrieren' },
-        { routerLink: '/2', name: 'Page 2' },
+        { routerLink: 'auth/register', name: 'Registrieren' },
+        { routerLink: 'auth/login', name: 'Login' },
         { routerLink: '/3', name: 'Page 3' },
       ],
     },
   ];
+
+  ngOnInit(): void {
+    this.store.dispatch(loadAuth());
+  }
 }

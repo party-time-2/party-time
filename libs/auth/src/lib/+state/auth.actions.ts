@@ -18,6 +18,8 @@ export const loginFailure = createAction(
   props<{ error: ApiError }>()
 );
 
+export const loadAuth = createAction('[Auth/API] Load Auth');
+
 export const login = createAction(
   '[Auth/API] Login',
   props<{ loginRequestDTO: LoginRequestDTO }>()

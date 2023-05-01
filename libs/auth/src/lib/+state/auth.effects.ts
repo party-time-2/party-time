@@ -35,4 +35,15 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
+
+  loadToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loadAuth),
+      map(() => {
+        return AuthActions.loginSuccess({
+          loginResponseDTO: this.authService.loadToken(),
+        });
+      })
+    )
+  );
 }
