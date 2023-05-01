@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { loadAuth } from '@party-time/auth';
+import { initAuthPage, loadAuth } from '@party-time/auth';
 import { IGoup, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
 
