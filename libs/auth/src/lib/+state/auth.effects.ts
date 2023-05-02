@@ -4,10 +4,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
 import * as AuthActions from './auth.actions';
 import { catchError, concatMap, map, of } from 'rxjs';
+import { DecodeTokenService } from '../services/decode-token.service';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private decodeTokenService: DecodeTokenService
+  ) {}
 
   loadLogin$ = createEffect(() =>
     this.actions$.pipe(
@@ -42,6 +47,19 @@ export class AuthEffects {
       map(() => {
         return AuthActions.loginSuccess({
           loginResponseDTO: this.authService.loadToken(),
+        });
+      })
+    )
+  );
+
+  decodeToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.loginSuccess),
+      map(({ loginResponseDTO }) => {
+        return AuthActions.decodeTokenSuccsess({
+          accountLoginDTO: this.decodeTokenService.decodeToken(
+            loginResponseDTO.token
+          ),
         });
       })
     )

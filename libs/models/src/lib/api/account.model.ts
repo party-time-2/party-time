@@ -10,3 +10,9 @@ export interface AccountRegisterDTO {
   email: string;
   password: string;
 }
+
+export interface AccountLoginDTO {
+  email: string;
+  name: string;
+  emailVerified?: boolean;
+}

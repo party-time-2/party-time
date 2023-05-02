@@ -2,6 +2,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
 import {
+  AccountLoginDTO,
   ApiError,
   LoginRequestDTO,
   LoginResponseDTO,
@@ -15,6 +16,7 @@ export interface AuthStateInterface {
   loginResponseDTO?: LoginResponseDTO;
   loading: boolean; // is this request loading
   error?: ApiError | null; // last known error (if any)
+  accountLoginDTO?: AccountLoginDTO;
 }
 
 export const initialState: AuthStateInterface = {
@@ -23,6 +25,7 @@ export const initialState: AuthStateInterface = {
   loginRequestDTO: undefined,
   loginResponseDTO: undefined,
   error: null,
+  accountLoginDTO: undefined,
 };
 
 export const reducer = createReducer(
@@ -46,6 +49,15 @@ export const reducer = createReducer(
     ...state,
     loading: true,
     loginRequestDTO,
+  })),
+  on(AuthActions.loadAuth, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(AuthActions.decodeTokenSuccsess, (state, { accountLoginDTO }) => ({
+    ...state,
+    loading: false,
+    accountLoginDTO,
   }))
 );
 

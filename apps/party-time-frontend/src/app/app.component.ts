@@ -1,11 +1,16 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { initAuthPage, loadAuth } from '@party-time/auth';
-import { IGoup, ILogo } from '@party-time/models';
+import { decodeTokenSuccsess, initAuthPage, loadAuth } from '@party-time/auth';
+import { IGoup, ILink, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
-import { selectLoginResponseDTOToken } from 'libs/auth/src/lib/+state/auth.selectors';
+import {
+  selectAccountLoginDTO,
+  selectAuthState,
+  selectLoginResponseDTOToken,
+  selectedIsAuthenticated,
+} from 'libs/auth/src/lib/+state/auth.selectors';
 
 @Component({
   standalone: true,
@@ -34,7 +39,7 @@ import { selectLoginResponseDTOToken } from 'libs/auth/src/lib/+state/auth.selec
 export class AppComponent implements OnInit {
   title = 'party-time-frontend';
 
-  constructor(private store: Store) {}
+  store = inject(Store);
 
   public logo: ILogo = {
     src: '/assets/ballon.png',
@@ -43,26 +48,38 @@ export class AppComponent implements OnInit {
     name: 'Party Time',
   };
 
+  registerProfileLink: ILink = {
+    routerLink: 'auth/register',
+    name: 'Regestrieren',
+  };
+
+  loginLogoutLink: ILink = {
+    routerLink: 'auth/login',
+    name: 'Login',
+  };
+
   groups: IGoup[] = [
     {
       name: 'Party Time',
       links: [
         { routerLink: '/', name: 'Startseite' },
-        { routerLink: 'auth/register', name: 'Registrieren' },
-        { routerLink: 'auth/login', name: 'Login' },
-        { routerLink: '/auth/change', name: 'Change' },
+        { routerLink: '404 Page', name: '404' },
+        this.registerProfileLink,
+        this.loginLogoutLink,
       ],
     },
   ];
 
   ngOnInit(): void {
     this.store.dispatch(loadAuth());
-    const token = this.store
-      .select(selectLoginResponseDTOToken)
-      .subscribe((token) => {
-        console.log('token', token);
-      });
 
-    console.log('token', token);
+    this.store.select(selectedIsAuthenticated).subscribe((isAuthenticated) => {
+      if (isAuthenticated) {
+        this.registerProfileLink.name = 'Profil';
+        this.registerProfileLink.routerLink = 'profil/change';
+        this.loginLogoutLink.name = 'Logout';
+        this.loginLogoutLink.routerLink = 'auth/logout';
+      }
+    });
   }
 }

@@ -1,13 +1,13 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { Route } from '@angular/router';
-import { AuthService } from '@party-time/auth';
+import { AuthGuardService } from '@party-time/auth';
 
 export const appRoutes: Route[] = [
   {
-    path: 'auth/change',
+    path: 'profil/change',
     loadChildren: () =>
       import('@party-time/change').then((m) => m.changeRoutes),
-    canActivate: [AuthService],
+    canActivate: [AuthGuardService],
   },
   {
     path: 'auth/login',

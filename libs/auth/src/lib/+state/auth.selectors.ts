@@ -39,3 +39,8 @@ export const selectLoginResponseDTOToken = createSelector(
   selectAuthState,
   (state) => state.loginResponseDTO?.token
 );
+
+export const selectAccountLoginDTO = createSelector(
+  selectAuthState,
+  (state) => state.accountLoginDTO
+);

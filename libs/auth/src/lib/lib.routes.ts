@@ -10,9 +10,5 @@ export const authRoutes: Route[] = [
   {
     path: '',
     component: LoginComponent,
-    providers: [
-      provideState(AUTH_FEATURE_KEY, authReducer),
-      provideEffects(AuthEffects),
-    ],
   },
 ];

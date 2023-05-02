@@ -12,11 +12,13 @@ import { importProvidersFrom } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from 'libs/auth/src/lib/services/interceptor.service';
+import { authReducer, initialState } from '@party-time/auth';
+import { AuthEffects } from 'libs/auth/src/lib/+state/auth.effects';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideEffects(),
-    provideStore(),
+    provideEffects(AuthEffects),
+    provideStore({ auth: authReducer }),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(StoreDevtoolsModule.instrument()),
     provideHttpClient(withInterceptors([authInterceptor])),

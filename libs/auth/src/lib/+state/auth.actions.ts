@@ -1,6 +1,7 @@
 //implements F011
 import { createAction, props } from '@ngrx/store';
 import {
+  AccountLoginDTO,
   ApiError,
   LoginRequestDTO,
   LoginResponseDTO,
@@ -23,6 +24,11 @@ export const loadAuth = createAction('[Auth/API] Load Auth');
 export const login = createAction(
   '[Auth/API] Login',
   props<{ loginRequestDTO: LoginRequestDTO }>()
+);
+
+export const decodeTokenSuccsess = createAction(
+  '[Auth/API] Token Decoded',
+  props<{ accountLoginDTO: AccountLoginDTO }>()
 );
 
 export const logout = createAction('[Auth/API] Logout');
