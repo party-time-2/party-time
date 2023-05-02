@@ -1,6 +1,4 @@
 import { Route } from '@angular/router';
 import { ChangeComponent } from './change/change.component';
 
-export const changeRoutes: Route[] = [
-  { path: '', component: ChangeComponent, canActivate: [] },
-];
+export const changeRoutes: Route[] = [{ path: '', component: ChangeComponent }];

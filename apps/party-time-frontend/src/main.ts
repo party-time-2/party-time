@@ -1,3 +1,4 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { bootstrapApplication } from '@angular/platform-browser';
 import {
   provideRouter,
@@ -9,9 +10,8 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { importProvidersFrom } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { provideHttpClient } from '@angular/common/http';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { authReducer } from '@party-time/auth';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from 'libs/auth/src/lib/services/interceptor.service';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -19,6 +19,6 @@ bootstrapApplication(AppComponent, {
     provideStore(),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(StoreDevtoolsModule.instrument()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
   ],
 }).catch((err) => console.error(err));

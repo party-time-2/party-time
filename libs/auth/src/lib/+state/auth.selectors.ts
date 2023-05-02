@@ -29,3 +29,13 @@ export const selectedLoginRequestDTOEmail = createSelector(
   selectAuthState,
   (state) => state.loginRequestDTO?.email
 );
+
+export const selectLoginResponseDTO = createSelector(
+  selectAuthState,
+  (state) => state.loginResponseDTO
+);
+
+export const selectLoginResponseDTOToken = createSelector(
+  selectAuthState,
+  (state) => state.loginResponseDTO?.token
+);

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeService } from '../services/change.service';
 
 @Component({
   selector: 'party-time-change',
@@ -9,4 +10,13 @@ import { CommonModule } from '@angular/common';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeComponent {}
+export class ChangeComponent {
+  constructor(private changeService: ChangeService) {
+    changeService
+      .changePassword({
+        newPassword: 'Party123123!u',
+        oldPassword: 'Party123123!s',
+      })
+      .subscribe((res) => console.log(res.status));
+  }
+}

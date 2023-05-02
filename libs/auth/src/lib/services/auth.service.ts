@@ -19,7 +19,6 @@ export class AuthService {
 
   authState$ = this.store.select(selectAuthState);
   loginPath = '/api/auth/login';
-  redirectUrl: string | null = null;
 
   // Logs in a user
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {
@@ -33,6 +32,7 @@ export class AuthService {
           return true;
         }
         // Redirect to the login page
+        this.router.navigate(['/auth/login']);
         return false;
       })
     );

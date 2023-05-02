@@ -4,28 +4,32 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
+  HttpInterceptorFn,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable, map } from 'rxjs';
+import {
+  selectAuthState,
+  selectLoginResponseDTOToken,
+} from '../+state/auth.selectors';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class InterceptorService implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const idToken = localStorage.getItem('id_token');
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const store$ = inject(Store);
 
-    if (idToken) {
-      const cloned = req.clone({
-        headers: req.headers.set('Authorization', idToken),
-      });
+  let token = null;
 
-      return next.handle(cloned);
-    } else {
-      return next.handle(req);
-    }
+  store$.select(selectLoginResponseDTOToken).subscribe((storedToken) => {
+    token = storedToken;
+  });
+
+  if (token) {
+    req = req.clone({
+      setHeaders: {
+        Authorization: token,
+      },
+    });
   }
-}
+
+  return next(req);
+};

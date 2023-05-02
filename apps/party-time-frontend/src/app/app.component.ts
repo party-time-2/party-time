@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { initAuthPage, loadAuth } from '@party-time/auth';
 import { IGoup, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
+import { selectLoginResponseDTOToken } from 'libs/auth/src/lib/+state/auth.selectors';
 
 @Component({
   standalone: true,
@@ -49,12 +50,19 @@ export class AppComponent implements OnInit {
         { routerLink: '/', name: 'Startseite' },
         { routerLink: 'auth/register', name: 'Registrieren' },
         { routerLink: 'auth/login', name: 'Login' },
-        { routerLink: '/3', name: 'Page 3' },
+        { routerLink: '/auth/change', name: 'Change' },
       ],
     },
   ];
 
   ngOnInit(): void {
     this.store.dispatch(loadAuth());
+    const token = this.store
+      .select(selectLoginResponseDTOToken)
+      .subscribe((token) => {
+        console.log('token', token);
+      });
+
+    console.log('token', token);
   }
 }
