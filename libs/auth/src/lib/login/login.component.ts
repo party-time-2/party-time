@@ -6,7 +6,7 @@ import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectAuthState } from '../+state/auth.selectors';
 import { Store } from '@ngrx/store';
-import { initAuthPage, login } from '../+state/auth.actions';
+import { initAuthPage, login, resetError } from '../+state/auth.actions';
 import { LoginRequestDTO } from '@party-time/models';
 @Component({
   selector: 'party-time-login',
@@ -40,6 +40,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(initAuthPage());
+  }
+
+  resetError() {
+    this.store.dispatch(resetError());
   }
 
   onSubmit(): void {

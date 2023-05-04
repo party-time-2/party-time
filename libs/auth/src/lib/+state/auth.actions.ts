@@ -31,6 +31,8 @@ export const decodeTokenSuccsess = createAction(
   props<{ accountLoginDTO: AccountLoginDTO }>()
 );
 
+export const resetError = createAction('[Auth/API] Reset Error');
+
 export const logout = createAction('[Auth/API] Logout');
 
 export const logoutSuccess = createAction('[Auth/API] Logout Success');

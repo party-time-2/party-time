@@ -58,6 +58,10 @@ export const reducer = createReducer(
     ...state,
     loading: false,
     accountLoginDTO,
+  })),
+  on(AuthActions.resetError, (state) => ({
+    ...state,
+    error: null,
   }))
 );
 

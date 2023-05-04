@@ -21,11 +21,16 @@ export class AuthService {
   }
 
   // Load the user token from the local storage
-  loadToken(): LoginResponseDTO {
-    const loginResponseDTO: LoginResponseDTO = {
-      token: localStorage.getItem('auth_token') || '',
-    };
-    return loginResponseDTO;
+  loadToken(): LoginResponseDTO | null {
+    const token = localStorage.getItem('auth_token');
+    if (token !== null) {
+      const loginResponseDTO: LoginResponseDTO = {
+        token,
+      };
+      return loginResponseDTO;
+    } else {
+      return null;
+    }
   }
 
   // Stores the user token in the local storage

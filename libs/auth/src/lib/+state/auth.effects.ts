@@ -35,7 +35,9 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess),
         map(({ loginResponseDTO }) => {
-          this.authService.storeToken(loginResponseDTO.token);
+          if (loginResponseDTO.token !== undefined) {
+            this.authService.storeToken(loginResponseDTO.token);
+          }
         })
       ),
     { dispatch: false }
@@ -45,9 +47,14 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loadAuth),
       map(() => {
-        return AuthActions.loginSuccess({
-          loginResponseDTO: this.authService.loadToken(),
-        });
+        const loginResponseDTO = this.authService.loadToken();
+        if (loginResponseDTO !== null) {
+          return AuthActions.loginSuccess({ loginResponseDTO });
+        } else {
+          return AuthActions.loginFailure({
+            error: { message: 'Token is undefined' },
+          });
+        }
       })
     )
   );
@@ -56,11 +63,17 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
       map(({ loginResponseDTO }) => {
-        return AuthActions.decodeTokenSuccsess({
-          accountLoginDTO: this.decodeTokenService.decodeToken(
-            loginResponseDTO.token
-          ),
-        });
+        if (loginResponseDTO.token !== undefined) {
+          return AuthActions.decodeTokenSuccsess({
+            accountLoginDTO: this.decodeTokenService.decodeToken(
+              loginResponseDTO.token
+            ),
+          });
+        } else {
+          return AuthActions.loginFailure({
+            error: { message: 'Token is undefined' },
+          });
+        }
       })
     )
   );

@@ -7,8 +7,7 @@
           <party-time-loading-circle></party-time-loading-circle>
         </div>
         <p
-          class="m-10 h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:pt-5 lg:text-6xl"
-        >
+          class="m-10 h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:pt-5 lg:text-6xl">
           Login wird durchgeführt
         </p>
       </div>
@@ -16,8 +15,7 @@
     <ng-template #error>
       <div class="grid h-screen place-items-center">
         <div
-          class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
-        >
+          class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
           <p class="">Hey!</p>
           <p>Wir konnten dich leider nicht einloggen.</p>
           <p>Status: {{ authState.error?.status }}</p>
@@ -26,24 +24,21 @@
             <p class="text-error-light dark:text-error-dark">
               {{ authState.error?.message }}
             </p>
-            <li
-              class="text-error-light dark:text-error-dark"
-              *ngFor="let error of authState.error?.additionalInformation"
-            >
+            <li class="text-error-light dark:text-error-dark"
+              *ngFor="let error of authState.error?.additionalInformation">
               {{ error['name'] }} {{ error['message'] }}
             </li>
           </div>
+          <party-time-primary-button name="Nochmal Probieren" (clicked)="resetError()"></party-time-primary-button>
         </div>
       </div>
     </ng-template>
     <div *ngIf="authState.isAuthenticated; else error">
       <div class="grid h-screen place-items-center">
         <div
-          class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
-        >
+          class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
           <p
-            class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
-          >
+            class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark">
             Hey!
           </p>
           <p>Du wurdest erfolgreich eingeloggt.</p>
@@ -51,51 +46,32 @@
       </div>
     </div>
   </ng-template>
-  <div
-    *ngIf="
-      !authState.loading && !authState.isAuthenticated && !authState.error;
+  <div *ngIf="
+      !authState.loading && !authState.isAuthenticated && !authState.error?.status;
       else authdone
-    "
-  >
+    ">
     <h1
-      class="m-10 h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:pt-5 lg:text-6xl"
-    >
+      class="m-10 h-full text-3xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-5xl lg:pt-5 lg:text-6xl">
       Login
     </h1>
     <form class="" (ngSubmit)="(onSubmit)" [formGroup]="loginForm">
       <div class="flex justify-center pl-12 pr-12 pt-12">
         <div class="w-96">
           <section>
-            <label
-              for=" email"
-              class="mt-5 block text-sm font-medium leading-6 text-on-primary-container-light dark:text-on-primary-container-dark"
-            >
-              E-Mail</label
-            >
+            <label for=" email"
+              class="mt-5 block text-sm font-medium leading-6 text-on-primary-container-light dark:text-on-primary-container-dark">
+              E-Mail</label>
             <div
-              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
-            >
-              <input
-                type="email"
-                name="email"
-                id="email"
-                autocomplete="email"
-                required
-                formControlName="email"
+              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
+              <input type="email" name="email" id="email" autocomplete="email" required formControlName="email"
                 class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-                placeholder="z. B. manfred@partytime.com"
-              />
+                placeholder="z. B. manfred@partytime.com" />
             </div>
-            <div
-              *ngIf="
+            <div *ngIf="
                 f['email'].errors && (f['email'].dirty || f['email'].touched)
-              "
-            >
+              ">
               <div *ngIf="f['email'].errors['required']">
-                <div
-                  class="flex text-error-light dark:text-error-dark"
-                  role=" alert"
-                >
+                <div class="flex text-error-light dark:text-error-dark" role=" alert">
                   <div class="text-sm font-medium">
                     Bitte gib deine E-Mail Adresse ein.
                   </div>
@@ -104,37 +80,22 @@
             </div>
           </section>
           <section>
-            <label
-              for="password"
-              class="mt-5 block text-sm font-medium leading-6 text-on-primary-container-light dark:text-on-primary-container-dark"
-            >
-              Password</label
-            >
+            <label for="password"
+              class="mt-5 block text-sm font-medium leading-6 text-on-primary-container-light dark:text-on-primary-container-dark">
+              Password</label>
             <div
-              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
-            >
-              <input
-                type="password"
-                name="password"
-                id="password"
-                autocomplete="new-password"
-                required
+              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
+              <input type="password" name="password" id="password" autocomplete="new-password" required
                 formControlName="password"
-                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-              />
+                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6" />
             </div>
 
-            <div
-              *ngIf="
+            <div *ngIf="
                 f['password'].errors &&
                 (f['password'].dirty || f['password'].touched)
-              "
-            >
+              ">
               <div *ngIf="f['password'].errors['required']">
-                <div
-                  class="flex text-error-light dark:text-error-dark"
-                  role=" alert"
-                >
+                <div class="flex text-error-light dark:text-error-dark" role=" alert">
                   <div class="text-sm font-medium">
                     Bitte gib dein Passwort ein.
                   </div>
@@ -143,12 +104,8 @@
             </div>
           </section>
           <div class="flex w-full place-content-end pt-7">
-            <party-time-primary-button
-              (clicked)="onSubmit()"
-              [disabled]="!loginForm.valid"
-              type="button"
-              name="Anmelden"
-            ></party-time-primary-button>
+            <party-time-primary-button (clicked)="onSubmit()" [disabled]="!loginForm.valid" type="button"
+              name="Anmelden"></party-time-primary-button>
           </div>
         </div>
       </div>
