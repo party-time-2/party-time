@@ -9,9 +9,5 @@ export const changeRoutes: Route[] = [
   {
     path: '',
     component: ChangeComponent,
-    providers: [
-      provideState(fromChange.CHANGE_FEATURE_KEY, fromChange.changeReducer),
-      provideEffects(ChangeEffects),
-    ],
   },
 ];
