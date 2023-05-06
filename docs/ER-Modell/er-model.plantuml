@@ -24,10 +24,20 @@ entity Event {
     * organizer_id: bigint <<User FK>>
     * name: character varying(255)
     * dateTime: timestamp
-    * address: character varying(255)
+    * address: bigint <<Address FK>>
+}
+
+entity Address {
+    * id: bigint <<generated>>
+    --
+    * streetAndHouseNumber: character varying(255)
+    * plz: character varying(255)
+    * ort: character varying(255)
+    * country: character varying(255)
 }
 
 User ||--o{ Event
 User }o--o{ EventParticipant
 EventParticipant }o--o{ Event
+Event }o--|| Address
 @enduml
