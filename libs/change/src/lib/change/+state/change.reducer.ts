@@ -3,8 +3,6 @@ import { Action, createReducer, on } from '@ngrx/store';
 import { ApiError } from '@party-time/models';
 import * as ChangeActions from './change.actions';
 
-export const CHANGE_FEATURE_KEY = 'change';
-
 export interface ChangeStateInterface {
   changeRequestDTO: null;
   isLoading: boolean;

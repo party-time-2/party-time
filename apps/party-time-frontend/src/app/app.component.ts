@@ -1,20 +1,14 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { decodeTokenSuccsess, initAuthPage, loadAuth } from '@party-time/auth';
+import { AuthStore } from '@party-time/auth';
 import { IGoup, ILink, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
-import {
-  selectAccountLoginDTO,
-  selectAuthState,
-  selectLoginResponseDTOToken,
-  selectedIsAuthenticated,
-} from 'libs/auth/src/lib/+state/auth.selectors';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
+  providers: [AuthStore],
   selector: 'party-time-root',
   template: `
     <div class="w-screen max-w-full">
@@ -26,6 +20,9 @@ import {
       <main
         class="min-h-screen bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
       >
+        <ng-component *ngIf="vm$ | async as vm">
+          <pre>{{ vm | json }}</pre>
+        </ng-component>
         <router-outlet></router-outlet>
       </main>
     </div>
@@ -39,7 +36,7 @@ import {
 export class AppComponent implements OnInit {
   title = 'party-time-frontend';
 
-  store = inject(Store);
+  vm$ = inject(AuthStore).vm$;
 
   public logo: ILogo = {
     src: '/assets/ballon.png',
@@ -71,10 +68,8 @@ export class AppComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.store.dispatch(loadAuth());
-
-    this.store.select(selectedIsAuthenticated).subscribe((isAuthenticated) => {
-      if (isAuthenticated) {
+    this.vm$.subscribe((vm) => {
+      if (vm.isAuthenticated) {
         this.registerProfileLink.name = 'Profil';
         this.registerProfileLink.routerLink = 'profil/change';
         this.loginLogoutLink.name = 'Logout';

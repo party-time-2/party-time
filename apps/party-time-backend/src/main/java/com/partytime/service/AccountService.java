@@ -16,7 +16,7 @@ public class AccountService {
 
     public Account getAccount(String email) {
         return optAccount(email)
-            .orElseThrow(() -> ApiError.notFound("Es kann kein Account mit dieser Mail gefunden werden").asException());
+            .orElseThrow(() -> ApiError.notFound("Es kann kein Account mit dieser E-Mail gefunden werden.").asException());
     }
 
     public Optional<Account> optAccount(String email) {

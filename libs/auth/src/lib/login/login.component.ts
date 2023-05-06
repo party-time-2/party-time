@@ -1,13 +1,16 @@
 //implements F011
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
+import {
+  LoadingCircleComponent,
+  MainHeaderComponent,
+  PrimaryButtonComponent,
+  PrimaryErrorComponent,
+  PrimaryLabelComponent,
+} from '@party-time/ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { selectAuthState } from '../+state/auth.selectors';
-import { Store } from '@ngrx/store';
-import { initAuthPage, login, resetError } from '../+state/auth.actions';
 import { LoginRequestDTO } from '@party-time/models';
+import { AuthStore } from '../+state/auth.state';
 @Component({
   selector: 'party-time-login',
   standalone: true,
@@ -16,42 +19,33 @@ import { LoginRequestDTO } from '@party-time/models';
     PrimaryButtonComponent,
     LoadingCircleComponent,
     ReactiveFormsModule,
+    MainHeaderComponent,
+    PrimaryLabelComponent,
+    PrimaryErrorComponent,
   ],
+  providers: [AuthStore],
   templateUrl: './login.component.html',
-  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
-  authState$ = this.store.select(selectAuthState);
-
-  loginRequestDTO = {
-    email: '',
-    password: '',
-  };
+export class LoginComponent {
+  vm$ = this.authStore.vm$;
 
   loginForm = this.formBuilder.group({
-    email: [this.loginRequestDTO.email, [Validators.required]],
-    password: [this.loginRequestDTO.password, Validators.required],
+    email: ['', [Validators.required]],
+    password: ['', Validators.required],
   });
 
   get f(): { [key: string]: any } {
     return this.loginForm.controls;
   }
 
-  ngOnInit(): void {
-    this.store.dispatch(initAuthPage());
-  }
-
-  resetError() {
-    this.store.dispatch(resetError());
-  }
-
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value as LoginRequestDTO;
-      this.store.dispatch(login({ loginRequestDTO: { email, password } }));
+      this.authStore.getAccountLoginDTO(
+        this.loginForm.getRawValue() as LoginRequestDTO
+      );
     }
   }
 
-  constructor(private store: Store, private formBuilder: FormBuilder) {}
+  constructor(private authStore: AuthStore, private formBuilder: FormBuilder) {}
 }

@@ -1,16 +1,10 @@
-/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { initChangePage, loadChangePassword } from './+state/change.actions';
-import * as changeSelectors from './+state/change.selectors';
-import { selectAuthState } from 'libs/auth/src/lib/+state/auth.selectors';
 import { ChangePasswordDTO } from '@party-time/models';
-import { LetModule, PushModule, PushPipe } from '@ngrx/component';
-import { selectChangeState } from './+state/change.selectors';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'party-time-change',
@@ -20,18 +14,12 @@ import { combineLatest } from 'rxjs';
     PrimaryButtonComponent,
     LoadingCircleComponent,
     ReactiveFormsModule,
-    LetModule,
   ],
   templateUrl: './change.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangeComponent implements OnInit {
-  vm$ = combineLatest({
-    authState: this.store.select(selectAuthState),
-    changeState: this.store.select(selectChangeState),
-  });
-
   changeRequestDTO = {
     oldPassword: '',
     newPassword: '',

@@ -1,19 +1,16 @@
 //implements F011
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Injectable, inject } from '@angular/core';
 import { LoginRequestDTO, LoginResponseDTO } from '@party-time/models';
-import { Observable, map } from 'rxjs';
-import { selectAuthState } from '../+state/auth.selectors';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
-  loginPath = '/api/auth/login';
+  private loginPath = '/api/auth/login';
 
   // Logs in a user
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {

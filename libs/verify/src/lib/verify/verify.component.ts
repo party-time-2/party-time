@@ -2,17 +2,20 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { selectVerifyState } from '../+state/verify.selectors';
-import { verify } from '../+state/verify.actions';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
+import {
+  LoadingCircleComponent,
+  MainHeaderComponent,
+  PrimaryButtonComponent,
+  PrimaryErrorComponent,
+  PrimaryLabelComponent,
+} from '@party-time/ui';
 import {
   AbstractControl,
   FormBuilder,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { VerifyStore } from '../+state/verify.state';
 
 @Component({
   selector: 'party-time-verify',
@@ -22,19 +25,20 @@ import {
     PrimaryButtonComponent,
     ReactiveFormsModule,
     LoadingCircleComponent,
+    MainHeaderComponent,
+    PrimaryLabelComponent,
+    PrimaryErrorComponent,
   ],
+  providers: [VerifyStore],
   templateUrl: './verify.component.html',
-  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerifyComponent implements OnInit {
-  token: string | null = null;
-  // select verify state from the store
-  verifyState$ = this.store.select(selectVerifyState);
+  vm$ = this.verifyStore.vm$;
 
   verifyForm = this.formBuilder.group({
     token: [
-      this.token,
+      '',
       [
         Validators.required,
         Validators.pattern(
@@ -44,28 +48,24 @@ export class VerifyComponent implements OnInit {
     ],
   });
 
-  constructor(
-    private store: Store,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) {
-    this.token = this.route.snapshot?.url[0]?.path;
-    this.verifyForm.controls.token.setValue(this.token);
-  }
-
   ngOnInit(): void {
-    if (this.token) {
-      this.onSubmit();
-    }
+    this.onSubmit();
   }
 
-  /// convenience getter for easy access to form fields
   get f(): { [key: string]: AbstractControl } {
     return this.verifyForm.controls;
   }
   onSubmit(): void {
-    if (this.verifyForm.value.token && this.verifyForm.valid) {
-      this.store.dispatch(verify({ token: this.verifyForm.value.token }));
+    if (this.verifyForm.valid) {
+      this.verifyStore.getVerified(this.verifyForm.value.token as string);
     }
+  }
+  constructor(
+    private verifyStore: VerifyStore,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
+  ) {
+    const token = this.route.snapshot?.url[0]?.path;
+    this.verifyForm.controls.token.setValue(token);
   }
 }

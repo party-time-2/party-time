@@ -36,7 +36,17 @@ import { RouterModule } from '@angular/router';
             hover:dark:text-on-primary-container-light
           "
   >
-    {{ name }}
+    <ng-container *ngIf="!isLoading; else loading">
+      {{ name }}
+    </ng-container>
+    <ng-template #loading>
+      <div class="flex items-center justify-center">
+        <div
+          class="mr-5 h-5 w-5 animate-spin rounded-full border-b-2 border-primary-container-light"
+        ></div>
+        {{ lodingMessage }}
+      </div>
+    </ng-template>
   </button>`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,6 +56,8 @@ export class PrimaryButtonComponent {
   @Input() routerLink!: string;
   @Input() type!: string;
   @Input() disabled = false;
+  @Input() isLoading = false;
+  @Input() lodingMessage = 'Laden...';
   @Output()
   clicked = new EventEmitter();
 }
