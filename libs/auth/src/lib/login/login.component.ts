@@ -11,6 +11,7 @@ import {
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequestDTO } from '@party-time/models';
 import { AuthStore } from '../+state/auth.state';
+import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
 @Component({
   selector: 'party-time-login',
   standalone: true,
@@ -23,12 +24,13 @@ import { AuthStore } from '../+state/auth.state';
     PrimaryLabelComponent,
     PrimaryErrorComponent,
   ],
-  providers: [AuthStore],
+  providers: [ComponentStore],
   templateUrl: './login.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   vm$ = this.authStore.vm$;
+  returnUrl = '';
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required]],

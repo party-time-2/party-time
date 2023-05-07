@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
+import { getRouterSelectors } from '@ngrx/router-store';
+import { Store } from '@ngrx/store';
 import { AuthStore } from '@party-time/auth';
 import { IGoup, ILink, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
@@ -8,8 +11,8 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
 @Component({
   standalone: true,
   imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
-  providers: [AuthStore],
   selector: 'party-time-root',
+  providers: [ComponentStore],
   template: `
     <div class="w-screen max-w-full">
       <party-time-navbar
@@ -20,9 +23,7 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
       <main
         class="min-h-screen bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
       >
-        <ng-component *ngIf="vm$ | async as vm">
-          <pre>{{ vm | json }}</pre>
-        </ng-component>
+        <pre>{{ vm$ | async | json }}</pre>
         <router-outlet></router-outlet>
       </main>
     </div>
@@ -36,7 +37,7 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
 export class AppComponent implements OnInit {
   title = 'party-time-frontend';
 
-  vm$ = inject(AuthStore).vm$;
+  vm$ = this.authStore.vm$;
 
   public logo: ILogo = {
     src: '/assets/ballon.png',
@@ -71,10 +72,12 @@ export class AppComponent implements OnInit {
     this.vm$.subscribe((vm) => {
       if (vm.isAuthenticated) {
         this.registerProfileLink.name = 'Profil';
-        this.registerProfileLink.routerLink = 'profil/change';
+        this.registerProfileLink.routerLink = 'profile/change';
         this.loginLogoutLink.name = 'Logout';
         this.loginLogoutLink.routerLink = 'auth/logout';
       }
     });
   }
+
+  constructor(private authStore: AuthStore, private store: Store) {}
 }

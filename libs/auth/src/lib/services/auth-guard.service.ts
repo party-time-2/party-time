@@ -1,26 +1,39 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
+import { AuthStore } from '../+state/auth.state';
+import { getRouterSelectors } from '@ngrx/router-store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuardService {
-  //authState$ = this.store.select(selectAuthState);
+  routerStore$ = inject(Store).select(getRouterSelectors().selectUrl);
+  vm$ = inject(AuthStore).vm$;
+  returnUrl = '';
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+    private authState: AuthStore
+  ) {}
 
-  // canActivate(): Observable<boolean> {
-  //   return this.authState$.pipe(
-  //     map((authState) => {
-  //       if (authState.isAuthenticated) {
-  //         return true;
-  //       }
-  //       // Redirect to the login page
-  //       this.router.navigate(['/auth/login']);
-  //       return false;
-  //     })
-  //   );
-  // }
+  canActivate() {
+    this.routerStore$.subscribe((url) => {
+      this.returnUrl = url;
+    });
+
+    return this.vm$.pipe(
+      map((state) => {
+        if (state.isAuthenticated) {
+          return true;
+        } else {
+          this.authState.setReturnUrl([this.returnUrl]);
+          this.router.navigate(['auth/login']);
+          return false;
+        }
+      })
+    );
+  }
 }

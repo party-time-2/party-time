@@ -3,10 +3,10 @@ import { AuthGuardService } from '@party-time/auth';
 
 export const appRoutes: Route[] = [
   {
-    path: 'profil/change',
+    path: 'profile/change',
     loadChildren: () =>
       import('@party-time/change').then((m) => m.changeRoutes),
-    //canActivate: [AuthGuardService],
+    canActivate: [AuthGuardService],
   },
   {
     path: 'auth/login',

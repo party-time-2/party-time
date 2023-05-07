@@ -8,14 +8,17 @@ import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { provideHttpClient } from '@angular/common/http';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
+import { provideStore } from '@ngrx/store';
 
 bootstrapApplication(AppComponent, {
   providers: [
     //provideEffects(AuthEffects),
-    //provideStore({ auth: authReducer, change: changeReducer }),
+    provideStore({ router: routerReducer }),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(StoreDevtoolsModule.instrument()),
     provideHttpClient(),
+    provideRouterStore(),
     // provideHttpClient(withInterceptors([authInterceptor])),
   ],
 }).catch((err) => console.error(err));
