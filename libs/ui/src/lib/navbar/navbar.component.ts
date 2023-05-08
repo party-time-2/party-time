@@ -17,6 +17,7 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
         <party-time-logo [logo]="logo"></party-time-logo>
         <div class="flex md:order-2">
           <party-time-primary-button
+            id="cta"
             *ngIf="cta.routerLink"
             [routerLink]="cta.routerLink"
             [name]="cta.name"

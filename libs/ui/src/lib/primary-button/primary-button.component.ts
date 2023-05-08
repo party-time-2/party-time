@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
     (click)="clicked.emit()"
     [disabled]="disabled"
     [type]="type"
+    [id]="id"
     class="
             h-9
             rounded-lg
@@ -58,6 +59,8 @@ export class PrimaryButtonComponent {
   @Input() disabled = false;
   @Input() isLoading = false;
   @Input() lodingMessage = 'Laden...';
+  @Input()
+  id: string | Math = Math.random().toString();
   @Output()
   clicked = new EventEmitter();
 }

@@ -124,15 +124,9 @@
               <party-time-primary-error [error]="vm.error?.error?.message" />
             </div>
 
-            <party-time-primary-button
-              lodingMessage="Regestriere"
-              [isLoading]="vm.isLoading"
-              (clicked)="onSubmit()"
-              id="register"
-              [disabled]="!registerForm.valid || vm.isLoading"
-              type="button"
-              name="Regestrieren"
-            />
+            username lodingMessage="Regestriere" [isLoading]="vm.isLoading"
+            (clicked)="onSubmit()" id="register" [disabled]="!registerForm.valid
+            || vm.isLoading" type="button" name="Regestrieren" />
           </div>
         </div>
       </div>
@@ -156,10 +150,7 @@
         </p>
       </div>
     </div>
-    <party-time-primary-button
-      class="flex justify-center pt-12"
-      routerLink="/auth/verify"
-      name="Zur Verifikation"
-    />
+    username class="flex justify-center pt-12" routerLink="/auth/verify"
+    name="Zur Verifikation" />
   </ng-template>
 </ng-container>

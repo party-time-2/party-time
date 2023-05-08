@@ -70,15 +70,9 @@
               <party-time-primary-error [error]="vm.error?.error?.message" />
             </div>
 
-            <party-time-primary-button
-              lodingMessage="Login"
-              [isLoading]="vm.isLoading"
-              (clicked)="onSubmit()"
-              id="Login"
-              [disabled]="!loginForm.valid || vm.isLoading"
-              type="button"
-              name="Anmelden"
-            />
+            username lodingMessage="Login" [isLoading]="vm.isLoading"
+            (clicked)="onSubmit()" id="Login" [disabled]="!loginForm.valid ||
+            vm.isLoading" type="button" name="Anmelden" />
           </div>
         </div>
       </div>

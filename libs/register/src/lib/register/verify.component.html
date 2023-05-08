@@ -41,15 +41,9 @@
               <party-time-primary-error [error]="vm.error?.error?.message" />
             </div>
 
-            <party-time-primary-button
-              lodingMessage="Verifiziere"
-              [isLoading]="vm.isLoading"
-              (clicked)="onSubmit()"
-              id="verify"
-              [disabled]="!verifyForm.valid || vm.isLoading"
-              type="button"
-              name="Verifizieren"
-            />
+            username lodingMessage="Verifiziere" [isLoading]="vm.isLoading"
+            (clicked)="onSubmit()" id="verify" [disabled]="!verifyForm.valid ||
+            vm.isLoading" type="button" name="Verifizieren" />
           </div>
         </div>
       </div>
@@ -69,11 +63,7 @@
         <p>Du kannst dich nun einloggen</p>
       </div>
     </div>
-    <party-time-primary-button
-      class="flex justify-center pt-12"
-      routerLink="/auth/login"
-      id="login"
-      name="Zum Login"
-    />
+    username class="flex justify-center pt-12" routerLink="/auth/login"
+    id="login" name="Zum Login" />
   </ng-template>
 </ng-container>
