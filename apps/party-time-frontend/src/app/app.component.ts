@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
-import { getRouterSelectors } from '@ngrx/router-store';
+import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
 import { AuthStore } from '@party-time/auth';
 import { IGoup, ILink, ILogo } from '@party-time/models';
@@ -23,7 +22,6 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
       <main
         class="min-h-screen bg-gradient-to-b from-background-light to-surface-variant-light dark:from-background-dark dark:to-surface-variant-dark"
       >
-        <pre>{{ vm$ | async | json }}</pre>
         <router-outlet></router-outlet>
       </main>
     </div>

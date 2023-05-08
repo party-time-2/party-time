@@ -57,6 +57,7 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
             <li *ngFor="let link of links">
               <button
                 [routerLink]="link.routerLink"
+                (click)="closeMenu()"
                 class="block py-2 pl-3 pr-4 hover:text-on-surface-variant-light hover:underline dark:hover:text-on-secondary-light md:p-0 "
                 aria-current="page"
               >
@@ -83,5 +84,9 @@ export class NavbarComponent {
 
   toggleMenu(): void {
     this.showMenu = !this.showMenu;
+  }
+
+  closeMenu(): void {
+    this.showMenu = false;
   }
 }

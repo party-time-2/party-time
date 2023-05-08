@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
-  LoadingCircleComponent,
   MainHeaderComponent,
   PrimaryButtonComponent,
   PrimaryErrorComponent,
@@ -24,7 +23,6 @@ import { VerifyStore } from '../+state/verify.state';
     CommonModule,
     PrimaryButtonComponent,
     ReactiveFormsModule,
-    LoadingCircleComponent,
     MainHeaderComponent,
     PrimaryLabelComponent,
     PrimaryErrorComponent,

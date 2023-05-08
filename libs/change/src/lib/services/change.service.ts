@@ -11,7 +11,6 @@ export class ChangeService {
   changePath = '/api/auth/change';
 
   changePassword(changeRequestDTO: ChangePasswordDTO) {
-    console.log(changeRequestDTO);
     return this.http.post(this.changePath, changeRequestDTO);
   }
 }

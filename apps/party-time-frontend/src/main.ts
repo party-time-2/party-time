@@ -7,9 +7,10 @@ import { appRoutes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideStore } from '@ngrx/store';
+import { authInterceptor } from '@party-time/auth';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -17,8 +18,7 @@ bootstrapApplication(AppComponent, {
     provideStore({ router: routerReducer }),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(StoreDevtoolsModule.instrument()),
-    provideHttpClient(),
     provideRouterStore(),
-    // provideHttpClient(withInterceptors([authInterceptor])),
+    provideHttpClient(withInterceptors([authInterceptor])),
   ],
 }).catch((err) => console.error(err));

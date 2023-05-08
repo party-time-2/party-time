@@ -1,9 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
+import {
+  MainHeaderComponent,
+  PrimaryButtonComponent,
+  PrimaryErrorComponent,
+  PrimaryLabelComponent,
+} from '@party-time/ui';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { initChangePage, loadChangePassword } from './+state/change.actions';
+import { ChangeStore } from './+state/change.state';
 import { ChangePasswordDTO } from '@party-time/models';
 
 @Component({
@@ -12,23 +16,21 @@ import { ChangePasswordDTO } from '@party-time/models';
   imports: [
     CommonModule,
     PrimaryButtonComponent,
-    LoadingCircleComponent,
     ReactiveFormsModule,
+    MainHeaderComponent,
+    PrimaryErrorComponent,
+    PrimaryLabelComponent,
   ],
+  providers: [ChangeStore],
   templateUrl: './change.component.html',
-  styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeComponent implements OnInit {
-  changeRequestDTO = {
-    oldPassword: '',
-    newPassword: '',
-  };
-
+export class ChangeComponent {
+  vm$ = this.changeStore.vm$;
   changeForm = this.formBuilder.group({
-    oldPassword: [this.changeRequestDTO.oldPassword, Validators.required],
+    oldPassword: ['', Validators.required],
     newPassword: [
-      this.changeRequestDTO.newPassword,
+      '',
       [
         Validators.required,
         Validators.minLength(8),
@@ -53,17 +55,14 @@ export class ChangeComponent implements OnInit {
 
   onSubmit(): void {
     if (this.changeForm.valid) {
-      const { oldPassword, newPassword } = this.changeForm
-        .value as ChangePasswordDTO;
-      this.store.dispatch(
-        loadChangePassword({ changePasswordDTO: { oldPassword, newPassword } })
+      this.changeStore.getPasswordChanged(
+        this.changeForm.getRawValue() as ChangePasswordDTO
       );
     }
   }
 
-  constructor(private formBuilder: FormBuilder, private store: Store) {}
-
-  ngOnInit(): void {
-    this.store.dispatch(initChangePage());
-  }
+  constructor(
+    private changeStore: ChangeStore,
+    private formBuilder: FormBuilder
+  ) {}
 }

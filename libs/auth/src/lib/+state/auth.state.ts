@@ -106,6 +106,7 @@ export class AuthStore extends ComponentStore<AuthStateInterface> {
                 this.setLoginResponseDTO(loginResponseDTO);
                 this.setIsLoading(false);
                 this.setIsAuthenticated(true);
+                this.saveTokenToLocalStorage();
                 this.returnToUrl();
               },
               (error: ApiError) => {
@@ -118,6 +119,21 @@ export class AuthStore extends ComponentStore<AuthStateInterface> {
       )
   );
 
+  loadTokenFromLocalStorage() {
+    const loginResponseDTO = this.authService.loadToken();
+    if (loginResponseDTO && loginResponseDTO.token) {
+      this.setLoginRequestDTO(loginResponseDTO);
+      this.setIsAuthenticated(true);
+    }
+  }
+
+  saveTokenToLocalStorage() {
+    this.loginResponseDTO$.subscribe((loginResponseDTO) => {
+      if (loginResponseDTO?.token)
+        this.authService.storeToken(loginResponseDTO.token);
+    });
+  }
+
   returnToUrl() {
     this.returnUrl$.subscribe((url) => {
       if (url) {
@@ -128,5 +144,6 @@ export class AuthStore extends ComponentStore<AuthStateInterface> {
 
   constructor(private authService: AuthService, private router: Router) {
     super(initialState);
+    this.loadTokenFromLocalStorage();
   }
 }

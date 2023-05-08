@@ -2,7 +2,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  LoadingCircleComponent,
   MainHeaderComponent,
   PrimaryButtonComponent,
   PrimaryErrorComponent,
@@ -11,14 +10,13 @@ import {
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginRequestDTO } from '@party-time/models';
 import { AuthStore } from '../+state/auth.state';
-import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
+import { ComponentStore } from '@ngrx/component-store';
 @Component({
   selector: 'party-time-login',
   standalone: true,
   imports: [
     CommonModule,
     PrimaryButtonComponent,
-    LoadingCircleComponent,
     ReactiveFormsModule,
     MainHeaderComponent,
     PrimaryLabelComponent,
@@ -30,7 +28,6 @@ import { ComponentStore, provideComponentStore } from '@ngrx/component-store';
 })
 export class LoginComponent {
   vm$ = this.authStore.vm$;
-  returnUrl = '';
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required]],

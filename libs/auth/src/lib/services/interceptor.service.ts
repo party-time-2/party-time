@@ -1,22 +1,23 @@
 //implements F011
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthStore } from '../+state/auth.state';
+import { mergeMap } from 'rxjs';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  //const store$ = inject(Store);
+  const vm$ = inject(AuthStore).vm$;
 
-  //let token = null;
+  return vm$.pipe(
+    mergeMap((vm) => {
+      const authReq = vm.loginResponseDTO?.token
+        ? req.clone({
+            setHeaders: {
+              Authorization: vm.loginResponseDTO.token,
+            },
+          })
+        : req;
 
-  // store$.select(selectLoginResponseDTOToken).subscribe((storedToken) => {
-  //   token = storedToken;
-  // });
-
-  // if (token) {
-  //   req = req.clone({
-  //     setHeaders: {
-  //       Authorization: token,
-  //     },
-  //   });
-  // }
-
-  return next(req);
+      return next(authReq);
+    })
+  );
 };

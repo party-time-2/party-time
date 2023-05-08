@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <label
-      [for]="id"
       class="mt-5 block text-sm font-medium leading-6 text-on-primary-container-light dark:text-on-primary-container-dark"
     >
       {{ label }}</label
@@ -17,5 +16,4 @@ import { CommonModule } from '@angular/common';
 })
 export class PrimaryLabelComponent {
   @Input() label: string | undefined;
-  @Input() id: string | undefined;
 }
