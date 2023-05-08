@@ -39,7 +39,7 @@ public class AuthService {
     public Account registerAccount(AccountRegisterDTO accountRegisterDTO) {
         if (accountRepository.existsByEmail(accountRegisterDTO.getEmail())) {
             // Account already exists!
-            throw ApiError.badRequest("Ein Account mit dieser Email existiert bereits!")
+            throw ApiError.badRequest("Ein Account mit dieser E-Mail existiert bereits!")
                 .asException();
         }
         Account account = Account.builder()
@@ -70,7 +70,7 @@ public class AuthService {
     @Transactional
     public void verifyAccount(String emailVerificationCode) {
         Account account = accountRepository.findByEmailVerificationCode(emailVerificationCode)
-            .orElseThrow(() -> ApiError.badRequest("Email Verifizierung fehlgeschlagen").asException());
+            .orElseThrow(() -> ApiError.badRequest("E-Mail Verifizierung fehlgeschlagen").asException());
         account.setEmailVerified(true);
         account.setEmailVerificationCode(null);
         accountRepository.save(account);

@@ -31,7 +31,8 @@ describe('party-time-verify', () => {
     );
     cy.get('#token').type(verifyToken());
     cy.get('.w-full > party-time-primary-button > .h-9').click();
-    cy.contains('Dein Account wurde verifiziert.');
+    cy.contains('Du kannst dich nun einloggen');
+    cy.contains('Zum Login');
     cy.screenshot();
   });
   it('should show verify_error', () => {
@@ -53,7 +54,7 @@ describe('party-time-verify', () => {
     );
     cy.get('#token').type(verifyToken());
     cy.get('.w-full > party-time-primary-button > .h-9').click();
-    cy.contains('Dein Account konnte leider nicht verifiziert werden.');
+    cy.contains('Email Verifizierung fehlgeschlagen');
     cy.screenshot();
   });
 });

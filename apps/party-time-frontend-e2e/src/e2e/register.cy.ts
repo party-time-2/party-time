@@ -3,22 +3,20 @@ import { navigateRegister } from '../support/app.po';
 describe('party-time-register-error-user', () => {
   it('should show user_too_short', () => {
     navigateRegister();
-    cy.get('#name').type('a');
+    cy.get('#username').type('a');
     cy.contains('Der Benutzername muss mindestens 5 Zeichen lang sein.');
     cy.screenshot();
   });
   it('should show user_too_long', () => {
     navigateRegister();
-    cy.get('#name').type(
-      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-    );
+    cy.get('#username').type('ssssssssssssssssssssssssssssssssssssssss');
     cy.contains('Der Benutzername darf maximal 30 Zeichen lang sein.');
     cy.screenshot();
   });
   it('should show user_required', () => {
     navigateRegister();
-    cy.get('#name').type('a');
-    cy.get('#name').clear();
+    cy.get('#username').type('a');
+    cy.get('#username').clear();
     cy.contains('Bitte gib einen Benutzernamen ein.');
     cy.screenshot();
   });
@@ -95,15 +93,15 @@ describe('party-time-register', () => {
         },
       }
     );
-    cy.get('#name').type(dateTime);
+    cy.get('#username').type(dateTime);
     cy.get('#email').type(dateTime + '@test.de');
     cy.get('#password').type('Hallo123!nbasmdnbasd');
     cy.get('.w-full > party-time-primary-button > .h-9').click();
-    cy.contains('Hey ' + dateTime + '!');
-    cy.contains('Dein Account wurde erstellt');
+    cy.contains('Account erstellt');
     cy.contains(
       'Bitte bestätige deine E-Mail Adresse ' + dateTime + '@test.de'
     );
+    cy.contains('Zur Verifikation');
     cy.screenshot();
   });
 
@@ -120,23 +118,19 @@ describe('party-time-register', () => {
         body: {
           status: 'BAD_REQUEST',
           timestamp: '',
-          message: 'Ein Account mit dieser Email existiert bereits!',
+          message: 'Ein Account mit dieser E-Mail existiert bereits!',
         },
         headers: {
           'access-control-allow-origin': '*',
         },
       }
     );
-    cy.get('#name').type(dateTime);
+    cy.get('#username').type(dateTime);
     cy.get('#email').type(dateTime + '@test.de');
     cy.get('#password').type('Hallo123!nbasmdnbasd');
     cy.get('.w-full > party-time-primary-button > .h-9').click();
 
-    cy.contains('Hey!');
-    cy.contains('Dein Account konnte leider nicht erstellt werden');
-    cy.contains('Status: BAD_REQUEST');
-    cy.contains('Fehler:');
-    cy.contains('Ein Account mit dieser Email existiert bereits!');
+    cy.contains('Ein Account mit dieser E-Mail existiert bereits!');
     cy.screenshot();
   });
 });
