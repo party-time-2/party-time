@@ -10,6 +10,7 @@ import {
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ChangeStore } from './+state/change.state';
 import { ChangePasswordDTO } from '@party-time/models';
+import { ChangeService } from '../services/change.service';
 
 @Component({
   selector: 'party-time-change',
@@ -22,7 +23,7 @@ import { ChangePasswordDTO } from '@party-time/models';
     PrimaryErrorComponent,
     PrimaryLabelComponent,
   ],
-  providers: [ChangeStore],
+  providers: [ChangeStore, ChangeService],
   templateUrl: './change.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

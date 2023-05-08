@@ -21,8 +21,6 @@ describe('party-time-change-error', () => {
     cy.get('#current-password').clear();
     cy.contains('Bitte gib dein aktuelles Passwort ein.');
     cy.screenshot();
-    // cy.get('#new-password');
-    // cy.get('party-time-primary-button > #change')
   });
 
   it('should show pw_new_required', () => {
