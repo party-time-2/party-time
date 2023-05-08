@@ -7,6 +7,7 @@ import {
   pw_short,
   pw_wrong_chars_error,
   pw_valid,
+  pw_wrong_chars,
 } from '../support/app.po';
 
 describe('party-time-change-error', () => {
@@ -46,7 +47,7 @@ describe('party-time-change-error', () => {
   });
 
   it('should show pw_new_wrong_chars', () => {
-    cy.get('#new-password').type(pw_short());
+    cy.get('#new-password').type(pw_wrong_chars());
     cy.contains(pw_wrong_chars_error());
     cy.screenshot();
   });

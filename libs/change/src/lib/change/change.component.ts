@@ -1,3 +1,4 @@
+//implements F013
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
