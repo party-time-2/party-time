@@ -15,14 +15,17 @@ repeat
         |Frontend Validator|
         :Prüfe altes Passwort eingegeben;
         backward:Leeres altes Passwort Feld markieren;
+        note right
+            pw_old_required: Bitte gib dein aktuelles Passwort ein.
+        end note
     repeat while () is (Altes Passwort nicht eingegeben) not (Altes Passwort eingegeben)
     :Prüfe neues Passwort;
     backward: Fehlerhaftes neues Passwort markieren;
     note right
-        pw_required: Passwort nicht angegeben
-        pw_short: Passwort kürzer als 8 Zeichen
-        pw_long: Passwort länger als 30 Zeichen
-        pw_wrong_chars: Zeichen nicht wie gefordert verwendet
+        pw_new_required: Bitte gib ein Passwort ein.
+        pw_new_short: Das Passwort muss mindestens 8 Zeichen lang sein.
+        pw_new_long: Das Passwort darf maximal 30 Zeichen lang sein.
+        pw_new_wrong_chars: Das Passwort muss mindestens 1 Sonderzeichen [...]
     end note
 repeat while () is (Neues Passwort fehlerhaft) not (Neues Passwort fehlerfrei)
 |Angemeldeter Nutzer|
@@ -38,6 +41,9 @@ if () then (Hash altes Passwort und gespeicherter Passwort Hash gleich)
     :Bestätige Passwort Änderung;
     |Angemeldeter Nutzer|
     :Zeige "Passwort Änderung erfolgreich" Meldung;
+    note right
+        change_success: Dein Passwort wurde geändert.
+    end note
     stop
     else (Übermittelter und gespeicherter Hash nicht gleich)
     endif
@@ -47,5 +53,8 @@ endif
 :Übermittle Fehlermeldung;
 |Angemeldeter Nutzer|
 :Zeige "Passwort Änderung fehlgeschlagen" Meldung;
+note right
+    change_error: Die Anfrage konnte nicht bearbeitet werden, da keine gültigen Authentifizierungsdaten für die angeforderte Ressource vorliegen!
+end note
 stop
 @enduml
