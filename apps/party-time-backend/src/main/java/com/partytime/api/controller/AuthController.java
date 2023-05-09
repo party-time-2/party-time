@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(
     name = AuthController.TAG,
-    description = "API Endpoints providing all required logic for Authentication"
+    description = "API endpoints providing all required logic for authentication"
 )
 public class AuthController {
     static final String TAG = "Authentication API";
@@ -37,15 +37,15 @@ public class AuthController {
      */
     @PostMapping("/register")
     @Operation(
-        description = "Register a new Account",
+        description = "Register a new account",
         responses = {
             @ApiResponse(
-                description = "The Account Object of the newly created Account",
+                description = "The account object of the newly created account",
                 responseCode = "200",
                 useReturnTypeSchema = true
             ),
             @ApiResponse(
-                description = "Account with Email already exists",
+                description = "Account with e-mail already exists",
                 responseCode = "400"
             )
         }
@@ -62,15 +62,15 @@ public class AuthController {
      */
     @PostMapping("/login")
     @Operation(
-        description = "Login an Account",
+        description = "Login an account",
         responses = {
             @ApiResponse(
-                description = "Login Success",
+                description = "Login success",
                 responseCode = "200",
                 useReturnTypeSchema = true
             ),
             @ApiResponse(
-                description = "Login Failed",
+                description = "Login failed",
                 responseCode = "401"
             ),
             @ApiResponse(
@@ -78,7 +78,7 @@ public class AuthController {
                 responseCode = "403"
             ),
             @ApiResponse(
-                description = "Account existiert nicht",
+                description = "Account doesn't exist",
                 responseCode = "404"
             )
         }
@@ -93,19 +93,19 @@ public class AuthController {
      */
     @PostMapping("/change")
     @Operation(
-        description = "Change the Password of an Account",
+        description = "Change the password of an account",
         responses = {
             @ApiResponse(
-                description = "Password Change success",
+                description = "Password change success",
                 responseCode = "200",
                 useReturnTypeSchema = true
             ),
             @ApiResponse(
-                description = "The Old Password is Wrong",
+                description = "The old password is wrong",
                 responseCode = "401"
             ),
             @ApiResponse(
-                description = "New Password does not match requirements",
+                description = "New password does not match requirements",
                 responseCode = "409"
             )
         }
@@ -120,14 +120,14 @@ public class AuthController {
      */
     @PostMapping("/verify/{code}")
     @Operation(
-        description = "Verify the Email of an Account",
+        description = "Verify the e-mail of an account",
         responses = {
             @ApiResponse(
-                description = "Verification Success. User Account is active now!",
+                description = "Verification success. User account is active now!",
                 responseCode = "200"
             ),
             @ApiResponse(
-                description = "Account Verification failed",
+                description = "Account verification failed",
                 responseCode = "400"
             )
         }
