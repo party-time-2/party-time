@@ -20,7 +20,7 @@ class AuthControllerTest extends TestBase {
 
     public static final String MAIL = "test@user.de";
     public static final String NAME = "Test User";
-    public static final String STANDARD_TEST_PASSSWORD = "Hallo123!party";
+    public static final String STANDARD_TEST_PASSWORD  = "Hallo123!party";
     @Autowired
     AccountService accountService;
 
@@ -74,7 +74,7 @@ class AuthControllerTest extends TestBase {
     void login() {
         LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
             .email("verified1@partytime.de")
-            .password(STANDARD_TEST_PASSSWORD)
+            .password(STANDARD_TEST_PASSWORD )
             .build();
         ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
         assertThat(response.getStatusCode())
@@ -86,7 +86,7 @@ class AuthControllerTest extends TestBase {
     void loginAccountNotExists() {
         LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
             .email("notexists@partytime.de")
-            .password(STANDARD_TEST_PASSSWORD)
+            .password(STANDARD_TEST_PASSWORD )
             .build();
         ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
         assertThat(response.getStatusCode())
@@ -98,7 +98,7 @@ class AuthControllerTest extends TestBase {
     void loginNotVerified() {
         LoginRequestDTO loginRequestDTO = LoginRequestDTO.builder()
             .email("not_verified1@partytime.de")
-            .password(STANDARD_TEST_PASSSWORD)
+            .password(STANDARD_TEST_PASSWORD )
             .build();
         ResponseEntity<LoginResponseDTO> response = executePostRequest("/login", new HttpEntity<>(loginRequestDTO), LoginResponseDTO.class);
         assertThat(response.getStatusCode())
@@ -110,8 +110,8 @@ class AuthControllerTest extends TestBase {
     void testChangePassword() {
         authAsUser("verified1@partytime.de");
         ResponseEntity<Void> response = executePostRequest("/change", new HttpEntity<>(ChangePasswordDTO.builder()
-            .oldPassword(STANDARD_TEST_PASSSWORD)
-            .newPassword(STANDARD_TEST_PASSSWORD + "time")
+            .oldPassword(STANDARD_TEST_PASSWORD )
+            .newPassword(STANDARD_TEST_PASSWORD  + "time")
             .build()), Void.class);
         assertThat(response.getStatusCode())
             .isEqualTo(HttpStatus.OK);
@@ -122,8 +122,8 @@ class AuthControllerTest extends TestBase {
     void testChangePasswordOldWrong() {
         authAsUser("verified1@partytime.de");
         ResponseEntity<Void> response = executePostRequest("/change", new HttpEntity<>(ChangePasswordDTO.builder()
-            .oldPassword(STANDARD_TEST_PASSSWORD + "FALSE")
-            .newPassword(STANDARD_TEST_PASSSWORD + "time")
+            .oldPassword(STANDARD_TEST_PASSWORD  + "FALSE")
+            .newPassword(STANDARD_TEST_PASSWORD  + "time")
             .build()), Void.class);
         assertThat(response.getStatusCode())
             .isEqualTo(HttpStatus.UNAUTHORIZED);
@@ -134,7 +134,7 @@ class AuthControllerTest extends TestBase {
     void testChangePasswordNewPasswordNotStandard() {
         authAsUser("verified1@partytime.de");
         ResponseEntity<Void> response = executePostRequest("/change", new HttpEntity<>(ChangePasswordDTO.builder()
-            .oldPassword(STANDARD_TEST_PASSSWORD)
+            .oldPassword(STANDARD_TEST_PASSWORD )
             .newPassword("time")
             .build()), Void.class);
         assertThat(response.getStatusCode())

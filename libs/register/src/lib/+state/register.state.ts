@@ -6,7 +6,7 @@ import { RegisterService } from '../services/register.service';
 import { tap, exhaustMap, Observable } from 'rxjs';
 
 export interface RegisterStateInterface {
-  isRegisterd?: boolean; // has the Register Api request been completed
+  isRegistered?: boolean; // has the Register Api request been completed
   accountRegisterDTO?: AccountRegisterDTO; // last known value (if any)
   accountDTO?: AccountDTO; // last known value (if any)
   loading: boolean; // is this request loading
@@ -14,7 +14,7 @@ export interface RegisterStateInterface {
 }
 
 export const initialRegisterState: RegisterStateInterface = {
-  isRegisterd: false,
+  isRegistered: false,
   loading: false,
   accountRegisterDTO: undefined,
   accountDTO: undefined,
@@ -24,7 +24,7 @@ export const initialRegisterState: RegisterStateInterface = {
 @Injectable()
 export class RegisterStore extends ComponentStore<RegisterStateInterface> {
   private isLoading$ = this.select((state) => state.loading);
-  private isRegisterd$ = this.select((state) => state.isRegisterd);
+  private isRegistered$ = this.select((state) => state.isRegistered);
   private accountRegisterDTO$ = this.select(
     (state) => state.accountRegisterDTO
   );
@@ -33,7 +33,7 @@ export class RegisterStore extends ComponentStore<RegisterStateInterface> {
 
   vm$ = this.select({
     isLoading: this.isLoading$,
-    isRegisterd: this.isRegisterd$,
+    isRegistered: this.isRegistered$,
     accountRegisterDTO: this.accountRegisterDTO$,
     accountDTO: this.accountDTO$,
     error: this.error$,
@@ -49,9 +49,9 @@ export class RegisterStore extends ComponentStore<RegisterStateInterface> {
     error,
   }));
 
-  setIsRegisterd = this.updater((state, isRegisterd: boolean) => ({
+  setisRegistered = this.updater((state, isRegistered: boolean) => ({
     ...state,
-    isRegisterd,
+    isRegistered,
   }));
 
   setAccountRegisterDTO = this.updater(
@@ -75,7 +75,7 @@ export class RegisterStore extends ComponentStore<RegisterStateInterface> {
             tapResponse(
               (accountDTO: AccountDTO) => {
                 this.setAccountDTO(accountDTO);
-                this.setIsRegisterd(true);
+                this.setisRegistered(true);
                 this.setIsLoading(false);
               },
               (error: ApiError) => {

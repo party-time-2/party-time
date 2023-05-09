@@ -45,7 +45,7 @@ import { RouterModule } from '@angular/router';
         <div
           class="mr-5 h-5 w-5 animate-spin rounded-full border-b-2 border-primary-container-light"
         ></div>
-        {{ lodingMessage }}
+        {{ loadingMessage }}
       </div>
     </ng-template>
   </button>`,
@@ -58,7 +58,7 @@ export class PrimaryButtonComponent {
   @Input() type!: string;
   @Input() disabled = false;
   @Input() isLoading = false;
-  @Input() lodingMessage = 'Laden...';
+  @Input() loadingMessage = 'Laden...';
   @Input()
   id: string | Math = Math.random().toString();
   @Output()
