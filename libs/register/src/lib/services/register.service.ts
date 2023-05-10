@@ -1,6 +1,6 @@
 //implements F010
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AccountDTO, AccountRegisterDTO } from '@party-time/models';
 import { Observable } from 'rxjs';
 
@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RegisterService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
-  registerPath = '/api/auth/register';
+  private registerPath = '/api/auth/register';
 
   // Registers a new account
   registerAccount(account: AccountRegisterDTO): Observable<AccountDTO> {

@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IGoup, ILogo } from '@party-time/models';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { ComponentStore } from '@ngrx/component-store';
+import { Store } from '@ngrx/store';
+import { AuthStore } from '@party-time/auth';
+import { IGoup, ILink, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
   selector: 'party-time-root',
+  providers: [ComponentStore],
   template: `
     <div class="w-screen max-w-full">
       <party-time-navbar
@@ -28,8 +32,10 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
     </div>
   `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'party-time-frontend';
+
+  vm$ = this.authStore.vm$;
 
   public logo: ILogo = {
     src: '/assets/ballon.png',
@@ -38,15 +44,38 @@ export class AppComponent {
     name: 'Party Time',
   };
 
+  registerProfileLink: ILink = {
+    routerLink: 'auth/register',
+    name: 'Regestrieren',
+  };
+
+  loginLogoutLink: ILink = {
+    routerLink: 'auth/login',
+    name: 'Login',
+  };
+
   groups: IGoup[] = [
     {
       name: 'Party Time',
       links: [
         { routerLink: '/', name: 'Startseite' },
-        { routerLink: 'register', name: 'Registrieren' },
-        { routerLink: '/2', name: 'Page 2' },
-        { routerLink: '/3', name: 'Page 3' },
+        { routerLink: '404 Page', name: '404' },
+        this.registerProfileLink,
+        this.loginLogoutLink,
       ],
     },
   ];
+
+  ngOnInit(): void {
+    this.vm$.subscribe((vm) => {
+      if (vm.isAuthenticated) {
+        this.registerProfileLink.name = 'Profil';
+        this.registerProfileLink.routerLink = 'profile/change';
+        this.loginLogoutLink.name = 'Logout';
+        this.loginLogoutLink.routerLink = 'auth/logout';
+      }
+    });
+  }
+
+  constructor(private authStore: AuthStore, private store: Store) {}
 }

@@ -3,6 +3,7 @@ package com.partytime.configuration.security;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 import java.util.Collections;
+import java.util.Objects;
 
 public class TokenAuthentication extends AbstractAuthenticationToken {
 
@@ -19,13 +20,26 @@ public class TokenAuthentication extends AbstractAuthenticationToken {
     }
 
     @Override
-    public Object getCredentials() {
+    public String getCredentials() {
         return details.getPassword();
     }
 
     @Override
-    public Object getPrincipal() {
+    public PartyTimeUserDetails getPrincipal() {
         return details;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        TokenAuthentication that = (TokenAuthentication) o;
+        return Objects.equals(getDetails(), that.getDetails());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getDetails());
+    }
 }
