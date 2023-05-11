@@ -1,25 +1,38 @@
-import { navigateRegister } from '../support/app.po';
+import {
+  navigateRegister,
+  pw_long,
+  pw_long_error,
+  pw_required_error,
+  pw_short,
+  pw_short_error,
+  pw_wrong_chars,
+  pw_wrong_chars_error,
+  user_long,
+  user_long_error,
+  user_required_error,
+  user_short,
+  user_short_error,
+  pw_valid,
+} from '../support/app.po';
 
 describe('party-time-register-error-user', () => {
   it('should show user_too_short', () => {
     navigateRegister();
-    cy.get('#name').type('a');
-    cy.contains('Der Benutzername muss mindestens 5 Zeichen lang sein.');
+    cy.get('#username').type(user_short());
+    cy.contains(user_short_error());
     cy.screenshot();
   });
   it('should show user_too_long', () => {
     navigateRegister();
-    cy.get('#name').type(
-      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-    );
-    cy.contains('Der Benutzername darf maximal 30 Zeichen lang sein.');
+    cy.get('#username').type(user_long());
+    cy.contains(user_long_error());
     cy.screenshot();
   });
   it('should show user_required', () => {
     navigateRegister();
-    cy.get('#name').type('a');
-    cy.get('#name').clear();
-    cy.contains('Bitte gib einen Benutzernamen ein.');
+    cy.get('#username').type(user_short());
+    cy.get('#username').clear();
+    cy.contains(user_required_error());
     cy.screenshot();
   });
 });
@@ -47,27 +60,27 @@ describe('party-time-register-error-mail', () => {
 describe('party-time-register-error-pw', () => {
   it('should show pw_required', () => {
     navigateRegister();
-    cy.get('#password').type('a');
+    cy.get('#password').type(pw_short());
     cy.get('#password').clear();
-    cy.contains('Bitte gib ein Passwort ein.');
+    cy.contains(pw_required_error());
     cy.screenshot();
   });
   it('should show pw_short', () => {
     navigateRegister();
-    cy.get('#password').type('a');
-    cy.contains('Das Passwort muss mindestens 8 Zeichen lang sein.');
+    cy.get('#password').type(pw_short());
+    cy.contains(pw_short_error());
     cy.screenshot();
   });
   it('should show pw_long', () => {
     navigateRegister();
-    cy.get('#password').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    cy.contains('Das Passwort darf maximal 30 Zeichen lang sein.');
+    cy.get('#password').type(pw_long());
+    cy.contains(pw_long_error());
     cy.screenshot();
   });
   it('should show pw_wrong_chars', () => {
     navigateRegister();
-    cy.get('#password').type('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    cy.contains('Das Passwort muss mindestens 1 Sonderzeichen');
+    cy.get('#password').type(pw_wrong_chars());
+    cy.contains(pw_wrong_chars_error());
   });
 });
 
@@ -95,15 +108,15 @@ describe('party-time-register', () => {
         },
       }
     );
-    cy.get('#name').type(dateTime);
+    cy.get('#username').type(dateTime);
     cy.get('#email').type(dateTime + '@test.de');
     cy.get('#password').type('Hallo123!nbasmdnbasd');
     cy.get('.w-full > party-time-primary-button > .h-9').click();
-    cy.contains('Hey ' + dateTime + '!');
-    cy.contains('Dein Account wurde erstellt');
+    cy.contains('Account erstellt');
     cy.contains(
       'Bitte bestätige deine E-Mail Adresse ' + dateTime + '@test.de'
     );
+    cy.contains('Zur Verifikation');
     cy.screenshot();
   });
 
@@ -120,23 +133,19 @@ describe('party-time-register', () => {
         body: {
           status: 'BAD_REQUEST',
           timestamp: '',
-          message: 'Ein Account mit dieser Email existiert bereits!',
+          message: 'Ein Account mit dieser E-Mail existiert bereits!',
         },
         headers: {
           'access-control-allow-origin': '*',
         },
       }
     );
-    cy.get('#name').type(dateTime);
+    cy.get('#username').type(dateTime);
     cy.get('#email').type(dateTime + '@test.de');
-    cy.get('#password').type('Hallo123!nbasmdnbasd');
+    cy.get('#password').type(pw_valid());
     cy.get('.w-full > party-time-primary-button > .h-9').click();
 
-    cy.contains('Hey!');
-    cy.contains('Dein Account konnte leider nicht erstellt werden');
-    cy.contains('Status: BAD_REQUEST');
-    cy.contains('Fehler:');
-    cy.contains('Ein Account mit dieser Email existiert bereits!');
+    cy.contains('Ein Account mit dieser E-Mail existiert bereits!');
     cy.screenshot();
   });
 });

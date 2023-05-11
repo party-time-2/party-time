@@ -1,31 +1,23 @@
 //implements F011
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthStore } from '../+state/auth.state';
+import { mergeMap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class InterceptorService implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const idToken = localStorage.getItem('id_token');
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const vm$ = inject(AuthStore).vm$;
 
-    if (idToken) {
-      const cloned = req.clone({
-        headers: req.headers.set('Authorization', idToken),
-      });
+  return vm$.pipe(
+    mergeMap((vm) => {
+      const authReq = vm.loginResponseDTO?.token
+        ? req.clone({
+            setHeaders: {
+              Authorization: vm.loginResponseDTO.token,
+            },
+          })
+        : req;
 
-      return next.handle(cloned);
-    } else {
-      return next.handle(req);
-    }
-  }
-}
+      return next(authReq);
+    })
+  );
+};
