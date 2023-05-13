@@ -29,3 +29,6 @@ The activity diagram for this library can be found [here](/docs/F013/F013_kontoA
 ![F013_kontoAnmelden_act](/docs/PNG/F013/F013_kontoAnmelden_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java)
+
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/logout.cy.ts)
+![redirect_to_login](/docs/PNG/F012/Tests/party-time-change%20--%20should%20show%20redirect_to_login.png)
