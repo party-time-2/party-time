@@ -7,6 +7,6 @@ boundary "Abmelden Maske" as userMask
 user -> userMask: Betätige Abmelden Knopf
 activate user
 userMask -> userMask: Lösche lokale Nutzerdaten (JSON Web Token, ...)
-user <-- userMask: Bestätige erfolgte Anmeldung
+user <-- userMask: Zeige Anmelden-Seite;
 deactivate user
 @enduml
