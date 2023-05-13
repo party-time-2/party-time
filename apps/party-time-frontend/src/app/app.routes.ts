@@ -9,18 +9,8 @@ export const appRoutes: Route[] = [
     canActivate: [AuthGuardService],
   },
   {
-    path: 'auth/login',
+    path: 'auth',
     loadChildren: () => import('@party-time/auth').then((m) => m.authRoutes),
-  },
-  {
-    path: 'auth/verify',
-    loadChildren: () =>
-      import('@party-time/verify').then((m) => m.verifyRoutes),
-  },
-  {
-    path: 'auth/register',
-    loadChildren: () =>
-      import('@party-time/register').then((m) => m.registerRoutes),
   },
   {
     path: '',
