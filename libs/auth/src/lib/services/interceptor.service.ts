@@ -1,31 +1,30 @@
 //implements F011
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+//implements F013
+import { HttpContextToken, HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { AuthStore } from '../+state/auth.state';
+import { mergeMap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class InterceptorService implements HttpInterceptor {
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const idToken = localStorage.getItem('id_token');
+export const BYPASS_LOG = new HttpContextToken(() => false);
 
-    if (idToken) {
-      const cloned = req.clone({
-        headers: req.headers.set('Authorization', idToken),
-      });
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const vm$ = inject(AuthStore).vm$;
 
-      return next.handle(cloned);
-    } else {
-      return next.handle(req);
-    }
+  if (req.context.get(BYPASS_LOG) === true) {
+    return next(req);
   }
-}
+
+  return vm$.pipe(
+    mergeMap((vm) => {
+      const authReq = vm.loginResponseDTO?.token
+        ? req.clone({
+            setHeaders: {
+              Authorization: vm.loginResponseDTO.token,
+            },
+          })
+        : req;
+
+      return next(authReq);
+    })
+  );
+};

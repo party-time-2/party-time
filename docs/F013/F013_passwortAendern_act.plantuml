@@ -1,0 +1,60 @@
+@startuml F013_passwortAendern_act
+<style file=plantStyle.css>
+title "Passwort ändern"
+
+|Angemeldeter Nutzer|
+start
+:Öffne Party Time "Passwort ändern" Webseite;
+repeat
+    repeat
+        split
+            :Altes Passwort eingeben;
+        split again
+            :Neues Passwort eingeben;
+        end split
+        |Frontend Validator|
+        :Prüfe altes Passwort eingegeben;
+        backward:Leeres altes Passwort Feld markieren;
+        note right
+            pw_old_required: Bitte gib dein aktuelles Passwort ein.
+        end note
+    repeat while () is (Altes Passwort nicht eingegeben) not (Altes Passwort eingegeben)
+    :Prüfe neues Passwort;
+    backward: Fehlerhaftes neues Passwort markieren;
+    note right
+        pw_new_required: Bitte gib ein Passwort ein.
+        pw_new_short: Das Passwort muss mindestens 8 Zeichen lang sein.
+        pw_new_long: Das Passwort darf maximal 30 Zeichen lang sein.
+        pw_new_wrong_chars: Das Passwort muss mindestens 1 Sonderzeichen [...]
+    end note
+repeat while () is (Neues Passwort fehlerhaft) not (Neues Passwort fehlerfrei)
+|Angemeldeter Nutzer|
+:Passwort ändern Formular senden;
+|Registration Controller|
+:Gespeicherten Passwort Hash für angemeldeten Nutzer ermitteln;
+:Altes übermitteltes Passwort hashen und mit gespeichertem Passwort vergleichen;
+if () then (Hash altes Passwort und gespeicherter Passwort Hash gleich)
+    :Prüfe neues Passwort;
+    if () then (Neues Passwort fehlerfrei)
+    :Hashe neues Passwort;
+    :Speichere Hash von neuem Passwort;
+    :Bestätige Passwort Änderung;
+    |Angemeldeter Nutzer|
+    :Zeige "Passwort Änderung erfolgreich" Meldung;
+    note right
+        change_success: Dein Passwort wurde geändert.
+    end note
+    stop
+    else (Übermittelter und gespeicherter Hash nicht gleich)
+    endif
+else (Hash altes Passwort und gespeicherter Passwort Hash ungleich)
+endif
+|Registration Controller|
+:Übermittle Fehlermeldung;
+|Angemeldeter Nutzer|
+:Zeige "Passwort Änderung fehlgeschlagen" Meldung;
+note right
+    change_error: Die Anfrage konnte nicht bearbeitet werden, da keine gültigen Authentifizierungsdaten für die angeforderte Ressource vorliegen!
+end note
+stop
+@enduml

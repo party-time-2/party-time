@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IGoup, ILogo } from '@party-time/models';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { ComponentStore } from '@ngrx/component-store';
+import { Store } from '@ngrx/store';
+import { AuthStore } from '@party-time/auth';
+import { IGoup, ILink, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
 
 @Component({
   standalone: true,
-  imports: [RouterModule, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterModule, NavbarComponent, FooterComponent],
   selector: 'party-time-root',
+  providers: [ComponentStore],
   template: `
     <div class="w-screen max-w-full">
       <party-time-navbar
@@ -27,9 +31,12 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
       <party-time-footer [logo]="logo" [groups]="groups"></party-time-footer>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'party-time-frontend';
+
+  vm$ = this.authStore.vm$;
 
   public logo: ILogo = {
     src: '/assets/ballon.png',
@@ -38,15 +45,35 @@ export class AppComponent {
     name: 'Party Time',
   };
 
+  mainLinks = [
+    { routerLink: '/', name: 'Startseite' },
+    { routerLink: 'Login', name: 'auth/login' },
+    { routerLink: '404 Page', name: '404' },
+    { routerLink: 'Regestrieren', name: 'auth/register' },
+  ];
+
   groups: IGoup[] = [
     {
       name: 'Party Time',
-      links: [
-        { routerLink: '/', name: 'Startseite' },
-        { routerLink: 'register', name: 'Registrieren' },
-        { routerLink: '/2', name: 'Page 2' },
-        { routerLink: '/3', name: 'Page 3' },
-      ],
+      links: this.mainLinks,
     },
   ];
+
+  ngOnInit(): void {
+    this.vm$.subscribe((vm) => {
+      if (vm.isAuthenticated === true) {
+        this.groups[0].links[1].name = 'Logout';
+        this.groups[0].links[1].routerLink = 'auth/logout';
+        this.groups[0].links[3].name = 'Profil';
+        this.groups[0].links[3].routerLink = 'profile/change';
+      } else {
+        this.groups[0].links[1].name = 'Login';
+        this.groups[0].links[1].routerLink = 'auth/login';
+        this.groups[0].links[3].name = 'Regestrieren';
+        this.groups[0].links[3].routerLink = 'auth/register';
+      }
+    });
+  }
+
+  constructor(private authStore: AuthStore, private store: Store) {}
 }

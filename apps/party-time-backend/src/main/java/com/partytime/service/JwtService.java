@@ -30,7 +30,11 @@ public class JwtService {
     private final PartyTimeConfigurationProperties configurationProperties;
 
     public String createAccessToken(Account account) {
-        return createToken(account);
+        return createAccessToken(account.getEmail(), account.getName(), account.isEmailVerified());
+    }
+
+    public String createAccessToken(String email, String name, boolean emailVerified) {
+        return createToken(email, name, emailVerified);
     }
 
     public Claims extractClaims(String token) {
@@ -59,15 +63,15 @@ public class JwtService {
     /**
      * Implements F011
      */
-    private String createToken(Account account) {
+    private String createToken(String email, String name, boolean emailVerified) {
         return Jwts.builder()
             .setId(UUID.randomUUID().toString())
             .setIssuedAt(createDate(LocalDateTime.now()))
             .setIssuer(ISSUER)
             .setSubject(UUID.randomUUID().toString())
-            .claim(CLAIM_EMAIL, account.getEmail())
-            .claim(CLAIM_NAME, account.getName())
-            .claim(CLAIM_EMAIL_VERIFIED, account.isEmailVerified())
+            .claim(CLAIM_EMAIL, email)
+            .claim(CLAIM_NAME, name)
+            .claim(CLAIM_EMAIL_VERIFIED, emailVerified)
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
     }
