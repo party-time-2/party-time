@@ -24,6 +24,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           })
         : req;
 
+      console.log('authReq', authReq);
+
       return next(authReq);
     })
   );

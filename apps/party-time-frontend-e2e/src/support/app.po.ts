@@ -4,7 +4,7 @@ export const navigateVerify = () => cy.visit('auth/verify');
 
 export const navigateLogin = () => cy.visit('auth/login');
 
-export const navigateChange = () => cy.visit('profile/change');
+export const navigateChange = () => cy.visit('account/change');
 
 export const navigateLogout = () => cy.visit('auth/logout');
 

@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
         this.groups[0].links[1].name = 'Logout';
         this.groups[0].links[1].routerLink = 'auth/logout';
         this.groups[0].links[3].name = 'Account';
-        this.groups[0].links[3].routerLink = 'account/change';
+        this.groups[0].links[3].routerLink = 'account';
       } else {
         this.groups[0].links[1].name = 'Login';
         this.groups[0].links[1].routerLink = 'auth/login';
