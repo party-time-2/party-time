@@ -4,6 +4,7 @@ import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { ApiError, LoginResponseDTO } from '@party-time/models';
 import { Observable, exhaustMap, tap } from 'rxjs';
 import { DeleteService } from '../../services/delete.service';
+import { AuthStore } from '@party-time/auth';
 
 export interface DeleteStateInterface {
   passwordDTO?: LoginResponseDTO;
@@ -65,6 +66,7 @@ export class DeleteStore extends ComponentStore<DeleteStateInterface> {
           tapResponse(
             () => {
               this.setIsDeleted();
+              this.authStore.getAccountLogout();
             },
             (error: ApiError) => {
               this.setError(error);
@@ -75,7 +77,10 @@ export class DeleteStore extends ComponentStore<DeleteStateInterface> {
     )
   );
 
-  constructor(private deleteService: DeleteService) {
+  constructor(
+    private deleteService: DeleteService,
+    private authStore: AuthStore
+  ) {
     super(initialState);
   }
 }
