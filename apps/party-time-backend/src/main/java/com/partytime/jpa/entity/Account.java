@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = DatabaseConstants.Account.TABLE_NAME)
 @Getter
@@ -46,5 +48,9 @@ public class Account extends BaseEntity<Long> {
 
     @Column(name = DatabaseConstants.Account.COLUMN_PASSWORD_VERIFICATION_CODE)
     private String passwordVerificationCode;
+
+    @OneToMany(mappedBy = "account")
+    @ToString.Exclude
+    private List<EventParticipant> participatesIn;
 
 }

@@ -17,4 +17,30 @@ public final class DatabaseConstants {
         public static final String COLUMN_PASSWORD_VERIFICATION_CODE = "PASSWORD_VERIFICATION_CODE";
     }
 
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class Event {
+        public static final String TABLE_NAME = "EVENT";
+        public static final String COLUMN_ORGANIZER_ID = "ORGANIZER_ID";
+        public static final String COLUMN_NAME = "NAME";
+        public static final String COLUMN_DATE_TIME = "DATE_TIME";
+        public static final String COLUMN_ADDRESS = "ADDRESS_ID";
+    }
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class EventParticipant {
+        public static final String TABLE_NAME = "EVENT_PARTICIPANT";
+        public static final String COLUMN_ACCOUNT_ID = "ACCOUNT_ID";
+        public static final String COLUMN_EVENT_ID = "EVENT_ID";
+        public static final String COLUMN_STATUS = "STATUS";
+    }
+
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    public static final class Address {
+        public static final String TABLE_NAME = "ADDRESS";
+        public static final String COLUMN_STREET_AND_HOUSE_NUMBER = "STREET_AND_HOUSE_NUMBER";
+        public static final String COLUMN_PLZ = "PLZ";
+        public static final String COLUMN_LOCATION = "LOCATION";
+        public static final String COLUMN_COUNTRY = "COUNTRY";
+    }
+
 }
