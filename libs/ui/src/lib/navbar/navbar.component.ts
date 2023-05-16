@@ -17,6 +17,7 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
         <party-time-logo [logo]="logo"></party-time-logo>
         <div class="flex md:order-2">
           <party-time-primary-button
+            id="cta"
             *ngIf="cta.routerLink"
             [routerLink]="cta.routerLink"
             [name]="cta.name"
@@ -57,6 +58,7 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
             <li *ngFor="let link of links">
               <button
                 [routerLink]="link.routerLink"
+                (click)="closeMenu()"
                 class="block py-2 pl-3 pr-4 hover:text-on-surface-variant-light hover:underline dark:hover:text-on-secondary-light md:p-0 "
                 aria-current="page"
               >
@@ -69,7 +71,6 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
     </nav>
   `,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
   @Input()
@@ -83,5 +84,9 @@ export class NavbarComponent {
 
   toggleMenu(): void {
     this.showMenu = !this.showMenu;
+  }
+
+  closeMenu(): void {
+    this.showMenu = false;
   }
 }

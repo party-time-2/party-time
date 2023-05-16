@@ -15,3 +15,9 @@ export * from './lib/tertiary-button/tertiary-button.component';
 export * from './lib/divider/divider.component';
 
 export * from './lib/loading-circle/loading-circle.component';
+
+export * from './lib/main-header/main-header.component';
+
+export * from './lib/primary-label/primary-label.component';
+
+export * from './lib/primary-error/primary-error.component';
