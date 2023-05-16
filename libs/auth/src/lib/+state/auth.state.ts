@@ -54,76 +54,52 @@ export class AuthStore extends ComponentStore<AuthStateInterface> {
     accountLoginDTO: this.accountLoginDTO$,
   });
 
-  setIsLoading = this.updater((state, isLoading: boolean) => ({
-    ...state,
-    loading: isLoading,
-  }));
-
   setError = this.updater((state, error: ApiError) => ({
     ...state,
     error,
   }));
-
-  setLoginRequestDTO = this.updater(
-    (state, loginResponseDTO: LoginResponseDTO) => ({
-      ...state,
-      loginResponseDTO,
-    })
-  );
-
-  setLoginResponseDTO = this.updater(
-    (state, loginResponseDTO: LoginResponseDTO) => ({
-      ...state,
-      loginResponseDTO,
-    })
-  );
-
-  setIsAuthenticated = this.updater((state, isAuthenticated: boolean) => ({
-    ...state,
-    isAuthenticated,
-  }));
-
-  setAccountLoginDTO = this.updater(
-    (state, accountLoginDTO: AccountLoginDTO) => ({
-      ...state,
-      accountLoginDTO,
-    })
-  );
 
   setReturnUrl = this.updater((state, returnUrl: string[]) => ({
     ...state,
     returnUrl,
   }));
 
+  // effect which will be triggered when the user submits the login form and only runs once the user has submitted the form
   getAccountLoginDTO = this.effect(
-    (loginRequestDTO$: Observable<LoginRequestDTO>) =>
-      loginRequestDTO$.pipe(
-        tap(() => this.setIsLoading(true)),
-        exhaustMap((loginRequestDTO) =>
-          this.authService.login(loginRequestDTO).pipe(
+    (accountLoginDTO$: Observable<LoginRequestDTO>) =>
+      accountLoginDTO$.pipe(
+        tap(() => this.patchState({ loading: true })),
+        exhaustMap((accountLoginDTO: LoginRequestDTO) =>
+          this.authService.login(accountLoginDTO).pipe(
             tapResponse(
-              (loginResponseDTO: LoginResponseDTO) => {
-                this.setLoginResponseDTO(loginResponseDTO);
-                this.setIsLoading(false);
-                this.setIsAuthenticated(true);
+              (loginResponseDTO) => {
+                this.patchState({
+                  loginResponseDTO,
+                  isAuthenticated: true,
+                });
                 this.saveTokenToLocalStorage();
                 this.returnToUrl();
               },
               (error: ApiError) => {
-                this.setError(error);
-                this.setIsLoading(false);
+                this.patchState({ error });
               }
             )
           )
-        )
+        ),
+        tap(() => this.patchState({ loading: false }))
       )
   );
+
+  getAccountLogout() {
+    this.authService.logout();
+    this.patchState({ isAuthenticated: false, loginResponseDTO: undefined });
+    this.router.navigate(['auth/login']);
+  }
 
   loadTokenFromLocalStorage() {
     const loginResponseDTO = this.authService.loadToken();
     if (loginResponseDTO && loginResponseDTO.token) {
-      this.setLoginRequestDTO(loginResponseDTO);
-      this.setIsAuthenticated(true);
+      this.patchState({ loginResponseDTO, isAuthenticated: true });
     }
   }
 
@@ -138,6 +114,8 @@ export class AuthStore extends ComponentStore<AuthStateInterface> {
     this.returnUrl$.subscribe((url) => {
       if (url) {
         this.router.navigate(url);
+      } else {
+        this.router.navigate(['/']);
       }
     });
   }

@@ -71,7 +71,6 @@ import { PrimaryButtonComponent } from '../primary-button/primary-button.compone
     </nav>
   `,
   styles: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
   @Input()

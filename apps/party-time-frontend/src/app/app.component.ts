@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
@@ -31,6 +31,7 @@ import { FooterComponent, NavbarComponent } from '@party-time/ui';
       <party-time-footer [logo]="logo" [groups]="groups"></party-time-footer>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   title = 'party-time-frontend';
@@ -44,35 +45,32 @@ export class AppComponent implements OnInit {
     name: 'Party Time',
   };
 
-  registerProfileLink: ILink = {
-    routerLink: 'auth/register',
-    name: 'Regestrieren',
-  };
-
-  loginLogoutLink: ILink = {
-    routerLink: 'auth/login',
-    name: 'Login',
-  };
+  mainLinks = [
+    { routerLink: '/', name: 'Startseite' },
+    { routerLink: 'Login', name: 'auth/login' },
+    { routerLink: '404 Page', name: '404' },
+    { routerLink: 'Regestrieren', name: 'auth/register' },
+  ];
 
   groups: IGoup[] = [
     {
       name: 'Party Time',
-      links: [
-        { routerLink: '/', name: 'Startseite' },
-        { routerLink: '404 Page', name: '404' },
-        this.registerProfileLink,
-        this.loginLogoutLink,
-      ],
+      links: this.mainLinks,
     },
   ];
 
   ngOnInit(): void {
     this.vm$.subscribe((vm) => {
-      if (vm.isAuthenticated) {
-        this.registerProfileLink.name = 'Profil';
-        this.registerProfileLink.routerLink = 'profile/change';
-        this.loginLogoutLink.name = 'Logout';
-        this.loginLogoutLink.routerLink = 'auth/logout';
+      if (vm.isAuthenticated === true) {
+        this.groups[0].links[1].name = 'Logout';
+        this.groups[0].links[1].routerLink = 'auth/logout';
+        this.groups[0].links[3].name = 'Profil';
+        this.groups[0].links[3].routerLink = 'profile/change';
+      } else {
+        this.groups[0].links[1].name = 'Login';
+        this.groups[0].links[1].routerLink = 'auth/login';
+        this.groups[0].links[3].name = 'Regestrieren';
+        this.groups[0].links[3].routerLink = 'auth/register';
       }
     });
   }

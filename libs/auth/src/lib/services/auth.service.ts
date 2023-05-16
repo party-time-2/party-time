@@ -1,8 +1,10 @@
 //implements F011
-import { HttpClient } from '@angular/common/http';
+//implements F013
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { LoginRequestDTO, LoginResponseDTO } from '@party-time/models';
 import { Observable } from 'rxjs';
+import { BYPASS_LOG } from './interceptor.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,14 @@ export class AuthService {
 
   // Logs in a user
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {
-    return this.http.post<LoginResponseDTO>(this.loginPath, loginRequestDTO);
+    return this.http.post<LoginResponseDTO>(this.loginPath, loginRequestDTO, {
+      context: new HttpContext().set(BYPASS_LOG, true),
+    });
+  }
+
+  // Logs out a user
+  logout(): void {
+    localStorage.removeItem('auth_token');
   }
 
   // Load the user token from the local storage
