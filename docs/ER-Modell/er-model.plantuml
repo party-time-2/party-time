@@ -2,26 +2,28 @@
 title "Party Time ER-Modell"
 skinparam linetype ortho
 
-entity User {
+entity Account {
     * id: bigint <<generated>>
     --
     * email: character varying(255)
     * emailVerified: boolean
-    * displayName: character varying(255)
+    * name: character varying(255)
     * pwHash: character varying(255)
+    * emailVerificationCode: character varying(255)
+    * passwordVerificationCode: character varying(255)
 }
 
 entity EventParticipant {
-    * user_id: bigint <<User FK>>
+    * account_id: bigint <<Account FK>>
     * event_id: bigint <<Event FK>>
     --
-    * status: ENUM('eingeladen', 'teilnehmend', 'abgelehnt')
+    * status: ENUM('INVITED', 'PARTICIPATING', 'REJECTED')
 }
 
 entity Event {
     * id: bigint <<generated>>
     --
-    * organizer_id: bigint <<User FK>>
+    * organizer_id: bigint <<Account FK>>
     * name: character varying(255)
     * dateTime: timestamp
     * address: bigint <<Address FK>>
@@ -32,12 +34,12 @@ entity Address {
     --
     * streetAndHouseNumber: character varying(255)
     * plz: character varying(255)
-    * ort: character varying(255)
+    * location: character varying(255)
     * country: character varying(255)
 }
 
-User ||--o{ Event
-User }o--o{ EventParticipant
+Account ||--o{ Event
+Account }o--o{ EventParticipant
 EventParticipant }o--o{ Event
 Event }o--|| Address
 @enduml
