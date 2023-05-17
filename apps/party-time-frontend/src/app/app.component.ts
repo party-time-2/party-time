@@ -2,9 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ComponentStore } from '@ngrx/component-store';
-import { Store } from '@ngrx/store';
 import { AuthStore } from '@party-time/auth';
-import { IGoup, ILink, ILogo } from '@party-time/models';
+import { IGoup, ILogo } from '@party-time/models';
 import { FooterComponent, NavbarComponent } from '@party-time/ui';
 
 @Component({
@@ -64,8 +63,8 @@ export class AppComponent implements OnInit {
       if (vm.isAuthenticated === true) {
         this.groups[0].links[1].name = 'Logout';
         this.groups[0].links[1].routerLink = 'auth/logout';
-        this.groups[0].links[3].name = 'Profil';
-        this.groups[0].links[3].routerLink = 'profile/change';
+        this.groups[0].links[3].name = 'Account';
+        this.groups[0].links[3].routerLink = 'account';
       } else {
         this.groups[0].links[1].name = 'Login';
         this.groups[0].links[1].routerLink = 'auth/login';
@@ -75,5 +74,5 @@ export class AppComponent implements OnInit {
     });
   }
 
-  constructor(private authStore: AuthStore, private store: Store) {}
+  constructor(private authStore: AuthStore) {}
 }

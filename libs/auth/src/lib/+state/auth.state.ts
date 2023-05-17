@@ -81,7 +81,7 @@ export class AuthStore extends ComponentStore<AuthStateInterface> {
                 this.returnToUrl();
               },
               (error: ApiError) => {
-                this.patchState({ error });
+                this.patchState({ error, loading: false });
               }
             )
           )

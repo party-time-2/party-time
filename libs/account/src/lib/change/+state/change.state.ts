@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { ApiError, ChangePasswordDTO } from '@party-time/models';
-import { ChangeService } from '../../services/change.service';
+import { ChangeService } from '../../../../../account/src/lib/services/change.service';
 import { Observable, exhaustMap, tap } from 'rxjs';
 
 export interface ChangeStateInterface {

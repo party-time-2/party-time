@@ -1,0 +1,74 @@
+<!-- implements F015 -->
+<ng-container *ngIf="vm$ | async as vm">
+  <div *ngIf="!vm.isDeleted; else accountDeleted">
+    <party-time-main-header title="Account löschen" />
+    <form (ngSubmit)="(onSubmit)" [formGroup]="deleteForm">
+      <div class="flex justify-center pl-12 pr-12 pt-12">
+        <div class="w-96">
+          <section>
+            <party-time-primary-label label="Aktuelles Passwort" />
+            <div
+              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+            >
+              <input
+                type="password"
+                name="current-password"
+                id="current-password"
+                autocomplete="current-password"
+                required
+                formControlName="currentPassword"
+                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+              />
+            </div>
+
+            <div
+              *ngIf="
+                f['currentPassword'].errors &&
+                (f['currentPassword'].dirty || f['currentPassword'].touched)
+              "
+            >
+              <div *ngIf="f['currentPassword'].errors['required']">
+                <party-time-primary-error
+                  error="Bitte gib dein aktuelles Passwort ein."
+                />
+              </div>
+            </div>
+          </section>
+
+          <div class="flex w-full place-content-end pt-7">
+            <div
+              class="inline-block w-full justify-center pt-2 text-left align-bottom"
+            >
+              <party-time-primary-error [error]="vm.error?.error?.message" />
+            </div>
+
+            <party-time-primary-button
+              lodingMessage="Löschen"
+              [isLoading]="vm.isLoading"
+              id="change"
+              (clicked)="onSubmit()"
+              [disabled]="!deleteForm.valid || vm.isLoading"
+              type="button"
+              name="Löschen"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template #accountDeleted>
+    <div class="grid h-screen place-items-center">
+      <div
+        class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+      >
+        <p
+          class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
+        >
+          Hey!
+        </p>
+        <p>Dein Account wurde gelöscht.</p>
+        <party-time-primary-button name="Zur Startseite" routerLink="/" />
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
