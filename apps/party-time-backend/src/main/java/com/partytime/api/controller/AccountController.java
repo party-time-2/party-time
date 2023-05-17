@@ -1,6 +1,6 @@
 package com.partytime.api.controller;
 
-import com.partytime.api.dto.AccountDeleteDTO;
+import com.partytime.api.dto.account.AccountDeleteDTO;
 import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.service.AccountDeletionService;
 import com.partytime.service.AccountService;

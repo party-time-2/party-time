@@ -1,4 +1,4 @@
-package com.partytime.api.dto;
+package com.partytime.api.dto.account;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
