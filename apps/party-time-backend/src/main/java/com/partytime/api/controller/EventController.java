@@ -215,7 +215,7 @@ public class EventController {
             )
         }
     )
-    public void deleteEvent(@Parameter(description = "The Id of the Event") @PathVariable("id") Long eventId,
+    public void deleteEvent(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                             TokenAuthentication authentication) {
         // TODO Implementation
     }
