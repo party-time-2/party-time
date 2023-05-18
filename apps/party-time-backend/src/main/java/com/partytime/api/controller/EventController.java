@@ -57,7 +57,7 @@ public class EventController {
                 useReturnTypeSchema = true
             ),
             @ApiResponse(
-                description = "Not Organizer",
+                description = "Not organizer",
                 responseCode = "403"
             ),
             @ApiResponse(
