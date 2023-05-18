@@ -88,7 +88,7 @@ public class EventController {
                 responseCode = "400"
             ),
             @ApiResponse(
-                description = "Not Organizer",
+                description = "Not organizer",
                 responseCode = "403"
             ),
             @ApiResponse(
