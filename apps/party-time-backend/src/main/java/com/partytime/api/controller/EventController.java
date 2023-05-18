@@ -163,7 +163,7 @@ public class EventController {
      */
     @PutMapping
     @Operation(
-        description = "Update an Event as logged in User",
+        description = "Update an Event as logged in user",
         responses = {
             @ApiResponse(
                 description = "Event successfully updated",
