@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Tag(
     name = EventController.TAG,
-    description = "API Endpoints providing all required logic for Events"
+    description = "API endpoints providing all required logic for events"
 )
 public class EventController {
     static final String TAG = "Event API";
