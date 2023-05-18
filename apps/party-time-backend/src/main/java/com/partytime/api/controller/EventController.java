@@ -194,7 +194,7 @@ public class EventController {
      */
     @DeleteMapping("/{id}")
     @Operation(
-        description = "Delete an Event as logged in User",
+        description = "Delete an event as logged in user",
         responses = {
             @ApiResponse(
                 description = "Event successfully created",
