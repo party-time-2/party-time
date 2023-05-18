@@ -140,7 +140,7 @@ public class EventController {
      */
     @PostMapping
     @Operation(
-        description = "Create an Event as logged in User",
+        description = "Create an event as logged in user",
         responses = {
             @ApiResponse(
                 description = "Event successfully created",
