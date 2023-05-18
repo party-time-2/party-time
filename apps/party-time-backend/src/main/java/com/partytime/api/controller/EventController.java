@@ -31,7 +31,7 @@ public class EventController {
      */
     @GetMapping
     @Operation(
-        description = "Get Events of the logged in User where it is organizer",
+        description = "Get events of the logged in user where it is organizer",
         responses = {
             @ApiResponse(
                 description = "Data",
