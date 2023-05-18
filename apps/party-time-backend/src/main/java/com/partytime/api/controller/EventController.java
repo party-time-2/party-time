@@ -79,7 +79,7 @@ public class EventController {
         description = "Invite account to event",
         responses = {
             @ApiResponse(
-                description = "Invitation Mail sent",
+                description = "Invitation e-mail sent",
                 responseCode = "200",
                 useReturnTypeSchema = true
             ),
