@@ -76,7 +76,7 @@ public class EventController {
      */
     @PostMapping("/{id}/participants/{email}")
     @Operation(
-        description = "Invite Account to Event",
+        description = "Invite account to event",
         responses = {
             @ApiResponse(
                 description = "Invitation Mail sent",
