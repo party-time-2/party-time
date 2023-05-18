@@ -129,7 +129,7 @@ public class EventController {
             )
         }
     )
-    public void uninviteParticipant(@Parameter(description = "The Id of the Event") @PathVariable("id") Long eventId,
+    public void uninviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                     @Parameter(description = "The Email of the Guest to invite") @PathVariable("email") String email,
                                     TokenAuthentication authentication) {
         // TODO Implementation
