@@ -49,7 +49,7 @@ public class EventController {
      */
     @GetMapping("/{id}/participants")
     @Operation(
-        description = "Get Participants of given Event",
+        description = "Get participants of given event",
         responses = {
             @ApiResponse(
                 description = "Data",
