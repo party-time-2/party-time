@@ -108,7 +108,7 @@ public class EventController {
      */
     @DeleteMapping("/{id}/participants/{email}")
     @Operation(
-        description = "Uninvite Account to Event",
+        description = "Uninvite account to event",
         responses = {
             @ApiResponse(
                 description = "Account uninvited",
