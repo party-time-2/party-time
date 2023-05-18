@@ -98,7 +98,7 @@ public class EventController {
         }
     )
     public void inviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
-                                  @Parameter(description = "The Email of the Guest to invite") @PathVariable("email") String email,
+                                  @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") String email,
                                   TokenAuthentication authentication) {
         // TODO Implementation
     }
