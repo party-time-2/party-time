@@ -66,7 +66,7 @@ public class EventController {
             )
         }
     )
-    public Page<ParticipantDTO> getParticipants(@Parameter(description = "The Id of the Event") @PathVariable("id") Long eventId,
+    public Page<ParticipantDTO> getParticipants(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                                 TokenAuthentication authentication) {
         return Page.empty(); // TODO Implementation
     }
