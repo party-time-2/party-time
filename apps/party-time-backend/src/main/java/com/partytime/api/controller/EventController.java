@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,8 @@ public class EventController {
             )
         }
     )
-    public Page<EventDTO> getEvents(TokenAuthentication authentication) {
+    public Page<EventDTO> getEvents(Pageable pageable,
+                                    TokenAuthentication authentication) {
         return Page.empty(); // TODO Implementation
     }
 
@@ -66,7 +68,8 @@ public class EventController {
             )
         }
     )
-    public Page<ParticipantDTO> getParticipants(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+    public Page<ParticipantDTO> getParticipants(Pageable pageable,
+                                                @Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                                 TokenAuthentication authentication) {
         return Page.empty(); // TODO Implementation
     }
