@@ -33,7 +33,7 @@ public class EventController {
      */
     @GetMapping
     @Operation(
-        description = "Get events of the logged in user where it is organizer",
+        description = "Get events wherever the authenticated user is host ",
         responses = {
             @ApiResponse(
                 description = "Data",
@@ -51,7 +51,7 @@ public class EventController {
      */
     @GetMapping("/{id}/participants")
     @Operation(
-        description = "Get participants of given event",
+        description = "Get participants of given event if the authenticated user is host ",
         responses = {
             @ApiResponse(
                 description = "Data",
@@ -78,7 +78,7 @@ public class EventController {
      */
     @PostMapping("/{id}/participants/{email}")
     @Operation(
-        description = "Invite account to event",
+        description = "Invite account to own event",
         responses = {
             @ApiResponse(
                 description = "Invitation e-mail sent",
@@ -110,7 +110,7 @@ public class EventController {
      */
     @DeleteMapping("/{id}/participants/{email}")
     @Operation(
-        description = "Uninvite account to event",
+        description = "Cancel invitation of account to own event",
         responses = {
             @ApiResponse(
                 description = "Account uninvited",
@@ -142,7 +142,7 @@ public class EventController {
      */
     @PostMapping
     @Operation(
-        description = "Create an event as logged in user",
+        description = "Create an event as  authenticated user",
         responses = {
             @ApiResponse(
                 description = "Event successfully created",
@@ -165,7 +165,7 @@ public class EventController {
      */
     @PutMapping
     @Operation(
-        description = "Update an Event as logged in user",
+        description = "Update own event if authenticated user  is host",
         responses = {
             @ApiResponse(
                 description = "Event successfully updated",
@@ -196,7 +196,7 @@ public class EventController {
      */
     @DeleteMapping("/{id}")
     @Operation(
-        description = "Delete an event as logged in user",
+        description = "Delete own event if authenticated user  is host",
         responses = {
             @ApiResponse(
                 description = "Event successfully created",
