@@ -3,12 +3,9 @@ package com.partytime.jpa.entity;
 import com.partytime.jpa.DatabaseConstants;
 import com.partytime.jpa.factory.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = DatabaseConstants.Address.TABLE_NAME)
@@ -26,18 +23,18 @@ public class Address extends BaseEntity<Long> {
 
     @NotNull
     @NotEmpty
-    @Column(name = DatabaseConstants.Address.COLUMN_STREET_AND_HOUSE_NUMBER)
-    private String streetAndHouseNumber;
+    @Column(name = DatabaseConstants.Address.COLUMN_ADDRESS_LINE)
+    private String addressLine;
 
     @NotNull
     @NotEmpty
-    @Column(name = DatabaseConstants.Address.COLUMN_PLZ)
-    private String plz;
+    @Column(name = DatabaseConstants.Address.COLUMN_ZIP)
+    private String zip;
 
     @NotNull
     @NotEmpty
-    @Column(name = DatabaseConstants.Address.COLUMN_LOCATION)
-    private String location;
+    @Column(name = DatabaseConstants.Address.COLUMN_CITY)
+    private String city;
 
     @NotNull
     @NotEmpty

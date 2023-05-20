@@ -37,9 +37,9 @@ public final class DatabaseConstants {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static final class Address {
         public static final String TABLE_NAME = "ADDRESS";
-        public static final String COLUMN_STREET_AND_HOUSE_NUMBER = "STREET_AND_HOUSE_NUMBER";
-        public static final String COLUMN_PLZ = "PLZ";
-        public static final String COLUMN_LOCATION = "LOCATION";
+        public static final String COLUMN_ADDRESS_LINE = "ADDRESS_LINE";
+        public static final String COLUMN_ZIP = "ZIP";
+        public static final String COLUMN_CITY = "CITY";
         public static final String COLUMN_COUNTRY = "COUNTRY";
     }
 
