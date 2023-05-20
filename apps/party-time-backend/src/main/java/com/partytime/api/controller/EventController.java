@@ -11,10 +11,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/event")
@@ -41,9 +42,8 @@ public class EventController {
             )
         }
     )
-    public Page<EventDTO> getEvents(Pageable pageable,
-                                    TokenAuthentication authentication) {
-        return Page.empty(); // TODO Implementation
+    public List<EventDTO> getEvents(TokenAuthentication authentication) {
+        return Collections.emptyList(); // TODO Implementation
     }
 
     /**
@@ -68,10 +68,9 @@ public class EventController {
             )
         }
     )
-    public Page<ParticipantDTO> getParticipants(Pageable pageable,
-                                                @Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+    public List<ParticipantDTO> getParticipants(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                                 TokenAuthentication authentication) {
-        return Page.empty(); // TODO Implementation
+        return Collections.emptyList(); // TODO Implementation
     }
 
     /**
