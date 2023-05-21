@@ -1,6 +1,6 @@
 package com.partytime.jpa.mapper;
 
-import com.partytime.api.dto.AccountDTO;
+import com.partytime.api.dto.account.AccountDTO;
 import com.partytime.jpa.entity.Account;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

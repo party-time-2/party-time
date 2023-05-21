@@ -1,6 +1,6 @@
 package com.partytime.service;
 
-import com.partytime.api.dto.AccountDeleteDTO;
+import com.partytime.api.dto.account.AccountDeleteDTO;
 import com.partytime.api.error.ApiError;
 import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.jpa.entity.Account;
