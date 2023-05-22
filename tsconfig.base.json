@@ -17,6 +17,7 @@
     "paths": {
       "@party-time/account": ["libs/account/src/index.ts"],
       "@party-time/auth": ["libs/auth/src/index.ts"],
+      "@party-time/event": ["libs/event/src/index.ts"],
       "@party-time/landing": ["libs/landing/src/index.ts"],
       "@party-time/models": ["libs/models/src/index.ts"],
       "@party-time/not-found": ["libs/not-found/src/index.ts"],
