@@ -1,11 +1,33 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  PrimaryButtonComponent,
+  MainHeaderComponent,
+  PrimaryLabelComponent,
+} from '@party-time/ui';
 
 @Component({
   selector: 'party-time-event',
   standalone: true,
-  imports: [CommonModule],
-  template: `<p>event works!</p>`,
+  imports: [
+    CommonModule,
+    PrimaryButtonComponent,
+    MainHeaderComponent,
+    PrimaryLabelComponent,
+  ],
+  template: `<party-time-main-header title="Events" />
+    <div class="flex justify-center pl-12 pr-12 pt-12">
+      <div class="w-96">
+        <section class="col-2 grid">
+          <party-time-primary-label label="Hier kannst du dein Event planen" />
+          <party-time-primary-button
+            type="button"
+            routerLink="/event/create"
+            name="Event planen"
+          />
+        </section>
+      </div>
+    </div>`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

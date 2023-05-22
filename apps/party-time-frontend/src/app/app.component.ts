@@ -60,18 +60,27 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.vm$.subscribe((vm) => {
-      if (vm.isAuthenticated === true) {
-        this.groups[0].links[1].name = 'Logout';
-        this.groups[0].links[1].routerLink = 'auth/logout';
-        this.groups[0].links[3].name = 'Account';
-        this.groups[0].links[3].routerLink = 'account';
-      } else {
-        this.groups[0].links[1].name = 'Login';
-        this.groups[0].links[1].routerLink = 'auth/login';
-        this.groups[0].links[3].name = 'Regestrieren';
-        this.groups[0].links[3].routerLink = 'auth/register';
-      }
+      this.updateLinks(vm.isAuthenticated);
     });
+  }
+  updateLinks(isAuthenticated: boolean) {
+    if (isAuthenticated) {
+      this.groups[0].links = [
+        { routerLink: '/', name: 'Startseite' },
+        { routerLink: 'event', name: 'Party' },
+        { routerLink: '404', name: '404' },
+        { routerLink: 'account', name: 'Account' },
+        { routerLink: 'auth/logout', name: 'Logout' },
+      ];
+    } else {
+      this.groups[0].links = [
+        { routerLink: '/', name: 'Startseite' },
+        { routerLink: 'event', name: 'Party' },
+        { routerLink: 'auth/login', name: 'Login' },
+        { routerLink: '404', name: '404' },
+        { routerLink: 'auth/register', name: 'Regestrieren' },
+      ];
+    }
   }
 
   constructor(private authStore: AuthStore) {}
