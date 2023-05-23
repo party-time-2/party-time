@@ -33,8 +33,9 @@ entity Address {
     * id: bigint <<generated>>
     --
     * streetAndHouseNumber: character varying(255)
+    * addressAddition: character varying(255)
     * plz: character varying(255)
-    * location: character varying(255)
+    * city: character varying(255)
     * country: character varying(255)
 }
 

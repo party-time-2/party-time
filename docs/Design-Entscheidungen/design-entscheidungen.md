@@ -190,34 +190,34 @@ Die Verwendung von PlantUML bietet mehrere Vorteile für das Projekt, einschlie�
 
 Für die Authentifizierung von Benutzern sowie für soziale Komponenten der Party Time Plattform werden pro Nutzer einen Anzeigenamen, eine E-Mail Adresse sowie ein Passwort erhoben.
 
-Begründung:
+**Begründung**:
 
 - [Anzeigename](#anzeigename-richtlinien): Ein frei vom Nutzer gewählter Anzeigename, der anderen Nutzern beispielsweise in Party-Teilnehmerlisten gezeigt wird. Dieser ist frei wählbar und nicht etwa mit einem Echter-Name-Zwang verbunden, da letztendlich Nutzer selbst dafür verantwortlich sind, dass andere Party-Gäste einem Anzeigenamen einer Person zuordnen können. Wird beispielsweise ein Nickname als Anzeigename verwendet, stellt dies für andere Partygäste grundsätzlich kein Problem dar.
 - [E-Mail Adresse](#e-mail-adresse-richtlinien): Da Anzeigenamen frei wählbar sind und daher eventuell auch mehrere Nutzer den gleichen Anzeigenamen verwenden können, benötigt der Anmelde-Vorgang eine E-Mail Adresse von Nutzern. Bei einzigartigen E-Mail Adressen besteht Sicherheit, dass mehrere Nutzer nicht dieselbe E-Mail Adresse verwenden.
 - [Passwort](#passwort-richtlinien-für-benutzer): Um davor zu schützen, dass sich dritte Personen mit E-Mail Adressen anderer Nutzer anmelden, erfolgt eine personalisierte Anmeldung an der Party Time Platform ausschließlich durch die Eingabe von E-Mail Adresse und vom Nutzer gewählten Passwort.
 
-## Anzeigename-Richtlinien
+### Anzeigename-Richtlinien
 
 Für Anzeigenamen gelten die folgenden Richtlinien:
 
 - Ein Anzeigename hat eine Länge zwischen 5 und 20 Zeichen
 - Alle Zeichen sind zulässig
 
-Begründung:
+**Begründung**:
 
 5 - 20 Zeichen bieten Nutzern eine ausreichende Länge ihres Anzeigename, um einen ihren Wünschen entsprechenden Anzeigename zu wählen.
 
 Für einen "Echte-Welt" Einsatz würden wir Zeichen wie ASCII- und UTF-Kontrollsequenzen, führende und folgende Leerzeichen, sowie mehrfach aufeinander folgende Leerzeichen verbieten. Die Entwicklung eines Algorithmus für die Prüfung dieser Regeln (insbesondere der Ausschluss aller nicht erlaubten Zeichen) würde allerdings den Umfang der Anwendung in seiner ersten Ausbaustufe sprengen.
 
-## E-Mail-Adresse Richtlinien
+### E-Mail-Adresse Richtlinien
 
 E-Mail Adressen müssen dem HTML Standard für Valide E-Mail Adressen entsprechen und vom Angular Framework als valide empfunden werden.
 
-Begründung:
+**Begründung**:
 
 Das verwendete Angular Framework hat einen [email Validator](https://angular.io/api/forms/Validators#email) für diesen Einsatzzweck, der zur Validierung von E-Mail-Adressen in Formularen mit geringem Entwickleraufwand eingesetzt werden kann.
 
-## Passwort-Richtlinien für Benutzer
+### Passwort-Richtlinien für Benutzer
 
 Passwörter für Benutzer müssen die folgenden Anforderungen erfüllen:
 
@@ -227,6 +227,29 @@ Passwörter für Benutzer müssen die folgenden Anforderungen erfüllen:
 - Die 1 benötigte Ziffer und das 1 benötigte Sonderzeichen dürfen nicht am Anfang oder Ende des Passworts stehen. Auch eine Folge von Sonderzeichen und Ziffern am Anfang und Ende erfüllen die Regel nicht.
 - Als Sonderzeichen anerkannt werden: ,!"§$%&/()=?{}[]\ und Leerzeichen
 
-Begründung:
+**Begründung**:
 
 Einhaltung der [Bundesamt für Sicherheit in der Informationstechnik (BSI): Sichere Passwörter erstellen](https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Cyber-Sicherheitsempfehlungen/Accountschutz/Sichere-Passwoerter-erstellen/sichere-passwoerter-erstellen_node.html) Empfehlung
+
+## Event-Richtlinien
+
+Für die Veranstaltung eines Events muss ein verifizierter Nutzer die folgenden Informationen bereitstellen:
+
+- Einen 5 - 50 Zeichen langen Event-Namen
+- Eine 4 - 25 Zeichen lange Adresszeile für Straße und Hausnummer. Diese kann Buchstaben, Leerzeichen, Bindestriche und Zahlen beinhalten.
+- Eine 5-stellige Postleitzahl. Diese darf nur Ziffern beinhalten, wird aber letztendlich als String interpretiert um führende Nullen nicht zu verlieren.
+- Einen 3 - 20 stelligen Ort. Darf Groß- und Kleinbuchstaben, Leerzeichen und Bindestriche enthalten.
+- Ein 3 - 20 stelliges Land. Darf Groß- und Kleinbuchstaben sowie Leerzeichen und Bindestriche enthalten.
+- Eine Uhrzeit im 24h Format. Stunden von 00 - 23, Minuten von 00 - 59.
+- Ein Datum im Format zwei Ziffern für den Tag, zwei Ziffern für den Monat, 4 Ziffern fürs Jahr
+
+Das UI bietet außerdem eine optionale, bis zu 25 Zeichen lange Adresszusatz Zeile unter der Zeile für Straße und Hausnummer, für die eingabe von zusätzlichen Infos wie z. B. ein Stockwerk oder eine Wohnungs-Nummer.
+
+**Begründung**:
+
+- 5 - 50 Zeichen für den Event-Namen werden als angemessen angesehen. Dies sind weder zu wenig Zeichen (was zur Verwirrung der eingeladenen Gäste führen könnte), noch sind des zu viele Zeichen (es soll nur ein Event-Name, keine Event-Beschreibung eingegeben werden).
+- 4 - 25 Zeichen für die Straße und Hausnummer Adresszeile werden als ausreichend angesehen.
+- 5-stellige Postleitzahlen restriktieren den Einsatz der Plattform auf Länder, in denen Postleitzahlen 5 Zeichen lang sind. Dies wird für die erste Version der Plattform als akzeptabel angesehen und kann in weiteren Ausbaustufen erweitert werden.
+- 3 - 20 stelliger Ort und Land mit Groß- und Kleinbuchstaben sowie Bindestrichen sind akzeptabel für die erste Version der Plattform. Es ist bekannt, dass die Plattform für den Einsatz in fremden Ländern mehr Zeichen-Typen unterstützten muss. Dies kann in einer späteren Ausbaustufe erweitert werden.
+- Für die Uhrzeit und das Datum können wir Angular Standard-Funktionalität namens [DatePipe](https://angular.io/api/common/DatePipe) verwenden. Das Datums-Format richtet sich zunächst nach dem Deutschen Zeit-Standard der in DIN 5008 definiert ist. In einer späteren Ausbaustufe können hier im Rahmen der Lokalisierung noch ein 12-Stunden Zeitformat sowie andere Datum-Formate integriert werden.
+- Die optionale bis zu 25 Zeichen lange Adresszusatz Zeile wird als notwendig angesehen, um insbesondere in Städten mit Wohnkomplexen Events in Wohnungen zu planen.
