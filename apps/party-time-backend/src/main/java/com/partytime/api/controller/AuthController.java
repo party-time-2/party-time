@@ -1,7 +1,7 @@
 package com.partytime.api.controller;
 
-import com.partytime.api.dto.AccountDTO;
-import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.account.AccountDTO;
+import com.partytime.api.dto.account.AccountRegisterDTO;
 import com.partytime.api.dto.changepassword.ChangePasswordDTO;
 import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.api.dto.login.LoginResponseDTO;

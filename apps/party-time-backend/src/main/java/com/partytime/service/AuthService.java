@@ -1,6 +1,6 @@
 package com.partytime.service;
 
-import com.partytime.api.dto.AccountRegisterDTO;
+import com.partytime.api.dto.account.AccountRegisterDTO;
 import com.partytime.api.dto.changepassword.ChangePasswordDTO;
 import com.partytime.api.dto.login.LoginRequestDTO;
 import com.partytime.api.dto.login.LoginResponseDTO;
