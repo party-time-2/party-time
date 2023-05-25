@@ -236,20 +236,20 @@ Einhaltung der [Bundesamt für Sicherheit in der Informationstechnik (BSI): Sich
 Für die Veranstaltung eines Events muss ein verifizierter Nutzer die folgenden Informationen bereitstellen:
 
 - Einen 5 - 50 Zeichen langen Event-Namen
-- Eine 4 - 25 Zeichen lange Adresszeile für Straße und Hausnummer. Diese kann Buchstaben, Leerzeichen, Bindestriche und Zahlen beinhalten.
+- Eine 4 - 25 Zeichen lange Adresszeile für Straße und Hausnummer. Diese kann Buchstaben, Leerzeichen, Punkte, Bindestriche und Zahlen beinhalten.
 - Eine 5-stellige Postleitzahl. Diese darf nur Ziffern beinhalten, wird aber letztendlich als String interpretiert um führende Nullen nicht zu verlieren.
-- Einen 3 - 20 stelligen Ort. Darf Groß- und Kleinbuchstaben, Leerzeichen und Bindestriche enthalten.
+- Einen 3 - 20 stelligen Ort. Darf Groß- und Kleinbuchstaben, Leerzeichen, Punkte und Bindestriche enthalten.
 - Ein 3 - 20 stelliges Land. Darf Groß- und Kleinbuchstaben sowie Leerzeichen und Bindestriche enthalten.
 - Eine Uhrzeit im 24h Format. Stunden von 00 - 23, Minuten von 00 - 59.
 - Ein Datum im Format zwei Ziffern für den Tag, zwei Ziffern für den Monat, 4 Ziffern fürs Jahr
 
-Das UI bietet außerdem eine optionale, bis zu 25 Zeichen lange Adresszusatz Zeile unter der Zeile für Straße und Hausnummer, für die eingabe von zusätzlichen Infos wie z. B. ein Stockwerk oder eine Wohnungs-Nummer.
+Die Plattform bietet außerdem eine optionale, bis zu 25 Zeichen lange Adresszusatz Zeile unter der Zeile für Straße und Hausnummer, für die eingabe von zusätzlichen Infos wie z. B. ein Stockwerk oder eine Wohnungs-Nummer.
 
 **Begründung**:
 
 - 5 - 50 Zeichen für den Event-Namen werden als angemessen angesehen. Dies sind weder zu wenig Zeichen (was zur Verwirrung der eingeladenen Gäste führen könnte), noch sind des zu viele Zeichen (es soll nur ein Event-Name, keine Event-Beschreibung eingegeben werden).
 - 4 - 25 Zeichen für die Straße und Hausnummer Adresszeile werden als ausreichend angesehen.
 - 5-stellige Postleitzahlen restriktieren den Einsatz der Plattform auf Länder, in denen Postleitzahlen 5 Zeichen lang sind. Dies wird für die erste Version der Plattform als akzeptabel angesehen und kann in weiteren Ausbaustufen erweitert werden.
-- 3 - 20 stelliger Ort und Land mit Groß- und Kleinbuchstaben sowie Bindestrichen sind akzeptabel für die erste Version der Plattform. Es ist bekannt, dass die Plattform für den Einsatz in fremden Ländern mehr Zeichen-Typen unterstützten muss. Dies kann in einer späteren Ausbaustufe erweitert werden.
-- Für die Uhrzeit und das Datum können wir Angular Standard-Funktionalität namens [DatePipe](https://angular.io/api/common/DatePipe) verwenden. Das Datums-Format richtet sich zunächst nach dem Deutschen Zeit-Standard der in DIN 5008 definiert ist. In einer späteren Ausbaustufe können hier im Rahmen der Lokalisierung noch ein 12-Stunden Zeitformat sowie andere Datum-Formate integriert werden.
-- Die optionale bis zu 25 Zeichen lange Adresszusatz Zeile wird als notwendig angesehen, um insbesondere in Städten mit Wohnkomplexen Events in Wohnungen zu planen.
+- 3 - 20 stelliger Ort und Land mit Groß- und Kleinbuchstaben sowie Bindestrichen sind akzeptabel für die erste Version der Plattform. Es ist bekannt, dass die Plattform für den Einsatz in fremden Ländern mehr Zeichen-Typen unterstützten sollte. Dies kann in einer späteren Ausbaustufe erweitert werden.
+- Für die Uhrzeit und das Datum wird die Angular Standard-Funktionalität namens [DatePipe](https://angular.io/api/common/DatePipe) verwendet. Das Datums-Format richtet sich zunächst nach dem deutschen Zeit-Standard, der in DIN 5008 (z.B. TT.MM.YYYY) definiert ist. In einer späteren Ausbaustufe können im Rahmen einer spezialisten Lokalisierung noch weitere Zeit- und Datums-Formate integriert werden.
+- Die optionale, bis zu 25 Zeichen lange Adresszusatzzeile wird als notwendig angesehen, um insbesondere in Ballungsgebieten den Teilnehmern eines Events das auffinden des Veranstaltungsortes zu vereinfachen.
