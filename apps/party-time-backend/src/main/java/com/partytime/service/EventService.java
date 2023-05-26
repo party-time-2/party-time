@@ -46,19 +46,33 @@ public class EventService {
      */
     @Transactional
     public Event updateEvent(EventDTO body, String email) {
-        Event originalEvent = eventRepository.findById(body.getId())
-            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + body.getId() + " konnte nicht gefunden werden.").asException());
-
-        if (!email.equals(originalEvent.getOrganizer().getEmail())) {
-            // Authenticated User is not Event Organizer
-            throw ApiError.forbidden().asException();
-        }
+        Event originalEvent = precheckExistsAndOwnEvent(body.getId(), email);
 
         originalEvent.setAddress(addressService.getAddress(body.getAddress()));
         originalEvent.setName(body.getName());
         originalEvent.setDateTime(body.getDateTime());
 
         return eventRepository.save(originalEvent);
+    }
+
+    /**
+     * Implements F003
+     */
+    @Transactional
+    public void deleteEvent(Long eventId, String email) {
+        Event originalEvent = precheckExistsAndOwnEvent(eventId, email);
+        eventRepository.delete(originalEvent);
+    }
+
+    private Event precheckExistsAndOwnEvent(Long eventId, String email) {
+        Event originalEvent = eventRepository.findById(eventId)
+            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + eventId + " konnte nicht gefunden werden.").asException());
+
+        if (!email.equals(originalEvent.getOrganizer().getEmail())) {
+            // Authenticated User is not Event Organizer
+            throw ApiError.forbidden().asException();
+        }
+        return originalEvent;
     }
 
 }
