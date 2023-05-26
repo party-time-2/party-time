@@ -33,6 +33,7 @@ entity Address {
     * id: bigint <<generated>>
     --
     * addressLine: character varying(255)
+    * addressAddition: character varying(255)
     * zip: character varying(255)
     * city: character varying(255)
     * country: character varying(255)
