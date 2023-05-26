@@ -10,8 +10,8 @@ export interface EventDTO {
 
 export interface EventCreateDTO {
   name: string;
-  dateTime: string;
   address: Address;
+  dateTime: string;
 }
 
 export interface Address {
