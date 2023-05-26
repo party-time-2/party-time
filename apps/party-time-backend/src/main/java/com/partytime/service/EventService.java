@@ -3,10 +3,12 @@ package com.partytime.service;
 import com.partytime.api.dto.event.EventCreateDTO;
 import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.error.ApiError;
-import com.partytime.jpa.entity.Account;
-import com.partytime.jpa.entity.Address;
-import com.partytime.jpa.entity.Event;
+import com.partytime.configuration.PartyTimeConfigurationProperties;
+import com.partytime.jpa.entity.*;
+import com.partytime.jpa.repository.EventParticipantRepository;
 import com.partytime.jpa.repository.EventRepository;
+import com.partytime.mail.MailService;
+import com.partytime.mail.model.invite.InvitationData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,8 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventService {
 
     private final EventRepository eventRepository;
+    private final EventParticipantRepository eventParticipantRepository;
+
     private final AccountService accountService;
     private final AddressService addressService;
+    private final MailService mailService;
+
+    private final PartyTimeConfigurationProperties configurationProperties;
 
     /**
      * Implements F001
@@ -73,6 +80,39 @@ public class EventService {
             throw ApiError.forbidden().asException();
         }
         return originalEvent;
+    }
+
+    @Transactional
+    public void inviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
+        Event originalEvent = precheckExistsAndOwnEvent(eventId, authenticatedUser);
+        Account invitedAccount = accountService.getAccount(targetEmail);
+
+        if (eventParticipantRepository.existsByEvent_IdAndAccount_Id(eventId, invitedAccount.getId())) {
+            throw ApiError.badRequest("Der Account mit der Email " + targetEmail + " wurde bereits eingeladen").asException();
+        }
+
+        EventParticipant participant = EventParticipant.builder()
+            .account(invitedAccount)
+            .event(originalEvent)
+            .status(Status.INVITED)
+            .build();
+        eventParticipantRepository.save(participant);
+
+        String baseLink = configurationProperties.getUrl() + "/event/" + eventId;
+        String acceptLink = baseLink + "/accept";
+        String declineLink = baseLink + "/decline";
+
+        mailService.sendMail(targetEmail, "Einladung zum Event " + originalEvent.getName(), MailService.TEMPLATE_INVITATION, InvitationData.builder()
+            .name(invitedAccount.getName())
+            .organizer(originalEvent.getOrganizer().getName())
+            .event(originalEvent.getName())
+            .acceptLink(acceptLink)
+            .declineLink(declineLink)
+            .homepage(configurationProperties.getUrl())
+            .build());
+
+        log.info("Accept Link: " + acceptLink);
+        log.info("Decline Link: " + declineLink);
     }
 
 }
