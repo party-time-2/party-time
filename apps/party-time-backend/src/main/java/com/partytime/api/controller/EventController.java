@@ -194,7 +194,9 @@ public class EventController {
     )
     public EventDTO updateEvent(@RequestBody @NotNull @Valid EventDTO body,
                                 TokenAuthentication authentication) {
-        return body; // TODO Implementation
+        return EventMapper.map(
+            eventService.updateEvent(body, authentication.getPrincipal().getUsername())
+        );
     }
 
     /**
