@@ -24,6 +24,9 @@ spring:
     password: 5J6fBw3zRADv0n7C
   mustache:
     prefix: classpath:/mail/
+  mvc:
+    format:
+      date-time: iso
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
@@ -35,3 +38,4 @@ party-time:
     enabled: true
 server:
   port: 8090
+

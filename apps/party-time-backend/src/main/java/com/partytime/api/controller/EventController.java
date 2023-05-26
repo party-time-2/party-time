@@ -4,6 +4,8 @@ import com.partytime.api.dto.event.EventCreateDTO;
 import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.dto.event.ParticipantDTO;
 import com.partytime.configuration.security.TokenAuthentication;
+import com.partytime.jpa.mapper.EventMapper;
+import com.partytime.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -27,6 +29,8 @@ import java.util.List;
 )
 public class EventController {
     static final String TAG = "Event API";
+
+    private final EventService eventService;
 
     /**
      * Implements F016
@@ -157,7 +161,9 @@ public class EventController {
     )
     public EventDTO createEvent(@RequestBody @NotNull @Valid EventCreateDTO body,
                                 TokenAuthentication authentication) {
-        return null; // TODO Implementation
+        return EventMapper.map(
+            eventService.createEvent(body, authentication.getPrincipal().getUsername())
+        );
     }
 
     /**
@@ -165,7 +171,7 @@ public class EventController {
      */
     @PutMapping
     @Operation(
-        description = "Update own event if authenticated user  is host",
+        description = "Update own event if authenticated user is host",
         responses = {
             @ApiResponse(
                 description = "Event successfully updated",
