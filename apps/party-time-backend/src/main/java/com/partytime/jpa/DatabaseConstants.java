@@ -38,6 +38,7 @@ public final class DatabaseConstants {
     public static final class Address {
         public static final String TABLE_NAME = "ADDRESS";
         public static final String COLUMN_ADDRESS_LINE = "ADDRESS_LINE";
+        public static final String COLUMN_ADDRESS_LINE_ADDITION = "ADDRESS_LINE_ADDITION";
         public static final String COLUMN_ZIP = "ZIP";
         public static final String COLUMN_CITY = "CITY";
         public static final String COLUMN_COUNTRY = "COUNTRY";
