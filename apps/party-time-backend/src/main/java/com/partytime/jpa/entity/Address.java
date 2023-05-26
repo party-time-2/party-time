@@ -28,6 +28,11 @@ public class Address extends BaseEntity<Long> {
 
     @NotNull
     @NotEmpty
+    @Column(name = DatabaseConstants.Address.COLUMN_ADDRESS_LINE_ADDITION)
+    private String addressLineAddition;
+
+    @NotNull
+    @NotEmpty
     @Column(name = DatabaseConstants.Address.COLUMN_ZIP)
     private String zip;
 
