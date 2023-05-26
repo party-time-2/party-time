@@ -1,169 +1,256 @@
 <!-- implements F001 -->
 <ng-container *ngIf="vm$ | async as vm">
-    <div *ngIf="!vm.isEventCreated; else created">
-        <party-time-main-header title="Event erstellen" />
-        <form (ngSubmit)="onSubmit" [formGroup]="createEventForm">
-            <div class="flex justify-center pl-12 pr-12 pt-12">
-                <div class="w-96">
-                    <section>
-                        <party-time-primary-label label="Name" />
-                        <div
-                            class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
-                            <input name="name" id="name" autocomplete="name" required formControlName="name"
-                                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-                                placeholder="z. B. Geburtstagsfeier von Manfred" />
-                        </div>
-                        <div *ngIf="f['name'].errors && (f['name'].dirty || f['name'].touched)">
-                            <div *ngIf="f['name'].errors['required']">
-                                <party-time-primary-error error="Bitte gib einen Namen für das Event ein." />
-                            </div>
-                            <div *ngIf="f['name'].errors['minlength']">
-                                <party-time-primary-error error="Der Eventname muss mindestens 5 Zeichen lang sein." />
-                            </div>
-                            <div *ngIf="f['name'].errors['maxlength']">
-                                <party-time-primary-error error="Der Eventname darf maximal 30 Zeichen lang sein." />
-                            </div>
-                        </div>
-                    </section>
-
-                    <div formGroupName="address">
-                        <h2>Adresse der Party</h2>
-                        <section>
-                            <party-time-primary-label label="Straße und Hausnummer" />
-                            <div
-                                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
-                                <input name="addressLine" id="addressLine" autocomplete="address-line1" required
-                                    formControlName="addressLine"
-                                    class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-                                    placeholder="z. B. Partystraße 2" />
-                            </div>
-                            <div
-                                *ngIf="addressControls['addressLine'].errors && (addressControls['addressLine'].dirty || addressControls['addressLine'].touched)">
-                                <div *ngIf="addressControls['addressLine'].errors['required']">
-                                    <party-time-primary-error
-                                        error="Bitte gib die Straße und Hausnummer ein, wo das Event stattfinden wird." />
-                                </div>
-                            </div>
-                        </section>
-
-                        <section>
-                            <party-time-primary-label label="Postleitzahl" />
-                            <div
-                                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
-                                <input name="zip" id="zip" autocomplete="postal-code" required formControlName="zip"
-                                    class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-                                    placeholder="z. B. 80533" />
-                            </div>
-                            <div
-                                *ngIf="addressControls['zip'].errors && (addressControls['zip'].dirty || addressControls['zip'].touched)">
-                                <div *ngIf="addressControls['zip'].errors['required']">
-                                    <party-time-primary-error
-                                        error="Bitte gib die Postleitzahl ein, wo das Event stattfinden wird." />
-                                </div>
-                                <div *ngIf="addressControls['zip'].errors['minlength']">
-                                    <party-time-primary-error
-                                        error="Eine gültige Postleitzahl hat mindestens 5 Stellen." />
-                                </div>
-                                <div *ngIf="addressControls['zip'].errors['maxlength']">
-                                    <party-time-primary-error
-                                        error="Eine gültige Postleitzahl hat maximal 5 Stellen." />
-                                </div>
-                                <div *ngIf="addressControls['zip'].errors['pattern']">
-                                    <party-time-primary-error error="Bitte gib eine gültige Postleitzahl ein." />
-                                </div>
-                            </div>
-                        </section>
-
-
-                        <section>
-                            <party-time-primary-label label="Stadt" />
-                            <div
-                                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
-                                <input name="city" id="city" autocomplete="home" required formControlName="city"
-                                    class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-                                    placeholder="z. B. München" />
-                            </div>
-                            <div
-                                *ngIf="addressControls['city'].errors && (addressControls['city'].dirty || addressControls['city'].touched)">
-                                <div *ngIf="addressControls['city'].errors['required']">
-                                    <party-time-primary-error
-                                        error="Bitte gib eine Stadt ein, wo das Event stattfinden wird." />
-                                </div>
-                                <div *ngIf="addressControls['city'].errors['minlength']">
-                                    <party-time-primary-error error="Eine gültige Stadt hat mindestens 5 Stellen." />
-                                </div>
-                                <div *ngIf="addressControls['city'].errors['maxlength']">
-                                    <party-time-primary-error error="Eine gültige Stadt hat maximal 20 Stellen." />
-                                </div>
-                            </div>
-                        </section>
-
-
-                        <section>
-                            <party-time-primary-label label="Land" />
-                            <div
-                                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md">
-                                <input name="country" id="country" autocomplete="country-name" required
-                                    formControlName="country"
-                                    class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
-                                    placeholder="z. B. Deutschland" />
-                            </div>
-                            <div
-                                *ngIf="addressControls['country'].errors && (addressControls['country'].dirty || addressControls['country'].touched)">
-                                <div *ngIf="addressControls['country'].errors['required']">
-                                    <party-time-primary-error
-                                        error="Bitte gib ein Land ein, wo das Event stattfinden wird." />
-                                </div>
-                                <div *ngIf="addressControls['country'].errors['minlength']">
-                                    <party-time-primary-error error="Eine gültiges Land hat mindestens 3 Stellen." />
-                                </div>
-                                <div *ngIf="addressControls['country'].errors['maxlength']">
-                                    <party-time-primary-error error="Eine gültiges Land hat maximal 20 Stellen." />
-                                </div>
-                            </div>
-                        </section>
-
-
-                    </div>
-
-                    <section>
-                        <party-time-primary-label label="Datum" />
-                        <input type="datetime-local" name="dateTime" id="dateTime" required formControlName="dateTime"
-                            class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6" />
-
-                    </section>
-
-
-                    <div class="flex w-full place-content-end pt-7">
-                        <div class="inline-block w-full justify-center pt-2 text-left align-bottom">
-                            <party-time-primary-error [error]="vm.error?.error?.message" />
-                        </div>
-
-                        <party-time-primary-button lodingMessage="Erstelle" [isLoading]="vm.isLoading"
-                            (clicked)="onSubmit()" id="create" [disabled]="!createEventForm.valid || vm.isLoading"
-                            type="button" name="Erstellen" />
-                    </div>
-
-                </div>
-            </div>
-        </form>
-
-
-    </div>
-
-    <ng-template #created>
-        <party-time-main-header title=" Event erstellt" />
-        <div class="flex justify-center pl-12 pr-12 pt-12">
+  <div *ngIf="!vm.isEventCreated; else created">
+    <party-time-main-header title="Event erstellen" />
+    <form (ngSubmit)="(onSubmit)" [formGroup]="createEventForm">
+      <div class="flex justify-center pl-12 pr-12 pt-12">
+        <div class="w-96">
+          <section>
+            <party-time-primary-label label="Name" />
             <div
-                class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
-                <p
-                    class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark">
-                    Hey {{ vm.event?.organizer?.name }}!
-                </p>
-                <p>Dein Event {{ vm.event?.name }} wurde erfolgreich erstellt.</p>
+              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+            >
+              <input
+                name="name"
+                id="name"
+                autocomplete="name"
+                required
+                formControlName="name"
+                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                placeholder="z. B. Geburtstagsfeier von Manfred"
+              />
             </div>
-            <party-time-primary-button class="flex justify-center pt-12" routerLink="/event/overview"
-                name="Zur Übersicht" />
+            <div
+              *ngIf="f['name'].errors && (f['name'].dirty || f['name'].touched)"
+            >
+              <div *ngIf="f['name'].errors['required']">
+                <party-time-primary-error
+                  error="Bitte gib einen Namen für das Event ein."
+                />
+              </div>
+              <div *ngIf="f['name'].errors['minlength']">
+                <party-time-primary-error
+                  error="Der Eventname muss mindestens 5 Zeichen lang sein."
+                />
+              </div>
+              <div *ngIf="f['name'].errors['maxlength']">
+                <party-time-primary-error
+                  error="Der Eventname darf maximal 30 Zeichen lang sein."
+                />
+              </div>
+            </div>
+          </section>
+
+          <div formGroupName="address">
+            <h2>Adresse der Party</h2>
+            <section>
+              <party-time-primary-label label="Straße und Hausnummer" />
+              <div
+                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+              >
+                <input
+                  name="addressLine"
+                  id="addressLine"
+                  autocomplete="address-line1"
+                  required
+                  formControlName="addressLine"
+                  class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                  placeholder="z. B. Partystraße 2"
+                />
+              </div>
+              <div
+                *ngIf="
+                  addressControls['addressLine'].errors &&
+                  (addressControls['addressLine'].dirty ||
+                    addressControls['addressLine'].touched)
+                "
+              >
+                <div *ngIf="addressControls['addressLine'].errors['required']">
+                  <party-time-primary-error
+                    error="Bitte gib die Straße und Hausnummer ein, wo das Event stattfinden wird."
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <party-time-primary-label label="Postleitzahl" />
+              <div
+                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+              >
+                <input
+                  name="zip"
+                  id="zip"
+                  autocomplete="postal-code"
+                  required
+                  formControlName="zip"
+                  class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                  placeholder="z. B. 80533"
+                />
+              </div>
+              <div
+                *ngIf="
+                  addressControls['zip'].errors &&
+                  (addressControls['zip'].dirty ||
+                    addressControls['zip'].touched)
+                "
+              >
+                <div *ngIf="addressControls['zip'].errors['required']">
+                  <party-time-primary-error
+                    error="Bitte gib die Postleitzahl ein, wo das Event stattfinden wird."
+                  />
+                </div>
+                <div *ngIf="addressControls['zip'].errors['minlength']">
+                  <party-time-primary-error
+                    error="Eine gültige Postleitzahl hat mindestens 5 Stellen."
+                  />
+                </div>
+                <div *ngIf="addressControls['zip'].errors['maxlength']">
+                  <party-time-primary-error
+                    error="Eine gültige Postleitzahl hat maximal 5 Stellen."
+                  />
+                </div>
+                <div *ngIf="addressControls['zip'].errors['pattern']">
+                  <party-time-primary-error
+                    error="Bitte gib eine gültige Postleitzahl ein."
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <party-time-primary-label label="Stadt" />
+              <div
+                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+              >
+                <input
+                  name="city"
+                  id="city"
+                  autocomplete="home"
+                  required
+                  formControlName="city"
+                  class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                  placeholder="z. B. München"
+                />
+              </div>
+              <div
+                *ngIf="
+                  addressControls['city'].errors &&
+                  (addressControls['city'].dirty ||
+                    addressControls['city'].touched)
+                "
+              >
+                <div *ngIf="addressControls['city'].errors['required']">
+                  <party-time-primary-error
+                    error="Bitte gib eine Stadt ein, wo das Event stattfinden wird."
+                  />
+                </div>
+                <div *ngIf="addressControls['city'].errors['minlength']">
+                  <party-time-primary-error
+                    error="Eine gültige Stadt hat mindestens 5 Stellen."
+                  />
+                </div>
+                <div *ngIf="addressControls['city'].errors['maxlength']">
+                  <party-time-primary-error
+                    error="Eine gültige Stadt hat maximal 20 Stellen."
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section>
+              <party-time-primary-label label="Land" />
+              <div
+                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+              >
+                <input
+                  name="country"
+                  id="country"
+                  autocomplete="country-name"
+                  required
+                  formControlName="country"
+                  class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                  placeholder="z. B. Deutschland"
+                />
+              </div>
+              <div
+                *ngIf="
+                  addressControls['country'].errors &&
+                  (addressControls['country'].dirty ||
+                    addressControls['country'].touched)
+                "
+              >
+                <div *ngIf="addressControls['country'].errors['required']">
+                  <party-time-primary-error
+                    error="Bitte gib ein Land ein, wo das Event stattfinden wird."
+                  />
+                </div>
+                <div *ngIf="addressControls['country'].errors['minlength']">
+                  <party-time-primary-error
+                    error="Eine gültiges Land hat mindestens 3 Stellen."
+                  />
+                </div>
+                <div *ngIf="addressControls['country'].errors['maxlength']">
+                  <party-time-primary-error
+                    error="Eine gültiges Land hat maximal 20 Stellen."
+                  />
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <section>
+            <party-time-primary-label label="Datum" />
+            <input
+              type="datetime-local"
+              name="dateTime"
+              id="dateTime"
+              required
+              formControlName="dateTime"
+              class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+            />
+          </section>
+
+          <div class="flex w-full place-content-end pt-7">
+            <div
+              class="inline-block w-full justify-center pt-2 text-left align-bottom"
+            >
+              <party-time-primary-error [error]="vm.error?.error?.message" />
+            </div>
+
+            <party-time-primary-button
+              lodingMessage="Erstelle"
+              [isLoading]="vm.isLoading"
+              (clicked)="onSubmit()"
+              id="create"
+              [disabled]="!createEventForm.valid || vm.isLoading"
+              type="button"
+              name="Erstellen"
+            />
+          </div>
         </div>
-    </ng-template>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #created>
+    <party-time-main-header title=" Event erstellt" />
+    <div class="flex justify-center pl-12 pr-12 pt-12">
+      <div
+        class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+      >
+        <p
+          class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
+        >
+          Hey {{ vm.event?.organizer?.name }}!
+        </p>
+        <p>Dein Event {{ vm.event?.name }} wurde erfolgreich erstellt.</p>
+      </div>
+      <party-time-primary-button
+        class="flex justify-center pt-12"
+        routerLink="/event/overview"
+        name="Zur Übersicht"
+      />
+    </div>
+  </ng-template>
 </ng-container>
