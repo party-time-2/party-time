@@ -20,6 +20,9 @@ public class EventService {
     private final AccountService accountService;
     private final AddressService addressService;
 
+    /**
+     * Implements F001
+     */
     @Transactional
     public Event createEvent(EventCreateDTO body, String email) {
         Account account = accountService.optAccount(email)

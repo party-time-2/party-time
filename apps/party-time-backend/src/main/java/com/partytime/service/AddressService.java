@@ -18,6 +18,9 @@ public class AddressService {
 
     private final AddressRepository addressRepository;
 
+    /**
+     * Implemented during F001
+     */
     public Address getAddress(String addressLine,
                               String addressLineAddition,
                               String zip,
