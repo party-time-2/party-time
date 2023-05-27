@@ -231,6 +231,14 @@ Passwörter für Benutzer müssen die folgenden Anforderungen erfüllen:
 
 Einhaltung der [Bundesamt für Sicherheit in der Informationstechnik (BSI): Sichere Passwörter erstellen](https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Cyber-Sicherheitsempfehlungen/Accountschutz/Sichere-Passwoerter-erstellen/sichere-passwoerter-erstellen_node.html) Empfehlung
 
+### Löschen eines Accounts
+
+Beim Löschen eines Accounts werden alle damit verbundenen Daten gelöscht, einschließlich der Absage und Löschung von Events, bei denen der Nutzer als Organisator fungiert.
+
+**Begründung**:
+
+Schutz der Privatsphäre, der Datensicherheit und einer konsistenten Benutzererfahrung.
+
 ## Event-Richtlinien
 
 Für die Veranstaltung eines Events muss ein verifizierter Nutzer die folgenden Informationen bereitstellen:
@@ -253,3 +261,5 @@ Die Plattform bietet außerdem eine optionale, bis zu 25 Zeichen lange Adresszus
 - 3 - 20 stelliger Ort und Land mit Groß- und Kleinbuchstaben sowie Bindestrichen sind akzeptabel für die erste Version der Plattform. Es ist bekannt, dass die Plattform für den Einsatz in fremden Ländern mehr Zeichen-Typen unterstützten sollte. Dies kann in einer späteren Ausbaustufe erweitert werden.
 - Für die Uhrzeit und das Datum wird die Angular Standard-Funktionalität namens [DatePipe](https://angular.io/api/common/DatePipe) verwendet. Das Datums-Format richtet sich zunächst nach dem deutschen Zeit-Standard, der in DIN 5008 (z.B. TT.MM.YYYY) definiert ist. In einer späteren Ausbaustufe können im Rahmen einer spezialisten Lokalisierung noch weitere Zeit- und Datums-Formate integriert werden.
 - Die optionale, bis zu 25 Zeichen lange Adresszusatzzeile wird als notwendig angesehen, um insbesondere in Ballungsgebieten den Teilnehmern eines Events das auffinden des Veranstaltungsortes zu vereinfachen.
+
+
