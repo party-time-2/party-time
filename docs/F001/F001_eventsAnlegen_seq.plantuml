@@ -1,0 +1,27 @@
+@startuml F001_eventAnlegen_seq
+title "Event anlegen"
+
+actor "Nutzer" as user
+boundary "Event erstellen Maske" as createEvent
+control "Frontend Validator" as frontValid
+actor "Event erstellen Controller" as controller
+database "Datenbank" as db
+
+user -> createEvent: Eingabe Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
+activate user
+createEvent -> frontValid: Validiere Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
+createEvent <-- frontValid: Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum valide
+user <-- createEvent: Aktiviere Senden-Knopf
+user -> createEvent: Sende Event erstellen-Formular
+
+createEvent -> controller: Übermittle Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
+activate controller
+'TODO Absprechen was hier passiert
+controller -> db: Speichere Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
+controller <-- db: Bestätige Speicherung
+createEvent <-- controller: Bestätige Eventerstellung
+deactivate controller
+
+user <-- createEvent: Zeige Eventerstellung-Bestätigung
+deactivate user
+@enduml

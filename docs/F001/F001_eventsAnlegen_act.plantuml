@@ -1,0 +1,68 @@
+@startuml F001_eventAnlegen_act
+<style file=plantStyle.css>
+title "title "Event anlegen""
+
+|Verifizierter Nutzer|
+start
+:Öffne Party Time "Event anlegen" Webseite;
+repeat
+    repeat
+        repeat
+            repeat
+                repeat
+                    repeat
+                        repeat
+                            repeat
+                                split
+                                    :Eventnamen eingeben;
+                                split again
+                                    :Adresszeile (Straße und Hausnummer) ausfüllen;
+                                split again
+                                    :Postleitzahl eingeben;
+                                split again
+                                    :Ort eingeben;
+                                split again
+                                    :Land eingeben;
+                                split again
+                                    :Uhrzeit eingeben;
+                                split again
+                                    :Datum eingeben;
+                                end split
+                                if() then (Adresszusatz soll eingegeben werden)
+                                    :Adresszusatz eingeben;
+                                else (Adresszusatz soll nicht eingegeben werden)
+                                endif
+                                |Frontend Validator|
+                                :Eventnamen prüfen;
+                                backward:Fehlerhaften Eventnamen markieren;
+                            repeat while () is (Eventname fehlerhaft) not (Eventname fehlerfrei)
+                            :Adresszeile (Straße und Hausnummer) prüfen;
+                            backward:Fehlerhafte Adresszeile (Straße und Hausnummer) markieren;
+                        repeat while () is (Adresszeile (Straße und Hausnummer) fehlerhaft) not (Adresszeile (Straße und Hausnummer) fehlerfrei)
+                        :Postleitzahl prüfen;
+                        backward: Fehlerhafte Postleitzahl markieren;
+                    repeat while () is (Postleitzahl fehlerhaft) not (Postleitzahl fehlerfrei)
+                    :Ort prüfen;
+                    backward: Fehlerhaften Ort markieren;
+                repeat while () is (Ort fehlerhaft) not (Ort fehlerfrei)
+                :Land prüfen;
+                backward: Fehlerhaftes Land markieren;
+            repeat while () is (Land fehlerhaft) not (Land fehlerfrei)
+            :Uhrzeit prüfen;
+            backward: Fehlerhafte Uhrzeit markieren;
+        repeat while () is (Uhrzeit fehlerhaft) not (Uhrzeit fehlerfrei)
+        :Datum prüfen;
+        backward: Fehlerhaftes Datum markieren;
+    repeat while () is (Datum fehlerhaft) not (Datum fehlerfrei)
+    :Adresszusatz prüfen;
+    backward: Fehlerhaften Adresszusatz markieren;
+repeat while () is (Adresszusatz fehlerhaft) not (Adresszusatz fehlerfrei)
+|Verifizierter Nutzer|
+:Registration-Formular senden;
+|Event erstellen Controller|
+'TODO Absprechen was hier passiert
+:Eventerstellung bestätigen;
+|Verifizierter Nutzer|
+:Bestätigung Eventerstellung empfangen;
+:Bestätigung Eventerstellung anzeigen;
+@enduml
