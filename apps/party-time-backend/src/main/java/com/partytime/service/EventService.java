@@ -68,9 +68,14 @@ public class EventService {
      * Implements F003
      */
     @Transactional
-    public void deleteEvent(Long eventId, String email) {
+    public void deleteEventById(Long eventId, String email) {
         Event originalEvent = precheckExistsAndOwnEvent(eventId, email);
         eventRepository.delete(originalEvent);
+    }
+
+    @Transactional
+    public void deleteMultipleEvents(List<Event> events) {
+        eventRepository.deleteAll(events);
     }
 
     private Event precheckExistsAndOwnEvent(Long eventId, String email) {
@@ -122,6 +127,11 @@ public class EventService {
      */
     public List<Event> getEvents(String email) {
         return eventRepository.findByOrganizer_Email(email);
+    }
+
+    public List<EventParticipant> getParticipants(Long eventId, String email) {
+        return precheckExistsAndOwnEvent(eventId, email)
+            .getEventParticipants();
     }
 
 }
