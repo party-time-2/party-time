@@ -47,7 +47,9 @@ public class EventController {
         }
     )
     public List<EventDTO> getEvents(TokenAuthentication authentication) {
-        return Collections.emptyList(); // TODO Implementation
+        return eventService.getEvents(authentication.getPrincipal().getUsername()).stream()
+            .map(EventMapper::map)
+            .toList();
     }
 
     /**
