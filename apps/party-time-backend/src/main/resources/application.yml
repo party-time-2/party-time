@@ -35,7 +35,7 @@ party-time:
   jwt:
     secret: pJADh3HysJ0dbNNnvfTub2vnus9pg7ddP894ZFcyKu72XmX78qU97yuvpOuwEcoe
   mail:
-    enabled: true
+    enabled: false
 server:
   port: 8090
 
