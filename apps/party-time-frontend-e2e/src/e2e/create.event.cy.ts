@@ -191,5 +191,6 @@ describe('create-event', () => {
     cy.get('party-time-primary-button > #create').click();
     cy.wait('@createParty');
     cy.contains(`Dein Event ${pt_name()} wurde erfolgreich erstellt.`);
+    cy.screenshot();
   });
 });
