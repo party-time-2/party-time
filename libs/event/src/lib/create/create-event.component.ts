@@ -69,7 +69,7 @@ export class CreateEventComponent {
     }),
 
     dateTime: new FormControl(
-      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd HH:mm'),
+      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd HH:mm:ss'),
       Validators.required
     ),
   });
