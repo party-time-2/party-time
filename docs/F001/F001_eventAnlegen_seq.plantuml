@@ -16,7 +16,7 @@ user -> createEvent: Sende Event erstellen-Formular
 
 createEvent -> controller: Übermittle Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
 activate controller
-'TODO Absprechen was hier passiert
+controller -> controller: Eventdaten serverseitig verifizieren
 controller -> db: Speichere Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
 controller <-- db: Bestätige Speicherung
 createEvent <-- controller: Bestätige Eventerstellung

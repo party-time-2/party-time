@@ -86,9 +86,27 @@ repeat while () is (Adresszusatz fehlerhaft) not (Adresszusatz fehlerfrei)
 |Verifizierter Nutzer|
 :Registration-Formular senden;
 |Event erstellen Controller|
-'TODO Absprechen was hier passiert
+:Eventdaten serverseitig verifizieren;
+
+if () then (Verifizierung nicht erfolgreich)
+    |Event erstellen Controller|
+    :Fehlermeldung senden;
+    |Verifizierter Nutzer|
+    :Fehlermeldung Eventerstellung empfangen;
+    :Fehlermeldung Eventerstellung anzeigen;
+    note right
+        create_errors: Die Anfrage konnte nicht bearbeitet werden.
+    end note
+    stop
+else (Verifizierung erfolgreich)
+endif
+|Event erstellen Controller|
 :Eventerstellung bestätigen;
 |Verifizierter Nutzer|
 :Bestätigung Eventerstellung empfangen;
 :Bestätigung Eventerstellung anzeigen;
+note right
+    create_success: Dein Event ${pt_name()} wurde erfolgreich erstellt.
+end note
+stop
 @enduml
