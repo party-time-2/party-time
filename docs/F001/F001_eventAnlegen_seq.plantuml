@@ -1,7 +1,7 @@
 @startuml F001_eventAnlegen_seq
 title "Event anlegen"
 
-actor "Nutzer" as user
+actor "Verifizierter Nutzer" as user
 boundary "Event erstellen Maske" as createEvent
 control "Frontend Validator" as frontValid
 actor "Event erstellen Controller" as controller
