@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
         { routerLink: 'event', name: 'Party' },
         { routerLink: 'auth/login', name: 'Login' },
         { routerLink: '404', name: '404' },
-        { routerLink: 'auth/register', name: 'Regestrieren' },
+        { routerLink: 'auth/register', name: 'Registrieren' },
       ];
     }
   }
