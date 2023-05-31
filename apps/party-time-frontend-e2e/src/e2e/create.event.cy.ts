@@ -171,7 +171,6 @@ describe('create-event', () => {
           email: user_email(),
           emailVerified: true,
         },
-        // datetime wwith this format "2023-05-30T07:43:37.204Z"
         dateTime: new Date().toISOString(),
         address: {
           addressLine: pt_addressLine(),
