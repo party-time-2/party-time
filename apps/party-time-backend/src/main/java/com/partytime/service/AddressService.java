@@ -30,7 +30,7 @@ public class AddressService {
         return addressRepository.findByData(addressLine, adLineAdd, zip, city, country)
             .or(() -> Optional.of(AddressMapper.create(addressLine, adLineAdd, zip, city, country))
                 .map(addressRepository::save))
-            .orElseThrow(() -> ApiError.badRequest("Fehler bei der Anlage einer Addresse").asException());
+            .orElseThrow(() -> ApiError.badRequest("Fehler bei der Anlage einer Adresse").asException());
     }
 
     public Address getAddress(AddressDTO address) {
