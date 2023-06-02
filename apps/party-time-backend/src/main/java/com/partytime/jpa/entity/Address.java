@@ -26,8 +26,6 @@ public class Address extends BaseEntity<Long> {
     @Column(name = DatabaseConstants.Address.COLUMN_ADDRESS_LINE)
     private String addressLine;
 
-    @NotNull
-    @NotEmpty
     @Column(name = DatabaseConstants.Address.COLUMN_ADDRESS_LINE_ADDITION)
     private String addressLineAddition;
 

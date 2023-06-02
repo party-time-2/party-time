@@ -8,15 +8,30 @@ export const navigateChange = () => cy.visit('account/change');
 
 export const navigateLogout = () => cy.visit('auth/logout');
 
+export const navigateCreateEvent = () => cy.visit('event/create');
+
+export const user_name = () => 'Gustav Gans';
+
+export const user_email = () => 'gustav@gans.de';
+
 export const verifyToken = () => '3a1a9d22-b693-41d6-9fe6-853fa80266dd';
 
-export const pw_short = () => 'a';
+export const pt_name = () => 'Abschlussfeier von Gustav Gans';
 
-export const user_short = () => 'a';
+export const short_string = () => 'a';
 
-export const user_long = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+export const long_string = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
-export const pw_long = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+export const very_long_string = () =>
+  'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+export const pt_addressLine = () => 'Entenstraße 1';
+
+export const pt_zip = () => '12345';
+
+export const pt_city = () => 'Entenhausen';
+
+export const pt_country = () => 'Deutschland';
 
 export const pw_wrong_chars = () => 'aaaaaaaaaaaaa';
 
@@ -45,3 +60,51 @@ export const user_long_error = () =>
   'Der Benutzername darf maximal 30 Zeichen lang sein.';
 
 export const user_required_error = () => 'Bitte gib einen Benutzernamen ein.';
+
+export const pt_name_required_error = () =>
+  'Bitte gib einen Namen für das Event ein.';
+
+export const pt_name_short_error = () =>
+  'Der Eventname muss mindestens 5 Zeichen lang sein.';
+
+export const pt_name_long_error = () =>
+  'Der Eventname darf maximal 30 Zeichen lang sein.';
+
+export const pt_address_short_error = () =>
+  'Eine gültige Adresse hat mindestens 4 Stellen.';
+
+export const pt_address_long_error = () =>
+  'Eine gültige Adresse hat maximal 25 Stellen.';
+
+export const pt_address_required_error = () =>
+  'Bitte gib die Straße und Hausnummer ein, wo das Event stattfinden wird.';
+
+export const pt_zip_required_error = () =>
+  'Bitte gib die Postleitzahl ein, wo das Event stattfinden wird.';
+
+export const pt_zip_short_error = () =>
+  'Eine gültige Postleitzahl hat 5 Stellen.';
+
+export const pt_zip_long_error = () =>
+  'Eine gültige Postleitzahl hat 5 Stellen.';
+
+export const pt_zip_chars_error = () =>
+  'Bitte gib eine gültige Postleitzahl ein.';
+
+export const pt_city_required_error = () =>
+  'Bitte gib eine Stadt ein, wo das Event stattfinden wird.';
+
+export const pt_city_short_error = () =>
+  'Eine gültige Stadt hat mindestens 5 Stellen.';
+
+export const pt_city_long_error = () =>
+  'Eine gültige Stadt hat maximal 20 Stellen.';
+
+export const pt_country_required_error = () =>
+  'Bitte gib ein Land ein, wo das Event stattfinden wird.';
+
+export const pt_country_short_error = () =>
+  'Ein gültiges Land hat mindestens 3 Stellen.';
+
+export const pt_country_long_error = () =>
+  'Ein gültiges Land hat maximal 20 Stellen.';
