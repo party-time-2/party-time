@@ -1,6 +1,6 @@
 @startuml F001_eventAnlegen_act
 <style file=plantStyle.css>
-title "title "Event anlegen""
+title "Event anlegen"
 
 |Verifizierter Nutzer|
 start
