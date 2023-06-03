@@ -46,7 +46,7 @@ export class CreateEventComponent {
     address: new FormGroup({
       addressLine: new FormControl('', [
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(4),
         Validators.maxLength(25),
       ]),
       zip: new FormControl('', [
@@ -69,7 +69,7 @@ export class CreateEventComponent {
     }),
 
     dateTime: new FormControl(
-      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd HH:mm'),
+      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd HH:mm:ss'),
       Validators.required
     ),
   });

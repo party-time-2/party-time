@@ -38,4 +38,3 @@ party-time:
     enabled: true
 server:
   port: 8090
-

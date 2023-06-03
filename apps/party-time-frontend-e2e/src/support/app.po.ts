@@ -10,19 +10,28 @@ export const navigateLogout = () => cy.visit('auth/logout');
 
 export const navigateCreateEvent = () => cy.visit('event/create');
 
+export const user_name = () => 'Gustav Gans';
+
+export const user_email = () => 'gustav@gans.de';
+
 export const verifyToken = () => '3a1a9d22-b693-41d6-9fe6-853fa80266dd';
 
-export const pw_short = () => 'a';
+export const pt_name = () => 'Abschlussfeier von Gustav Gans';
 
-export const pt_name_short = () => 'a';
+export const short_string = () => 'a';
 
-export const user_short = () => 'a';
+export const long_string = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
-export const user_long = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+export const very_long_string = () =>
+  'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
-export const pt_name_long = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+export const pt_addressLine = () => 'Entenstraße 1';
 
-export const pw_long = () => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+export const pt_zip = () => '12345';
+
+export const pt_city = () => 'Entenhausen';
+
+export const pt_country = () => 'Deutschland';
 
 export const pw_wrong_chars = () => 'aaaaaaaaaaaaa';
 
@@ -60,6 +69,12 @@ export const pt_name_short_error = () =>
 
 export const pt_name_long_error = () =>
   'Der Eventname darf maximal 30 Zeichen lang sein.';
+
+export const pt_address_short_error = () =>
+  'Eine gültige Adresse hat mindestens 4 Stellen.';
+
+export const pt_address_long_error = () =>
+  'Eine gültige Adresse hat maximal 25 Stellen.';
 
 export const pt_address_required_error = () =>
   'Bitte gib die Straße und Hausnummer ein, wo das Event stattfinden wird.';

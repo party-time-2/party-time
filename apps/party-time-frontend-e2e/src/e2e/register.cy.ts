@@ -1,36 +1,36 @@
 import {
   navigateRegister,
-  pw_long,
   pw_long_error,
   pw_required_error,
-  pw_short,
   pw_short_error,
   pw_wrong_chars,
   pw_wrong_chars_error,
-  user_long,
+  long_string,
   user_long_error,
   user_required_error,
-  user_short,
+  short_string,
   user_short_error,
   pw_valid,
+  user_name,
+  user_email,
 } from '../support/app.po';
 
 describe('party-time-register-error-user', () => {
   it('should show user_too_short', () => {
     navigateRegister();
-    cy.get('#username').type(user_short());
+    cy.get('#username').type(short_string());
     cy.contains(user_short_error());
     cy.screenshot();
   });
   it('should show user_too_long', () => {
     navigateRegister();
-    cy.get('#username').type(user_long());
+    cy.get('#username').type(long_string());
     cy.contains(user_long_error());
     cy.screenshot();
   });
   it('should show user_required', () => {
     navigateRegister();
-    cy.get('#username').type(user_short());
+    cy.get('#username').type(short_string());
     cy.get('#username').clear();
     cy.contains(user_required_error());
     cy.screenshot();
@@ -60,20 +60,20 @@ describe('party-time-register-error-mail', () => {
 describe('party-time-register-error-pw', () => {
   it('should show pw_required', () => {
     navigateRegister();
-    cy.get('#password').type(pw_short());
+    cy.get('#password').type(short_string());
     cy.get('#password').clear();
     cy.contains(pw_required_error());
     cy.screenshot();
   });
   it('should show pw_short', () => {
     navigateRegister();
-    cy.get('#password').type(pw_short());
+    cy.get('#password').type(short_string());
     cy.contains(pw_short_error());
     cy.screenshot();
   });
   it('should show pw_long', () => {
     navigateRegister();
-    cy.get('#password').type(pw_long());
+    cy.get('#password').type(long_string());
     cy.contains(pw_long_error());
     cy.screenshot();
   });
@@ -99,8 +99,8 @@ describe('party-time-register', () => {
         statusCode: 200,
         body: {
           id: 37,
-          name: dateTime,
-          email: dateTime + '@test.de',
+          name: user_name(),
+          email: user_email(),
           emailVerified: false,
         },
         headers: {
@@ -108,14 +108,12 @@ describe('party-time-register', () => {
         },
       }
     );
-    cy.get('#username').type(dateTime);
-    cy.get('#email').type(dateTime + '@test.de');
+    cy.get('#username').type(user_name());
+    cy.get('#email').type(user_email());
     cy.get('#password').type('Hallo123!nbasmdnbasd');
     cy.get('.w-full > party-time-primary-button > .h-9').click();
     cy.contains('Account erstellt');
-    cy.contains(
-      'Bitte bestätige deine E-Mail Adresse ' + dateTime + '@test.de'
-    );
+    cy.contains('Bitte bestätige deine E-Mail Adresse ' + user_email());
     cy.contains('Zur Verifikation');
     cy.screenshot();
   });
@@ -140,8 +138,8 @@ describe('party-time-register', () => {
         },
       }
     );
-    cy.get('#username').type(dateTime);
-    cy.get('#email').type(dateTime + '@test.de');
+    cy.get('#username').type(user_name());
+    cy.get('#email').type(user_email());
     cy.get('#password').type(pw_valid());
     cy.get('.w-full > party-time-primary-button > .h-9').click();
 
