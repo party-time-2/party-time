@@ -1,3 +1,4 @@
+//implements F016
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainHeaderComponent, PrimaryButtonComponent, PrimaryErrorComponent, PrimaryLabelComponent } from '@party-time/ui';
