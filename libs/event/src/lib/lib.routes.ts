@@ -12,6 +12,6 @@ export const eventRoutes: Route[] = [
   },
   {
     path: 'overview',
-    component: OverviewComponent
-  }
+    component: OverviewComponent,
+  },
 ];

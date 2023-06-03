@@ -1,13 +1,24 @@
 //implements F016
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainHeaderComponent, PrimaryButtonComponent, PrimaryErrorComponent, PrimaryLabelComponent } from '@party-time/ui';
+import {
+  MainHeaderComponent,
+  PrimaryButtonComponent,
+  PrimaryErrorComponent,
+  PrimaryLabelComponent,
+} from '@party-time/ui';
 import { OverviewStore } from './+state/overview.state';
 
 @Component({
   selector: 'party-time-overview',
   standalone: true,
-  imports: [CommonModule, PrimaryButtonComponent, MainHeaderComponent, PrimaryLabelComponent, PrimaryErrorComponent],
+  imports: [
+    CommonModule,
+    PrimaryButtonComponent,
+    MainHeaderComponent,
+    PrimaryLabelComponent,
+    PrimaryErrorComponent,
+  ],
   templateUrl: './overview.component.html',
   providers: [OverviewStore],
   styles: [],
