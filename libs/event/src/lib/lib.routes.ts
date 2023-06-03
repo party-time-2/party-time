@@ -2,6 +2,7 @@
 import { Route } from '@angular/router';
 import { EventComponent } from './event/event.component';
 import { CreateEventComponent } from './create/create-event.component';
+import { OverviewComponent } from './overview/overview.component';
 
 export const eventRoutes: Route[] = [
   { path: '', component: EventComponent },
@@ -9,4 +10,8 @@ export const eventRoutes: Route[] = [
     path: 'create',
     component: CreateEventComponent,
   },
+  {
+    path: 'overview',
+    component: OverviewComponent
+  }
 ];
