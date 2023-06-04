@@ -69,7 +69,7 @@ export class CreateEventComponent {
     }),
 
     dateTime: new FormControl(
-      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd HH:mm:ss'),
+      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd H:m:00'),
       Validators.required
     ),
   });
@@ -85,7 +85,14 @@ export class CreateEventComponent {
   // submit the create event form
   onSubmit(): void {
     if (this.createEventForm.valid) {
+      this.createEventForm.controls.dateTime.setValue(
+        this.datePipe.transform(
+          this.createEventForm.controls.dateTime.getRawValue(),
+          'yyyy-MM-dd HH:mm:ss'
+        )
+      );
       console.log(this.createEventForm.getRawValue() as EventCreateDTO);
+
       this.createStore.getEventDTO(
         this.createEventForm.getRawValue() as EventCreateDTO
       );

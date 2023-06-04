@@ -8,6 +8,7 @@ import {
   PrimaryLabelComponent,
 } from '@party-time/ui';
 import { OverviewStore } from './+state/overview.state';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'party-time-overview',
@@ -20,7 +21,7 @@ import { OverviewStore } from './+state/overview.state';
     PrimaryErrorComponent,
   ],
   templateUrl: './overview.component.html',
-  providers: [OverviewStore],
+  providers: [OverviewStore, EventService],
   styles: [],
 })
 export class OverviewComponent {
