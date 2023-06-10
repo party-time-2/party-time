@@ -1,6 +1,6 @@
 //implements F001
-import { Component, LOCALE_ID } from '@angular/core';
-import { CommonModule, DatePipe, formatDate } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,

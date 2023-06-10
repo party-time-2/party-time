@@ -1,3 +1,4 @@
+// implements F016
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EventDTO } from '@party-time/models';
@@ -7,7 +8,7 @@ import { EventDTO } from '@party-time/models';
   standalone: true,
   imports: [CommonModule],
   template: ` <li
-    class="p-5 w-full border-4 border-transparent hover:border-secondary-dark hover:dark:border-secondary-light rounded bg-primary-container-light text-on-primary-container-light dark:bg-primary-container-dark dark:text-on-primary-container-dark"
+    class="w-full rounded border-4 border-transparent bg-primary-container-light p-5 text-on-primary-container-light hover:border-secondary-dark dark:bg-primary-container-dark dark:text-on-primary-container-dark hover:dark:border-secondary-light"
   >
     <div class="flex items-center space-x-4">
       <div class="min-w-0 flex-1">
@@ -18,14 +19,10 @@ import { EventDTO } from '@party-time/models';
           {{ event?.organizer?.name }}
         </p>
       </div>
-      <div
-        class=" inline-flex items-center text-base font-semibold"
-      >
+      <div class=" inline-flex items-center text-base font-semibold">
         {{ event?.dateTime | date : 'hh:mm' }}
       </div>
-      <div
-        class=" inline-flex items-center text-base font-semibold"
-      >
+      <div class=" inline-flex items-center text-base font-semibold">
         <span class="flex flex-col">
           <p>
             {{ event?.dateTime | date : 'EEEE' }}
@@ -35,7 +32,7 @@ import { EventDTO } from '@party-time/models';
           </p>
         </span>
       </div>
-    </div> 
+    </div>
   </li>`,
   styles: [],
 })
