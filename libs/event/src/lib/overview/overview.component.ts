@@ -9,6 +9,7 @@ import {
 } from '@party-time/ui';
 import { OverviewStore } from './+state/overview.state';
 import { EventService } from '../services/event.service';
+import { EventSelectorComponent } from '../selector/selector.component';
 
 @Component({
   selector: 'party-time-overview',
@@ -19,6 +20,7 @@ import { EventService } from '../services/event.service';
     MainHeaderComponent,
     PrimaryLabelComponent,
     PrimaryErrorComponent,
+    EventSelectorComponent,
   ],
   templateUrl: './overview.component.html',
   providers: [OverviewStore, EventService],

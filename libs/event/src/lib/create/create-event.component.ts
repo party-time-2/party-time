@@ -49,6 +49,11 @@ export class CreateEventComponent {
         Validators.minLength(4),
         Validators.maxLength(25),
       ]),
+      addressLineAddition: new FormControl('addition', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(25),
+      ]),
       zip: new FormControl('', [
         Validators.required,
         Validators.minLength(5),
@@ -69,7 +74,7 @@ export class CreateEventComponent {
     }),
 
     dateTime: new FormControl(
-      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd H:m:00'),
+      this.datePipe.transform(new Date() as Date, 'yyyy-MM-dd HH:mm'),
       Validators.required
     ),
   });
