@@ -2,11 +2,11 @@
 <ng-container *ngIf="vm$ | async as vm">
     <party-time-main-header title="Events überblicken" />
     <section class="flex justify-center">
-        <div class="">
-            <ul class="divide-y divide-gray-200 dark:divide-gray-700" *ngFor="let event of vm.events">
+        <div class="w-full">
+            <ul class="p-5" *ngFor="let event of vm.events">
                 <party-time-event-selector [event]="event"></party-time-event-selector>
             </ul>
         </div>
     </section>
-    <pre>{{ vm | json}}</pre>
+    <!-- <pre>{{ vm | json}}</pre> -->
 </ng-container>

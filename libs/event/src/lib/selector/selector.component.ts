@@ -6,23 +6,25 @@ import { EventDTO } from '@party-time/models';
   selector: 'party-time-event-selector',
   standalone: true,
   imports: [CommonModule],
-  template: ` <li class="pb-3 sm:pb-4">
+  template: ` <li
+    class="p-5 w-full border-4 border-transparent hover:border-secondary-dark hover:dark:border-secondary-light rounded bg-primary-container-light text-on-primary-container-light dark:bg-primary-container-dark dark:text-on-primary-container-dark"
+  >
     <div class="flex items-center space-x-4">
       <div class="min-w-0 flex-1">
-        <p class="text-gray-900 dark:text-white truncate text-sm font-medium">
+        <p class="truncate text-lg font-medium">
           {{ event?.name }}
         </p>
-        <p class="text-gray-500 dark:text-gray-400 truncate text-sm">
+        <p class="truncate text-sm">
           {{ event?.organizer?.name }}
         </p>
       </div>
       <div
-        class="text-gray-900 dark:text-white inline-flex items-center text-base font-semibold"
+        class=" inline-flex items-center text-base font-semibold"
       >
         {{ event?.dateTime | date : 'hh:mm' }}
       </div>
       <div
-        class="text-gray-900 dark:text-white inline-flex items-center text-base font-semibold"
+        class=" inline-flex items-center text-base font-semibold"
       >
         <span class="flex flex-col">
           <p>
@@ -33,7 +35,7 @@ import { EventDTO } from '@party-time/models';
           </p>
         </span>
       </div>
-    </div>
+    </div> 
   </li>`,
   styles: [],
 })
