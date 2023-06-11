@@ -43,6 +43,12 @@ public class EventService {
         return eventRepository.save(event);
     }
 
+     // TODO
+    public Event getEvent(String email, Long id) {
+        // return event where id = id and organizer = email
+        return eventRepository.findByIdAndOrganizer_Email(id, email);
+    } 
+    
     /**
      * Implements F016
      */

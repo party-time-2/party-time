@@ -52,6 +52,30 @@ public class EventController {
             .toList();
     }
 
+    @GetMapping("/{id}")
+    @Operation(
+        description = "Get event by id if the authenticated user is host ",
+        responses = {
+            @ApiResponse(
+                description = "Data",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                description = "Not organizer",
+                responseCode = "403"
+            ),
+            @ApiResponse(
+                description = "Event not found",
+                responseCode = "404"
+            )
+        }
+    )
+    public EventDTO getEvent(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+                             TokenAuthentication authentication) {
+        return EventMapper.map(eventService.getEvent(authentication.getPrincipal().getUsername(), eventId));
+    }
+
     /**
      * Implements F006
      */
@@ -78,6 +102,7 @@ public class EventController {
                                                 TokenAuthentication authentication) {
         return Collections.emptyList(); // TODO Implementation
     }
+
 
     /**
      * Implements F004
