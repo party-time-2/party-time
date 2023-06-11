@@ -6,6 +6,8 @@ export const navigateLogin = () => cy.visit('auth/login');
 
 export const navigateChange = () => cy.visit('account/change');
 
+export const navigateEventOverview = () => cy.visit('event/overview');
+
 export const navigateLogout = () => cy.visit('auth/logout');
 
 export const navigateCreateEvent = () => cy.visit('event/create');
