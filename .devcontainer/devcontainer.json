@@ -66,7 +66,9 @@
         "plantuml.exportFormat": "png",
         "plantuml.exportOutDir": "docs/PNG",
         "plantuml.exportIncludeFolderHeirarchy": true,
-        "plantuml.exportSubFolder": false
+        "plantuml.exportSubFolder": false,
+        "plantuml.jarArgs": ["-DPLANTUML_LIMIT_SIZE=8192"],
+        "prettier.prettierPath": "./node_modules/prettier"
       }
     }
   },

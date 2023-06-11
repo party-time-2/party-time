@@ -1,0 +1,35 @@
+//implements F016
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  MainHeaderComponent,
+  PrimaryButtonComponent,
+  PrimaryErrorComponent,
+  PrimaryLabelComponent,
+} from '@party-time/ui';
+import { OverviewStore } from './+state/overview.state';
+import { EventService } from '../services/event.service';
+import { EventSelectorComponent } from '../selector/selector.component';
+
+@Component({
+  selector: 'party-time-overview',
+  standalone: true,
+  imports: [
+    CommonModule,
+    PrimaryButtonComponent,
+    MainHeaderComponent,
+    PrimaryLabelComponent,
+    PrimaryErrorComponent,
+    EventSelectorComponent,
+  ],
+  templateUrl: './overview.component.html',
+  providers: [OverviewStore, EventService],
+  styles: [],
+})
+export class OverviewComponent {
+  vm$ = this.overviewStore.vm$;
+
+  constructor(private overviewStore: OverviewStore) {
+    this.overviewStore.getEvents();
+  }
+}

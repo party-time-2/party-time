@@ -1,13 +1,13 @@
 import {
-  pw_long,
   navigateChange,
   pw_long_error,
   pw_required_error,
   pw_short_error,
-  pw_short,
   pw_wrong_chars_error,
   pw_valid,
   pw_wrong_chars,
+  short_string,
+  long_string,
 } from '../support/app.po';
 
 describe('party-time-change-error', () => {
@@ -17,29 +17,29 @@ describe('party-time-change-error', () => {
   });
 
   it('should show pw_old_required', () => {
-    cy.get('#current-password').type(pw_short());
+    cy.get('#current-password').type(short_string());
     cy.get('#current-password').clear();
     cy.contains('Bitte gib dein aktuelles Passwort ein.');
     cy.screenshot();
   });
 
   it('should show pw_new_required', () => {
-    cy.get('#new-password').type(pw_short());
+    cy.get('#new-password').type(short_string());
     cy.get('#new-password').clear();
     cy.contains(pw_required_error());
     cy.screenshot();
   });
 
   it('should show pw_new_short', () => {
-    cy.get('#new-password').type(pw_short());
+    cy.get('#new-password').type(short_string());
     cy.get('#new-password').clear();
-    cy.get('#new-password').type(pw_short());
+    cy.get('#new-password').type(short_string());
     cy.contains(pw_short_error());
     cy.screenshot();
   });
 
   it('should show pw_new_long', () => {
-    cy.get('#new-password').type(pw_long());
+    cy.get('#new-password').type(long_string());
     cy.contains(pw_long_error());
     cy.screenshot();
   });
