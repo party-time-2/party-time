@@ -20,4 +20,9 @@ export class EventService {
   getEvents(): Observable<EventDTO[]> {
     return this.http.get<EventDTO[]>(this.eventBasePath);
   }
+
+  // Gets a single event
+  getEvent(id: string): Observable<EventDTO> {
+    return this.http.get<EventDTO>(`${this.eventBasePath}/${id}`);
+  }
 }
