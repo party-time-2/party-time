@@ -1,10 +1,10 @@
+// implements F016
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { EventDTO, ApiError } from '@party-time/models';
 import { Observable, tap, exhaustMap } from 'rxjs';
 import { EventService } from '../../services/event.service';
 
-// implements F016
 export interface OverviewStateInterface {
   events: EventDTO[];
   isLoading: boolean;

@@ -16,10 +16,13 @@ import { EventDTO } from '@party-time/models';
           {{ event?.name }}
         </p>
         <p class="truncate text-sm">
-          {{ event?.organizer?.name }}
+          {{ event?.address?.addressLine }} | {{ event?.address?.zip}} {{event?.address?.city}}
+        </p>
+        <p class="truncate text-sm">
+          von {{ event?.organizer?.name }}
         </p>
       </div>
-      <div class=" inline-flex items-center text-base font-semibold">
+      <div class=" inline-flex items-center text-2xl font-semibold">
         {{ event?.dateTime | date : 'hh:mm' }}
       </div>
       <div class=" inline-flex items-center text-base font-semibold">
