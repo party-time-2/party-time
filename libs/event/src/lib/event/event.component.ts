@@ -1,3 +1,4 @@
+// implements F001
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -24,6 +25,16 @@ import {
             type="button"
             routerLink="/event/create"
             name="Event planen"
+          />
+        </section>
+        <section class="col-2 grid">
+          <party-time-primary-label
+            label="Hier kannst du deine Events überblicken"
+          />
+          <party-time-primary-button
+            type="button"
+            routerLink="/event/overview"
+            name="Events überblicken"
           />
         </section>
       </div>

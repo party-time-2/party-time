@@ -1,6 +1,6 @@
 //implements F001
-import { Component, LOCALE_ID } from '@angular/core';
-import { CommonModule, DatePipe, formatDate } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,
@@ -46,7 +46,12 @@ export class CreateEventComponent {
     address: new FormGroup({
       addressLine: new FormControl('', [
         Validators.required,
-        Validators.minLength(5),
+        Validators.minLength(4),
+        Validators.maxLength(25),
+      ]),
+      addressLineAddition: new FormControl('addition', [
+        Validators.required,
+        Validators.minLength(4),
         Validators.maxLength(25),
       ]),
       zip: new FormControl('', [
@@ -85,7 +90,14 @@ export class CreateEventComponent {
   // submit the create event form
   onSubmit(): void {
     if (this.createEventForm.valid) {
+      this.createEventForm.controls.dateTime.setValue(
+        this.datePipe.transform(
+          this.createEventForm.controls.dateTime.getRawValue(),
+          'yyyy-MM-dd HH:mm:ss'
+        )
+      );
       console.log(this.createEventForm.getRawValue() as EventCreateDTO);
+
       this.createStore.getEventDTO(
         this.createEventForm.getRawValue() as EventCreateDTO
       );

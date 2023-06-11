@@ -1,4 +1,5 @@
-//implements F013
+//implements F001
+//implements F016
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventCreateDTO, EventDTO } from '@party-time/models';
@@ -8,10 +9,15 @@ import { Observable } from 'rxjs';
 export class EventService {
   constructor(private http: HttpClient) {}
 
-  createPath = '/api/event';
+  eventBasePath = '/api/event';
 
   // Creates a new event
   createEvent(event: EventCreateDTO): Observable<EventDTO> {
-    return this.http.post<EventDTO>(this.createPath, event);
+    return this.http.post<EventDTO>(this.eventBasePath, event);
+  }
+
+  // Gets all events
+  getEvents(): Observable<EventDTO[]> {
+    return this.http.get<EventDTO[]>(this.eventBasePath);
   }
 }

@@ -1,3 +1,4 @@
+// implements F001
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { ApiError, EventDTO, EventCreateDTO } from '@party-time/models';

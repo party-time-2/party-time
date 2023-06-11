@@ -20,7 +20,7 @@ Cypress.Commands.add('login', () => {
   cy.window().then((window) => {
     window.localStorage.setItem(
       'auth_token',
-      'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlZDBhM2NjZS01NjRlLTQzNmMtYmI5Yi1lYTkwNWM3ZGMzYjAiLCJpYXQiOjE2ODMyMjg3NTYsImlzcyI6Imh0dHBzOi8vcGFydHl0aW1lLmRlL2F1dGgiLCJzdWIiOiJiZWViOTczZS1jZDhjLTRjY2EtOTNlNy1hZTdjMjE3ODA2ZjciLCJlbWFpbCI6InBhcnR5MTIzMTIzQGRlIiwibmFtZSI6InBhcnR5MTIzMTIzIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9.mG9D5rJtGc9lECsKgEUG6p1rrAx-W_1rEG4GygiKYAQ'
+      'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJjY2EyZmU3Mi1kODA1LTRiZmYtODQwNy04NzU5Zjc3MzE5OTciLCJpYXQiOjE2ODYzNzcxMjEsImlzcyI6Imh0dHBzOi8vcGFydHl0aW1lLmRlL2F1dGgiLCJzdWIiOiJmNDY3MDRkMi04ZTI5LTRhYzUtYWRjNi01YzE5OTA1NWM2MmMiLCJlbWFpbCI6InZlcmlmaWVkMUBwYXJ0eXRpbWUuZGUiLCJuYW1lIjoiVmVyaWZpZWQgVXNlciAxIiwiZW1haWxfdmVyaWZpZWQiOnRydWV9.y54PV0tS2SH61d9e5n2OnraeeRhTByr0T3twiK4Q9bc'
     );
   });
 });
