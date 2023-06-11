@@ -3,11 +3,11 @@
 This library implements F001 - Create Event.  
 See [F001 Konto anmelden](https://github.com/party-time-2/party-time/issues/1) for more information.
 
-The sequence diagram for this library can be found [here](/docs/F001/F001_eventÜberblicken_seq.plantuml)
-![F001_kontoAnmelden_seq](/docs/PNG/F001/F001_eventÜberblicken_seq.png)
+The sequence diagram for this library can be found [here](/docs/F001/F001_eventAnlegen_seq.plantuml)
+![F001_kontoAnmelden_seq](/docs/PNG/F001/F001_eventAnlegen_seq.png)
 
-The activity diagram for this library can be found [here](/docs/F001/F001_eventÜberblicken_act.plantuml)
-![F001_kontoAnmelden_act](/docs/PNG/F001/F001_eventÜberblicken_act.png)
+The activity diagram for this library can be found [here](/docs/F001/F001_eventAnlegen_act.plantuml)
+![F001_kontoAnmelden_act](/docs/PNG/F001/F001_eventAnlegen_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventController.java)
 
