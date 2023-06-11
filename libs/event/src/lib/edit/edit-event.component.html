@@ -1,0 +1,6 @@
+<!-- implements F002 -->
+<ng-container *ngIf="vm$ | async as vm">
+    <party-time-main-header title="Event bearbeiten" />
+    <pre>{{ vm | json }}</pre>
+  </ng-container>
+  

@@ -6,28 +6,28 @@ import { EventDTO, ApiError } from '@party-time/models';
 import { Observable, tap, exhaustMap } from 'rxjs';
 import { EventService } from '../../services/event.service';
 
-export interface OverviewStateInterface {
-  events: EventDTO[];
+export interface EditStateInterface {
+  event: EventDTO | undefined;
   isLoading: boolean;
   error: ApiError | null;
 }
 
-export const initialState: OverviewStateInterface = {
-  events: [],
+export const initialState: EditStateInterface = {
+  event: undefined,
   isLoading: false,
   error: null,
 };
 
 @Injectable()
-export class OverviewStore extends ComponentStore<OverviewStateInterface> {
+export class EditStore extends ComponentStore<EditStateInterface> {
   private isLoading$ = this.select((state) => state.isLoading);
   private error$ = this.select((state) => state.error);
-  private events$ = this.select((state) => state.events);
+  private event$ = this.select((state) => state.event);
   
   vm$ = this.select({
     isLoading: this.isLoading$,
     error: this.error$,
-    events: this.events$,
+    event: this.event$,
   });
   
 
@@ -36,15 +36,15 @@ export class OverviewStore extends ComponentStore<OverviewStateInterface> {
     isLoading,
   }));
 
-  getEvents = this.effect((trigger$: Observable<void>) =>
+  getEvent = this.effect((trigger$: Observable<string>) =>
     trigger$.pipe(
       tap(() => this.setIsLoading(true)),
-      exhaustMap(() =>
-        this.eventService.getEvents().pipe(
+      exhaustMap((id) =>
+        this.eventService.getEvent(id).pipe(
           tapResponse(
-            (events: EventDTO[]) => {
+            (event: EventDTO) => {
               this.patchState({
-                events,
+                event,
                 isLoading: false,
               });
             },
@@ -59,6 +59,7 @@ export class OverviewStore extends ComponentStore<OverviewStateInterface> {
       )
     )
   );
+  
 
   constructor(private eventService: EventService) {
     super(initialState);
