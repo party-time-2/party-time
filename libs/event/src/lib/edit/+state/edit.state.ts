@@ -9,24 +9,28 @@ import { EventService } from '../../services/event.service';
 export interface EditStateInterface {
   event: EventDTO | undefined;
   isLoading: boolean;
+  isEventEdited: boolean;
   error: ApiError | null;
 }
 
 export const initialState: EditStateInterface = {
   event: undefined,
   isLoading: false,
+  isEventEdited: false,
   error: null,
 };
 
 @Injectable()
 export class EditStore extends ComponentStore<EditStateInterface> {
   private isLoading$ = this.select((state) => state.isLoading);
+  private isEventEdited$ = this.select((state) => state.isEventEdited);
   private error$ = this.select((state) => state.error);
   private event$ = this.select((state) => state.event);
   
   vm$ = this.select({
     isLoading: this.isLoading$,
     error: this.error$,
+    isEventEdited: this.isEventEdited$,
     event: this.event$,
   });
   
@@ -46,12 +50,14 @@ export class EditStore extends ComponentStore<EditStateInterface> {
               this.patchState({
                 event,
                 isLoading: false,
+                isEventEdited: false,
               });
             },
             (error: ApiError) => {
               this.patchState({
                 error,
                 isLoading: false,
+                isEventEdited: false,
               });
             }
           )
@@ -59,6 +65,35 @@ export class EditStore extends ComponentStore<EditStateInterface> {
       )
     )
   );
+
+  
+
+  editEvent = this.effect((event$: Observable<EventDTO>) =>
+    event$.pipe(
+      tap(() => this.setIsLoading(true)),
+      exhaustMap((event) =>
+        this.eventService.updateEvent(event).pipe(
+          tapResponse(
+            (event: EventDTO) => {
+              this.patchState({
+                event,
+                isLoading: false,
+                isEventEdited: true,
+              });
+            },
+            (error: ApiError) => {
+              this.patchState({
+                error,
+                isLoading: false,
+                isEventEdited: false,
+              });
+            }
+          )
+        )
+      )
+    )
+  );
+
   
 
   constructor(private eventService: EventService) {

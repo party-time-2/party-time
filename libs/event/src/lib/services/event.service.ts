@@ -25,4 +25,9 @@ export class EventService {
   getEvent(id: string): Observable<EventDTO> {
     return this.http.get<EventDTO>(`${this.eventBasePath}/${id}`);
   }
+
+  // Updates an event
+  updateEvent(event: EventDTO): Observable<EventDTO> {
+    return this.http.put<EventDTO>(this.eventBasePath, event);
+  }
 }
