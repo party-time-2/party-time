@@ -26,14 +26,13 @@ export class EditStore extends ComponentStore<EditStateInterface> {
   private isEventEdited$ = this.select((state) => state.isEventEdited);
   private error$ = this.select((state) => state.error);
   private event$ = this.select((state) => state.event);
-  
+
   vm$ = this.select({
     isLoading: this.isLoading$,
     error: this.error$,
     isEventEdited: this.isEventEdited$,
     event: this.event$,
   });
-  
 
   setIsLoading = this.updater((state, isLoading: boolean) => ({
     ...state,
@@ -66,8 +65,6 @@ export class EditStore extends ComponentStore<EditStateInterface> {
     )
   );
 
-  
-
   editEvent = this.effect((event$: Observable<EventDTO>) =>
     event$.pipe(
       tap(() => this.setIsLoading(true)),
@@ -93,8 +90,6 @@ export class EditStore extends ComponentStore<EditStateInterface> {
       )
     )
   );
-
-  
 
   constructor(private eventService: EventService) {
     super(initialState);

@@ -36,6 +36,6 @@ export class OverviewComponent {
   }
 
   navigateToEdit(id: string) {
-    this.router.navigate(['event/edit', id]); 
+    this.router.navigate(['event/edit', id]);
   }
 }

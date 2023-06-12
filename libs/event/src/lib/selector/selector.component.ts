@@ -8,8 +8,8 @@ import { EventDTO } from '@party-time/models';
   standalone: true,
   imports: [CommonModule],
   template: ` <li
-  (click)="onSelectEvent()"
-    class="w-full rounded cursor-pointer border-4 border-transparent bg-primary-container-light p-5 text-on-primary-container-light hover:border-secondary-dark dark:bg-primary-container-dark dark:text-on-primary-container-dark hover:dark:border-secondary-light"
+    (click)="onSelectEvent()"
+    class="w-full cursor-pointer rounded border-4 border-transparent bg-primary-container-light p-5 text-on-primary-container-light hover:border-secondary-dark dark:bg-primary-container-dark dark:text-on-primary-container-dark hover:dark:border-secondary-light"
   >
     <div class="flex items-center space-x-4">
       <div class="min-w-0 flex-1">

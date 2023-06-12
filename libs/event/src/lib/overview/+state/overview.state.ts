@@ -23,13 +23,12 @@ export class OverviewStore extends ComponentStore<OverviewStateInterface> {
   private isLoading$ = this.select((state) => state.isLoading);
   private error$ = this.select((state) => state.error);
   private events$ = this.select((state) => state.events);
-  
+
   vm$ = this.select({
     isLoading: this.isLoading$,
     error: this.error$,
     events: this.events$,
   });
-  
 
   setIsLoading = this.updater((state, isLoading: boolean) => ({
     ...state,

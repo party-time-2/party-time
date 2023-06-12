@@ -21,5 +21,5 @@ export const eventRoutes: Route[] = [
   {
     path: 'edit/:id',
     component: EditEventComponent,
-  }
+  },
 ];
