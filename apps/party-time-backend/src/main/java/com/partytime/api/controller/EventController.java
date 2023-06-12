@@ -52,6 +52,9 @@ public class EventController {
             .toList();
     }
 
+    /**
+     * Implements F016
+     */
     @GetMapping("/{id}")
     @Operation(
         description = "Get event by id if the authenticated user is host ",

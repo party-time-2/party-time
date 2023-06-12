@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByOrganizer_Email(String email);
-    Event findByIdAndOrganizer_Email(Long id, String email);
 }
