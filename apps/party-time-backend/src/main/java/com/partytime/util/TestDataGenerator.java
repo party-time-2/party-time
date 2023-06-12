@@ -1,7 +1,10 @@
 package com.partytime.util;
 
+import com.partytime.api.dto.login.LoginRequestDTO;
+import com.partytime.api.dto.login.LoginResponseDTO;
 import com.partytime.jpa.entity.Account;
 import com.partytime.jpa.repository.AccountRepository;
+import com.partytime.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -18,8 +21,10 @@ import java.util.UUID;
 @Profile("!prod") // Not in Prod Mode
 public class TestDataGenerator implements ApplicationRunner {
 
+    public static final String DEBUG_PASSWORD = "Hallo123!party";
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -42,7 +47,7 @@ public class TestDataGenerator implements ApplicationRunner {
         if (!accountRepository.existsByEmail(email)) {
             Account account = Account.builder()
                 .name(name)
-                .pwHash(passwordEncoder.encode("Hallo123!party"))
+                .pwHash(passwordEncoder.encode(DEBUG_PASSWORD))
                 .emailVerified(verified)
                 .email(email)
                 .build();
@@ -52,7 +57,14 @@ public class TestDataGenerator implements ApplicationRunner {
             accountRepository.save(account);
             log.info("Created a " + (verified ? "verified" : "not verified") + " Test Account with Email " + email);
         }
-
+        if (verified) {
+            // TODO Remove me before Abgabe
+            LoginResponseDTO respo = authService.loginUser(LoginRequestDTO.builder()
+                .email(email)
+                .password(DEBUG_PASSWORD)
+                .build());
+            log.info("Token for " + email + ":\n" + respo.getToken());
+        }
     }
 
 }
