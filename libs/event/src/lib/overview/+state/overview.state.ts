@@ -1,4 +1,3 @@
-// implements F002
 // implements F016
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
