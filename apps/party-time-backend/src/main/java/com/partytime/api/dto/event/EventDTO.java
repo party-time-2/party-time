@@ -2,6 +2,11 @@ package com.partytime.api.dto.event;
 
 import com.partytime.api.dto.account.AccountDTO;
 import com.partytime.api.dto.address.AddressDTO;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +20,24 @@ import java.time.LocalDateTime;
 @Builder
 public class EventDTO {
 
+    @NotNull
     private Long id;
+
+    @NotNull
+    @NotEmpty
+    @Size(min = 5, max = 20)
     private String name;
+
+    @NotNull
+    @Valid
     private AccountDTO organizer;
+
+    @NotNull
+    @FutureOrPresent
     private LocalDateTime dateTime;
+
+    @NotNull
+    @Valid
     private AddressDTO address;
 
 }

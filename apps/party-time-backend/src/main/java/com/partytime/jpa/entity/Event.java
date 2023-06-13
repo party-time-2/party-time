@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -33,6 +34,7 @@ public class Event extends BaseEntity<Long> {
 
     @NotNull
     @NotEmpty
+    @Size(min = 5, max = 20)
     @Column(name = DatabaseConstants.Event.COLUMN_NAME)
     private String name;
 
