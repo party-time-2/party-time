@@ -27,6 +27,16 @@ import {
             name="Event planen"
           />
         </section>
+        <section class="col-2 grid">
+          <party-time-primary-label
+            label="Hier kannst du deine Events überblicken"
+          />
+          <party-time-primary-button
+            type="button"
+            routerLink="/event/overview"
+            name="Events überblicken"
+          />
+        </section>
       </div>
     </div>`,
   styles: [],

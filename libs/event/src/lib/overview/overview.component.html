@@ -1,0 +1,11 @@
+<!-- implements F016 -->
+<ng-container *ngIf="vm$ | async as vm">
+  <party-time-main-header title="Events überblicken" />
+  <section class="flex justify-center">
+    <div class="w-full">
+      <ul class="p-5" *ngFor="let event of vm.events">
+        <party-time-event-selector [event]="event"></party-time-event-selector>
+      </ul>
+    </div>
+  </section>
+</ng-container>
