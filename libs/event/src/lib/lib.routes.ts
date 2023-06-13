@@ -19,7 +19,7 @@ export const eventRoutes: Route[] = [
     component: OverviewComponent,
   },
   {
-    path: 'edit/:id',
+    path: 'change/:id',
     component: EditEventComponent,
   },
 ];
