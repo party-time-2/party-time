@@ -267,7 +267,6 @@ describe('change-event', () => {
       },
     }).as('changeParty');
 
-   
     cy.get('party-time-primary-button > #edit').click();
     cy.wait('@changeParty');
     cy.contains(`Dein Event ${pt_name()} wurde erfolgreich geändert.`);
