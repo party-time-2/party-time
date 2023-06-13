@@ -1,10 +1,10 @@
-@startuml F001_eventAnlegen_act
+@startuml F002_eventsBearbeiten_act
 <style file=plantStyle.css>
-title "Event anlegen"
+title "Events bearbeiten"
 
-|Verifizierter Nutzer|
+|Veranstaltender Nutzer|
 start
-:Öffne Party Time "Event anlegen" Webseite;
+:Öffne Party Time "Event bearbeite" Webseite von Event, für welches Nutzer Veranstalter ist;
 repeat
     repeat
         repeat
@@ -14,23 +14,36 @@ repeat
                         repeat
                             repeat
                                 split
-                                    :Eventnamen eingeben;
+                                    if () then (Eventname soll geändert werden)
+                                        :Eventnamen ändern;
+                                    endif
                                 split again
-                                    :Adresszeile (Straße und Hausnummer) ausfüllen;
+                                    if() then (Adresszeile soll geändert werden)
+                                        :Adresszeile (Straße und Hausnummer) ändern;
+                                    endif
                                 split again
-                                    :Postleitzahl eingeben;
+                                    if() then (Postleitzahl soll geändert werden)
+                                        :Postleitzahl ändern;
+                                    endif
                                 split again
-                                    :Ort eingeben;
+                                    if() then (Ort soll geändert werden)
+                                        :Ort ändern;
+                                    endif
                                 split again
-                                    :Land eingeben;
+                                    if() then (Land soll geändert werden)
+                                        :Land ändern;
+                                    endif
                                 split again
-                                    :Uhrzeit eingeben;
+                                    if() then (Uhrzeit soll geändert werden)
+                                        :Uhrzeit ändern;
+                                    endif
                                 split again
-                                    :Datum eingeben;
+                                    if() then (Datum soll geändert werden)
+                                        :Datum ändern;
+                                    endif
                                 end split
-                                if() then (Adresszusatz soll eingegeben werden)
+                                if() then (Adresszusatz soll geändert werden)
                                     :Adresszusatz eingeben;
-                                else (Adresszusatz soll nicht eingegeben werden)
                                 endif
                                 |Frontend Validator|
                                 :Eventnamen prüfen;
@@ -83,30 +96,30 @@ repeat
     :Adresszusatz prüfen;
     backward: Fehlerhaften Adresszusatz markieren;
 repeat while () is (Adresszusatz fehlerhaft) not (Adresszusatz fehlerfrei)
-|Verifizierter Nutzer|
-:Event-anlegen-Formular senden;
-|Event erstellen Controller|
+|Veranstaltender Nutzer|
+:Event-bearbeiten-Formular senden;
+|Event bearbeiten Controller|
 :Eventdaten serverseitig verifizieren;
-
 if () then (Verifizierung nicht erfolgreich)
-    |Event erstellen Controller|
+    |Event bearbeiten Controller|
     :Fehlermeldung senden;
-    |Verifizierter Nutzer|
+    |Veranstaltender Nutzer|
     :Fehlermeldung Eventerstellung empfangen;
     :Fehlermeldung Eventerstellung anzeigen;
     note right
-        create_errors: Die Anfrage konnte nicht bearbeitet werden.
+        edit_errors: Die Anfrage konnte nicht bearbeitet werden.
     end note
     stop
 else (Verifizierung erfolgreich)
 endif
-|Event erstellen Controller|
-:Eventerstellung bestätigen;
-|Verifizierter Nutzer|
-:Bestätigung Eventerstellung empfangen;
-:Bestätigung Eventerstellung anzeigen;
+|Event bearbeiten Controller|
+:Geänderte Eventdaten persistieren;
+:Eventbearbeitung bestätigen;
+|Veranstaltender Nutzer|
+:Bestätigung Eventbearbeitung empfangen;
+:Bestätigung Eventbearbeitung anzeigen;
 note right
-    create_success: Dein Event ${pt_name()} wurde erfolgreich erstellt.
+    edit_success: Dein Event ${pt_name()} wurde erfolgreich bearbeitet.
 end note
 stop
 @enduml
