@@ -94,9 +94,6 @@ if () then (Verifizierung nicht erfolgreich)
     |Verifizierter Nutzer|
     :Fehlermeldung Eventerstellung empfangen;
     :Fehlermeldung Eventerstellung anzeigen;
-    note right
-        create_errors: Die Anfrage konnte nicht bearbeitet werden.
-    end note
     stop
 else (Verifizierung erfolgreich)
 endif

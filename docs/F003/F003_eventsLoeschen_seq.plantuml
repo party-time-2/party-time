@@ -1,27 +1,22 @@
-@startuml F002_eventsBearbeiten_seq
-title "Events bearbeiten"
+@startuml F003_eventsLoeschen_seq
+title "Events löschen"
 
 actor "Veranstaltender Nutzer" as user
-boundary "Event bearbeiten Maske" as editEvent
-control "Frontend Validator" as frontValid
-actor "Event bearbeiten Controller" as controller
+boundary "Event löschen Maske" as deleteEventMask
+actor "Event löschen Controller" as controller
 database "Datenbank" as db
 
-user -> editEvent: Bearbeitung Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
+user -> deleteEventMask: Klicke Button für Event löschen
 activate user
-editEvent -> frontValid: Validiere Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
-editEvent <-- frontValid: Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum valide
-user <-- editEvent: Aktiviere Senden-Knopf
-user -> editEvent: Sende Event-bearbeiten-Formular
-
-editEvent -> controller: Übermittle Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
+user <-- deleteEventMask: Frage ob Event wirklich gelöscht werden soll
+user -> deleteEventMask: Bestätige tatsächliche Löschung des Events
+deleteEventMask -> controller: Übermittle Event löschen Anfrage
 activate controller
-controller -> controller: Eventdaten serverseitig verifizieren
-controller -> db: Speichere geänderten Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
-controller <-- db: Bestätige Speicherung
-editEvent <-- controller: Bestätige Eventbearbeitung
+controller -> db: Eventdaten löschen
+controller <-- db: Bestätige Löschung der Eventdaten
+deleteEventMask <-- controller: Bestätige Löschung des Events
 deactivate controller
 
-user <-- editEvent: Zeige Eventbearbeitung-Bestätigung
+user <-- deleteEventMask: Zeige Eventlöschung-Bestätigung
 deactivate user
 @enduml
