@@ -27,5 +27,5 @@ export const eventRoutes: Route[] = [
   {
     path: 'delete/:id',
     component: DeleteEventComponent,
-  }
+  },
 ];

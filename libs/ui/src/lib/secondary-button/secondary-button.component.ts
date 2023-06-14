@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -6,7 +12,7 @@ import { RouterModule } from '@angular/router';
   selector: 'party-time-secondary-button',
   standalone: true,
   imports: [CommonModule, RouterModule],
-    template: `<button
+  template: `<button
     type="button"
     [routerLink]="routerLink"
     (click)="clicked.emit()"

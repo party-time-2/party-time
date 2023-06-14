@@ -1,4 +1,10 @@
-import { api_error_400, navigateDeleteEvent, pt_city, user_email, user_name } from '../support/app.po';
+import {
+  api_error_400,
+  navigateDeleteEvent,
+  pt_city,
+  user_email,
+  user_name,
+} from '../support/app.po';
 import {
   navigateChangeEvent,
   pt_addressLine,
@@ -12,7 +18,7 @@ describe('delete-event-error', () => {
     cy.login();
     navigateDeleteEvent();
   });
-  
+
   it('should show delete-event-error', () => {
     cy.intercept('DELETE', '/api/event/1', {
       statusCode: 400,
@@ -33,11 +39,10 @@ describe('delete-event-success', () => {
   });
 
   it('should show delete-event-success', () => {
+    cy.intercept('DELETE', '/api/event/1', {
+      statusCode: 200,
+    }).as('event');
 
-  cy.intercept('DELETE', '/api/event/1', {
-    statusCode: 200,
-  }).as('event');
-  
     cy.get('.mr-4 > #delete').click();
     cy.contains('Dein Event wurde erfolgreich gelöscht.');
     cy.screenshot();

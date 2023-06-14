@@ -7,9 +7,11 @@
         <section>
           <div class="flex justify-center">
             <div
-              class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
+              class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+            >
               <p
-                class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark">
+                class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
+              >
                 Hey!
               </p>
               <p>Willst du dein Event wirklich löschen?</p>
@@ -21,10 +23,17 @@
             <party-time-primary-error [error]="vm.error?.error?.message" />
           </div>
           <div class="flex justify-center pt-12">
-            <div class="flex w-full place-content-end pt-7">
-            </div>
-            <party-time-primary-button class="mr-4" (click)="onDeleteEvent()" name="Löschen" id="delete" />
-            <party-time-secondary-button routerLink="/event/change/{{ eventId }}" name="Abbrechen" />
+            <div class="flex w-full place-content-end pt-7"></div>
+            <party-time-primary-button
+              class="mr-4"
+              (click)="onDeleteEvent()"
+              name="Löschen"
+              id="delete"
+            />
+            <party-time-secondary-button
+              routerLink="/event/change/{{ eventId }}"
+              name="Abbrechen"
+            />
           </div>
         </section>
       </div>
@@ -34,14 +43,21 @@
   <ng-template #deleted>
     <party-time-main-header title="Event gelöscht"></party-time-main-header>
     <div class="flex justify-center pl-12 pr-12 pt-12">
-      <div class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
+      <div
+        class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+      >
         <p
-          class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark">
+          class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
+        >
           Hey!
         </p>
         <p>Dein Event wurde erfolgreich gelöscht.</p>
       </div>
     </div>
-    <party-time-primary-button class="flex justify-center pt-12" routerLink="/event/overview" name="Übersicht" />
+    <party-time-primary-button
+      class="flex justify-center pt-12"
+      routerLink="/event/overview"
+      name="Übersicht"
+    />
   </ng-template>
 </ng-container>

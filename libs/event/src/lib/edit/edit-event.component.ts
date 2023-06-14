@@ -30,8 +30,9 @@ import { EventDTO } from '@party-time/models';
     ReactiveFormsModule,
     MainHeaderComponent,
     PrimaryLabelComponent,
-  
-  SecondaryButtonComponent,  PrimaryErrorComponent,
+
+    SecondaryButtonComponent,
+    PrimaryErrorComponent,
   ],
   templateUrl: './edit-event.component.html',
   styles: [],

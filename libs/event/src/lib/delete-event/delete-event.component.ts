@@ -5,18 +5,26 @@ import { ActivatedRoute } from '@angular/router';
 import { DeleteStore } from './+state/delete.state';
 import { EventService } from '../services/event.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PrimaryButtonComponent, MainHeaderComponent, PrimaryLabelComponent, PrimaryErrorComponent, SecondaryButtonComponent } from '@party-time/ui';
+import {
+  PrimaryButtonComponent,
+  MainHeaderComponent,
+  PrimaryLabelComponent,
+  PrimaryErrorComponent,
+  SecondaryButtonComponent,
+} from '@party-time/ui';
 
 @Component({
   selector: 'party-time-delete-event',
   standalone: true,
-  imports: [CommonModule,
-      PrimaryButtonComponent,
+  imports: [
+    CommonModule,
+    PrimaryButtonComponent,
     ReactiveFormsModule,
     MainHeaderComponent,
     SecondaryButtonComponent,
     PrimaryLabelComponent,
-    PrimaryErrorComponent,],
+    PrimaryErrorComponent,
+  ],
   templateUrl: './delete-event.component.html',
   providers: [DeleteStore, EventService],
   styles: [],
@@ -32,5 +40,8 @@ export class DeleteEventComponent {
     this.deleteStore.deleteEvent(this.eventId);
   }
 
-  constructor(private route: ActivatedRoute, private deleteStore: DeleteStore) {}
+  constructor(
+    private route: ActivatedRoute,
+    private deleteStore: DeleteStore
+  ) {}
 }
