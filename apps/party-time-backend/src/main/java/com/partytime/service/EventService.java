@@ -1,6 +1,7 @@
 package com.partytime.service;
 
 import com.partytime.api.dto.event.EventCreateDTO;
+import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.error.ApiError;
 import com.partytime.jpa.entity.Account;
 import com.partytime.jpa.entity.Address;
@@ -45,8 +46,43 @@ public class EventService {
     /**
      * Implements F016
      */
+    public Event getEvent(String email, Long id) {
+        Event event = eventRepository.findById(id)
+            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + id + " konnte nicht gefunden werden.").asException());
+
+        if (!email.equals(event.getOrganizer().getEmail())) {
+            // Authenticated User is not Event Organizer
+            throw ApiError.forbidden().asException();
+        }
+        // return event where id = id and organizer = email
+        return event;
+    }
+
+    /**
+     * Implements F016
+     */
     public List<Event> getEvents(String email) {
         return eventRepository.findByOrganizer_Email(email);
+    }
+
+    /**
+     * Implements F002
+     */
+    @Transactional
+    public Event updateEvent(EventDTO body, String email) {
+        Event originalEvent = eventRepository.findById(body.getId())
+            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + body.getId() + " konnte nicht gefunden werden.").asException());
+
+        if (!email.equals(originalEvent.getOrganizer().getEmail())) {
+            // Authenticated User is not Event Organizer
+            throw ApiError.forbidden().asException();
+        }
+
+        originalEvent.setAddress(addressService.getAddress(body.getAddress()));
+        originalEvent.setName(body.getName());
+        originalEvent.setDateTime(body.getDateTime());
+
+        return eventRepository.save(originalEvent);
     }
 
 }

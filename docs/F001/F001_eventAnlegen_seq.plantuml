@@ -12,7 +12,7 @@ activate user
 createEvent -> frontValid: Validiere Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
 createEvent <-- frontValid: Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum valide
 user <-- createEvent: Aktiviere Senden-Knopf
-user -> createEvent: Sende Event erstellen-Formular
+user -> createEvent: Sende Event-erstellen-Formular
 
 createEvent -> controller: Übermittle Eventname + Adresszeile (Straße und Hausnummer) + Postleitzahl + Ort + Land + Uhrzeit + Datum
 activate controller
