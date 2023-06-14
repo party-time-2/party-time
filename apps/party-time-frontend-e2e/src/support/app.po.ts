@@ -12,6 +12,8 @@ export const navigateLogout = () => cy.visit('auth/logout');
 
 export const navigateCreateEvent = () => cy.visit('event/create');
 
+export const navigateChangeEvent = () => cy.visit('event/change/1');
+
 export const user_name = () => 'Gustav Gans';
 
 export const user_email = () => 'gustav@gans.de';

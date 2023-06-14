@@ -10,6 +10,8 @@ import {
 import { OverviewStore } from './+state/overview.state';
 import { EventService } from '../services/event.service';
 import { EventSelectorComponent } from '../selector/selector.component';
+import { Router } from '@angular/router';
+import { EventDTO } from '@party-time/models';
 
 @Component({
   selector: 'party-time-overview',
@@ -29,7 +31,11 @@ import { EventSelectorComponent } from '../selector/selector.component';
 export class OverviewComponent {
   vm$ = this.overviewStore.vm$;
 
-  constructor(private overviewStore: OverviewStore) {
+  constructor(private overviewStore: OverviewStore, private router: Router) {
     this.overviewStore.getEvents();
+  }
+
+  navigateToEdit(id: string) {
+    this.router.navigate(['event/edit', id]);
   }
 }

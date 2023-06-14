@@ -4,8 +4,14 @@
   <section class="flex justify-center">
     <div class="w-full">
       <ul class="p-5" *ngFor="let event of vm.events">
-        <party-time-event-selector [event]="event"></party-time-event-selector>
+        <party-time-event-selector
+          [event]="event"
+          (selectEvent)="navigateToEdit(event.id)"
+        ></party-time-event-selector>
       </ul>
     </div>
   </section>
+  <pre>
+    {{ vm | json }}
+  </pre>
 </ng-container>
