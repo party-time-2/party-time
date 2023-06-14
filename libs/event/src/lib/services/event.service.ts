@@ -1,6 +1,7 @@
-//implements F001
-//implements F002
-//implements F016
+// implements F001
+// implements F002
+// implements F003
+// implements F016
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventCreateDTO, EventDTO } from '@party-time/models';
@@ -30,5 +31,10 @@ export class EventService {
   // Updates an event
   updateEvent(event: EventDTO): Observable<EventDTO> {
     return this.http.put<EventDTO>(this.eventBasePath, event);
+  }
+
+  // Deletes an event
+  deleteEvent(id: string): Observable<EventDTO> {
+    return this.http.delete<EventDTO>(`${this.eventBasePath}/${id}`);
   }
 }

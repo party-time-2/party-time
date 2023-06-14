@@ -11,7 +11,6 @@ import { OverviewStore } from './+state/overview.state';
 import { EventService } from '../services/event.service';
 import { EventSelectorComponent } from '../selector/selector.component';
 import { Router } from '@angular/router';
-import { EventDTO } from '@party-time/models';
 
 @Component({
   selector: 'party-time-overview',
@@ -36,6 +35,6 @@ export class OverviewComponent {
   }
 
   navigateToEdit(id: string) {
-    this.router.navigate(['event/edit', id]);
+    this.router.navigate(['event/change', id]);
   }
 }
