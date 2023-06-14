@@ -24,11 +24,11 @@ import { PrimaryButtonComponent, MainHeaderComponent, PrimaryLabelComponent, Pri
 export class DeleteEventComponent {
   eventId = this.route.snapshot.paramMap.get('id');
   vm$ = this.deleteStore.vm$;
+
   onDeleteEvent() {
     if (!this.eventId) {
       return;
     }
-
     this.deleteStore.deleteEvent(this.eventId);
   }
 

@@ -34,7 +34,7 @@ export class EventService {
   }
 
   // Deletes an event
-  deleteEvent(id: string): Observable<EventDTO> {
-    return this.http.delete<EventDTO>(`${this.eventBasePath}/${id}`);
+  deleteEvent(id: string) {
+    return this.http.delete(`${this.eventBasePath}/${id}`);
   }
 }
