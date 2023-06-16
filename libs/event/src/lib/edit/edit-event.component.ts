@@ -8,6 +8,7 @@ import {
   PrimaryButtonComponent,
   PrimaryErrorComponent,
   PrimaryLabelComponent,
+  SecondaryButtonComponent,
 } from '@party-time/ui';
 import { EditStore } from './+state/edit.state';
 import {
@@ -29,6 +30,8 @@ import { EventDTO } from '@party-time/models';
     ReactiveFormsModule,
     MainHeaderComponent,
     PrimaryLabelComponent,
+
+    SecondaryButtonComponent,
     PrimaryErrorComponent,
   ],
   templateUrl: './edit-event.component.html',

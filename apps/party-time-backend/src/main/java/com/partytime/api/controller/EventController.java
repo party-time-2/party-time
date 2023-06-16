@@ -257,7 +257,7 @@ public class EventController {
     )
     public void deleteEvent(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                             TokenAuthentication authentication) {
-        // TODO Implementation
+        eventService.deleteEvent(eventId, authentication.getPrincipal().getUsername());
     }
 
 }

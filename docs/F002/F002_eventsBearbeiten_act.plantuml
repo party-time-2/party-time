@@ -4,7 +4,7 @@ title "Events bearbeiten"
 
 |Veranstaltender Nutzer|
 start
-:Öffne Party Time "Event bearbeite" Webseite von Event, für welches Nutzer Veranstalter ist;
+:Öffne Party Time "Event bearbeiten" Webseite von Event, für welches Nutzer Veranstalter ist;
 repeat
     repeat
         repeat
@@ -106,9 +106,6 @@ if () then (Verifizierung nicht erfolgreich)
     |Veranstaltender Nutzer|
     :Fehlermeldung Eventerstellung empfangen;
     :Fehlermeldung Eventerstellung anzeigen;
-    note right
-        edit_errors: Die Anfrage konnte nicht bearbeitet werden.
-    end note
     stop
 else (Verifizierung erfolgreich)
 endif
@@ -119,7 +116,7 @@ endif
 :Bestätigung Eventbearbeitung empfangen;
 :Bestätigung Eventbearbeitung anzeigen;
 note right
-    edit_success: Dein Event ${pt_name()} wurde erfolgreich bearbeitet.
+    change_success: Dein Event ${pt_name()} wurde erfolgreich bearbeitet.
 end note
 stop
 @enduml

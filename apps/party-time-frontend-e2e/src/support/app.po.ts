@@ -14,6 +14,8 @@ export const navigateCreateEvent = () => cy.visit('event/create');
 
 export const navigateChangeEvent = () => cy.visit('event/change/1');
 
+export const navigateDeleteEvent = () => cy.visit('event/delete/1');
+
 export const user_name = () => 'Gustav Gans';
 
 export const user_email = () => 'gustav@gans.de';
@@ -112,3 +114,6 @@ export const pt_country_short_error = () =>
 
 export const pt_country_long_error = () =>
   'Ein gültiges Land hat maximal 20 Stellen.';
+
+export const api_error_400 = () =>
+  'Die Anfrage konnte nicht bearbeitet werden.';
