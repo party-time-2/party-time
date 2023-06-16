@@ -51,6 +51,21 @@ public class EventService {
     }
 
     /**
+     * Implements F016
+     */
+    public Event getEvent(String email, Long id) {
+        Event event = eventRepository.findById(id)
+            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + id + " konnte nicht gefunden werden.").asException());
+
+        if (!email.equals(event.getOrganizer().getEmail())) {
+            // Authenticated User is not Event Organizer
+            throw ApiError.forbidden().asException();
+        }
+        // return event where id = id and organizer = email
+        return event;
+    }
+
+    /**
      * Implements F002
      */
     @Transactional
@@ -123,5 +138,4 @@ public class EventService {
     public List<Event> getEvents(String email) {
         return eventRepository.findByOrganizer_Email(email);
     }
-
 }

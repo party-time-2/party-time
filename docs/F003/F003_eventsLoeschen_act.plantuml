@@ -1,0 +1,36 @@
+@startuml F003_eventsLoeschen_act
+<style file=plantStyle.css>
+title "Events löschen"
+
+|Veranstaltender Nutzer|
+start
+:Öffne Party Time "Event löschen" Webseite von Event, für welches Nutzer Veranstalter ist;
+:Eventlöschung bestätigen Dialog beantworten;
+if () then ("Abbrechen")
+    stop
+else ("Löschen")
+endif
+:Löschanfrage an Server schicken;
+|Event löschen Controller|
+:Event serverseitig löschen;
+if() then (Löschung fehlgeschlagen)
+    :Fehlermeldung senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung Eventlöschung empfangen;
+    :Fehlermeldung Eventlöschung anzeigen;
+    note right
+        delete_event_error: Die Anfrage konnte nicht bearbeitet werden.
+    end note
+    stop
+else (Löschung erfolgreich)
+endif
+|Event löschen Controller|
+:Eventlöschung bestätigen;
+|Veranstaltender Nutzer|
+:Bestätigung Eventlöschung empfangen;
+:Bestätigung Eventlöschung anzeigen;
+note right
+    delete_event_success: Dein Event wurde erfolgreich gelöscht.
+end note
+stop
+@enduml

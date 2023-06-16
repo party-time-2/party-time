@@ -1,0 +1,122 @@
+@startuml F002_eventsBearbeiten_act
+<style file=plantStyle.css>
+title "Events bearbeiten"
+
+|Veranstaltender Nutzer|
+start
+:Öffne Party Time "Event bearbeiten" Webseite von Event, für welches Nutzer Veranstalter ist;
+repeat
+    repeat
+        repeat
+            repeat
+                repeat
+                    repeat
+                        repeat
+                            repeat
+                                split
+                                    if () then (Eventname soll geändert werden)
+                                        :Eventnamen ändern;
+                                    endif
+                                split again
+                                    if() then (Adresszeile soll geändert werden)
+                                        :Adresszeile (Straße und Hausnummer) ändern;
+                                    endif
+                                split again
+                                    if() then (Postleitzahl soll geändert werden)
+                                        :Postleitzahl ändern;
+                                    endif
+                                split again
+                                    if() then (Ort soll geändert werden)
+                                        :Ort ändern;
+                                    endif
+                                split again
+                                    if() then (Land soll geändert werden)
+                                        :Land ändern;
+                                    endif
+                                split again
+                                    if() then (Uhrzeit soll geändert werden)
+                                        :Uhrzeit ändern;
+                                    endif
+                                split again
+                                    if() then (Datum soll geändert werden)
+                                        :Datum ändern;
+                                    endif
+                                end split
+                                if() then (Adresszusatz soll geändert werden)
+                                    :Adresszusatz eingeben;
+                                endif
+                                |Frontend Validator|
+                                :Eventnamen prüfen;
+                                backward:Fehlerhaften Eventnamen markieren;
+                                note right
+                                    name_required: Bitte gib einen Namen für das Event ein.
+                                    name_short: Der Eventname muss mindestens 5 Zeichen lang sein.
+                                    name_long: Der Eventname darf maximal 30 Zeichen lang sein.
+                                end note
+                            repeat while () is (Eventname fehlerhaft) not (Eventname fehlerfrei)
+                            :Adresszeile (Straße und Hausnummer) prüfen;
+                            backward:Fehlerhafte Adresszeile (Straße und Hausnummer) markieren;
+                            note right
+                                address_required: Bitte gib die Straße und Hausnummer ein, wo das Event stattfinden wird.
+                                address_short: Eine gültige Adresse hat mindestens 4 Stellen.
+                                address_long: Eine gültige Adresse hat maximal 25 Stellen.
+                            end note
+                        repeat while () is (Adresszeile (Straße und Hausnummer) fehlerhaft) not (Adresszeile (Straße und Hausnummer) fehlerfrei)
+                        :Postleitzahl prüfen;
+                        backward: Fehlerhafte Postleitzahl markieren;
+                        note right
+                            zip_required: Bitte gib die Postleitzahl ein, wo das Event stattfinden wird.
+                            zip_short: Eine gültige Postleitzahl hat 5 Stellen.
+                            zip_long: Eine gültige Postleitzahl hat 5 Stellen.
+                            zip_chars: Bitte gib eine gültige Postleitzahl ein.
+                        end note
+                    repeat while () is (Postleitzahl fehlerhaft) not (Postleitzahl fehlerfrei)
+                    :Ort prüfen;
+                    backward: Fehlerhaften Ort markieren;
+                    note right
+                        city_required: Bitte gib eine Stadt ein, wo das Event stattfinden wird.
+                        city_short: Eine gültige Stadt hat mindestens 5 Stellen.
+                        city_long: Eine gültige Stadt hat maximal 20 Stellen.
+                    end note
+                repeat while () is (Ort fehlerhaft) not (Ort fehlerfrei)
+                :Land prüfen;
+                backward: Fehlerhaftes Land markieren;
+                note right
+                    country_required: Bitte gib ein Land ein, wo das Event stattfinden wird.
+                    country_short: Ein gültiges Land hat mindestens 3 Stellen.
+                    country_long: Ein gültiges Land hat maximal 20 Stellen.
+                end note
+            repeat while () is (Land fehlerhaft) not (Land fehlerfrei)
+            :Uhrzeit prüfen;
+            backward: Fehlerhafte Uhrzeit markieren;
+        repeat while () is (Uhrzeit fehlerhaft) not (Uhrzeit fehlerfrei)
+        :Datum prüfen;
+        backward: Fehlerhaftes Datum markieren;
+    repeat while () is (Datum fehlerhaft) not (Datum fehlerfrei)
+    :Adresszusatz prüfen;
+    backward: Fehlerhaften Adresszusatz markieren;
+repeat while () is (Adresszusatz fehlerhaft) not (Adresszusatz fehlerfrei)
+|Veranstaltender Nutzer|
+:Event-bearbeiten-Formular senden;
+|Event bearbeiten Controller|
+:Eventdaten serverseitig verifizieren;
+if () then (Verifizierung nicht erfolgreich)
+    |Event bearbeiten Controller|
+    :Fehlermeldung senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung Eventerstellung empfangen;
+    :Fehlermeldung Eventerstellung anzeigen;
+    stop
+else (Verifizierung erfolgreich)
+endif
+|Event bearbeiten Controller|
+:Geänderte Eventdaten persistieren;
+:Eventbearbeitung bestätigen;
+|Veranstaltender Nutzer|
+:Bestätigung Eventbearbeitung empfangen;
+:Bestätigung Eventbearbeitung anzeigen;
+note right
+    change_success: Dein Event ${pt_name()} wurde erfolgreich bearbeitet.
+end note
+stop
+@enduml
