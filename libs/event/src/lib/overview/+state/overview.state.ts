@@ -45,6 +45,16 @@ export class OverviewStore extends ComponentStore<OverviewStateInterface> {
                 events,
                 isLoading: false,
               });
+
+              // // get participants for each event
+              // events.forEach((event) => {
+              //   this.eventService.getParticipants(event.id).subscribe(
+              //     (participants) => {
+              //       console.log(participants);
+              //     }
+              //   );
+              // });
+
             },
             (error: ApiError) => {
               this.patchState({
