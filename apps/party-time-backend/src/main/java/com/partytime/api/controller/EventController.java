@@ -5,6 +5,7 @@ import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.dto.event.ParticipantDTO;
 import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.jpa.mapper.EventMapper;
+import com.partytime.jpa.mapper.EventParticipantMapper;
 import com.partytime.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -103,7 +103,9 @@ public class EventController {
     )
     public List<ParticipantDTO> getParticipants(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                                 TokenAuthentication authentication) {
-        return Collections.emptyList(); // TODO Implementation
+        return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
+            .map(EventParticipantMapper::map)
+            .toList();
     }
 
 
@@ -257,7 +259,7 @@ public class EventController {
     )
     public void deleteEvent(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                             TokenAuthentication authentication) {
-        eventService.deleteEvent(eventId, authentication.getPrincipal().getUsername());
+        eventService.deleteEventById(eventId, authentication.getPrincipal().getUsername());
     }
 
 }
