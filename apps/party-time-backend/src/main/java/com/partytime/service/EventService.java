@@ -88,6 +88,9 @@ public class EventService {
         eventRepository.delete(originalEvent);
     }
 
+    /**
+     * Implements F003
+     */
     @Transactional
     public void deleteMultipleEvents(List<Event> events) {
         eventRepository.deleteAll(events);
@@ -104,6 +107,24 @@ public class EventService {
         return originalEvent;
     }
 
+    /**
+     * Implements F005
+     */
+    @Transactional
+    public void uninviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
+        precheckExistsAndOwnEvent(eventId, authenticatedUser);
+
+        Account invitedAccount = accountService.getAccount(targetEmail);
+
+        EventParticipant eventParticipant = eventParticipantRepository.findByEvent_IdAndAccount_Id(eventId, invitedAccount.getId())
+            .orElseThrow(() -> ApiError.badRequest("Der Account mit der Email " + targetEmail + " wurde nicht eingeladen").asException());
+
+        eventParticipantRepository.delete(eventParticipant);
+    }
+
+    /**
+     * Implements F004
+     */
     @Transactional
     public void inviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
         Event originalEvent = precheckExistsAndOwnEvent(eventId, authenticatedUser);
@@ -151,5 +172,4 @@ public class EventService {
         return precheckExistsAndOwnEvent(eventId, email)
             .getEventParticipants();
     }
-
 }
