@@ -1,0 +1,6 @@
+<!-- implements F006 -->
+<ng-container *ngIf="vm$ | async as vm">
+  <pre>
+    {{ vm | json }}
+  </pre>
+</ng-container>

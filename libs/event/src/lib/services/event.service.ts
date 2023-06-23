@@ -1,6 +1,7 @@
 // implements F001
 // implements F002
 // implements F003
+// implements F006
 // implements F016
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

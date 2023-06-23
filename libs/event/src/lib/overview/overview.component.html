@@ -7,6 +7,7 @@
         <party-time-event-selector
           [event]="event"
           (selectEvent)="navigateToEdit(event.id)"
+          (selectParticipants)="navigateToParticipants(event.id)"
         ></party-time-event-selector>
       </ul>
     </div>
