@@ -33,5 +33,5 @@ export const eventRoutes: Route[] = [
   {
     path: 'participants/:id',
     component: ParticipantsComponent,
-  }
+  },
 ];

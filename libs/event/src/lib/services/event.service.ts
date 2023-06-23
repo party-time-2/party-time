@@ -38,9 +38,11 @@ export class EventService {
   deleteEvent(id: string) {
     return this.http.delete(`${this.eventBasePath}/${id}`);
   }
-  
+
   // Gets all participants of an event
   getParticipants(id: string): Observable<ParticipantDTO[]> {
-    return this.http.get<ParticipantDTO[]>(`${this.eventBasePath}/${id}/participants`);
+    return this.http.get<ParticipantDTO[]>(
+      `${this.eventBasePath}/${id}/participants`
+    );
   }
 }

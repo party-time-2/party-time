@@ -10,8 +10,11 @@ import { EventDTO, ParticipantStatus } from '@party-time/models';
   template: ` <li
     class="w-full  rounded bg-primary-container-light p-5 text-on-primary-container-light  dark:bg-primary-container-dark dark:text-on-primary-container-dark "
   >
-    <div >
-      <div (click)="onSelectEvent()" class="flex items-center border-transparent  space-x-4 p-5 cursor-pointer hover:dark:border-secondary-light border-4 hover:border-secondary-dark">
+    <div>
+      <div
+        (click)="onSelectEvent()"
+        class="flex cursor-pointer items-center  space-x-4 border-4 border-transparent p-5 hover:border-secondary-dark hover:dark:border-secondary-light"
+      >
         <div class="min-w-0 flex-1">
           <p class="truncate text-lg font-medium">
             {{ event?.name }}
@@ -36,7 +39,10 @@ import { EventDTO, ParticipantStatus } from '@party-time/models';
           </span>
         </div>
       </div>
-      <div (click)="onSelectParticipants()" class="inline-flex items-center text-base font-semibold border-transparent p-5 cursor-alias hover:dark:border-secondary-light border-4 hover:border-secondary-dark">
+      <div
+        (click)="onSelectParticipants()"
+        class="inline-flex cursor-alias items-center border-4 border-transparent p-5 text-base font-semibold hover:border-secondary-dark hover:dark:border-secondary-light"
+      >
         <span class="flex flex-col">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +62,10 @@ import { EventDTO, ParticipantStatus } from '@party-time/models';
         <div class=" inline-flex items-center text-base font-semibold">
           <span class="ml-1 flex flex-col">
             <div class="flex flex-row">
-              Zusagen: 
-              <span class="pl-1"> {{getPaticipantsParticipatingCount(event)}} </span>
+              Zusagen:
+              <span class="pl-1">
+                {{ getPaticipantsParticipatingCount(event) }}
+              </span>
             </div>
           </span>
         </div>

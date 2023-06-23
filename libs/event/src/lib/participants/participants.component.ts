@@ -1,9 +1,7 @@
 //implements F006
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   PrimaryButtonComponent,
   MainHeaderComponent,
@@ -32,9 +30,6 @@ import { ActivatedRoute } from '@angular/router';
 export class ParticipantsComponent {
   vm$ = this.participants.vm$;
   eventId = this.route.snapshot.paramMap.get('id');
-
-
-
 
   constructor(
     private participants: ParticipantsStore,
