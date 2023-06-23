@@ -1,17 +1,17 @@
 // implements F016
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EventDTO } from '@party-time/models';
+import { EventDTO, ParticipantStatus } from '@party-time/models';
 
 @Component({
   selector: 'party-time-event-selector',
   standalone: true,
   imports: [CommonModule],
   template: ` <li
-    class="w-full cursor-pointer rounded border-4 border-transparent bg-primary-container-light p-5 text-on-primary-container-light hover:border-secondary-dark dark:bg-primary-container-dark dark:text-on-primary-container-dark hover:dark:border-secondary-light"
+    class="w-full  rounded bg-primary-container-light p-5 text-on-primary-container-light  dark:bg-primary-container-dark dark:text-on-primary-container-dark "
   >
-    <div (click)="onSelectEvent()">
-      <div class="flex items-center space-x-4">
+    <div >
+      <div (click)="onSelectEvent()" class="flex items-center border-transparent  space-x-4 p-5 cursor-pointer hover:dark:border-secondary-light border-4 hover:border-secondary-dark">
         <div class="min-w-0 flex-1">
           <p class="truncate text-lg font-medium">
             {{ event?.name }}
@@ -36,7 +36,7 @@ import { EventDTO } from '@party-time/models';
           </span>
         </div>
       </div>
-      <div class=" inline-flex items-center pt-2 text-base font-semibold">
+      <div (click)="onSelectParticipants()" class="inline-flex items-center text-base font-semibold border-transparent p-5 cursor-alias hover:dark:border-secondary-light border-4 hover:border-secondary-dark">
         <span class="flex flex-col">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +56,8 @@ import { EventDTO } from '@party-time/models';
         <div class=" inline-flex items-center text-base font-semibold">
           <span class="ml-1 flex flex-col">
             <div class="flex flex-row">
-              Zusagen:
-              <span> 5 </span>
+              Zusagen: 
+              <span class="pl-1"> {{getPaticipantsParticipatingCount(event)}} </span>
             </div>
           </span>
         </div>
@@ -68,8 +68,21 @@ import { EventDTO } from '@party-time/models';
 })
 export class EventSelectorComponent {
   @Input() event: EventDTO | undefined;
-//@Input() participants: ParticipantDTO[] | undefined;
   @Output() selectEvent = new EventEmitter<EventDTO>();
+  @Output() selectParticipants = new EventEmitter<EventDTO>();
+
+  getPaticipantsParticipatingCount(event: EventDTO | undefined): number {
+    if (!event) {
+      return 0;
+    }
+    return event.participants.filter(
+      (participant) => participant.status === ParticipantStatus.PARTICIPATING
+    ).length;
+  }
+
+  onSelectParticipants() {
+    this.selectParticipants.emit(this.event);
+  }
 
   onSelectEvent() {
     this.selectEvent.emit(this.event);

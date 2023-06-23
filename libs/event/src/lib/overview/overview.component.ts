@@ -37,4 +37,8 @@ export class OverviewComponent {
   navigateToEdit(id: string) {
     this.router.navigate(['event/change', id]);
   }
+
+  navigateToParticipants(id: string) {
+    this.router.navigate(['event/participants', id]);
+  }
 }
