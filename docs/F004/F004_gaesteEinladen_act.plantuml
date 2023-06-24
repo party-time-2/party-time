@@ -1,0 +1,36 @@
+@startuml F004_gaesteEinladen_act
+<style file=plantStyle.css>
+title "Gäste einladen"
+
+|Veranstaltender Nutzer|
+start
+:Öffne Party Time "Events Überblicken" Webseite;
+:Klicke auf "Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist;
+:Eingabe E-Mail-Adresse von einzuladendem Nutzer;
+:Bestätigung der Eingabe mit "Plus"-Knopf;
+:Übermittlung der E-Mail-Adresse des einzuladenden Nutzers an Server;
+|Gast einladen Controller|
+:Überprüfung ob E-Mail-Adresse noch nicht eingeladen;
+if () then (E-Mail-Adresse bereits eingeladen)
+    :Fehlermeldung senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung Gasteinladung empfangen;
+    :Fehlermeldung Gasteinladung anzeigen;
+    note right
+        invite_participant_error: Die E-Mail-Adresse wurde bereits eingeladen.
+    end note
+    stop
+else (E-Mail-Adresse noch nicht eingeladen)
+endif
+|Gast einladen Controller|
+:Gasteinladung via E-Mail an einzuladenden Nutzer senden;
+:Information über Einladung persistieren;
+:Bestätigung der Einladung an Veranstaltenden Nutzer senden;
+|Veranstaltender Nutzer|
+:Bestätigung Gasteinladung empfangen;
+:Bestätigung Gasteinladung anzeigen;
+note right
+    invite_participant_success: Die Einladung wurde erfolgreich versendet.
+end note
+stop
+@enduml

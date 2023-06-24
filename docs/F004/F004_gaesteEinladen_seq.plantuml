@@ -1,0 +1,23 @@
+@startuml F004_gaesteEinladen_seq
+title "Gäste einladen"
+
+actor "Teilnehmer überblickender Veranstaltender Nutzer" as user
+boundary "Teilnehmer bearbeiten Maske" as editParticipantsMask
+actor "Teilnehmer einladen Controller" as controller
+database "Datenbank" as db
+
+user -> editParticipantsMask: Eingabe E-Mail Adresse einzuladender Gast
+activate user
+user -> editParticipantsMask: Bestätige Eingabe mit Plus-Button
+editParticipantsMask -> controller: Übermittle E-Mail Adresse einzuladender Gast
+activate controller
+controller -> db: Überprüfe E-Mail Adresse noch nicht eingeladen
+db --> controller: E-Mail Adresse noch nicht eingeladen
+controller -> controller: Sende Einladungs-E-Mail
+controller -> db: Speichere E-Mail Adresse als eingeladen
+db --> controller: E-Mail Adresse als eingeladen gespeichert
+controller -> editParticipantsMask: Übermittle Gasteinladung Bestätigung
+deactivate controller
+editParticipantsMask -> user: Zeige Gasteinladung Bestätigung
+deactivate user
+@enduml
