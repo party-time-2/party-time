@@ -9,7 +9,7 @@ import {
 } from '@party-time/ui';
 import { OverviewStore } from './+state/overview.state';
 import { EventService } from '../services/event.service';
-import { EventSelectorComponent } from '../selector/selector.component';
+import { EventSelectorComponent } from '../selectors/event-selector.component';
 import { Router } from '@angular/router';
 
 @Component({

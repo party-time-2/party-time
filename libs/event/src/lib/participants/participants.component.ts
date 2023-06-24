@@ -12,6 +12,7 @@ import {
 import { EventService } from '../services/event.service';
 import { ParticipantsStore } from './+state/participants.state';
 import { ActivatedRoute } from '@angular/router';
+import { ParticipantsSelectorComponent } from '../selectors/participant-selector.component';
 
 @Component({
   selector: 'party-time-participants',
@@ -23,6 +24,7 @@ import { ActivatedRoute } from '@angular/router';
     MainHeaderComponent,
     PrimaryLabelComponent,
     PrimaryErrorComponent,
+    ParticipantsSelectorComponent,
   ],
   providers: [EventService, ParticipantsStore],
   templateUrl: './participants.component.html',

@@ -1,5 +1,14 @@
 <!-- implements F006 -->
 <ng-container *ngIf="vm$ | async as vm">
+  <party-time-main-header title="Teilnehmer überblicken" />
+  <section class="w-full">
+    <ul class="p-5" *ngFor="let participant of vm.participants">
+      <party-time-participant-selector
+        [participant]="participant"
+      ></party-time-participant-selector>
+    </ul>
+  </section>
+
   <pre>
     {{ vm | json }}
   </pre>
