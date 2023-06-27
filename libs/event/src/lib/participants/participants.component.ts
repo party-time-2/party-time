@@ -1,7 +1,13 @@
 //implements F006
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   PrimaryButtonComponent,
   MainHeaderComponent,
@@ -33,16 +39,12 @@ import { ParticipantsSelectorComponent } from '../selectors/participant-selector
 export class ParticipantsComponent {
   vm$ = this.participants.vm$;
   eventId = this.route.snapshot.paramMap.get('id');
-  
+
   // form group to add a participant
   addParticipantForm = this.formBuilder.group({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  
   onRemoveParticipant(email: string | undefined) {
     if (email) {
       this.participants.removeParticipant({
@@ -68,7 +70,7 @@ export class ParticipantsComponent {
   constructor(
     private participants: ParticipantsStore,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
     this.participants.getParticipants(this.eventId as string);
   }

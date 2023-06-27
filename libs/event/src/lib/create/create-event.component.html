@@ -105,7 +105,11 @@
                     addressControls['addressLineAddition'].touched)
                 "
               >
-                <div *ngIf="addressControls['addressLineAddition'].errors['maxlength']">
+                <div
+                  *ngIf="
+                    addressControls['addressLineAddition'].errors['maxlength']
+                  "
+                >
                   <party-time-primary-error
                     error="Eine gültiger Adresszusatz hat maximal 25 Stellen."
                   />

@@ -47,10 +47,13 @@ export class EventService {
   }
 
   // Removes a participant from an event
-  removeParticipant(eventId: string, email: string): Observable<ParticipantDTO[]> {
+  removeParticipant(
+    eventId: string,
+    email: string
+  ): Observable<ParticipantDTO[]> {
     return this.http.delete<ParticipantDTO[]>(
       `${this.eventBasePath}/${eventId}/participants/${email}`
-    );    
+    );
   }
 
   // Adds a participant to an event
