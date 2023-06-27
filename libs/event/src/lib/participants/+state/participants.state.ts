@@ -1,10 +1,11 @@
+// implements F004
+// implements F005
 // implements F006
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import {
   ParticipantDTO,
   ApiError,
-  ParticipantStatus,
 } from '@party-time/models';
 import { Observable, tap, exhaustMap } from 'rxjs';
 import { EventService } from '../../services/event.service';
