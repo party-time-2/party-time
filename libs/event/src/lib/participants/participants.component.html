@@ -5,11 +5,74 @@
     <ul class="p-5" *ngFor="let participant of vm.participants">
       <party-time-participant-selector
         [participant]="participant"
+        (removeParticipant)="onRemoveParticipant($event)"
       ></party-time-participant-selector>
     </ul>
   </section>
 
+  <section>
+    <form (ngSubmit)="(onSubmit)" [formGroup]="addParticipantForm">
+      <div class="flex justify-center pl-12 pr-12 pt-12">
+        <div class="w-96">
+          <h2>Teilnehmer hinzufügen</h2>
+          <section>
+            <party-time-primary-label label="E-Mail" />
+            <div
+              class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+            >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                autocomplete="email"
+                required
+                formControlName="email"
+                class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                placeholder="z. B. manfred@partytime.com"
+              />
+            </div>
+            <div
+              *ngIf="
+                f['email'].errors && (f['email'].dirty || f['email'].touched)
+              "
+            >
+              <div *ngIf="f['email'].errors['required']">
+                <party-time-primary-error
+                  error="Bitte gib deine E-Mail Adresse ein damit wir verifizieren können dass du eine echte Person bist und du dein Passwort zurücksetzen kannst."
+                />
+              </div>
+              <div *ngIf="f['email'].errors['email']">
+                <party-time-primary-error
+                  error="Bitte gib eine Valide E-Mail Adresse ein damit wir verifizieren können dass du eine echte Person bist. Es wird eine Verifizierung an diese Adresse gesendet."
+                />
+              </div>
+            </div>
+          </section>
+
+          <div class="flex w-full place-content-end pt-7">
+            <div
+              class="inline-block w-full justify-center pt-2 text-left align-bottom"
+            >
+              <party-time-primary-error [error]="vm.error?.error?.message" />
+            </div>
+
+            <party-time-primary-button
+              lodingMessage="hinzufügen"
+              [isLoading]="vm.isLoading"
+              (clicked)="onSubmit()"
+              id="add"
+              [disabled]="!addParticipantForm.valid || vm.isLoading"
+              type="button"
+              name="Hinzufügen"
+            />
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </section>
   <pre>
     {{ vm | json }}
   </pre>
+  
 </ng-container>

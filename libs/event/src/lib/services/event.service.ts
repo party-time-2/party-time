@@ -45,4 +45,19 @@ export class EventService {
       `${this.eventBasePath}/${id}/participants`
     );
   }
+
+  // Removes a participant from an event
+  removeParticipant(eventId: string, email: string): Observable<ParticipantDTO[]> {
+    return this.http.delete<ParticipantDTO[]>(
+      `${this.eventBasePath}/${eventId}/participants/${email}`
+    );    
+  }
+
+  // Adds a participant to an event
+  addParticipant(eventId: string, email: string): Observable<ParticipantDTO[]> {
+    return this.http.post<ParticipantDTO[]>(
+      `${this.eventBasePath}/${eventId}/participants/${email}`,
+      {}
+    );
+  }
 }

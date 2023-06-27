@@ -23,7 +23,7 @@ import { EnumToParticipantStatusPipe } from '../pipes/enum-to-participant-status
         <div class=" inline-flex items-center text-base font-semibold">
           <span
             class="flex cursor-pointer flex-col"
-            (click)="onparticipantStatusChanged(0)"
+            (click)="onRemoveParticipant(participant?.account?.email)"
           >
             <p>{{ participant?.account?.name }} ausladen</p>
           </span>
@@ -36,9 +36,9 @@ import { EnumToParticipantStatusPipe } from '../pipes/enum-to-participant-status
 })
 export class ParticipantsSelectorComponent {
   @Input() participant: ParticipantDTO | undefined;
-  @Output() participantStatusChanged = new EventEmitter<number>();
+  @Output() removeParticipant = new EventEmitter<string>();
 
-  onparticipantStatusChanged(status: number) {
-    this.participantStatusChanged.emit(status);
+  onRemoveParticipant(email: string | undefined) {
+    this.removeParticipant.emit(email);
   }
 }

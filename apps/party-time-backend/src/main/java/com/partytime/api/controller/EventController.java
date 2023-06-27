@@ -135,10 +135,13 @@ public class EventController {
             )
         }
     )
-    public void inviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+    public List<ParticipantDTO> inviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                   @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") String email,
                                   TokenAuthentication authentication) {
         eventService.inviteParticipant(eventId, email, authentication.getPrincipal().getUsername());
+        return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
+            .map(EventParticipantMapper::map)
+            .toList(); //TODO Lucas
     }
 
     /**
@@ -167,10 +170,13 @@ public class EventController {
             )
         }
     )
-    public void uninviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+    public List<ParticipantDTO> uninviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                     @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") String email,
                                     TokenAuthentication authentication) {
         eventService.uninviteParticipant(eventId, email, authentication.getPrincipal().getUsername());
+        return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
+            .map(EventParticipantMapper::map)
+            .toList(); //TODO Lucas
     }
 
     /**
