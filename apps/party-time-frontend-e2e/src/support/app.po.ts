@@ -16,9 +16,14 @@ export const navigateChangeEvent = () => cy.visit('event/change/1');
 
 export const navigateDeleteEvent = () => cy.visit('event/delete/1');
 
+export const navigateParticipantsOverview = () =>
+  cy.visit('event/participants/1');
+
 export const user_name = () => 'Gustav Gans';
 
 export const user_email = () => 'gustav@gans.de';
+
+export const participant_email = () => 'dagobert@duck.de';
 
 export const verifyToken = () => '3a1a9d22-b693-41d6-9fe6-853fa80266dd';
 
@@ -117,3 +122,6 @@ export const pt_country_long_error = () =>
 
 export const api_error_400 = () =>
   'Die Anfrage konnte nicht bearbeitet werden.';
+
+export const participant_email_invalid_error = () =>
+  'Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet.';

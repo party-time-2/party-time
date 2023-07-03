@@ -40,12 +40,12 @@
             >
               <div *ngIf="f['email'].errors['required']">
                 <party-time-primary-error
-                  error="Bitte gib deine E-Mail Adresse ein damit wir verifizieren können dass du eine echte Person bist und du dein Passwort zurücksetzen kannst."
+                  error="Bitte gib eine E-Mail Adresse ein."
                 />
               </div>
               <div *ngIf="f['email'].errors['email']">
                 <party-time-primary-error
-                  error="Bitte gib eine Valide E-Mail Adresse ein damit wir verifizieren können dass du eine echte Person bist. Es wird eine Verifizierung an diese Adresse gesendet."
+                  error="Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet."
                 />
               </div>
             </div>
