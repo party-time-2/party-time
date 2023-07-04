@@ -23,6 +23,7 @@ import { EnumToParticipantStatusPipe } from '../pipes/enum-to-participant-status
         <div class=" inline-flex items-center text-base font-semibold">
           <span
             class="flex cursor-pointer flex-col"
+            id="remove-participant"
             (click)="onRemoveParticipant(participant?.account?.email)"
           >
             <p>{{ participant?.account?.name }} ausladen</p>

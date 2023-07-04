@@ -107,3 +107,64 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 
 The Test-Case for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/overview.cy.ts)  
 ![show_events](/docs/PNG/F016/Tests/party-time-overview-events%20--%20should%20show%20events.png)
+
+## F004 Add Participant
+
+This library implements F004 - add participant.
+See [F004 Gäste einladen](https://github.com/party-time-2/party-time/issues/4) for more information.
+
+The sequence diagram for this library can be found [here](/docs/F004/F004_gaesteEinladen_seq.plantuml)
+
+![F004_gaesteEinladen](/docs/PNG/F004/F004_gaesteEinladen_seq.png)
+
+The activity diagram for this library can be found [here](/docs/F004/F004_gaesteEinladen_act.plantuml)
+
+![F004_gaesteEinladen](/docs/PNG/F004/F004_gaesteEinladen_act.png)
+
+The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventController.java)
+
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
+
+![participant_already_invited](/docs/PNG/F004/Tests/party-time-add-participant%20--%20should%20show%20participant_already_invited.png)
+
+![participant_email_invalid](/docs/PNG/F004/Tests/party-time-add-participant%20--%20should%20show%20participant_email_invalid.png)
+
+![participant_invite](/docs/PNG/F004/Tests/party-time-add-participant%20--%20should%20show%20participant_invite.png)
+
+## F005 Remove Participant
+
+This library implements F005 - remove participant.
+See [F005 Gäste ausladen](https://github.com/party-time-2/party-time/issues/5) for more information.
+
+The sequence diagram for this library can be found [here](/docs/F005/F005_gaesteAusladen_seq.plantuml)
+
+![F005_gaesteAusladen](/docs/PNG/F005/F005_gaesteAusladen_seq.png)
+
+The activity diagram for this library can be found [here](/docs/F005/F005_gaesteAusladen_act.plantuml)
+
+![F005_gaesteAusladen](/docs/PNG/F005/F005_gaesteAusladen_act.png)
+
+The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventController.java)
+
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
+
+![participant_remove](/docs/PNG/F005/Tests/party-time-remove-participant%20--%20should%20show%20participant_remove.png)
+
+## F006 Participant overview
+
+This library implements F006 - participant overview.
+See [F006 Gäste überblicken](https://github.com/party-time-2/party-time/issues/6) for more information.
+
+The sequence diagram for this library can be found [here](/docs/F006/F006_teilnehmerUeberblicken_seq.plantuml)
+
+![F006_teilnehmerUeberblicken_seq](/docs/PNG/F006/F006_teilnehmerUeberblicken_seq.png)
+
+The activity diagram for this library can be found [here](/docs/F006/F006_teilnehmerUeberblicken_act.plantuml)
+
+![F006_teilnehmerUeberblicken_act](/docs/PNG/F006/F006_teilnehmerUeberblicken_act.png)
+
+The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventController.java)
+
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
+
+![view_participant](/docs/PNG/F006/Tests/party-time-view-participants%20--%20should%20show%20view_participants.png)
