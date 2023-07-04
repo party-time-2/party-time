@@ -1,4 +1,4 @@
-import { pt_city, user_email, user_name } from '../support/app.po';
+import { pt_addressLineAddition_long_error, pt_city, user_email, user_name } from '../support/app.po';
 import {
   long_string,
   navigateCreateEvent,
@@ -66,6 +66,12 @@ describe('create-event-error', () => {
   it('should show party_address_long', () => {
     cy.get('#addressLine').type(long_string());
     cy.contains(pt_address_long_error());
+    cy.screenshot();
+  });
+
+  it('should show party_addressLineAddition_long', () => {
+    cy.get('#addressLineAddition').type(long_string());
+    cy.contains(pt_addressLineAddition_long_error());
     cy.screenshot();
   });
 
