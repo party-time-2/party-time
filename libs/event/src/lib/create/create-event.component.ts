@@ -49,7 +49,9 @@ export class CreateEventComponent {
         Validators.minLength(4),
         Validators.maxLength(25),
       ]),
-      addressLineAddition: new FormControl('', [Validators.maxLength(25)]),
+      addressLineAddition: new FormControl('',[
+        Validators.maxLength(25)
+      ]),
       zip: new FormControl('', [
         Validators.required,
         Validators.minLength(5),
