@@ -1,4 +1,9 @@
-import { pt_addressLineAddition_long_error, pt_city, user_email, user_name } from '../support/app.po';
+import {
+  pt_addressLineAddition_long_error,
+  pt_city,
+  user_email,
+  user_name,
+} from '../support/app.po';
 import {
   long_string,
   navigateCreateEvent,

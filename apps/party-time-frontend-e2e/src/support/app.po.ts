@@ -87,7 +87,7 @@ export const pt_address_short_error = () =>
 export const pt_address_long_error = () =>
   'Eine gültige Adresse hat maximal 25 Stellen.';
 
-  export const pt_addressLineAddition_long_error = () =>
+export const pt_addressLineAddition_long_error = () =>
   'Eine gültiger Adresszusatz hat maximal 25 Stellen.';
 
 export const pt_address_required_error = () =>
