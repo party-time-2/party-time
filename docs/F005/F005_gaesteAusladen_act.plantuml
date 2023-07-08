@@ -6,7 +6,7 @@ title "Gäste ausladen"
 start
 :Party Time "Events Überblicken" Webseite öffnen;
 :"Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist, anklicken;
-:Minus Knopf neben auszuladendem Nutzer anklicken;
+:"[Teilnehmername] ausladen" Link neben auszuladendem Nutzer anklicken;
 :E-Mail-Adresse des auszuladendem Nutzers an Server übermitteln;
 |Gast ausladen Controller|
 :E-Mail-Adresse bereits eingeladen prüfen;
@@ -15,21 +15,21 @@ if () then (E-Mail-Adresse noch nicht eingeladen)
     |Veranstaltender Nutzer|
     :Fehlermeldung Gastausladung empfangen;
     :Fehlermeldung Gastausladung anzeigen;
-    note right
-        uninvite_participant_error: Die E-Mail-Adresse wurde noch nicht eingeladen.
-    end note
+    'note right
+    '    uninvite_participant_error: Die E-Mail-Adresse wurde noch nicht eingeladen.
+    'end note
     stop
 else (E-Mail-Adresse bereits eingeladen)
 endif
 |Gast einladen Controller|
-':Gastauseinladung via E-Mail an auszuladenden Nutzer senden;
+:Gastausladung via E-Mail an auszuladenden Nutzer senden;
 :Information über Ausladung persistieren;
 :Bestätigung der Ausladung an Veranstaltenden Nutzer senden;
 |Veranstaltender Nutzer|
 :Bestätigung Gastausladung empfangen;
 :Bestätigung Gastausladung anzeigen;
 note right
-    uninvite_participant_success: Die Ausladung wurde erfolgreich durchgeführt.
+    participant_remove: //Teilnehmer überblicken Maske wird ohne ausgeladenen Teilnehmer angezeigt
 end note
 stop
 @enduml

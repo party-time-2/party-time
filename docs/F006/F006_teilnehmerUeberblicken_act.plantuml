@@ -13,7 +13,7 @@ start
 :Teilnehmerliste empfangen;
 :Teilnehmerübersicht anzeigen;
 note right
-    view_participants: Teilnehmerübersicht
+    view_participants: Teilnehmer überblicken
 end note
 stop
 @enduml

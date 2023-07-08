@@ -3,12 +3,16 @@ title "Gäste einladen"
 
 actor "Teilnehmer überblickender veranstaltender Nutzer" as user
 boundary "Teilnehmer bearbeiten Maske" as editParticipantsMask
+control "Frontend Validator" as frontValid
 actor "Teilnehmer einladen Controller" as controller
 database "Datenbank" as db
 
 user -> editParticipantsMask: Eingabe E-Mail Adresse einzuladender Gast
 activate user
-user -> editParticipantsMask: Bestätige Eingabe mit Plus-Button
+editParticipantsMask -> frontValid: Prüfe E-Mail Adresse valide
+editParticipantsMask <-- frontValid: E-Mail Adresse valide
+user <-- editParticipantsMask: Erlaube absenden des Formulars
+user -> editParticipantsMask: Bestätige Eingabe mit Hinzufügen Button
 editParticipantsMask -> controller: Übermittle E-Mail Adresse einzuladender Gast
 activate controller
 controller -> db: Überprüfe E-Mail Adresse noch nicht eingeladen

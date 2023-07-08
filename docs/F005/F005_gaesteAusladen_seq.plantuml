@@ -6,18 +6,17 @@ boundary "Teilnehmer bearbeiten Maske" as editParticipantsMask
 actor "Teilnehmer ausladen Controller" as controller
 database "Datenbank" as db
 
-user -> editParticipantsMask: Minus Button neben auszuladendem Nutzer anklicken
+user -> editParticipantsMask: "[Teilnehmername] ausladen" Link neben auszuladendem Nutzer anklicken
 activate user
-'user -> editParticipantsMask: Bestätige Ausladen
 editParticipantsMask -> controller: Übermittle E-Mail Adresse auszuladender Gast
 activate controller
 controller -> db: Überprüfe E-Mail Adresse bereits eingeladen
 db --> controller: E-Mail Adresse bereits eingeladen
-'controller -> controller: Sende Ausladung Information an ausgeladenen Nutzer via E-Mail
+controller -> controller: Sende Ausladung Information an ausgeladenen Nutzer via E-Mail
 controller -> db: Lösche Informationen über Einladung des auszuladenden Nutzers
 db --> controller: Informationen über Einladung des auszuladenden Nutzers gelöscht
-controller -> editParticipantsMask: Übermittle Gastausladung Bestätigung
+controller -> editParticipantsMask: Übermittle Liste aktuell eingeladener Nutzer
 deactivate controller
-editParticipantsMask -> user: Zeige Gastausladung Bestätigung
+editParticipantsMask -> user: Zeige Liste aktuell eingeladener Nutzer
 deactivate user
 @enduml

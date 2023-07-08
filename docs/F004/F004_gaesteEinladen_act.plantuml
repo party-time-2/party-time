@@ -6,18 +6,40 @@ title "Gäste einladen"
 start
 :Party Time "Events Überblicken" Webseite öffnen;
 :"Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist, anklicken;
-:E-Mail-Adresse von einzuladendem Nutzer eingeben;
-:Mit Plus Knopf Eingabe bestätigen;
+repeat
+    :E-Mail-Adresse von einzuladendem Nutzer eingeben;
+    |Frontend Validator|
+    :Prüfe E-Mail Adresse;
+    backward:Fehlerhafte E-Mail Adresse markieren;
+    note right
+        participant_email_invalid: Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet.
+    end note
+repeat while ()
+|Veranstaltender Nutzer|
+:Mit "Hinzufügen" Knopf Eingabe bestätigen;
 :E-Mail-Adresse des einzuladenden Nutzers an Server übermitteln;
+|Gast einladen Controller|
+:E-Mail-Adresse auf Plattform registriert prüfen;
+if () then (Nutzer mit E-Mail-Adresse auf Plattform noch nicht registriert)
+    :Fehlermeldung bzgl. Gast nicht gefunden senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung bzgl. Gast nicht gefunden empfangen;
+    :Fehlermeldung bzgl. Gast nicht gefunden anzeigen;
+    'note right
+    '    Es kann kein Account mit dieser E-Mail gefunden werden
+    'end note
+    stop
+else (E-Mail-Adresse noch nicht eingeladen)
+endif
 |Gast einladen Controller|
 :E-Mail-Adresse noch nicht eingeladen prüfen;
 if () then (E-Mail-Adresse bereits eingeladen)
-    :Fehlermeldung senden;
+    :Fehlermeldung bzgl. Gast bereits eingeladen senden;
     |Veranstaltender Nutzer|
-    :Fehlermeldung Gasteinladung empfangen;
-    :Fehlermeldung Gasteinladung anzeigen;
+    :Fehlermeldung bzgl. Gast bereits eingeladen empfangen;
+    :Fehlermeldung bzgl. Gast bereits eingeladen anzeigen;
     note right
-        invite_participant_error: Die E-Mail-Adresse wurde bereits eingeladen.
+        participant_already_invited: Der Account mit der Email [participant_email]  wurde bereits eingeladen
     end note
     stop
 else (E-Mail-Adresse noch nicht eingeladen)
@@ -30,7 +52,7 @@ endif
 :Bestätigung Gasteinladung empfangen;
 :Bestätigung Gasteinladung anzeigen;
 note right
-    invite_participant_success: Die Einladung wurde erfolgreich versendet.
+    participant_invite: //Eingeladene Person wird in der Liste der Gäste als eingeladen angezeigt
 end note
 stop
 @enduml
