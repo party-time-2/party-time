@@ -25,9 +25,9 @@ if () then (Nutzer mit E-Mail-Adresse auf Plattform noch nicht registriert)
     |Veranstaltender Nutzer|
     :Fehlermeldung bzgl. Gast nicht gefunden empfangen;
     :Fehlermeldung bzgl. Gast nicht gefunden anzeigen;
-    'note right
-    '    Es kann kein Account mit dieser E-Mail gefunden werden
-    'end note
+    note right
+        participant_unknown: Es kann kein Account mit dieser E-Mail gefunden werden.
+    end note
     stop
 else (E-Mail-Adresse noch nicht eingeladen)
 endif
