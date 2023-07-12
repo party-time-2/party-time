@@ -129,5 +129,5 @@ export const api_error_400 = () =>
 export const participant_email_invalid_error = () =>
   'Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet.';
 
-  export const account_not_found_error = () =>
+export const account_not_found_error = () =>
   'Es kann kein Account mit dieser E-Mail gefunden werden.';
