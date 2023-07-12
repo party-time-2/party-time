@@ -24,6 +24,7 @@ import java.io.Reader;
 public class MailService {
 
     public static final String TEMPLATE_VERIFY_ACCOUNT = "verify_account";
+    public static final String TEMPLATE_INVITATION = "invitation";
 
     private final JavaMailSender javaMailSender;
     private final MustacheResourceTemplateLoader loader;

@@ -15,6 +15,9 @@ public final class EventMapper {
             .organizer(AccountMapper.map(event.getOrganizer()))
             .dateTime(event.getDateTime())
             .address(AddressMapper.map(event.getAddress()))
+            .participants(event.getEventParticipants().stream()
+                .map(EventParticipantMapper::map)
+                .toList())
             .build();
     }
 

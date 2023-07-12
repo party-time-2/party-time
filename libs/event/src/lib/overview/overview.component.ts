@@ -9,7 +9,7 @@ import {
 } from '@party-time/ui';
 import { OverviewStore } from './+state/overview.state';
 import { EventService } from '../services/event.service';
-import { EventSelectorComponent } from '../selector/selector.component';
+import { EventSelectorComponent } from '../selectors/event-selector.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,5 +36,9 @@ export class OverviewComponent {
 
   navigateToEdit(id: string) {
     this.router.navigate(['event/change', id]);
+  }
+
+  navigateToParticipants(id: string) {
+    this.router.navigate(['event/participants', id]);
   }
 }
