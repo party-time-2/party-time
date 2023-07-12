@@ -130,6 +130,7 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 ![participant_email_invalid](/docs/PNG/F004/Tests/party-time-add-participant%20--%20should%20show%20participant_email_invalid.png)
 
 ![participant_invite](/docs/PNG/F004/Tests/party-time-add-participant%20--%20should%20show%20participant_invite.png)
+![participant_unknown](/docs/PNG/F004/Tests/party-time-add-participant%20--%20should%20show%20participant_unknown.png)
 
 ## F005 Remove Participant
 
@@ -149,6 +150,7 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
 
 ![participant_remove](/docs/PNG/F005/Tests/party-time-remove-participant%20--%20should%20show%20participant_remove.png)
+![participant_not_invited_error](/docs/PNG/F005/Tests/party-time-remove-participant%20--%20should%20show%20participant_remove.png)
 
 ## F006 Participant overview
 

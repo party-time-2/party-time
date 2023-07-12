@@ -1,4 +1,5 @@
 import {
+  account_not_found_error,
   navigateParticipantsOverview,
   participant_email,
   participant_email_invalid_error,
@@ -94,6 +95,23 @@ describe('party-time-add-participant', () => {
     cy.screenshot();
   });
 
+  it('should show participant_unknown', () => {
+    cy.intercept('POST', '/api/event/1/participants/' + user_email(), {
+      statusCode: 404,
+      body: {
+        error: 'NOT_FOUND',
+        message:
+        account_not_found_error(),
+      },
+    });
+    cy.get('#email').type(user_email());
+    cy.get('party-time-primary-button > #add').click();
+    cy.contains(
+      account_not_found_error()
+    );
+    cy.screenshot();
+  });
+
   it('should show participant_invite', () => {
     cy.intercept('POST', '/api/event/1/participants/' + user_email(), {
       statusCode: 200,
@@ -143,6 +161,40 @@ describe('party-time-remove-participant', () => {
     });
     navigateParticipantsOverview();
   });
+
+  it('should show participant_not_invited_error', () => {
+    cy.login();
+    cy.intercept('GET', '/api/event/1/participants', {
+      body: [
+        {
+          account: {
+            id: 2,
+            name: 'Dagobert Duck',
+            email: participant_email(),
+            emailVerified: true,
+          },
+          status: 'INVITED',
+        },
+      ],
+    });
+    navigateParticipantsOverview();
+    cy.intercept('DELETE', '/api/event/1/participants/' + user_email(), {
+      statusCode: 404,
+      body: {
+        error: 'NOT_FOUND', 
+        message: account_not_found_error(),
+      },
+    });
+    cy.intercept('GET', '/api/event/1/participants', {
+      body: [],
+    });
+    cy.get('.flex > p').click();
+    cy.contains(
+      account_not_found_error()
+    );
+    cy.screenshot();
+  });        
+
 
   it('should show participant_remove', () => {
     cy.intercept('DELETE', '/api/event/1/participants/' + participant_email(), {
