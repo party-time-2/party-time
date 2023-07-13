@@ -1,6 +1,9 @@
 // implements F001
 // implements F002
 // implements F003
+// implements F004
+// implements F005
+// implements F006
 // implements F016
 
 import { Route } from '@angular/router';
@@ -9,6 +12,7 @@ import { CreateEventComponent } from './create/create-event.component';
 import { OverviewComponent } from './overview/overview.component';
 import { EditEventComponent } from './edit/edit-event.component';
 import { DeleteEventComponent } from './delete-event/delete-event.component';
+import { ParticipantsComponent } from './participants/participants.component';
 
 export const eventRoutes: Route[] = [
   { path: '', component: EventComponent },
@@ -27,5 +31,9 @@ export const eventRoutes: Route[] = [
   {
     path: 'delete/:id',
     component: DeleteEventComponent,
+  },
+  {
+    path: 'participants/:id',
+    component: ParticipantsComponent,
   },
 ];
