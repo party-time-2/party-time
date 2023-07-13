@@ -175,15 +175,12 @@ describe('party-time-remove-participant', () => {
       ],
     });
     navigateParticipantsOverview();
-    cy.intercept('DELETE', '/api/event/1/participants/' + user_email(), {
+    cy.intercept('DELETE', '/api/event/1/participants/' + participant_email(), {
       statusCode: 404,
       body: {
         error: 'NOT_FOUND',
         message: account_not_found_error(),
       },
-    });
-    cy.intercept('GET', '/api/event/1/participants', {
-      body: [],
     });
     cy.get('.flex > p').click();
     cy.contains(account_not_found_error());
