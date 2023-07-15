@@ -1,0 +1,11 @@
+@startuml F018_WegbeschreibungZumEvent_act
+<style file=plantStyle.css>
+title "Wegbeschreibung zum Event"
+
+|Teilnehmer|
+start
+:Öffne Event-Übersicht;
+:Klick auf "Wegbeschreibung" Knopf von teilgenommenem Event;
+:Erhalte Wegbeschreibung;
+stop
+@enduml

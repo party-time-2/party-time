@@ -1,0 +1,13 @@
+@startuml F018_WegbeschreibungZumEvent_seq
+title "Wegbeschreibung zum Event"
+
+actor "Event-Teilnehmer" as user
+boundary "Event-Übersicht Maske" as eventMask
+boundary "Navigation Anbieter" as navProvider
+
+user -> eventMask: Klick auf "Wegbeschreibung" Knopf
+activate user
+eventMask -> navProvider: Öffne Wegbeschreibung
+user <-- navProvider: Zeige Wegbeschreibung
+deactivate user
+@enduml
