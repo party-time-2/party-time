@@ -7,9 +7,9 @@ start
 :Einladung via E-Mail an Gast senden;
 |Eingeladener Gast|
 :Einladung via E-Mail empfangen;
-:Einladung auf Party Time Plattform ansehen;
+:Einladung in Event-Übersicht ansehen;
 note right
-    invite_view: Du wurdest eingeladen zu dem Event {event.name}.
+    invite_view: //Neues Event wird mit "Zusagen" und "Absagen" Knöpfen in der Event-Übersicht angezeigt.
 end note
 stop
 @enduml
