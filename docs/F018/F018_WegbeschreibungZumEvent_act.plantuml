@@ -4,8 +4,8 @@ title "Wegbeschreibung zum Event"
 
 |Teilnehmer|
 start
-:Öffne Event-Übersicht;
-:Klick auf "Wegbeschreibung" Knopf von teilgenommenem Event;
-:Erhalte Wegbeschreibung;
+:Event-Übersicht öffnen;
+:"Wegbeschreibung" Knopf von Event an dem teilgenommen wird anklicken;
+:Wegbeschreibung erhalten;
 stop
 @enduml

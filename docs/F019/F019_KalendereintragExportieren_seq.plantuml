@@ -1,0 +1,23 @@
+@startuml F019_KalendereintragExportieren_seq
+title "Kalendereintrag exportieren"
+
+actor "Event-Teilnehmer" as user
+boundary "Event-Teilnehmer Email" as userMail
+boundary "Event-Übersicht Maske" as eventMask
+actor "Kalendereintrag exportieren Controller" as controller
+database "Datenbank" as db
+
+user -> eventMask: "Kalendereintrag exportieren" Knopf anklicken
+activate user
+eventMask -> controller: Kalendereintrag exportieren Anfrage senden
+activate controller
+controller -> db: Kalendereintrag exportieren Information ermitteln
+controller <-- db: Kalendereintrag exportieren Information
+controller -> controller: Kalendereintrag exportieren Information zusammenstellen (incl. .ics Datei)
+controller -> userMail: Kalendereintrag exportieren Information senden
+deactivate controller
+userMail -> user: Kalendereintrag exportieren Information empfangen
+user -> userMail: Kalendereintrag exportieren Information öffnen
+user <-- userMail: Kalendereintrag exportieren Information anzeigen
+deactivate user
+@enduml

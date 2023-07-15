@@ -5,9 +5,9 @@ actor "Event-Teilnehmer" as user
 boundary "Event-Übersicht Maske" as eventMask
 boundary "Navigation Anbieter" as navProvider
 
-user -> eventMask: Klick auf "Wegbeschreibung" Knopf
+user -> eventMask: "Wegbeschreibung" Knopf anklicken
 activate user
-eventMask -> navProvider: Öffne Wegbeschreibung
-user <-- navProvider: Zeige Wegbeschreibung
+eventMask -> navProvider: Wegbeschreibung anfordern
+user <-- navProvider: Wegbeschreibung anzeigen
 deactivate user
 @enduml
