@@ -1,0 +1,15 @@
+@startuml F007_einladungErhalten_act
+<style file=plantStyle.css>
+title "Einladung erhalten"
+
+|Gast einladen Controller|
+start
+:Einladung via E-Mail an Gast senden;
+|Eingeladener Gast|
+:Einladung via E-Mail empfangen;
+:Einladung auf Party Time Plattform ansehen;
+note right
+    invite_view: Du wurdest eingeladen zu dem Event {event.name}.
+end note
+stop
+@enduml
