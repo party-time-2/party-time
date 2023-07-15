@@ -2,9 +2,10 @@
 <style file=plantStyle.css>
 title "Absage zum Event geben"
 
-|Eingeladener Nutzer auf Event-Übersicht Webseite|
+|Eingeladener Nutzer|
 start
-:"Absagen" Button klicken;
+:Event-Übersicht öffnen;
+:"Absagen" Button von Event anklicken, zu dem Eingeladen wurde;
 :Absage Information senden;
 |Einladung Controller|
 :Absage Information empfangen;

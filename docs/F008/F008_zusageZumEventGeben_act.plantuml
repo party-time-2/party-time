@@ -2,16 +2,17 @@
 <style file=plantStyle.css>
 title "Zusage zum Event geben"
 
-|Eingeladener Nutzer auf Event-Übersicht Webseite|
+|Eingeladener Nutzer|
 start
-:"Zusagen" Button klicken;
+:Event-Übersicht öffnen;
+:"Zusagen" Button von Event anklicken, zu dem Eingeladen wurde;
 :Zusagen Information senden;
 |Einladung Controller|
 :Zusagen Information empfangen;
 :Zusagen Information speichern;
 :Informationen über Events des Nutzers zusammenstellen;
 :Informationen über Events des Nutzers senden;
-|Eingeladener Nutzer auf Event-Übersicht Webseite|
+|Eingeladener Nutzer|
 :Informationen über Events des Nutzers empfangen;
 :Events des Nutzers anzeigen;
 note right
