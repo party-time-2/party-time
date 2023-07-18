@@ -141,7 +141,7 @@ public class EventController {
         eventService.inviteParticipant(eventId, email, authentication.getPrincipal().getUsername());
         return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
             .map(EventParticipantMapper::map)
-            .toList(); //TODO Lucas
+            .toList();
     }
 
     /**
@@ -176,7 +176,7 @@ public class EventController {
         eventService.uninviteParticipant(eventId, email, authentication.getPrincipal().getUsername());
         return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
             .map(EventParticipantMapper::map)
-            .toList(); //TODO Lucas
+            .toList();
     }
 
     /**
