@@ -177,4 +177,21 @@ public class EventService {
         return precheckExistsAndOwnEvent(eventId, email)
             .getEventParticipants();
     }
+
+    /**
+     * Implements F008
+     */
+    public void acceptInvitation(Long eventId,
+                                 String currentUserMail) {
+        // TODO F008
+    }
+
+    /**
+     * Implements F009
+     */
+    public void declineInvitation(Long eventId,
+                                 String currentUserMail) {
+        // TODO F009
+    }
+
 }
