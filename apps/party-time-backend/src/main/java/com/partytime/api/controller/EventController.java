@@ -111,6 +111,7 @@ public class EventController {
 
     /**
      * Implements F004
+     * Implements F007
      */
     @PostMapping("/{id}/participants/{email}")
     @Operation(

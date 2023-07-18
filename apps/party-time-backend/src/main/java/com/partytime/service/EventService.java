@@ -3,8 +3,10 @@ package com.partytime.service;
 import com.partytime.api.dto.event.EventCreateDTO;
 import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.error.ApiError;
+import com.partytime.configuration.JacksonConfiguration;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
 import com.partytime.jpa.entity.*;
+import com.partytime.jpa.mapper.AddressMapper;
 import com.partytime.jpa.repository.EventParticipantRepository;
 import com.partytime.jpa.repository.EventRepository;
 import com.partytime.mail.MailService;
@@ -124,6 +126,7 @@ public class EventService {
 
     /**
      * Implements F004
+     * Implements F007
      */
     @Transactional
     public void inviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
@@ -149,6 +152,8 @@ public class EventService {
             .name(invitedAccount.getName())
             .organizer(originalEvent.getOrganizer().getName())
             .event(originalEvent.getName())
+            .location(AddressMapper.prettyPrint(originalEvent.getAddress()))
+            .datetime(JacksonConfiguration.dateTimeFormatter.format(originalEvent.getDateTime()))
             .acceptLink(acceptLink)
             .declineLink(declineLink)
             .homepage(configurationProperties.getUrl())
