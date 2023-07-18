@@ -6,13 +6,24 @@ export const navigateLogin = () => cy.visit('auth/login');
 
 export const navigateChange = () => cy.visit('account/change');
 
+export const navigateEventOverview = () => cy.visit('event/overview');
+
 export const navigateLogout = () => cy.visit('auth/logout');
 
 export const navigateCreateEvent = () => cy.visit('event/create');
 
+export const navigateChangeEvent = () => cy.visit('event/change/1');
+
+export const navigateDeleteEvent = () => cy.visit('event/delete/1');
+
+export const navigateParticipantsOverview = () =>
+  cy.visit('event/participants/1');
+
 export const user_name = () => 'Gustav Gans';
 
 export const user_email = () => 'gustav@gans.de';
+
+export const participant_email = () => 'dagobert@duck.de';
 
 export const verifyToken = () => '3a1a9d22-b693-41d6-9fe6-853fa80266dd';
 
@@ -76,6 +87,9 @@ export const pt_address_short_error = () =>
 export const pt_address_long_error = () =>
   'Eine gültige Adresse hat maximal 25 Stellen.';
 
+export const pt_addressLineAddition_long_error = () =>
+  'Eine gültiger Adresszusatz hat maximal 25 Stellen.';
+
 export const pt_address_required_error = () =>
   'Bitte gib die Straße und Hausnummer ein, wo das Event stattfinden wird.';
 
@@ -108,3 +122,12 @@ export const pt_country_short_error = () =>
 
 export const pt_country_long_error = () =>
   'Ein gültiges Land hat maximal 20 Stellen.';
+
+export const api_error_400 = () =>
+  'Die Anfrage konnte nicht bearbeitet werden.';
+
+export const participant_email_invalid_error = () =>
+  'Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet.';
+
+export const account_not_found_error = () =>
+  'Es kann kein Account mit dieser E-Mail gefunden werden.';

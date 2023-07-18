@@ -84,7 +84,7 @@ repeat
     backward: Fehlerhaften Adresszusatz markieren;
 repeat while () is (Adresszusatz fehlerhaft) not (Adresszusatz fehlerfrei)
 |Verifizierter Nutzer|
-:Registration-Formular senden;
+:Event-anlegen-Formular senden;
 |Event erstellen Controller|
 :Eventdaten serverseitig verifizieren;
 
@@ -94,9 +94,6 @@ if () then (Verifizierung nicht erfolgreich)
     |Verifizierter Nutzer|
     :Fehlermeldung Eventerstellung empfangen;
     :Fehlermeldung Eventerstellung anzeigen;
-    note right
-        create_errors: Die Anfrage konnte nicht bearbeitet werden.
-    end note
     stop
 else (Verifizierung erfolgreich)
 endif

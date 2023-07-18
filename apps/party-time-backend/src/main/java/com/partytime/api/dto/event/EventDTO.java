@@ -3,16 +3,14 @@ package com.partytime.api.dto.event;
 import com.partytime.api.dto.account.AccountDTO;
 import com.partytime.api.dto.address.AddressDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -39,5 +37,7 @@ public class EventDTO {
     @NotNull
     @Valid
     private AddressDTO address;
+
+    private List<ParticipantDTO> participants;
 
 }

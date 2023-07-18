@@ -5,6 +5,7 @@ import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.dto.event.ParticipantDTO;
 import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.jpa.mapper.EventMapper;
+import com.partytime.jpa.mapper.EventParticipantMapper;
 import com.partytime.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -47,7 +47,36 @@ public class EventController {
         }
     )
     public List<EventDTO> getEvents(TokenAuthentication authentication) {
-        return Collections.emptyList(); // TODO Implementation
+        return eventService.getEvents(authentication.getPrincipal().getUsername()).stream()
+            .map(EventMapper::map)
+            .toList();
+    }
+
+    /**
+     * Implements F016
+     */
+    @GetMapping("/{id}")
+    @Operation(
+        description = "Get event by id if the authenticated user is host ",
+        responses = {
+            @ApiResponse(
+                description = "Data",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            @ApiResponse(
+                description = "Not organizer",
+                responseCode = "403"
+            ),
+            @ApiResponse(
+                description = "Event not found",
+                responseCode = "404"
+            )
+        }
+    )
+    public EventDTO getEvent(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+                             TokenAuthentication authentication) {
+        return EventMapper.map(eventService.getEvent(authentication.getPrincipal().getUsername(), eventId));
     }
 
     /**
@@ -74,8 +103,11 @@ public class EventController {
     )
     public List<ParticipantDTO> getParticipants(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                                 TokenAuthentication authentication) {
-        return Collections.emptyList(); // TODO Implementation
+        return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
+            .map(EventParticipantMapper::map)
+            .toList();
     }
+
 
     /**
      * Implements F004
@@ -103,10 +135,13 @@ public class EventController {
             )
         }
     )
-    public void inviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+    public List<ParticipantDTO> inviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                   @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") String email,
                                   TokenAuthentication authentication) {
-        // TODO Implementation
+        eventService.inviteParticipant(eventId, email, authentication.getPrincipal().getUsername());
+        return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
+            .map(EventParticipantMapper::map)
+            .toList(); //TODO Lucas
     }
 
     /**
@@ -135,10 +170,13 @@ public class EventController {
             )
         }
     )
-    public void uninviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
+    public List<ParticipantDTO> uninviteParticipant(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                                     @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") String email,
                                     TokenAuthentication authentication) {
-        // TODO Implementation
+        eventService.uninviteParticipant(eventId, email, authentication.getPrincipal().getUsername());
+        return eventService.getParticipants(eventId, authentication.getPrincipal().getUsername()).stream()
+            .map(EventParticipantMapper::map)
+            .toList(); //TODO Lucas
     }
 
     /**
@@ -194,7 +232,9 @@ public class EventController {
     )
     public EventDTO updateEvent(@RequestBody @NotNull @Valid EventDTO body,
                                 TokenAuthentication authentication) {
-        return body; // TODO Implementation
+        return EventMapper.map(
+            eventService.updateEvent(body, authentication.getPrincipal().getUsername())
+        );
     }
 
     /**
@@ -225,7 +265,7 @@ public class EventController {
     )
     public void deleteEvent(@Parameter(description = "The id of the event") @PathVariable("id") Long eventId,
                             TokenAuthentication authentication) {
-        // TODO Implementation
+        eventService.deleteEventById(eventId, authentication.getPrincipal().getUsername());
     }
 
 }

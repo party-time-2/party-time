@@ -1,4 +1,5 @@
 import { AccountDTO } from './account.model';
+import { ParticipantDTO } from './participant.model';
 
 export interface EventDTO {
   id: string;
@@ -6,6 +7,7 @@ export interface EventDTO {
   organizer: AccountDTO;
   dateTime: string;
   address: Address;
+  participants: ParticipantDTO[];
 }
 
 export interface EventCreateDTO {

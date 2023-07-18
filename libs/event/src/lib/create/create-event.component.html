@@ -84,6 +84,39 @@
             </section>
 
             <section>
+              <party-time-primary-label label="Adresszusatz" />
+              <div
+                class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
+              >
+                <input
+                  name="addressLineAddition"
+                  id="addressLineAddition"
+                  autocomplete="address-level2"
+                  formControlName="addressLineAddition"
+                  class="block flex-1 rounded-md border-0 bg-transparent py-1.5 pl-1 text-on-secondary-container-light placeholder:text-on-surface-variant-light focus:ring-1 dark:text-on-secondary-container-dark placeholder:dark:text-on-surface-variant-dark sm:text-sm sm:leading-6"
+                  placeholder="z. B. 1. Stock"
+                />
+              </div>
+              <div
+                *ngIf="
+                  addressControls['addressLineAddition'].errors &&
+                  (addressControls['addressLineAddition'].dirty ||
+                    addressControls['addressLineAddition'].touched)
+                "
+              >
+                <div
+                  *ngIf="
+                    addressControls['addressLineAddition'].errors['maxlength']
+                  "
+                >
+                  <party-time-primary-error
+                    error="Eine gültiger Adresszusatz hat maximal 25 Stellen."
+                  />
+                </div>
+              </div>
+            </section>
+
+            <section>
               <party-time-primary-label label="Postleitzahl" />
               <div
                 class="mb-4 flex rounded-md shadow-sm ring-1 ring-inset ring-outline-variant-light dark:ring-outline-dark sm:max-w-md"
@@ -214,7 +247,7 @@
             <input
               type="datetime-local"
               name="dateTime"
-              step="1"
+              step="60"
               id="dateTime"
               required
               formControlName="dateTime"
@@ -245,7 +278,7 @@
   </div>
 
   <ng-template #created>
-    <party-time-main-header title=" Event erstellt" />
+    <party-time-main-header title="Event erstellt" />
     <div class="flex justify-center pl-12 pr-12 pt-12">
       <div
         class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
