@@ -2,15 +2,15 @@
 <style file=plantStyle.css>
 title "Kalendereintrag exportieren"
 
-|Event-Teilnehmer|
+|Event-Zusage/Event-Änderung Controller|
 start
-:Event-Übersicht öffnen;
-:"Kalendereintrag exportieren" Knopf von teilgenommenem Event anklicken;
+note right
+    Startet bei Event-Zusage oder -Änderung
+end note
 :Kalendereintrag exportieren Anfrage senden;
 |Kalendereintrag exportieren Controller|
 :Kalendereintrag exportieren Anfrage empfangen;
 :Kalendereintrag incl. .ics Datei erstellen;
-'TODO via E-Mail klären?
 :Kalendereintrag via E-Mail an Nutzer senden;
 |Event-Teilnehmer|
 :Kalendereintrag via E-Mail empfangen;
