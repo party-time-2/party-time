@@ -114,7 +114,7 @@ public class EventService {
      */
     @Transactional
     public void uninviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
-        precheckExistsAndOwnEvent(eventId, authenticatedUser);
+        Event originalEvent = precheckExistsAndOwnEvent(eventId, authenticatedUser);
 
         Account invitedAccount = accountService.getAccount(targetEmail);
 
@@ -122,6 +122,13 @@ public class EventService {
             .orElseThrow(() -> ApiError.badRequest("Der Account mit der Email " + targetEmail + " wurde nicht eingeladen").asException());
 
         eventParticipantRepository.delete(eventParticipant);
+
+        mailService.sendMail(targetEmail, "Du wurdest beim Event " + originalEvent.getName() + " ausgeladen.", MailService.TEMPLATE_UNINVITE, InvitationData.builder()
+            .name(invitedAccount.getName())
+            .organizer(originalEvent.getOrganizer().getName())
+            .event(originalEvent.getName())
+            .homepage(configurationProperties.getUrl())
+            .build());
     }
 
     /**
