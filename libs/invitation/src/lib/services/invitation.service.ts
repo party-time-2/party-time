@@ -1,3 +1,5 @@
+// implements F008
+// implements F009
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiError } from '@party-time/models';

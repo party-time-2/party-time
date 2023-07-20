@@ -1,3 +1,5 @@
+// implements F008
+// implements F009
 import { Injectable } from "@angular/core";
 import { ComponentStore, tapResponse } from "@ngrx/component-store";
 import { ApiError } from "@party-time/models";
@@ -13,7 +15,7 @@ export interface InvitationStateInterface {
 export const initialState: InvitationStateInterface = {
     isLoading: false,
     error: undefined,
-    isInvited: false,
+    isInvited: undefined,
 };
 
 @Injectable()
@@ -33,11 +35,11 @@ export class InvitationStore extends ComponentStore<InvitationStateInterface> {
         isLoading,
     }));
 
-    getAccept = this.effect((invitationId$: Observable<string>) =>
-        invitationId$.pipe(
+    getAccept = this.effect((eventId$: Observable<string>) =>
+        eventId$.pipe(
             tap(() => this.setIsLoading(true)),
-            exhaustMap((invitationId) =>
-                this.invitationService.acceptInvitation(invitationId).pipe(
+            exhaustMap((eventId) =>
+                this.invitationService.acceptInvitation(eventId).pipe(
                     tapResponse(
                         () => {
                             this.patchState({
@@ -57,11 +59,11 @@ export class InvitationStore extends ComponentStore<InvitationStateInterface> {
         )
     );
 
-    getDecline = this.effect((invitationId$: Observable<string>) =>
-        invitationId$.pipe(
+    getDecline = this.effect((eventId$: Observable<string>) =>
+        eventId$.pipe(
             tap(() => this.setIsLoading(true)),
-            exhaustMap((invitationId) =>
-                this.invitationService.declineInvitation(invitationId).pipe(
+            exhaustMap((eventId) =>
+                this.invitationService.declineInvitation(eventId).pipe(
                     tapResponse(
                         () => {
                             this.patchState({

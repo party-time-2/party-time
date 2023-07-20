@@ -1,14 +1,16 @@
+// implements F008
+// implements F009
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InvitationService } from '../services/invitation.service';
 import { InvitationStore } from '../+state/invitation.state';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PrimaryButtonComponent } from '@party-time/ui';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingCircleComponent, PrimaryButtonComponent } from '@party-time/ui';
 
 @Component({
   selector: 'party-time-invitation',
   standalone: true,
-  imports: [CommonModule, PrimaryButtonComponent],
+  imports: [CommonModule, PrimaryButtonComponent, LoadingCircleComponent],
   templateUrl: './invitation.component.html',
   styles: [],
   providers: [InvitationService, InvitationStore],
