@@ -184,6 +184,7 @@ public class EventService {
     public void acceptInvitation(Long eventId,
                                  String currentUserMail) {
         // TODO F008
+        throw ApiError.badRequest("Not implemented").asException();
     }
 
     /**
@@ -192,6 +193,8 @@ public class EventService {
     public void declineInvitation(Long eventId,
                                  String currentUserMail) {
         // TODO F009
+                throw ApiError.badRequest("Not implemented").asException();
+
     }
 
 }

@@ -1,0 +1,20 @@
+<ng-container *ngIf="vm$ | async as vm">
+    <div *ngIf="!vm.isInvited; else invited"></div>
+    <ng-template #invited>
+        <div class="grid h-screen place-items-center">
+            <div
+                class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
+                <p
+                    class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark">
+                    Hey!
+                </p>
+                <p *ngIf="vm.isInvited; else declined">Wir haben deine Zusage gespeichert.</p>
+                <ng-template #declined>
+                    <p>Wir haben deine Absage gespeichert.</p>
+                </ng-template>
+                <party-time-primary-button name="Zur Event-Übersicht" routerLink="/" />
+            </div>
+        </div>
+    </ng-template>
+    <pre q>{{ vm | json }}</pre>
+</ng-container>

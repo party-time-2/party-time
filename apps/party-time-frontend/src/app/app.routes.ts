@@ -6,6 +6,7 @@ export const appRoutes: Route[] = [
     path: 'invitation',
     loadChildren: () =>
       import('@party-time/invitation').then((m) => m.invitationRoutes),
+    canActivate: [AuthGuardService],
   },
   {
     path: 'event',
