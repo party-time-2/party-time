@@ -1,25 +1,31 @@
 <!-- implements F008 -->
 <!-- implements F009 -->
 <ng-container *ngIf="vm$ | async as vm">
-    <div *ngIf="vm.isInvited === undefined && vm.isLoading === true; else loaded">
-        <div class="grid h-screen place-items-center">
-        <party-time-loading-circle></party-time-loading-circle>
-        </div>
+  <div *ngIf="vm.isInvited === undefined && vm.isLoading === true; else loaded">
+    <div class="grid h-screen place-items-center">
+      <party-time-loading-circle></party-time-loading-circle>
     </div>
-    <ng-template #loaded>
-        <div class="grid h-screen place-items-center">
-            <div
-                class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl">
-                <p
-                    class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark">
-                    Hey!
-                </p>
-                <p *ngIf="vm.isInvited;">Wir haben deine Zusage gespeichert.</p>
-                <p *ngIf="vm.isInvited === false;  error">Wir haben deine Absage gespeichert.</p>
-                <p *ngIf="vm.isInvited === undefined">Leider ist ein Fehler aufgetreten.</p>
-                <party-time-primary-button name="Zur Event-Übersicht" routerLink="/" />
-            </div>
-        </div>
-    </ng-template>
-    <pre>{{ vm | json }}</pre>
+  </div>
+  <ng-template #loaded>
+    <div class="grid h-screen place-items-center">
+      <div
+        class="text-xl font-extrabold text-on-background-light dark:text-on-background-dark md:text-2xl lg:text-3xl"
+      >
+        <p
+          class="dark:from-on-secondary-dark-dark mb-1 bg-gradient-to-r from-primary-light to-tertiary-light bg-clip-text text-transparent dark:to-on-tertiary-dark"
+        >
+          Hey!
+        </p>
+        <p *ngIf="vm.isInvited">Wir haben deine Zusage gespeichert.</p>
+        <p *ngIf="vm.isInvited === false; error">
+          Wir haben deine Absage gespeichert.
+        </p>
+        <p *ngIf="vm.isInvited === undefined">
+          Leider ist ein Fehler aufgetreten.
+        </p>
+        <party-time-primary-button name="Zur Event-Übersicht" routerLink="/" />
+      </div>
+    </div>
+  </ng-template>
+  <pre>{{ vm | json }}</pre>
 </ng-container>

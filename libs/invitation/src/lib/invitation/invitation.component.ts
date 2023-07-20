@@ -19,14 +19,16 @@ export class InvitationComponent {
   eventId = this.route.snapshot.paramMap.get('eventId');
   action = this.route.snapshot.paramMap.get('action');
   vm$ = this.invitationStore.vm$;
-  
-  constructor(private route: ActivatedRoute, private invitationStore: InvitationStore) {
+
+  constructor(
+    private route: ActivatedRoute,
+    private invitationStore: InvitationStore
+  ) {
     if (this.action === 'accept') {
-      this. invitationStore.getAccept(this.eventId as string);
+      this.invitationStore.getAccept(this.eventId as string);
     }
     if (this.action === 'decline') {
       this.invitationStore.getDecline(this.eventId as string);
     }
   }
-
 }
