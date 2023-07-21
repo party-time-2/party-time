@@ -17,9 +17,7 @@
           Hey!
         </p>
         <p *ngIf="vm.isInvited">Wir haben deine Zusage gespeichert.</p>
-        <p *ngIf="vm.isInvited == false">
-          Wir haben deine Absage gespeichert.
-        </p>
+        <p *ngIf="vm.isInvited == false">Wir haben deine Absage gespeichert.</p>
         <p *ngIf="vm.error?.error?.message">
           {{ vm.error?.error?.message }}
         </p>

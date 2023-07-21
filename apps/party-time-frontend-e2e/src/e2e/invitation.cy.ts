@@ -1,4 +1,11 @@
-import { navigateAcceptInvite, navigateDeclineInvite } from '../support/app.po';
+import {
+  accept_api_url,
+  decline_api_url,
+  event_not_found_error,
+  navigateAcceptInvite,
+  navigateDeclineInvite,
+  not_invited_error,
+} from '../support/app.po';
 
 describe('accept-invite success', () => {
   it('should show invite_accepted', () => {
@@ -6,7 +13,7 @@ describe('accept-invite success', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/api/event/1/participants/invitation/accept',
+        url: accept_api_url(),
       },
       {
         statusCode: 200,
@@ -27,19 +34,19 @@ describe('accet-invite error', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/api/event/1/participants/invitation/accept',
+        url: accept_api_url(),
       },
       {
         statusCode: 403,
         body: {
-              message: 'Du bist nicht zu diesem Event eingeladen.',
+          message: not_invited_error(),
         },
       }
     ).as('notInvited');
 
     navigateAcceptInvite();
     cy.wait('@notInvited');
-    cy.contains('Du bist nicht zu diesem Event eingeladen.');
+    cy.contains(not_invited_error());
     cy.screenshot();
   });
 
@@ -47,44 +54,82 @@ describe('accet-invite error', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/api/event/1/participants/invitation/accept',
+        url: accept_api_url(),
       },
       {
         statusCode: 404,
         body: {
-              message: 'Das Event wurde nicht gefunden.',
+          message: event_not_found_error(),
         },
       }
     ).as('noEvent');
 
     navigateAcceptInvite();
     cy.wait('@noEvent');
-    cy.contains('Das Event wurde nicht gefunden.');
+    cy.contains(event_not_found_error());
+    cy.screenshot();
+  });
+});
+
+describe('decline-invite success', () => {
+  it('should show invite_declined', () => {
+    cy.login();
+    cy.intercept(
+      {
+        method: 'POST',
+        url: decline_api_url(),
+      },
+      {
+        statusCode: 200,
+      }
+    );
+    navigateDeclineInvite();
+    cy.contains('Wir haben deine Absage gespeichert.');
+    cy.screenshot();
+  });
+});
+
+describe('decline-invite error', () => {
+  beforeEach(() => {
+    cy.login();
+  });
+  it('should show participant_not_invited', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: decline_api_url(),
+      },
+      {
+        statusCode: 403,
+        body: {
+          message: not_invited_error(),
+        },
+      }
+    ).as('notInvited');
+
+    navigateDeclineInvite();
+    cy.wait('@notInvited');
+    cy.contains(not_invited_error());
     cy.screenshot();
   });
 
+  it('should show event_not_found', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: decline_api_url(),
+      },
+      {
+        statusCode: 404,
+        body: {
+          message: event_not_found_error(),
+        },
+      }
+    ).as('noEvent');
+
+    navigateDeclineInvite();
+    cy.wait('@noEvent');
+    cy.contains(event_not_found_error());
+    cy.screenshot();
+  });
 });
-
-// describe('decline-invite success', () => {
-//   it('should show invite_declined', () => {
-//     cy.login();
-//     cy.intercept(
-//       {
-//         method: 'POST',
-//         url: '/api/event/1/participants/invitation/decline',
-//       },
-//       {
-//         statusCode: 200,
-//       }
-//     );
-//     navigateDeclineInvite();
-//     cy.contains('Wir haben deine Absage gespeichert.');
-//     cy.screenshot();
-//   });
-// });
-
-// describe('decline-invite error', () => {
-//   // not invited
-//   // event not found
-//   // server error
-// });

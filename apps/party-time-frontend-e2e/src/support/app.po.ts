@@ -135,3 +135,14 @@ export const participant_email_invalid_error = () =>
 
 export const account_not_found_error = () =>
   'Es kann kein Account mit dieser E-Mail gefunden werden.';
+
+export const event_not_found_error = () => 'Das Event wurde nicht gefunden.';
+
+export const not_invited_error = () =>
+  'Du bist nicht zu diesem Event eingeladen.';
+
+export const decline_api_url = () =>
+  '/api/event/1/participants/invitation/decline';
+
+export const accept_api_url = () =>
+  '/api/event/1/participants/invitation/accept';
