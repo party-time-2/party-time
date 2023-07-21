@@ -17,15 +17,14 @@
           Hey!
         </p>
         <p *ngIf="vm.isInvited">Wir haben deine Zusage gespeichert.</p>
-        <p *ngIf="vm.isInvited === false; error">
+        <p *ngIf="vm.isInvited == false">
           Wir haben deine Absage gespeichert.
         </p>
-        <p *ngIf="vm.isInvited === undefined">
-          Leider ist ein Fehler aufgetreten.
+        <p *ngIf="vm.error?.error?.message">
+          {{ vm.error?.error?.message }}
         </p>
         <party-time-primary-button name="Zur Event-Übersicht" routerLink="/" />
       </div>
     </div>
   </ng-template>
-  <pre>{{ vm | json }}</pre>
 </ng-container>

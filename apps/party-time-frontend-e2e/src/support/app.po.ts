@@ -2,6 +2,10 @@ export const navigateRegister = () => cy.visit('auth/register');
 
 export const navigateVerify = () => cy.visit('auth/verify');
 
+export const navigateAcceptInvite = () => cy.visit('/invitation/1/accept');
+
+export const navigateDeclineInvite = () => cy.visit('/invitation/1/decline');
+
 export const navigateLogin = () => cy.visit('auth/login');
 
 export const navigateChange = () => cy.visit('account/change');
