@@ -4,19 +4,31 @@ title "Absage zum Event geben"
 
 |Eingeladener Nutzer|
 start
-:Event-Übersicht öffnen;
-:"Absagen" Button von Event anklicken, zu dem Eingeladen wurde;
-:Absage Information senden;
+:Absagen-Link in E-Mail anklicken;
+:Absagen Webseite öffnen;
+:Absagen Informationen senden;
 |Einladung Controller|
-:Absage Information empfangen;
+:Absagen Information empfangen;
+:Absagen Informationen validieren;
+if () then (Validieren nicht erfolgreich)
+    :Fehlermeldung senden;
+    |Eingeladener Nutzer|
+    :Fehlermeldung Absagen empfangen;
+    :Fehlermeldung Absagen anzeigen;
+    note right
+        event_not_found: Das Event wurde nicht gefunden.
+        participant_not_invited: Du bist nicht zu diesem Event eingeladen.
+    end note
+    stop
+else (Validieren erfolgreich)
+endif
 :Einladung Information löschen;
-:Informationen über Events des Nutzers zusammenstellen;
-:Informationen über Events des Nutzers senden;
+:Absage Informationen speichern bestätigen;
 |Eingeladener Nutzer|
-:Informationen über Events des Nutzers empfangen;
-:Events des Nutzers anzeigen;
+:Informationen über Speichern der Absage empfangen;
+:Informationen über Speichern der Zusage anzeigen;
 note right
-    invite_declined: //Zeigt Events des Nutzers ohne neues Event in Event-Übersicht
+    invite_declined: Wir haben deine Absage gespeichert.
 end note
 stop
 @enduml

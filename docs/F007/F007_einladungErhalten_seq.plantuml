@@ -4,7 +4,6 @@ title "Einladung erhalten"
 actor "Einladung Controller" as controller
 boundary "Nutzer Email" as userMail
 database "Datenbank" as db
-boundary "Event-Übersicht Maske" as eventMask
 actor "Eingeladener Nutzer" as user
 
 controller -> userMail: Einladung verschicken
@@ -19,8 +18,6 @@ userMail --> user: Einladung erhalten
 activate user
 userMail <- user: Einladung öffnen
 userMail --> user: Einladung anzeigen
-user -> eventMask: Event-Übersicht öffnen
-user <-- eventMask: Event-Übersicht anzeigen
 deactivate user
 end
 @enduml

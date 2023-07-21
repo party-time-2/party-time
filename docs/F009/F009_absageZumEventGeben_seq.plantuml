@@ -1,21 +1,23 @@
 @startuml F009_absageZumEventGeben_seq
 title "Absage zum Event geben"
 
-actor "Eingeladener Nutzer auf Event-Übersicht Webseite" as user
-boundary "Event-Übersicht Maske" as eventMask
+actor "Eingeladener Nutzer" as user
+boundary "Nutzer Email" as userMail
+boundary "Absagen Webseite" as declineMask
 actor "Einladung Controller" as controller
 database "Datenbank" as db
 
-user -> eventMask: "Absagen" Button klicken
+user -> userMail: Absagen-Link anklicken
 activate user
-eventMask -> controller: Absage Informationen senden
+userMail -> declineMask: Absagen Webseite öffnen
+activate declineMask
+declineMask -> controller: Absage Informationen senden
 activate controller
 controller -> db: Einladung löschen
 controller <-- db: Einladung gelöscht
-controller -> db: Informationen über Events des Nutzers zusammenstellen
-controller <-- db: Informationen über Events des Nutzers
-eventMask <-- controller: Informationen über Events des Nutzers senden
+controller <-- declineMask: Absage bestätigen
 deactivate controller
-user <-- eventMask: Informationen über Events des Nutzers anzeigen
+user <-- declineMask: Informationen über Absage anzeigen
+deactivate declineMask
 deactivate user
 @enduml

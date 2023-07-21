@@ -4,19 +4,31 @@ title "Zusage zum Event geben"
 
 |Eingeladener Nutzer|
 start
-:Event-Übersicht öffnen;
-:"Zusagen" Button von Event anklicken, zu dem Eingeladen wurde;
-:Zusagen Information senden;
+:Zusagen-Link in E-Mail anklicken;
+:Zusagen Webseite öffnen;
+:Zusagen Informationen senden;
 |Einladung Controller|
-:Zusagen Information empfangen;
-:Zusagen Information speichern;
-:Informationen über Events des Nutzers zusammenstellen;
-:Informationen über Events des Nutzers senden;
+:Zusagen Informationen empfangen;
+:Zusagen Informationen validieren;
+if () then (Validieren nicht erfolgreich)
+    :Fehlermeldung senden;
+    |Eingeladener Nutzer|
+    :Fehlermeldung Zusage empfangen;
+    :Fehlermeldung Zusage anzeigen;
+    note right
+        event_not_found: Das Event wurde nicht gefunden.
+        participant_not_invited: Du bist nicht zu diesem Event eingeladen.
+    end note
+    stop
+else (Validieren erfolgreich)
+endif
+:Zusagen Informationen speichern;
+:Zusage Informationen speichern bestätigen;
 |Eingeladener Nutzer|
-:Informationen über Events des Nutzers empfangen;
-:Events des Nutzers anzeigen;
+:Informationen über Speichern der Zusage empfangen;
+:Informationen über Speichern der Zusage anzeigen;
 note right
-    invite_accepted: //Zeigt neues Event als zugesagt in Event-Übersicht
+    invite_accepted: Wir haben deine Zusage gespeichert.
 end note
 stop
 @enduml

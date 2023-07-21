@@ -7,9 +7,5 @@ start
 :Einladung via E-Mail an Gast senden;
 |Eingeladener Gast|
 :Einladung via E-Mail empfangen;
-:Einladung in Event-Übersicht ansehen;
-note right
-    invite_view: //Neues Event wird mit "Zusagen" und "Absagen" Knöpfen in der Event-Übersicht angezeigt.
-end note
 stop
 @enduml

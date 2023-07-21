@@ -5,13 +5,13 @@
 This library implements F008 - Accept Invitation.  
 See [F008 Zusage zum Event geben](https://github.com/party-time-2/party-time/issues/8) for more information.
 
-The sequence diagram for this library can be found [here](/docs/F008/F008_eventZusagen_seq.plantuml)
+The sequence diagram for this library can be found [here](/docs/F008/F008_zusageZumEventGeben_seq.plantuml)
 
-![F008_eventZusagen_seq](/docs/PNG/F008/F008_eventZusagen_seq.png)
+![F008_eventZusagen_seq](/docs/PNG/F008/F008_zusageZumEventGeben_seq.png)
 
-The activity diagram for this library can be found [here](/docs/F008/F008_eventZusagen_act.plantuml)
+The activity diagram for this library can be found [here](/docs/F008/F008_zusageZumEventGeben_act.plantuml)
 
-![F008_eventZusagen_act](/docs/PNG/F008/F008_eventZusagen_act.png)
+![F008_eventZusagen_act](/docs/PNG/F008/F008_zusageZumEventGeben_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventParticipantController.java)
 
@@ -26,13 +26,13 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 This library implements F009 - Decline Invitation.  
 See [F009 Absage zum Event geben](https://github.com/party-time-2/party-time/issues/9) for more information.
 
-The sequence diagram for this library can be found [here](/docs/F009/F009_eventAbsagen_seq.plantuml)
+The sequence diagram for this library can be found [here](/docs/F009/F009_absageZumEventGeben_seq.plantuml)
 
-![F009_eventAbsagen_seq](/docs/PNG/F009/F009_eventAbsagen_seq.png)
+![F009_eventAbsagen_seq](/docs/PNG/F009/F009_absageZumEventGeben_seq.png)
 
-The activity diagram for this library can be found [here](/docs/F009/F009_eventAbsagen_act.plantuml)
+The activity diagram for this library can be found [here](/docs/F009/F009_absageZumEventGeben_act.plantuml)
 
-![F009_eventAbsagen_act](/docs/PNG/F009/F009_eventAbsagen_act.png)
+![F009_eventAbsagen_act](/docs/PNG/F009/F009_absageZumEventGeben_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventParticipantController.java)
 
