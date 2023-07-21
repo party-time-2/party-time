@@ -1,0 +1,22 @@
+@startuml F008_zusageZumEventGeben_act
+<style file=plantStyle.css>
+title "Zusage zum Event geben"
+
+|Eingeladener Nutzer|
+start
+:Event-Übersicht öffnen;
+:"Zusagen" Button von Event anklicken, zu dem Eingeladen wurde;
+:Zusagen Information senden;
+|Einladung Controller|
+:Zusagen Information empfangen;
+:Zusagen Information speichern;
+:Informationen über Events des Nutzers zusammenstellen;
+:Informationen über Events des Nutzers senden;
+|Eingeladener Nutzer|
+:Informationen über Events des Nutzers empfangen;
+:Events des Nutzers anzeigen;
+note right
+    invite_accepted: //Zeigt neues Event als zugesagt in Event-Übersicht
+end note
+stop
+@enduml

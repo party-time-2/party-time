@@ -1,0 +1,22 @@
+@startuml F009_absageZumEventGeben_act
+<style file=plantStyle.css>
+title "Absage zum Event geben"
+
+|Eingeladener Nutzer|
+start
+:Event-Übersicht öffnen;
+:"Absagen" Button von Event anklicken, zu dem Eingeladen wurde;
+:Absage Information senden;
+|Einladung Controller|
+:Absage Information empfangen;
+:Einladung Information löschen;
+:Informationen über Events des Nutzers zusammenstellen;
+:Informationen über Events des Nutzers senden;
+|Eingeladener Nutzer|
+:Informationen über Events des Nutzers empfangen;
+:Events des Nutzers anzeigen;
+note right
+    invite_declined: //Zeigt Events des Nutzers ohne neues Event in Event-Übersicht
+end note
+stop
+@enduml
