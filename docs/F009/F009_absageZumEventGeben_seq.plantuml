@@ -9,15 +9,15 @@ database "Datenbank" as db
 
 user -> userMail: Absagen-Link anklicken
 activate user
-userMail -> declineMask: Absagen Webseite öffnen
+userMail -> declineMask: Absage Webseite öffnen
 activate declineMask
-declineMask -> controller: Absage Informationen senden
+declineMask -> controller: Absage senden
 activate controller
-controller -> db: Einladung löschen
-controller <-- db: Einladung gelöscht
-controller <-- declineMask: Absage bestätigen
+controller -> db: Absage speichern
+controller <-- db: Absage gespeichert
+declineMask <-- controller: Absage bestätigen
 deactivate controller
-user <-- declineMask: Informationen über Absage anzeigen
+user <-- declineMask: Bestätigung der Absage anzeigen
 deactivate declineMask
 deactivate user
 @enduml

@@ -5,16 +5,16 @@ title "Absage zum Event geben"
 |Eingeladener Nutzer|
 start
 :Absagen-Link in E-Mail anklicken;
-:Absagen Webseite öffnen;
-:Absagen Informationen senden;
+:Absage Webseite öffnen;
+:Absage senden;
 |Einladung Controller|
-:Absagen Information empfangen;
-:Absagen Informationen validieren;
+:Absage empfangen;
+:Absage validieren;
 if () then (Validieren nicht erfolgreich)
     :Fehlermeldung senden;
     |Eingeladener Nutzer|
-    :Fehlermeldung Absagen empfangen;
-    :Fehlermeldung Absagen anzeigen;
+    :Fehlermeldung Absage empfangen;
+    :Fehlermeldung Absage anzeigen;
     note right
         event_not_found: Das Event wurde nicht gefunden.
         participant_not_invited: Du bist nicht zu diesem Event eingeladen.
@@ -23,11 +23,11 @@ if () then (Validieren nicht erfolgreich)
 else (Validieren erfolgreich)
 endif
 |Einladung Controller|
-:Einladung Information löschen;
-:Absage Informationen speichern bestätigen;
+:Absage speichern;
+:Absage bestätigen;
 |Eingeladener Nutzer|
-:Informationen über Speichern der Absage empfangen;
-:Informationen über Speichern der Zusage anzeigen;
+:Bestätigung der Absage empfangen;
+:Bestätigung der Absage anzeigen;
 note right
     invite_declined: Wir haben deine Absage gespeichert.
 end note

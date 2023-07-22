@@ -5,11 +5,11 @@ title "Zusage zum Event geben"
 |Eingeladener Nutzer|
 start
 :Zusagen-Link in E-Mail anklicken;
-:Zusagen Webseite öffnen;
-:Zusagen Informationen senden;
+:Zusage Webseite öffnen;
+:Zusage senden;
 |Einladung Controller|
-:Zusagen Informationen empfangen;
-:Zusagen Informationen validieren;
+:Zusage empfangen;
+:Zusage validieren;
 if () then (Validieren nicht erfolgreich)
     :Fehlermeldung senden;
     |Eingeladener Nutzer|
@@ -23,11 +23,11 @@ if () then (Validieren nicht erfolgreich)
 else (Validieren erfolgreich)
 endif
 |Einladung Controller|
-:Zusagen Informationen speichern;
-:Zusage Informationen speichern bestätigen;
+:Zusage speichern;
+:Zusage bestätigen;
 |Eingeladener Nutzer|
-:Informationen über Speichern der Zusage empfangen;
-:Informationen über Speichern der Zusage anzeigen;
+:Bestätigung der Zusage empfangen;
+:Bestätigung der Zusage anzeigen;
 note right
     invite_accepted: Wir haben deine Zusage gespeichert.
 end note
