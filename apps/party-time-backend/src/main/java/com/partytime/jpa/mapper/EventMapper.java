@@ -21,4 +21,14 @@ public final class EventMapper {
             .build();
     }
 
+    public static EventDTO mapParticipating(Event event) {
+        return EventDTO.builder()
+            .id(event.getId())
+            .name(event.getName())
+            .organizer(AccountMapper.map(event.getOrganizer()))
+            .dateTime(event.getDateTime())
+            .address(AddressMapper.map(event.getAddress()))
+            .build();
+    }
+
 }

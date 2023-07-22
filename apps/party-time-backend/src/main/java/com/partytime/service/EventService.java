@@ -171,6 +171,25 @@ public class EventService {
     }
 
     /**
+     * Implements F007
+     */
+    @Transactional(readOnly = true)
+    public List<Event> getParticipatingEvents(String email) {
+        return eventParticipantRepository.streamAllByAccount_Email(email)
+            .map(EventParticipant::getEvent)
+            .toList();
+    }
+
+    /**
+     * Implements F007
+     */
+    public Event getParticipatingEvent(Long event, String email) {
+        return eventParticipantRepository.findByEvent_IdAndAccount_Email(event, email)
+            .orElseThrow(() -> ApiError.notFound("Das Event konnte nicht gefunden werden").asException())
+            .getEvent();
+    }
+
+    /**
      * Implements F006
      */
     public List<EventParticipant> getParticipants(Long eventId, String email) {
@@ -190,8 +209,7 @@ public class EventService {
      * Implements F009
      */
     public void declineInvitation(Long eventId,
-                                 String currentUserMail) {
+                                  String currentUserMail) {
         // TODO F009
     }
-
 }

@@ -28,7 +28,7 @@ import java.util.List;
     description = "API endpoints providing all required logic for events"
 )
 public class EventController {
-    static final String TAG = "Event API";
+    static final String TAG = "Event Host API";
 
     private final EventService eventService;
 
