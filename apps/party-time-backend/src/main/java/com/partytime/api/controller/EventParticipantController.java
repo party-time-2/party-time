@@ -1,6 +1,7 @@
 package com.partytime.api.controller;
 
 import com.partytime.api.dto.event.EventDTO;
+import com.partytime.api.dto.event.ParticipatingEventDTO;
 import com.partytime.configuration.security.TokenAuthentication;
 import com.partytime.jpa.mapper.EventMapper;
 import com.partytime.service.EventService;
@@ -38,7 +39,7 @@ public class EventParticipantController {
             )
         }
     )
-    public List<EventDTO> getEvents(TokenAuthentication authentication) {
+    public List<ParticipatingEventDTO> getEvents(TokenAuthentication authentication) {
         return eventService.getParticipatingEvents(authentication.getPrincipal().getUsername()).stream()
             .map(EventMapper::mapParticipating)
             .toList();
@@ -59,7 +60,7 @@ public class EventParticipantController {
             )
         }
     )
-    public EventDTO getEvent(@PathVariable("event") @NotNull Long event,
+    public ParticipatingEventDTO getEvent(@PathVariable("event") @NotNull Long event,
                              TokenAuthentication authentication) {
         return EventMapper.mapParticipating(eventService.getParticipatingEvent(event, authentication.getPrincipal().getUsername()));
     }

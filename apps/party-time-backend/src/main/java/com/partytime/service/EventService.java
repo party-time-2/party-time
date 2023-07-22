@@ -190,21 +190,16 @@ public class EventService {
      * Implements F007
      */
     @Transactional(readOnly = true)
-    public List<Event> getParticipatingEvents(String email) {
-        return eventParticipantRepository.streamAllByAccount_Email(email)
-            .filter(eventParticipant -> !eventParticipant.getStatus().equals(Status.REJECTED))
-            .map(EventParticipant::getEvent)
-            .toList();
+    public List<EventParticipant> getParticipatingEvents(String email) {
+        return eventParticipantRepository.findAllByAccount_Email(email);
     }
 
     /**
      * Implements F007
      */
-    public Event getParticipatingEvent(Long event, String email) {
+    public EventParticipant getParticipatingEvent(Long event, String email) {
         return Optional.of(getEventParticipant(event, email))
-            .filter(eventParticipant -> !eventParticipant.getStatus().equals(Status.REJECTED))
-            .orElseThrow(() -> ApiError.notFound("Das Event konnte nicht gefunden werden").asException())
-            .getEvent();
+            .orElseThrow(() -> ApiError.notFound("Das Event konnte nicht gefunden werden").asException());
     }
 
     private EventParticipant getEventParticipant(Long event, String email) {
