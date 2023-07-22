@@ -231,6 +231,14 @@ Passwörter für Benutzer müssen die folgenden Anforderungen erfüllen:
 
 Einhaltung der [Bundesamt für Sicherheit in der Informationstechnik (BSI): Sichere Passwörter erstellen](https://www.bsi.bund.de/DE/Themen/Verbraucherinnen-und-Verbraucher/Informationen-und-Empfehlungen/Cyber-Sicherheitsempfehlungen/Accountschutz/Sichere-Passwoerter-erstellen/sichere-passwoerter-erstellen_node.html) Empfehlung
 
+### Löschen eines Accounts
+
+Beim Löschen eines Accounts werden alle damit verbundenen Daten gelöscht, einschließlich der Absage und Löschung von Events, bei denen der Nutzer als Organisator fungiert.
+
+**Begründung**:
+
+Schutz der Privatsphäre, der Datensicherheit und einer konsistenten Benutzererfahrung.
+
 ## Event-Richtlinien
 
 Für die Veranstaltung eines Events muss ein verifizierter Nutzer die folgenden Informationen bereitstellen:
