@@ -1,0 +1,35 @@
+@startuml F009_absageZumEventGeben_act
+<style file=plantStyle.css>
+title "Absage zum Event geben"
+
+|Eingeladener Nutzer|
+start
+:Absagen-Link in E-Mail anklicken;
+:Absagen Webseite öffnen;
+:Absagen Informationen senden;
+|Einladung Controller|
+:Absagen Information empfangen;
+:Absagen Informationen validieren;
+if () then (Validieren nicht erfolgreich)
+    :Fehlermeldung senden;
+    |Eingeladener Nutzer|
+    :Fehlermeldung Absagen empfangen;
+    :Fehlermeldung Absagen anzeigen;
+    note right
+        event_not_found: Das Event wurde nicht gefunden.
+        participant_not_invited: Du bist nicht zu diesem Event eingeladen.
+    end note
+    stop
+else (Validieren erfolgreich)
+endif
+|Einladung Controller|
+:Einladung Information löschen;
+:Absage Informationen speichern bestätigen;
+|Eingeladener Nutzer|
+:Informationen über Speichern der Absage empfangen;
+:Informationen über Speichern der Zusage anzeigen;
+note right
+    invite_declined: Wir haben deine Absage gespeichert.
+end note
+stop
+@enduml

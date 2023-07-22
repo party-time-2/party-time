@@ -14,6 +14,8 @@ public class InvitationData {
     private String name;
     private String organizer;
     private String event;
+    private String location;
+    private String datetime;
     private String acceptLink;
     private String declineLink;
     private String homepage;

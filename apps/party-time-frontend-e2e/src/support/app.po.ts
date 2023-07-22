@@ -2,6 +2,10 @@ export const navigateRegister = () => cy.visit('auth/register');
 
 export const navigateVerify = () => cy.visit('auth/verify');
 
+export const navigateAcceptInvite = () => cy.visit('/invitation/1/accept');
+
+export const navigateDeclineInvite = () => cy.visit('/invitation/1/decline');
+
 export const navigateLogin = () => cy.visit('auth/login');
 
 export const navigateChange = () => cy.visit('account/change');
@@ -131,3 +135,14 @@ export const participant_email_invalid_error = () =>
 
 export const account_not_found_error = () =>
   'Es kann kein Account mit dieser E-Mail gefunden werden.';
+
+export const event_not_found_error = () => 'Das Event wurde nicht gefunden.';
+
+export const not_invited_error = () =>
+  'Du bist nicht zu diesem Event eingeladen.';
+
+export const decline_api_url = () =>
+  '/api/event/1/participants/invitation/decline';
+
+export const accept_api_url = () =>
+  '/api/event/1/participants/invitation/accept';
