@@ -1,0 +1,11 @@
+@startuml F007_einladungErhalten_act
+<style file=plantStyle.css>
+title "Einladung erhalten"
+
+|Gast einladen Controller|
+start
+:Einladung via E-Mail an Gast senden;
+|Eingeladener Gast|
+:Einladung via E-Mail empfangen;
+stop
+@enduml

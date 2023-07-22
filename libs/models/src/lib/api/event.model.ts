@@ -18,6 +18,7 @@ export interface EventCreateDTO {
 
 export interface Address {
   addressLine: string;
+  addressLineAddition: string;
   zip: string;
   city: string;
   country: string;
