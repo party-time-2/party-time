@@ -57,6 +57,7 @@ export class EditEventComponent {
         Validators.minLength(4),
         Validators.maxLength(25),
       ]),
+      addressLineAddition: new FormControl('', [Validators.maxLength(25)]),
       zip: new FormControl('', [
         Validators.required,
         Validators.minLength(5),
@@ -118,6 +119,9 @@ export class EditEventComponent {
         this.editEventForm.controls.name.setValue(this.event.name);
         this.editEventForm.controls.address.controls.addressLine.setValue(
           this.event.address.addressLine
+        );
+        this.editEventForm.controls.address.controls.addressLineAddition.setValue(
+          this.event.address.addressLineAddition
         );
         this.editEventForm.controls.address.controls.zip.setValue(
           this.event.address.zip
