@@ -2,7 +2,6 @@ package com.partytime.service;
 
 import com.partytime.api.dto.event.EventCreateDTO;
 import com.partytime.api.dto.event.EventDTO;
-import com.partytime.api.dto.event.ParticipantDTO;
 import com.partytime.api.error.ApiError;
 import com.partytime.configuration.JacksonConfiguration;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
