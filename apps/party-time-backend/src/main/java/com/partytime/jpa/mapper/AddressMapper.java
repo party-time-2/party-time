@@ -5,6 +5,8 @@ import com.partytime.jpa.entity.Address;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import java.util.Optional;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class AddressMapper {
 
@@ -40,6 +42,15 @@ public final class AddressMapper {
             .city(city)
             .country(country)
             .build();
+    }
+
+    public static String prettyPrint(Address address) {
+        return address.getAddressLine()
+            + Optional.ofNullable(address.getAddressLineAddition())
+            .map(s -> "\n" + s)
+            .orElse("")
+            + "\n" + address.getZip() + " " + address.getCity()
+            + "\n" + address.getCountry();
     }
 
 }

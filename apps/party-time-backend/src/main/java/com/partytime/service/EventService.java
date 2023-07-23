@@ -3,8 +3,10 @@ package com.partytime.service;
 import com.partytime.api.dto.event.EventCreateDTO;
 import com.partytime.api.dto.event.EventDTO;
 import com.partytime.api.error.ApiError;
+import com.partytime.configuration.JacksonConfiguration;
 import com.partytime.configuration.PartyTimeConfigurationProperties;
 import com.partytime.jpa.entity.*;
+import com.partytime.jpa.mapper.AddressMapper;
 import com.partytime.jpa.repository.EventParticipantRepository;
 import com.partytime.jpa.repository.EventRepository;
 import com.partytime.mail.MailService;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -55,7 +58,8 @@ public class EventService {
      */
     public Event getEvent(String email, Long id) {
         Event event = eventRepository.findById(id)
-            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + id + " konnte nicht gefunden werden.").asException());
+            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + id + " konnte nicht gefunden werden.")
+                .asException());
 
         if (!email.equals(event.getOrganizer().getEmail())) {
             // Authenticated User is not Event Organizer
@@ -98,7 +102,8 @@ public class EventService {
 
     private Event precheckExistsAndOwnEvent(Long eventId, String email) {
         Event originalEvent = eventRepository.findById(eventId)
-            .orElseThrow(() -> ApiError.notFound("Ein Event mit der ID " + eventId + " konnte nicht gefunden werden.").asException());
+            .orElseThrow(() -> ApiError
+                .notFound("Ein Event mit der ID " + eventId + " konnte nicht gefunden werden.").asException());
 
         if (!email.equals(originalEvent.getOrganizer().getEmail())) {
             // Authenticated User is not Event Organizer
@@ -112,18 +117,30 @@ public class EventService {
      */
     @Transactional
     public void uninviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
-        precheckExistsAndOwnEvent(eventId, authenticatedUser);
+        Event originalEvent = precheckExistsAndOwnEvent(eventId, authenticatedUser);
 
         Account invitedAccount = accountService.getAccount(targetEmail);
 
-        EventParticipant eventParticipant = eventParticipantRepository.findByEvent_IdAndAccount_Id(eventId, invitedAccount.getId())
-            .orElseThrow(() -> ApiError.badRequest("Der Account mit der Email " + targetEmail + " wurde nicht eingeladen").asException());
+        EventParticipant eventParticipant = eventParticipantRepository
+            .findByEvent_IdAndAccount_Id(eventId, invitedAccount.getId())
+            .orElseThrow(() -> ApiError
+                .badRequest("Der Account mit der Email " + targetEmail + " wurde nicht eingeladen")
+                .asException());
 
         eventParticipantRepository.delete(eventParticipant);
+
+        mailService.sendMail(targetEmail, "Du wurdest beim Event " + originalEvent.getName() + " ausgeladen.",
+            MailService.TEMPLATE_UNINVITE, InvitationData.builder()
+                .name(invitedAccount.getName())
+                .organizer(originalEvent.getOrganizer().getName())
+                .event(originalEvent.getName())
+                .homepage(configurationProperties.getUrl())
+                .build());
     }
 
     /**
      * Implements F004
+     * Implements F007
      */
     @Transactional
     public void inviteParticipant(Long eventId, String targetEmail, String authenticatedUser) {
@@ -131,7 +148,8 @@ public class EventService {
         Account invitedAccount = accountService.getAccount(targetEmail);
 
         if (eventParticipantRepository.existsByEvent_IdAndAccount_Id(eventId, invitedAccount.getId())) {
-            throw ApiError.badRequest("Der Account mit der Email " + targetEmail + " wurde bereits eingeladen").asException();
+            throw ApiError.badRequest("Der Account mit der Email " + targetEmail + " wurde bereits eingeladen")
+                .asException();
         }
 
         EventParticipant participant = EventParticipant.builder()
@@ -141,18 +159,21 @@ public class EventService {
             .build();
         eventParticipantRepository.save(participant);
 
-        String baseLink = configurationProperties.getUrl() + "/event/" + eventId;
+        String baseLink = configurationProperties.getUrl() + "/invitation/" + eventId;
         String acceptLink = baseLink + "/accept";
         String declineLink = baseLink + "/decline";
 
-        mailService.sendMail(targetEmail, "Einladung zum Event " + originalEvent.getName(), MailService.TEMPLATE_INVITATION, InvitationData.builder()
-            .name(invitedAccount.getName())
-            .organizer(originalEvent.getOrganizer().getName())
-            .event(originalEvent.getName())
-            .acceptLink(acceptLink)
-            .declineLink(declineLink)
-            .homepage(configurationProperties.getUrl())
-            .build());
+        mailService.sendMail(targetEmail, "Einladung zum Event " + originalEvent.getName(),
+            MailService.TEMPLATE_INVITATION, InvitationData.builder()
+                .name(invitedAccount.getName())
+                .organizer(originalEvent.getOrganizer().getName())
+                .event(originalEvent.getName())
+                .location(AddressMapper.prettyPrint(originalEvent.getAddress()))
+                .datetime(JacksonConfiguration.dateTimeFormatter.format(originalEvent.getDateTime()))
+                .acceptLink(acceptLink)
+                .declineLink(declineLink)
+                .homepage(configurationProperties.getUrl())
+                .build());
 
         log.info("Accept Link: " + acceptLink);
         log.info("Decline Link: " + declineLink);
@@ -166,10 +187,50 @@ public class EventService {
     }
 
     /**
+     * Implements F007
+     */
+    @Transactional(readOnly = true)
+    public List<EventParticipant> getParticipatingEvents(String email) {
+        return eventParticipantRepository.findAllByAccount_Email(email);
+    }
+
+    /**
+     * Implements F007
+     */
+    public EventParticipant getParticipatingEvent(Long event, String email) {
+        return Optional.of(getEventParticipant(event, email))
+            .orElseThrow(() -> ApiError.notFound("Das Event konnte nicht gefunden werden").asException());
+    }
+
+    private EventParticipant getEventParticipant(Long event, String email) {
+        return eventParticipantRepository.findByEvent_IdAndAccount_Email(event, email)
+            .orElseThrow(() -> ApiError.notFound("Das Event konnte nicht gefunden werden").asException());
+    }
+
+    /**
      * Implements F006
      */
     public List<EventParticipant> getParticipants(Long eventId, String email) {
         return precheckExistsAndOwnEvent(eventId, email)
             .getEventParticipants();
     }
+
+    /**
+     * Implements F008
+     */
+    public void acceptInvitation(Long eventId, String currentUserMail) {
+        EventParticipant eventParticipant = getEventParticipant(eventId, currentUserMail);
+        eventParticipant.setStatus(Status.PARTICIPATING);
+        eventParticipantRepository.save(eventParticipant);
+    }
+
+    /**
+     * Implements F009
+     */
+    public void declineInvitation(Long eventId, String currentUserMail) {
+        EventParticipant eventParticipant = getEventParticipant(eventId, currentUserMail);
+        eventParticipant.setStatus(Status.REJECTED);
+        eventParticipantRepository.save(eventParticipant);
+    }
+
 }

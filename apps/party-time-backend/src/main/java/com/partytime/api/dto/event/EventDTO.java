@@ -3,10 +3,7 @@ package com.partytime.api.dto.event;
 import com.partytime.api.dto.account.AccountDTO;
 import com.partytime.api.dto.address.AddressDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,11 +19,11 @@ import java.util.List;
 public class EventDTO {
 
     @NotNull
-    @Positive
     private Long id;
 
     @NotNull
     @NotEmpty
+    @Size(min = 5, max = 20)
     private String name;
 
     @NotNull
