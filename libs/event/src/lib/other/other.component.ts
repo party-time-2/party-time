@@ -29,9 +29,7 @@ export class OtherComponent {
 
   constructor(private otherStore: OtherStore, private router: Router) {}
 
-  navigateToRoute(adress: Address) {
-  }
+  navigateToRoute(adress: Address) {}
 
-  changeParticipantStatus(participantStatus: ParticipantStatus) {
-  }
+  changeParticipantStatus(participantStatus: ParticipantStatus) {}
 }
