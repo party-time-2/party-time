@@ -13,6 +13,7 @@ import { OverviewComponent } from './overview/overview.component';
 import { EditEventComponent } from './edit/edit-event.component';
 import { DeleteEventComponent } from './delete-event/delete-event.component';
 import { ParticipantsComponent } from './participants/participants.component';
+import { OtherComponent } from './other/other.component';
 
 export const eventRoutes: Route[] = [
   { path: '', component: EventComponent },
@@ -23,6 +24,10 @@ export const eventRoutes: Route[] = [
   {
     path: 'overview',
     component: OverviewComponent,
+  },
+  {
+    path: 'other',
+    component: OtherComponent,
   },
   {
     path: 'change/:id',
