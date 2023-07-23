@@ -13,3 +13,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # && npm install -g prettier \
     # && npm install \
     # && ./node_modules/.bin/cypress install
+
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install pandoc texlive-latex-base texlive-fonts-recommended texlive-extra-utils texlive-latex-extra

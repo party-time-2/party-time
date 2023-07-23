@@ -55,7 +55,8 @@
         "ms-vsliveshare.vsliveshare",
         "bradlc.vscode-tailwindcss",
         "rangav.vscode-thunder-client",
-        "github.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        "tomoki1207.pdf"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
@@ -67,7 +68,9 @@
         "plantuml.exportOutDir": "docs/PNG",
         "plantuml.exportIncludeFolderHeirarchy": true,
         "plantuml.exportSubFolder": false,
-        "plantuml.jarArgs": ["-DPLANTUML_LIMIT_SIZE=8192"],
+        "plantuml.jarArgs": [
+          "-DPLANTUML_LIMIT_SIZE=8192"
+        ],
         "prettier.prettierPath": "./node_modules/prettier"
       }
     }
