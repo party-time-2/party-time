@@ -92,7 +92,7 @@ public class EventService {
                 .location(AddressMapper.prettyPrint(event.getAddress()))
                 .datetime(JacksonConfiguration.dateTimeFormatter.format(event.getDateTime()))
                 .homepage(configurationProperties.getUrl())
-                .build());
+                .build(), event);
         }
 
         return event;
@@ -203,7 +203,7 @@ public class EventService {
                 .acceptLink(acceptLink)
                 .declineLink(declineLink)
                 .homepage(configurationProperties.getUrl())
-                .build());
+                .build(), originalEvent);
 
         log.info("Accept Link: " + acceptLink);
         log.info("Decline Link: " + declineLink);
