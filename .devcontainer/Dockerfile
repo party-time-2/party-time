@@ -6,7 +6,7 @@
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install default-jre graphviz libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+    && apt-get -y install default-jre graphviz libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb software-properties-common
     # && npm install -g prettier
 #RUN apt-get update 
     # && apt-get -y install default-jre graphviz libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb \
