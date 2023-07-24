@@ -11,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.io.Reader;
@@ -25,6 +23,8 @@ public class MailService {
 
     public static final String TEMPLATE_VERIFY_ACCOUNT = "verify_account";
     public static final String TEMPLATE_INVITATION = "invitation";
+    public static final String TEMPLATE_CHANGE = "change-event";
+    public static final String TEMPLATE_DELETE = "delete-event";
     public static final String TEMPLATE_UNINVITE = "uninvite";
 
 

@@ -1,4 +1,4 @@
-package com.partytime.mail.model.univite.invite;
+package com.partytime.mail.model.univite;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
