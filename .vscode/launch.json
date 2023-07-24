@@ -41,6 +41,14 @@
             "type": "chrome",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}"
-        }
+        },
+        {
+            "name": "Python: Export work",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/export.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
     ]
 }
