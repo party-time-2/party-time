@@ -9,15 +9,15 @@ database "Datenbank" as db
 
 user -> userMail: Zusagen-Link anklicken
 activate user
-userMail -> acceptMask: Zusagen Webseite öffnen
+userMail -> acceptMask: Zusage Webseite öffnen
 activate acceptMask
-acceptMask -> controller: Zusage Informationen senden
+acceptMask -> controller: Zusage senden
 activate controller
 controller -> db: Zusage speichern
 controller <-- db: Zusage gespeichert
 controller <-- acceptMask: Zusage bestätigen
 deactivate controller
-user <-- acceptMask: Informationen über Zusage anzeigen
+user <-- acceptMask: Bestätigung der Zusage anzeigen
 deactivate acceptMask
 deactivate user
 @enduml
