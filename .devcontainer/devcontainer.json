@@ -56,7 +56,8 @@
         "bradlc.vscode-tailwindcss",
         "rangav.vscode-thunder-client",
         "github.vscode-pull-request-github",
-        "tomoki1207.pdf"
+        "tomoki1207.pdf",
+        "ms-python.python"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
