@@ -40,13 +40,17 @@ with tempfile.TemporaryDirectory(prefix="party-time-") as tempdirname:
             print()
 
     print("Step 2: convert .md file to .pdf")
+    
     md_files = glob.glob(f'{tempdirname}/**/*.md', recursive=True)
-    for index, src_str in enumerate(md_files):
-        src_path = Path(src_str)
-        dest_path = src_path.with_suffix(".pdf")
-        print(f"({index+1}/{len(md_files)}): Converting {src_path.relative_to(tempdirname)} -> {dest_path.relative_to(tempdirname)}")
-        subprocess.run(["/usr/bin/pandoc", src_path, "-o", dest_path, "--lua-filter", f"{script_dir}/makerelativepaths.lua"], cwd=temp_Path)
-        src_path.unlink()
+    if(len(md_files) > 0):
+        lua_script_path = shutil.copy(script_dir.joinpath("makerelativepaths.lua"), temp_Path)
+        for index, src_str in enumerate(md_files):
+            src_path = Path(src_str)
+            dest_path = src_path.with_suffix(".pdf")
+            print(f"({index+1}/{len(md_files)}): Converting {src_path.relative_to(tempdirname)} -> {dest_path.relative_to(tempdirname)}")
+            subprocess.run(["/usr/bin/pandoc", src_path, "-o", dest_path, "--lua-filter", lua_script_path], cwd=temp_Path)
+            src_path.unlink()
+        Path(lua_script_path).unlink()
 
 
 

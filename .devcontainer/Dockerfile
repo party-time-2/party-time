@@ -15,4 +15,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # && ./node_modules/.bin/cypress install
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install pandoc texlive-latex-base texlive-fonts-recommended texlive-extra-utils texlive-latex-extra
+    && apt-get -y install texlive-latex-base texlive-fonts-recommended texlive-extra-utils texlive-latex-extra
+
+
+ARG PANDOC_VERSION=3.1.6
+ARG TARGETARCH
+RUN TEMP_DEB="$(mktemp --suffix=.deb)" && curl -L -o "$TEMP_DEB" "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-${TARGETARCH}.deb" \
+    && dpkg -i "$TEMP_DEB";  rm -f "$TEMP_DEB"
