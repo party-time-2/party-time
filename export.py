@@ -45,7 +45,8 @@ with tempfile.TemporaryDirectory(prefix="party-time-") as tempdirname:
         src_path = Path(src_str)
         dest_path = src_path.with_suffix(".pdf")
         print(f"({index+1}/{len(md_files)}): Converting {src_path.relative_to(tempdirname)} -> {dest_path.relative_to(tempdirname)}")
-        subprocess.run(["pandoc", src_path, "-o", dest_path])
+        subprocess.run(["/usr/bin/pandoc", src_path, "-o", dest_path, "--lua-filter", f"{script_dir}/makerelativepaths.lua"], cwd=temp_Path)
+        src_path.unlink()
 
 
 
