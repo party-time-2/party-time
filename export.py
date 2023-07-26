@@ -50,30 +50,31 @@ with TemporaryDirectory(prefix="party-time-") as tempdirname:
         step_count += 1
         with open(path_design_entscheidungen, 'r') as file:
             filedata = file.read()
+        print("design-entscheidungen.md content read")
 
         filedata = filedata.replace("# Design Entscheidungen", "# Glossar", 1)
+        print("Title replaced")
 
         path_glossary = path_design_entscheidungen.parent.joinpath("glossar.md")
         filedata = re.sub(r'\*\*Begründung\*\*:.*?(?=##|$)', '', filedata, flags=re.S)
         filedata = filedata.rstrip() + "\n"
+        print("'Begründung' sections removed")
 
         with open(path_glossary, 'w') as file:
             file.write(filedata)
-
+        print(f"Glossary written to {path_glossary}\n")
 
     print(f"Step {step_count}: convert .md file to .pdf")
+    step_count += 1
     md_files = glob(f'{tempdirname}/**/*.md', recursive=True)
     if(len(md_files) > 0):
-        lua_script_path = shutil.copy(script_dir.joinpath("makerelativepaths.lua"), temp_Path)
+        lua_script_path = script_dir.joinpath("makerelativepaths.lua")
         for index, src_str in enumerate(md_files):
             src_path = Path(src_str)
             dest_path = src_path.with_suffix(".pdf")
             print(f"({index+1}/{len(md_files)}): Converting {src_path.relative_to(tempdirname)} -> {dest_path.relative_to(tempdirname)}")
             subprocess.run(["/usr/bin/pandoc", src_path, "-o", dest_path, "--lua-filter", lua_script_path], cwd=temp_Path)
             src_path.unlink()
-        Path(lua_script_path).unlink()
-
-
 
     export_output_name=f"output{get_timestamp()}"
     shutil.make_archive(export_output_name, "zip", tempdirname)
