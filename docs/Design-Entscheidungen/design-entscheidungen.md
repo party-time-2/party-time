@@ -1,4 +1,4 @@
-## Design Entscheidungen
+# Design Entscheidungen
 
 ## Verwendung von NX
 

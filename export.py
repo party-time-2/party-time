@@ -1,10 +1,11 @@
-import tempfile
+from tempfile import TemporaryDirectory
 import json
 import subprocess
 import shutil
 from datetime import datetime
-import glob
+from glob import glob
 from pathlib import Path
+import re
 
 def get_timestamp() -> str:
     current_date = datetime.now()
@@ -12,11 +13,15 @@ def get_timestamp() -> str:
 
 script_dir = Path(__file__).absolute().parent
 
-with tempfile.TemporaryDirectory(prefix="party-time-") as tempdirname:
+with TemporaryDirectory(prefix="party-time-") as tempdirname:
     temp_Path = Path(tempdirname)
 
     print(f"created temporary directory {temp_Path}")
-    print("Step 1: copy files to temporary directory")
+
+    step_count = 1
+
+    print(f"Step {step_count}: copy files to temporary directory")
+    step_count += 1
     with open(script_dir.joinpath("export.json")) as exportFile:
         json_data = json.load(exportFile)
         for index, exportFileName in enumerate(json_data):
@@ -38,10 +43,26 @@ with tempfile.TemporaryDirectory(prefix="party-time-") as tempdirname:
                 shutil.copytree(src_file_relative, dest_file, dirs_exist_ok=True)
                 print(f"Directory copied to {dest_file}")
             print()
-
-    print("Step 2: convert .md file to .pdf")
     
-    md_files = glob.glob(f'{tempdirname}/**/*.md', recursive=True)
+    path_design_entscheidungen = temp_Path.joinpath("docs/Design-Entscheidungen/design-entscheidungen.md")
+    if path_design_entscheidungen.exists():
+        print(f"Step {step_count}: Generate glossary")
+        step_count += 1
+        with open(path_design_entscheidungen, 'r') as file:
+            filedata = file.read()
+
+        filedata = filedata.replace("# Design Entscheidungen", "# Glossar", 1)
+
+        path_glossary = path_design_entscheidungen.parent.joinpath("glossar.md")
+        filedata = re.sub(r'\*\*Begründung\*\*:.*?(?=##|$)', '', filedata, flags=re.S)
+        filedata = filedata.rstrip() + "\n"
+
+        with open(path_glossary, 'w') as file:
+            file.write(filedata)
+
+
+    print(f"Step {step_count}: convert .md file to .pdf")
+    md_files = glob(f'{tempdirname}/**/*.md', recursive=True)
     if(len(md_files) > 0):
         lua_script_path = shutil.copy(script_dir.joinpath("makerelativepaths.lua"), temp_Path)
         for index, src_str in enumerate(md_files):
