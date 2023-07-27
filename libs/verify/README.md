@@ -7,7 +7,7 @@ The sequence diagram for this library can be found [here](/docs/F014/F014_kontoV
 ![F014_kontoVerifizieren_seq](/docs/PNG/F014/F014_kontoVerifizieren_seq.png)
 
 The activity diagram for this library can be found [here](/docs/F014/F014_kontoVerifizieren_act.plantuml)
-![F014_kontoVerifizieren_act](/docs/PNG/F010/F010_kontoVerifizieren_act.png)
+![F014_kontoVerifizieren_act](/docs/PNG/F014/F014_kontoVerifizieren_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java)
 

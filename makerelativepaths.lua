@@ -13,7 +13,7 @@ function Link (el)
     local relative = pandoc.path.make_relative(pwd, mdDir, true)
     local prevLinkTarget = el.target
     local betterPath = pandoc.path.join({relative, string.sub(prevLinkTarget, 2)})
-    print(betterPath)
+    --print(betterPath)
     el.target = betterPath
     return el
 end
