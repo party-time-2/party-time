@@ -2,7 +2,7 @@ import { AccountDTO } from './account.model';
 import { ParticipantDTO, ParticipantStatus } from './participant.model';
 
 export interface ParticipantEventDTO extends EventDTO {
-  status: ParticipantStatus;
+  participatingStatus: ParticipantStatus;
 }
 
 export interface EventDTO {

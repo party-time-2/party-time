@@ -189,7 +189,7 @@ public class EventService {
             .build();
         eventParticipantRepository.save(participant);
 
-        String baseLink = configurationProperties.getUrl() + "/invitation/" + eventId;
+        String baseLink = configurationProperties.getUrl() + eventId + "/invitation/";
         String acceptLink = baseLink + "/accept";
         String declineLink = baseLink + "/decline";
 

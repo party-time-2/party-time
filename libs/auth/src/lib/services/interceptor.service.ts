@@ -16,17 +16,18 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   return vm$.pipe(
     mergeMap((vm) => {
-      const authReq = vm.loginResponseDTO?.token
-        ? req.clone({
-            setHeaders: {
-              Authorization: vm.loginResponseDTO.token,
-            },
-          })
-        : req;
+      const authReq = vm.loginResponseDTO?.token;
+      if (authReq) {
+        req = req.clone({
+          setHeaders: {
+            Authorization: authReq,
+          },
+        });
+        console.log('authInterceptor', req);
+        return next(req);
+      }        
 
-      console.log('authReq', authReq);
-
-      return next(authReq);
+      return next(req);
     })
   );
 };

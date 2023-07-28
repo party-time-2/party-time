@@ -142,7 +142,7 @@ export const not_invited_error = () =>
   'Du bist nicht zu diesem Event eingeladen.';
 
 export const decline_api_url = () =>
-  '/api/event/1/participants/invitation/decline';
+  '/api/event/participants/1/invitation/decline';
 
 export const accept_api_url = () =>
-  '/api/event/1/participants/invitation/accept';
+  '/api/event/participants/1/invitation/accept';

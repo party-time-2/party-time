@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore, tapResponse } from '@ngrx/component-store';
-import { ApiError, ParticipantEventDTO } from '@party-time/models';
+import { ApiError, ParticipantEventDTO, ParticipantStatus } from '@party-time/models';
 import { Observable, tap, exhaustMap } from 'rxjs';
 import { EventService } from '../../services/event.service';
 
@@ -18,6 +18,7 @@ export const initialState: OtherStateInterface = {
 
 @Injectable()
 export class OtherStore extends ComponentStore<OtherStateInterface> {
+
   private isLoading$ = this.select((state) => state.isLoading);
   private error$ = this.select((state) => state.error);
   private events$ = this.select((state) => state.events);
@@ -56,6 +57,8 @@ export class OtherStore extends ComponentStore<OtherStateInterface> {
       )
     )
   );
+
+
 
   constructor(private eventService: EventService) {
     super(initialState);

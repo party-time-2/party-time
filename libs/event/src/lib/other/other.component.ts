@@ -35,7 +35,15 @@ export class OtherComponent {
     this.otherStore.getEvents();
   }
 
-  navigateToMap(eventId: string) {}
+  navigateToMap(eventId: string) {
+    this.router.navigate(['event/map', eventId]);
+  }
 
-  changeParticipantStatus(participantStatus: ParticipantStatus, eventId: string) {}
+  changeParticipantStatus(participantStatus: ParticipantStatus, eventId: string) {
+   if(participantStatus === ParticipantStatus.PARTICIPATING) {
+    this.router.navigate([`invitation/${eventId}/accept`]);
+   } else {
+    this.router.navigate([`invitation/${eventId}/decline`]);
+  }
+  }
 }
