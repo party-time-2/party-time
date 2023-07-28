@@ -21,14 +21,13 @@ import { EventParticipatingSelectorComponent } from '../selectors/event-particip
     MainHeaderComponent,
     PrimaryLabelComponent,
     PrimaryErrorComponent,
-    EventParticipatingSelectorComponent
+    EventParticipatingSelectorComponent,
   ],
   templateUrl: './other.component.html',
   styles: [],
   providers: [OtherStore, EventService],
 })
 export class OtherComponent {
-
   vm$ = this.otherStore.vm$;
 
   constructor(private otherStore: OtherStore, private router: Router) {
@@ -39,11 +38,14 @@ export class OtherComponent {
     this.router.navigate(['event/map', eventId]);
   }
 
-  changeParticipantStatus(participantStatus: ParticipantStatus, eventId: string) {
-   if(participantStatus === ParticipantStatus.PARTICIPATING) {
-    this.router.navigate([`invitation/${eventId}/accept`]);
-   } else {
-    this.router.navigate([`invitation/${eventId}/decline`]);
-  }
+  changeParticipantStatus(
+    participantStatus: ParticipantStatus,
+    eventId: string
+  ) {
+    if (participantStatus === ParticipantStatus.PARTICIPATING) {
+      this.router.navigate([`invitation/${eventId}/accept`]);
+    } else {
+      this.router.navigate([`invitation/${eventId}/decline`]);
+    }
   }
 }

@@ -14,7 +14,7 @@ import { EditEventComponent } from './edit/edit-event.component';
 import { DeleteEventComponent } from './delete-event/delete-event.component';
 import { ParticipantsComponent } from './participants/participants.component';
 import { OtherComponent } from './other/other.component';
-import { MapComponent } from './map/map.component';
+import { LocationComponent } from './location/location.component';
 
 export const eventRoutes: Route[] = [
   { path: '', component: EventComponent },
@@ -44,6 +44,6 @@ export const eventRoutes: Route[] = [
   },
   {
     path: 'map/:id',
-    component: MapComponent,
-  }
+    component: LocationComponent,
+  },
 ];

@@ -4,9 +4,9 @@
     <div class="w-full">
       <ul class="p-5" *ngFor="let event of vm.events">
         <party-time-event-participating-selector
-        [event]="event"
-        (selectEvent)="navigateToMap(event.id)"
-        (changeParticipantStatus)="changeParticipantStatus($event, event.id)"
+          [event]="event"
+          (selectEvent)="navigateToMap(event.id)"
+          (changeParticipantStatus)="changeParticipantStatus($event, event.id)"
         />
       </ul>
     </div>
