@@ -7,7 +7,7 @@
 // implements F016
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EventCreateDTO, EventDTO, ParticipantDTO } from '@party-time/models';
+import { EventCreateDTO, EventDTO, ParticipantDTO, ParticipantEventDTO } from '@party-time/models';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -63,6 +63,20 @@ export class EventService {
     return this.http.post<ParticipantDTO[]>(
       `${this.eventBasePath}/${eventId}/participants/${email}`,
       {}
+    );
+  }
+
+  // Get all Events where the user is a participant
+  getParticipantEvents(): Observable<ParticipantEventDTO[]> {
+    return this.http.get<ParticipantEventDTO[]>(
+      `${this.eventBasePath}/participants`
+    );
+  } 
+
+  // Get Event where the user is a participant
+  getParticipantEvent(id: string): Observable<ParticipantEventDTO> {
+    return this.http.get<ParticipantEventDTO>(
+      `${this.eventBasePath}/participants/${id}`
     );
   }
 }

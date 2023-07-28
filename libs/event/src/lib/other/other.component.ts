@@ -9,6 +9,8 @@ import {
 import { OtherStore } from './+state/other.state';
 import { Router } from '@angular/router';
 import { Address, ParticipantStatus } from '@party-time/models';
+import { EventService } from '../services/event.service';
+import { EventParticipatingSelectorComponent } from '../selectors/event-participating-selector.component';
 
 @Component({
   selector: 'party-time-other',
@@ -19,17 +21,21 @@ import { Address, ParticipantStatus } from '@party-time/models';
     MainHeaderComponent,
     PrimaryLabelComponent,
     PrimaryErrorComponent,
+    EventParticipatingSelectorComponent
   ],
   templateUrl: './other.component.html',
   styles: [],
-  providers: [OtherStore],
+  providers: [OtherStore, EventService],
 })
 export class OtherComponent {
+
   vm$ = this.otherStore.vm$;
 
-  constructor(private otherStore: OtherStore, private router: Router) {}
+  constructor(private otherStore: OtherStore, private router: Router) {
+    this.otherStore.getEvents();
+  }
 
-  navigateToRoute(adress: Address) {}
+  navigateToMap(eventId: string) {}
 
-  changeParticipantStatus(participantStatus: ParticipantStatus) {}
+  changeParticipantStatus(participantStatus: ParticipantStatus, eventId: string) {}
 }
