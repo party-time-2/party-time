@@ -37,12 +37,14 @@ describe('event-location success', () => {
 describe('event-location error', () => {
   it('should show event not found', () => {
     cy.login();
-    cy.intercept('GET', '/api/event/participants/1', { statusCode: 404,
+    cy.intercept('GET', '/api/event/participants/1', {
+      statusCode: 404,
       body: {
-        "status": "NOT_FOUND",
-        "timestamp": "2023-07-29 18:43:22",
-        "message": "Das Event konnte nicht gefunden werden"
-      } });
+        status: 'NOT_FOUND',
+        timestamp: '2023-07-29 18:43:22',
+        message: 'Das Event konnte nicht gefunden werden',
+      },
+    });
     navigateEventMap();
     cy.contains('Das Event konnte nicht gefunden werden');
     cy.screenshot();

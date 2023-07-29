@@ -32,7 +32,8 @@ export class LocationComponent {
   vm$ = this.locationStore.vm$;
   constructor(
     private route: ActivatedRoute,
-    private locationStore: LocationStore  ) {
+    private locationStore: LocationStore
+  ) {
     if (this.eventId) {
       this.locationStore.getEvent(this.eventId);
     }

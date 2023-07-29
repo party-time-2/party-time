@@ -42,7 +42,6 @@ export class LocationStore extends ComponentStore<LocationStateInterface> {
     isLoading,
   }));
 
-
   // getEvent(): void {
   //   this.eventId$.subscribe((eventId) => {
   //     if (eventId) {
@@ -50,7 +49,7 @@ export class LocationStore extends ComponentStore<LocationStateInterface> {
   //         .getParticipantEvent(eventId)
   //         .subscribe((event) => this.patchState({ event }));
   //       this.getMapsUrl();
-        
+
   //     }
   //   });
   // }
@@ -78,8 +77,7 @@ export class LocationStore extends ComponentStore<LocationStateInterface> {
         )
       )
     );
-  }); 
-    
+  });
 
   getMapsUrl() {
     this.event$.subscribe((event) => {
