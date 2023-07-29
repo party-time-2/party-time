@@ -146,3 +146,5 @@ export const decline_api_url = () =>
 
 export const accept_api_url = () =>
   '/api/event/participants/1/invitation/accept';
+
+export const navigateEventMap = () => cy.visit('/event/map/1');

@@ -1,7 +1,8 @@
+// implements F018
 import { Injectable } from '@angular/core';
-import { ComponentStore } from '@ngrx/component-store';
+import { ComponentStore, tapResponse } from '@ngrx/component-store';
 import { ApiError, ParticipantEventDTO } from '@party-time/models';
-import { Observable, tap } from 'rxjs';
+import { Observable, exhaustMap, tap } from 'rxjs';
 import { EventService } from '../../services/event.service';
 
 export interface LocationStateInterface {
@@ -41,24 +42,45 @@ export class LocationStore extends ComponentStore<LocationStateInterface> {
     isLoading,
   }));
 
-  getEventId = this.effect((trigger$: Observable<string>) =>
-    trigger$.pipe(
-      tap(() => this.setIsLoading(true)),
-      tap((eventId) => this.patchState({ eventId })),
-      tap(() => this.getEvent())
-    )
-  );
 
-  getEvent(): void {
-    this.eventId$.subscribe((eventId) => {
-      if (eventId) {
-        this.eventService
-          .getParticipantEvent(eventId)
-          .subscribe((event) => this.patchState({ event }));
-        this.getMapsUrl();
-      }
-    });
-  }
+  // getEvent(): void {
+  //   this.eventId$.subscribe((eventId) => {
+  //     if (eventId) {
+  //       this.eventService
+  //         .getParticipantEvent(eventId)
+  //         .subscribe((event) => this.patchState({ event }));
+  //       this.getMapsUrl();
+        
+  //     }
+  //   });
+  // }
+
+  getEvent = this.effect((eventId$: Observable<string>) => {
+    return eventId$.pipe(
+      tap(() => this.setIsLoading(true)),
+      exhaustMap((eventId) =>
+        this.eventService.getParticipantEvent(eventId).pipe(
+          tapResponse(
+            (event: ParticipantEventDTO) => {
+              this.patchState({
+                event,
+                isLoading: false,
+              });
+              this.getMapsUrl();
+            },
+            (error: ApiError) => {
+              this.patchState({
+                error,
+                isLoading: false,
+              });
+            }
+          )
+        )
+      )
+    );
+  }); 
+    
+
   getMapsUrl() {
     this.event$.subscribe((event) => {
       if (event) {
