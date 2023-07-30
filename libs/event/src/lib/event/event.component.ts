@@ -39,7 +39,7 @@ import {
         </section>
         <section class="col-2 grid">
           <party-time-primary-label
-            label="Hier kannst du alle anderen Events überblicken"
+            label="Hier kannst du deine Eventeinladungen überblicken"
           />
           <party-time-primary-button
             type="button"
