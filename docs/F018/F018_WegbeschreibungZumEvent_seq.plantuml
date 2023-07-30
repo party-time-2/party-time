@@ -4,10 +4,21 @@ title "Wegbeschreibung zum Event"
 actor "Event-Teilnehmer" as user
 boundary "Event-Übersicht Maske" as eventMask
 boundary "Navigation Anbieter" as navProvider
+actor "Event Controller" as eventController
+database "Datenbank" as db
+
 
 user -> eventMask: "Wegbeschreibung" Knopf anklicken
 activate user
+eventMask -> eventController: Adresse anfordern
+activate eventController
+eventController -> db: Event ermitteln
+eventController <-- db: Event Daten
+eventMask <-- eventController: Event Daten
+deactivate eventController
 eventMask -> navProvider: Wegbeschreibung anfordern
+activate navProvider
 user <-- navProvider: Wegbeschreibung anzeigen
+deactivate navProvider
 deactivate user
 @enduml
