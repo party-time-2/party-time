@@ -89,6 +89,16 @@ Die Verwendung einer H2 Datenbank bietet mehrere Vorteile für das Projekt, eins
 
 - Testfähigkeit: H2 eignet sich besonders gut für Integrationstests und automatisierte Tests, da die eingebettete Datenbank leicht in Testumgebungen gestartet werden kann.
 
+## Verwendung von Single-Page-Anwendung
+
+Das Projekt implementiert eine Single-Page-Anwendungen (SPA)-Architektur für das Frontend. Bei einer SPA handelt es sich um eine Webanwendung, bei der alle notwendigen Ressourcen (HTML, CSS, JavaScript) einmalig geladen werden und anschließend dynamisch Inhalte geladen und aktualisiert werden, ohne dass die Seite neu geladen wird.
+
+**Begründung**:
+Die Verwendung von einer SPA bietet mehrere Vorteile für das Projekt, einschließlich:
+
+- Trennung des Frontends vom Backend, was die Wartbarkeit erhöht und die Entwicklung erleichtert.
+- Verbesserte Benutzererfahrung, da das Laden und Navigieren zwischen den Seiten nicht zu vollständigen Neuladungen führt, ist die Anwendung reaktionsschneller und bietet eine flüssige Benutzererfahrung.
+
 ## Verwendung von Angular
 
 Das Projekt verwendet das Angular-Framework für die Implementierung des Frontends. Angular ist ein leistungsfähiges und umfassendes Framework für die Entwicklung von Single-Page-Anwendungen (SPAs).
