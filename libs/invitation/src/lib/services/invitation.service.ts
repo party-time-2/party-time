@@ -17,7 +17,7 @@ export class InvitationService {
 
   acceptInvitation(eventId: string): Observable<HttpErrorResponse> {
     return this.http.post<HttpErrorResponse>(
-      `${this.eventBasePath}/${eventId}/participants/invitation/accept`,
+      `${this.eventBasePath}/participants/${eventId}/invitation/accept`,
       { observe: 'response' }
     );
   }
@@ -26,7 +26,7 @@ export class InvitationService {
     eventId: string
   ): Observable<HttpResponse<unknown> | ApiError> {
     return this.http.post<HttpResponse<unknown> | ApiError>(
-      `${this.eventBasePath}/${eventId}/participants/invitation/decline`,
+      `${this.eventBasePath}/participants/${eventId}/invitation/decline`,
       {}
     );
   }

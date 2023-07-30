@@ -5,6 +5,7 @@
 // implements F005
 // implements F006
 // implements F016
+// implements F018
 
 import { Route } from '@angular/router';
 import { EventComponent } from './event/event.component';
@@ -13,6 +14,8 @@ import { OverviewComponent } from './overview/overview.component';
 import { EditEventComponent } from './edit/edit-event.component';
 import { DeleteEventComponent } from './delete-event/delete-event.component';
 import { ParticipantsComponent } from './participants/participants.component';
+import { OtherComponent } from './other/other.component';
+import { LocationComponent } from './location/location.component';
 
 export const eventRoutes: Route[] = [
   { path: '', component: EventComponent },
@@ -25,6 +28,10 @@ export const eventRoutes: Route[] = [
     component: OverviewComponent,
   },
   {
+    path: 'other',
+    component: OtherComponent,
+  },
+  {
     path: 'change/:id',
     component: EditEventComponent,
   },
@@ -35,5 +42,9 @@ export const eventRoutes: Route[] = [
   {
     path: 'participants/:id',
     component: ParticipantsComponent,
+  },
+  {
+    path: 'map/:id',
+    component: LocationComponent,
   },
 ];

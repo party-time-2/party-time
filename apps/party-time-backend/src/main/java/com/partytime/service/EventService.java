@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +81,21 @@ public class EventService {
         originalEvent.setName(body.getName());
         originalEvent.setDateTime(body.getDateTime());
 
-        return eventRepository.save(originalEvent);
+        Event event = eventRepository.save(originalEvent);
+
+        for (EventParticipant eventParticipant : event.getEventParticipants()) {
+            Account account = eventParticipant.getAccount();
+            mailService.sendMail(account.getEmail(), "Änderungen am Event " + event.getName(), MailService.TEMPLATE_CHANGE, InvitationData.builder()
+                .name(account.getName())
+                .organizer(event.getOrganizer().getName())
+                .event(event.getName())
+                .location(AddressMapper.prettyPrint(event.getAddress()))
+                .datetime(JacksonConfiguration.dateTimeFormatter.format(event.getDateTime()))
+                .homepage(configurationProperties.getUrl())
+                .build(), event);
+        }
+
+        return event;
     }
 
     /**
@@ -88,8 +103,23 @@ public class EventService {
      */
     @Transactional
     public void deleteEventById(Long eventId, String email) {
-        Event originalEvent = precheckExistsAndOwnEvent(eventId, email);
-        eventRepository.delete(originalEvent);
+        Event event = precheckExistsAndOwnEvent(eventId, email);
+
+        List<EventParticipant> eventParticipants = new ArrayList<>(event.getEventParticipants());
+
+        eventRepository.delete(event);
+
+        for (EventParticipant eventParticipant : eventParticipants) {
+            Account account = eventParticipant.getAccount();
+            mailService.sendMail(account.getEmail(), "Absage des Events " + event.getName(), MailService.TEMPLATE_DELETE, InvitationData.builder()
+                .name(account.getName())
+                .organizer(event.getOrganizer().getName())
+                .event(event.getName())
+                .location(AddressMapper.prettyPrint(event.getAddress()))
+                .datetime(JacksonConfiguration.dateTimeFormatter.format(event.getDateTime()))
+                .homepage(configurationProperties.getUrl())
+                .build());
+        }
     }
 
     /**
@@ -159,7 +189,7 @@ public class EventService {
             .build();
         eventParticipantRepository.save(participant);
 
-        String baseLink = configurationProperties.getUrl() + "/invitation/" + eventId;
+        String baseLink = configurationProperties.getUrl() + eventId + "/invitation/";
         String acceptLink = baseLink + "/accept";
         String declineLink = baseLink + "/decline";
 
@@ -173,7 +203,7 @@ public class EventService {
                 .acceptLink(acceptLink)
                 .declineLink(declineLink)
                 .homepage(configurationProperties.getUrl())
-                .build());
+                .build(), originalEvent);
 
         log.info("Accept Link: " + acceptLink);
         log.info("Decline Link: " + declineLink);

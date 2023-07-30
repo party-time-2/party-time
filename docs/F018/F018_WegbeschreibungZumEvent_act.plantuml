@@ -1,0 +1,31 @@
+@startuml F018_WegbeschreibungZumEvent_act
+<style file=plantStyle.css>
+title "Wegbeschreibung zum Event"
+
+|Event-Teilnehmer|
+start
+:Event-Übersicht öffnen;
+:"Wegbeschreibung" Knopf von Event an dem teilgenommen wird anklicken;
+:Adresse des Events anfordern;
+|Event Controller|
+:Event ermitteln;
+if () then (Event nicht gefunden)
+    :Fehlermeldung senden;
+    |Event-Teilnehmer|
+    :Fehlermeldung anzeigen;
+    note right
+        event_not_found: Das Event wurde nicht gefunden.
+    end note
+    stop
+else (Event gefunden)
+endif
+|Event Controller|
+:Adresse übermitteln;
+|Event-Teilnehmer|
+:Adresse empfangen;
+:Wegbeschreibung anzeigen;
+note right
+    map: //Karte wird angezeigt
+end note
+stop
+@enduml

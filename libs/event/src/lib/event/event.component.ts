@@ -29,12 +29,22 @@ import {
         </section>
         <section class="col-2 grid">
           <party-time-primary-label
-            label="Hier kannst du deine Events überblicken"
+            label="Hier kannst du deine eigenen Events überblicken"
           />
           <party-time-primary-button
             type="button"
             routerLink="/event/overview"
             name="Events überblicken"
+          />
+        </section>
+        <section class="col-2 grid">
+          <party-time-primary-label
+            label="Hier kannst du deine Eventeinladungen überblicken"
+          />
+          <party-time-primary-button
+            type="button"
+            routerLink="/event/other"
+            name="deine Eventeinladungen überblicken"
           />
         </section>
       </div>

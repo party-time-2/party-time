@@ -1,4 +1,4 @@
-# [Milestone 2 - Eventfunktionalität (Veranstalter)](https://github.com/party-time-2/party-time/milestone/2)
+# [Milestone - Eventfunktionalität (Veranstalter)](https://github.com/party-time-2/party-time/milestone/2)
 
 ## F001 - Create Event
 
@@ -170,3 +170,25 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
 
 ![view_participant](/docs/PNG/F006/Tests/party-time-view-participants%20--%20should%20show%20view_participants.png)
+
+# [Milestone - Eventfunktionalität (Teilnehmer eines Events)](https://github.com/party-time-2/party-time/milestone/6)
+
+## F018 - Event Location
+
+This library implements F018 - Event Location.  
+See [F018 Wegbeschreibung zum Event](https://github.com/party-time-2/party-time/issues/18) for more information.
+
+The sequence diagram for this library can be found [here](/docs/F018/F018_WegbeschreibungZumEvent_seq.plantuml)
+
+![F018_WegbeschreibungZumEvent_seq](/docs/PNG/F018/F018_WegbeschreibungZumEvent_seq.png)
+
+The activity diagram for this library can be found [here](/docs/F018/F018_WegbeschreibungZumEvent_act.plantuml)
+
+![F018_WegbeschreibungZumEvent_act](/docs/PNG/F018/F018_WegbeschreibungZumEvent_act.png)
+
+The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventParticipantController.java)
+
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
+
+![show_map](/docs/PNG/F018/Tests/event-location%20success%20--%20should%20show%20map.png)
+![show_event_not_found](/docs/PNG/F018/Tests/event-location%20error%20--%20should%20show%20event_not_found.png)
