@@ -17,18 +17,44 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 ![login_error](/docs/PNG/F011/Tests/party-time-login%20--%20should%20show%20login_error.png)
 ![login_success](/docs/PNG/F011/Tests/party-time-login%20--%20should%20show%20login_success.png)
 
-# F013 - Logout
+# F012 - Logout
 
-This library implements F013 - Logout.  
-See [F013 Konto abmelden](https://github.com/party-time-2/party-time/issues/13) for more information.
+This library implements F012 - Logout.  
+See [F012 Konto abmelden](https://github.com/party-time-2/party-time/issues/12) for more information.
 
-The sequence diagram for this library can be found [here](/docs/F013/F013_kontoAbmelden_seq.plantuml)
-![F013_kontoAbmelden_seq](/docs/PNG/F013/F013_kontoAbmelden_seq.png)
+The sequence diagram for this library can be found [here](/docs/F012/F012_kontoAbmelden_seq.plantuml)
 
-The activity diagram for this library can be found [here](/docs/F013/F013_kontoAbmelden_act.plantuml)
-![F013_kontoAnmelden_act](/docs/PNG/F013/F013_kontoAnmelden_act.png)
+![F012_kontoAbmelden_seq](/docs/PNG/F012/F012_kontoAbmelden_seq.png)
+
+The activity diagram for this library can be found [here](/docs/F012/F012_kontoAbmelden_act.plantuml)
+
+![F012_kontoAnmelden_act](/docs/PNG/F012/F012_kontoAbmelden_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java)
 
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/logout.cy.ts)
 ![redirect_to_login](/docs/PNG/F012/Tests/party-time-change%20--%20should%20show%20redirect_to_login.png)
+
+# F013 - Change
+
+This library implements F013 - Change.
+See [F013 Passwort ändern](https://github.com/party-time-2/party-time/issues/13) for more information.
+
+The sequence diagram for this library can be found [here](/docs/F013/F013_passwortAendern_seq.plantuml)
+
+![F013_passwortAendern_seq](/docs/PNG/F013/F013_passwortAendern_seq.png)
+
+The activity diagram for this library can be found [here](/docs/F013/F013_passwortAendern_act.plantuml)
+
+![F013_passwortAendern_act](/docs/PNG/F013/F013_passwortAendern_act.png)
+
+The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java)
+
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/change.cy.ts)
+![change_error](/docs/PNG/F013/Tests/party-time-change%20--%20should%20show%20change_error.png)
+![change_success](/docs/PNG/F013/Tests/party-time-change%20--%20should%20show%20change_success.png)
+![pw_new_long](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_long.png)
+![pw_new_required](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_required.png)
+![pw_new_short](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_short.png)
+![pw_new_wrong_chars](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_wrong_chars.png)
+![pw_old_required](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_old_required.png)

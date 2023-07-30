@@ -55,7 +55,9 @@
         "ms-vsliveshare.vsliveshare",
         "bradlc.vscode-tailwindcss",
         "rangav.vscode-thunder-client",
-        "github.vscode-pull-request-github"
+        "github.vscode-pull-request-github",
+        "tomoki1207.pdf",
+        "ms-python.python"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
