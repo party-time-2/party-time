@@ -44,7 +44,7 @@ import {
           <party-time-primary-button
             type="button"
             routerLink="/event/other"
-            name="andere Events überblicken"
+            name="deine Eventeinladungen überblicken"
           />
         </section>
       </div>
