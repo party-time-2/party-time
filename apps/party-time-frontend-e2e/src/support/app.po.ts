@@ -10,6 +10,8 @@ export const navigateLogin = () => cy.visit('auth/login');
 
 export const navigateChange = () => cy.visit('account/change');
 
+export const navigateDelete = () => cy.visit('account/delete');
+
 export const navigateEventOverview = () => cy.visit('event/overview');
 
 export const navigateLogout = () => cy.visit('auth/logout');
@@ -66,6 +68,7 @@ export const pw_wrong_chars_error = () =>
   'Das Passwort muss mindestens 1 Sonderzeichen';
 
 export const user_pw_required = () => 'Bitte gib dein Passwort ein.';
+
 export const user_mail_required = () => 'Bitte gib deine E-Mail Adresse ein.';
 
 export const user_short_error = () =>

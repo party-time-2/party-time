@@ -20,6 +20,9 @@ Veranstalter sollten in der Lage sein, ein neues Event anzulegen, indem sie ein 
 
 **Priorität:** Hoch
 
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
 
 ### F002 Events bearbeiten
 
@@ -39,6 +42,10 @@ Veranstalter können ein bereits erstelltes Event auswählen und die entsprechen
 
 **Priorität:** Hoch
 
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
+
 ### F003 Events löschen
 
 **Stakeholder:** Veranstalter
@@ -57,49 +64,61 @@ Veranstalter können ein Event löschen, indem sie auf der Plattform auf das ent
 
 **Priorität:** Hoch
 
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
+
 ### F004 Gäste einladen
 
-**Stakeholder:** Veranstalter, Gäste
+**Stakeholder:** Veranstalter, eingeladener Nutzer
 
 **Anforderung:**
 
-Die Plattform soll es Veranstaltern ermöglichen, Gäste zu ihren Events einzuladen, indem sie deren E-Mail-Adresse eingeben. Die Plattform soll automatisch eine E-Mail-Einladung an die eingeladenen Gäste senden und den Status der Einladung (zugesagt/abgesagt) verfolgen.
+Die Plattform soll es Veranstaltern ermöglichen, Nutzer zu ihren Events einzuladen, indem sie deren E-Mail-Adresse eingeben. Die Plattform soll automatisch eine E-Mail-Einladung an die eingeladenen Nutzer senden und den Status der Einladung (zugesagt/abgesagt) verfolgen.
 
 **Auswirkung:**
 
-Diese Funktion ist wichtig, um sicherzustellen, dass Veranstalter ihre Gäste einfach und effizient ohne Medienbruch einladen und den Status der Zu- und Absagen verfolgen könnnen. Die Möglichkeit, Gäste einzuladen, kann zu einer positiven Benutzererfahrung beitragen und die Nutzerbindung erhöhen.
+Diese Funktion ist wichtig, um sicherzustellen, dass Veranstalter die eingeladenen Nutzer einfach und effizient ohne Medienbruch einladen und den Status der Zu- und Absagen verfolgen könnnen. Die Möglichkeit, Nutzer einzuladen, kann zu einer positiven Benutzererfahrung beitragen und die Nutzerbindung erhöhen.
 
 **Erfüllungskriterien:**
 
-Veranstalter sollten in der Lage sein, Gäste zu ihren Events einzuladen, indem sie deren E-Mail-Adresse in ein entsprechendes Feld eingeben.
+Veranstalter sollten in der Lage sein, Nutzer zu ihren Events einzuladen, indem sie deren E-Mail-Adresse in ein entsprechendes Feld eingeben.
 
-Die Plattform sollte automatisch eine E-Mail-Einladung an die eingeladenen Gäste senden.
+Die Plattform sollte automatisch eine E-Mail-Einladung an die eingeladenen Nutzer senden.
 
-Die Plattform sollte den Status der Einladung verfolgen und anzeigen, ob sie zu- oder abgesagt wurde.
+Die Plattform sollte den Status der Einladungen verfolgen und anzeigen, ob sie zu- oder abgesagt wurden.
 
 **Priorität:** Hoch
+
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
 
 ### F005 Gäste ausladen
 
-**Stakeholder:** Veranstalter
+**Stakeholder:** Veranstalter, eingeladener Nutzer
 
 **Anforderung:**
 
-Die Plattform soll es Veranstaltern ermöglichen, Gäste von einem Event auszuladen.
+Die Plattform soll es Veranstaltern ermöglichen, eingeladene Nutzer von einem Event auszuladen.
 
 **Auswirkung:**
 
-Diese Funktion ermöglicht Veranstaltern, die Gästeliste ihres Events zu verwalten und unerwünschte Gäste auszuladen. Dadurch kann die Organisation des Events erleichtert und die Zufriedenheit der anderen Gäste erhöht werden.
+Diese Funktion ermöglicht Veranstaltern, die Teilnehmerliste ihres Events zu verwalten und unerwünschte eingeladene Nutzer auszuladen. Dadurch kann die Organisation des Events erleichtert und die Zufriedenheit der anderen eingeladenen Nutzer erhöht werden.
 
 **Erfüllungskriterien:**
 
-Veranstalter können einzelne Gäste ausladen.
+Veranstalter können einzelne eingeladene Nutzer ausladen.
 
-Gäste, die ausgeladen wurden, erhalten eine Benachrichtigung über ihre Ausladung.
+Eingeladene Nutzer, die ausgeladen wurden, erhalten eine Benachrichtigung über ihre Ausladung.
 
-Ausgeladene Gäste können das Event nicht mehr einsehen oder daran teilnehmen.
+Eingeladene Nutzer, die ausgeladen wurden, können das Event nicht mehr einsehen oder daran teilnehmen.
 
 **Priorität:** Hoch
+
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
 
 ### F006 Teilnehmer überblicken
 
@@ -118,6 +137,10 @@ Diese Funktion ermöglicht Veranstaltern, Teilnehmerinformationen zu überblicke
 Veranstalter sollten in der Lage sein, eine Liste aller aktuell eingeladenen Teilnehmer eines Events anzuzeigen.
 
 **Priorität:** Hoch
+
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
 
 ### F007 Einladung erhalten
 
@@ -141,6 +164,10 @@ Teilnehmer sollten in der Lage sein, Einladungen anzunehmen oder abzulehnen.
 
 **Priorität:** Hoch
 
+**Meilenstein:** 3 - Eventfunktionalität (eingeladener Nutzer)
+
+**Setzt Meilenstein vorraus:** 2 - Eventfunktionalität (Veranstalter)
+
 ### F008 Zusage zum Event geben
 
 **Stakeholder:** eingeladener Nutzer
@@ -159,6 +186,10 @@ Teilnehmer sollten in der Lage sein, ihre Zusage zum Event auf der Plattform zu 
 
 **Priorität:** Hoch
 
+**Meilenstein:** 3 - Eventfunktionalität (eingeladener Nutzer)
+
+**Setzt Meilenstein vorraus:** 2 - Eventfunktionalität (Veranstalter)
+
 ### F009 Absage zum Event geben
 
 **Stakeholder:** eingeladener Nutzer
@@ -176,6 +207,10 @@ Teilnehmer können ihre Nicht-Teilnahme am Event bestätigen, was dem Veranstalt
 Teilnehmer sollten in der Lage sein, ihre Absage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken.
 
 **Priorität:** Hoch
+
+**Meilenstein:** 3 - Eventfunktionalität (eingeladener Nutzer)
+
+**Setzt Meilenstein vorraus:** 2 - Eventfunktionalität (Veranstalter)
 
 ### F010 Konto erstellen
 
@@ -203,6 +238,10 @@ Das Konto muss jederzeit durch den Benutzer gelöscht werden können.
 
 **Optional:** Anonyme Ablehnung von Events von Nicht-Nutzern der Plattform
 
+**Meilenstein:** 1 - Basisfunktionalität der Plattform
+
+**Setzt Meilenstein vorraus:**
+
 ### F011 Konto anmelden
 
 **Stakeholder:** Nutzer der Plattform
@@ -220,6 +259,10 @@ Nutzer müssen ein Anmeldeformular ausfüllen, das ihre E-Mail-Adresse und ein P
 Teilnehmer sollten in der Lage sein, ihre Absage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken.
 
 **Priorität:** Hoch
+
+**Meilenstein:** 1 - Basisfunktionalität der Plattform
+
+**Setzt Meilenstein vorraus:**
 
 ### F012 Konto abmelden
 
@@ -239,6 +282,10 @@ Es muss eine klare und deutliche Möglichkeit geben, um sich von einem Konto abz
 Nachdem ein Benutzer sich abgemeldet hat, kann er auf keine persönlichen Daten zugreifen bis er sich nicht wider angemeldet hat.
 
 **Priorität:** Hoch
+
+**Meilenstein:** 1 - Basisfunktionalität der Plattform
+
+**Setzt Meilenstein vorraus:**
 
 ### F013 Passwort ändern
 
@@ -264,6 +311,10 @@ Nachdem das Passwort geändert wurde, sollte der Benutzer automatisch abgemeldet
 
 **Priorität:** Niedrig
 
+**Meilenstein:** 1 - Basisfunktionalität der Plattform
+
+**Setzt Meilenstein vorraus:**
+
 ### F014 Konto verifizieren
 
 **Stakeholder:** Nutzer u. Betreiber der Plattform
@@ -281,6 +332,10 @@ Durch die Verifizierung von Benutzerkonten kann das Vertrauen der Benutzer in di
 Benutzer müssen bei der Registrierung Name und E-Mail-Adresse angeben.
 
 **Priorität:** Optional
+
+**Meilenstein:** 1 - Basisfunktionalität der Plattform
+
+**Setzt Meilenstein vorraus:**
 
 ### F015 Konto  löschen
 
@@ -302,6 +357,10 @@ Benutzer sollten in der Lage sein, ihr Konto durch Ausfüllen eines Formulars au
 
 **Optional:** Administratoren sollten in der Lage sein, Benutzerkonten manuell zu löschen, falls dies erforderlich ist.
 
+**Meilenstein:** 1 - Basisfunktionalität der Plattform
+
+**Setzt Meilenstein vorraus:**
+
 ### F016 Events überblicken
 
 **Stakeholder:** Nutzer der Plattform
@@ -321,6 +380,10 @@ Die Plattform sollte eine Liste von allen eigenen Events auf einer Seite bereits
 Die Liste sollte die wichtigsten Informationen über das Event, wie den Namen, das Datum, die Uhrzeit und den Veranstaltungsort, enthalten.
 
 **Priorität:** Niedrig
+
+**Meilenstein:** 2 - Eventfunktionalität (Veranstalter)
+
+**Setzt Meilenstein vorraus:** 1 - Basisfunktionalität der Plattform
 
 ### F017 Benachrichtigungen zum Event
 
@@ -342,6 +405,12 @@ Sie sollten prägnant und klar verständlich formuliert sein und die wichtigsten
 
 **Priorität:** Optional
 
+**Kommentar:** Hat keinen Frontend-Anteil, wird ausschließlich im Backend implementiert
+
+**Meilenstein:** 4 - Eventfunktionalität (Teilnehmer eines Events)
+
+**Setzt Meilenstein vorraus:** 3 - Eventfunktionalität (eingeladener Nutzer)
+
 ### F018 Wegbeschreibung zum Event
 
 **Stakeholder:** Teilnehmer eines Events
@@ -356,9 +425,13 @@ Wenn Teilnehmer eines Events das Event aufgrund einer fehlender Wegbeschreibung 
 
 **Erfüllungskriterien:**
 
-Die Wegbeschreibung sollte klar, präzise und leicht verständlich sein.Die Wegbeschreibung sollte auch rechtzeitig vor dem Event verfügbar sein, damit die Gäste ausreichend Zeit haben, sich vorzubereiten.
+Die Wegbeschreibung sollte klar, präzise und leicht verständlich sein. Die Wegbeschreibung sollte auch rechtzeitig vor dem Event verfügbar sein, damit die eingeladenen Nutzer ausreichend Zeit haben, sich vorzubereiten.
 
 **Priorität:** Optional
+
+**Meilenstein:** 4 - Eventfunktionalität (Teilnehmer eines Events)
+
+**Setzt Meilenstein vorraus:** 3 - Eventfunktionalität (eingeladener Nutzer)
 
 ### F019 Karlendareintrag exportieren
 
@@ -383,6 +456,12 @@ Der exportierte Kalendereintrag ist in einem gängigen Dateiformat wie .ics verf
 Der exportierte Kalendereintrag kann in anderen Kalenderanwendungen importiert werden.
 
 **Priorität:** Optional
+
+**Kommentar:** Hat keinen Frontend-Anteil, wird ausschließlich im Backend implementiert
+
+**Meilenstein:** 4 - Eventfunktionalität (Teilnehmer eines Events)
+
+**Setzt Meilenstein vorraus:** 3 - Eventfunktionalität (eingeladener Nutzer)
 
 ## Nicht funktionale Anforderungen
 
@@ -454,7 +533,7 @@ Eine gute Benutzerfreundlichkeit führt zu einer höheren Nutzungsrate der Anwen
 
 **Erfüllungskriterien:**
 
-Die Benutzeroberfläche muss klar strukturiert, selbsterklärend und leicht zugänglich sein. 
+Die Benutzeroberfläche muss klar strukturiert, selbsterklärend und leicht zugänglich sein.
 
 Es sollten keine überflüssigen oder unnötig komplexen Elemente vorhanden sein. Die Navigation sollte einfach und logisch sein und die Benutzer sollten in der Lage sein, ihre Ziele auf einfache und schnelle Weise zu erreichen.
 

@@ -1,4 +1,4 @@
-import { pt_city, user_email, user_name } from '../support/app.po';
+import { pt_city, pt_zip_chars_error, user_email, user_name } from '../support/app.po';
 import {
   long_string,
   navigateChangeEvent,
@@ -124,6 +124,14 @@ describe('change-event-error', () => {
     cy.get('#zip').clear();
     cy.get('#zip').type('123123123');
     cy.contains(pt_zip_long_error());
+    cy.screenshot();
+  });
+
+  it('should show party_zip_chars', () => {
+    cy.wait('@event');
+    cy.get('#zip').clear();
+    cy.get('#zip').type("abc");
+    cy.contains(pt_zip_chars_error());
     cy.screenshot();
   });
 
