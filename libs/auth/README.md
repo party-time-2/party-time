@@ -13,7 +13,7 @@ The activity diagram for this library can be found [here](/docs/F011/F011_kontoA
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java)
 
-The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/login.cy.ts)  
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/login.cy.ts)
 
 ![user_required](/docs/PNG/F011/Tests/party-time-login-error%20--%20should%20show%20user_required.png)
 ![password_required](/docs/PNG/F011/Tests/party-time-login-error%20--%20should%20show%20password_required.png)

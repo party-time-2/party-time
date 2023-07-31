@@ -101,7 +101,7 @@ describe('create-event-error', () => {
   });
 
   it('should show party_zip_chars', () => {
-    cy.get('#zip').type("abc");
+    cy.get('#zip').type('abc');
     cy.contains(pt_zip_chars_error());
     cy.screenshot();
   });

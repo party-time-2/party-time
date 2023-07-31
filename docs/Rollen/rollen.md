@@ -18,4 +18,4 @@ Nutzer der zu einem Event eingeladen wurde
 
 ## Teilnehmer eines Events
 
-Eingeladener Nutzer der eine Zusage zu einem Event gegeben hat  
+Eingeladener Nutzer der eine Zusage zu einem Event gegeben hat

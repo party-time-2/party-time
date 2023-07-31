@@ -337,7 +337,7 @@ Benutzer müssen bei der Registrierung Name und E-Mail-Adresse angeben.
 
 **Setzt Meilenstein vorraus:**
 
-### F015 Konto  löschen
+### F015 Konto löschen
 
 **Stakeholder:** Nutzer der Plattform
 
