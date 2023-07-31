@@ -15,7 +15,7 @@ The activity diagram for this library can be found [here](/docs/F001/F001_eventA
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventController.java)
 
-The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/create.event.cy.ts)
+The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/create.event.cy.ts)  
 
 ![name_required](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_name_required.png)
 ![name_short](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_name_short.png)
@@ -103,11 +103,13 @@ The sequence diagram for this library can be found [here](/docs/F016/F016_events
 ![F016_eventÜberblicken_seq](/docs/PNG/F016/F016_eventsUeberblicken_seq.png)
 
 The activity diagram for this library can be found [here](/docs/F016/F016_eventsUeberblicken_act.plantuml)  
+
 ![F016_eventÜberblicken_act](/docs/PNG/F016/F016_eventsUeberblicken_act.png)
 
 The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/EventController.java)
 
 The Test-Case for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/overview.cy.ts)  
+
 ![show_events](/docs/PNG/F016/Tests/party-time-overview-events%20--%20should%20show%20events.png)
 
 ## F004 Add Participant
