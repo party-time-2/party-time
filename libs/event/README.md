@@ -32,6 +32,7 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 ![zip_required](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_zip_required.png)
 ![zip_long](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_zip_long.png)
 ![zip_short](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_zip_short.png)
+![zip_chars](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_zip_chars.png)
 ![prty_create_error](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_create_error.png)
 ![create_success](/docs/PNG/F001/Tests/create-event%20--%20should%20show%20create_success.png)
 
@@ -67,6 +68,7 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 ![zip_required](/docs/PNG/F002/Tests/change-event-error%20--%20should%20show%20party_zip_required.png)
 ![zip_long](/docs/PNG/F002/Tests/change-event-error%20--%20should%20show%20party_zip_long.png)
 ![zip_short](/docs/PNG/F002/Tests/change-event-error%20--%20should%20show%20party_zip_short.png)
+![zip_chars](/docs/PNG/F002/Tests/change-event-error%20--%20should%20show%20party_zip_chars.png)
 ![party_change_error](/docs/PNG/F002/Tests/change-event-error%20--%20should%20show%20party_change_error.png)
 ![change_success](/docs/PNG/F002/Tests/change-event%20--%20should%20show%20change_success.png)
 
