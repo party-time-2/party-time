@@ -129,3 +129,7 @@ Ein Issue ist ein Problem, das in einem Repository auf GitHub gemeldet wird. Es 
 Plant UML ist ein Werkzeug, das verwendet wird, um UML-Diagramme zu erstellen. Es wird verwendet, um die Architektur einer Anwendung zu dokumentieren.
 
 ## Google Maps
+
+Google Maps ist ein Kartendienst, der von Google bereitgestellt wird. Er kann verwendet werden, um Karten in einer Anwendung anzuzeigen.
+
+
