@@ -5,6 +5,7 @@ import shutil
 from datetime import datetime
 from glob import glob
 from pathlib import Path
+import re
 
 def get_timestamp() -> str:
     current_date = datetime.now()
@@ -42,9 +43,55 @@ with TemporaryDirectory(prefix="party-time-") as tempdirname:
                 print(f"Directory copied to {dest_file}")
             print()
 
-    print("Step 2: convert .md files to .pdf")
+    print("Step 2: check glossary definitions")
+    # define paths
+    design_entscheidungen_Path = Path("docs/Design-Entscheidungen/design-entscheidungen.md")
+    glossar_Path = Path("docs/Glossar/glossar.md")
+    if design_entscheidungen_Path.exists() and glossar_Path.exists():
+        # paths exist, read content of files
+        with open(design_entscheidungen_Path, "r") as file:
+            design_entscheidungen_content = file.read()
+        with open(glossar_Path, "r") as file:
+            glossar_content = file.read()
+
+        # determine required entries
+        required_re = re.compile(r"_(.*?)_", re.MULTILINE)
+        required_terms = set()
+        required_terms.update(required_re.findall(design_entscheidungen_content))
+        required_terms.update(required_re.findall(glossar_content))
+        required_terms = set([x.lower() for x in required_terms])
+        print(f"{len(required_terms)} required glossary terms found")
+
+        # determine defined entries
+        defined_terms = re.findall(r"(?<=## ).*?(?=$)", glossar_content, re.MULTILINE)
+        defined_terms = set([x.lower() for x in defined_terms])
+        print(f"{len(defined_terms)} glossary terms found")
+        print("")
+
+        # compare entry sets
+        required_but_not_defined = required_terms - defined_terms
+        defined_but_not_required = defined_terms - required_terms
+
+        # output result
+        if not required_but_not_defined:  # required_but_not_defined is empty
+            print("All required entries were defined")
+        else:  # required_but_not_defined has entries
+            print(f"The following required entries were not defined:")
+            print("\n".join(sorted(required_but_not_defined)) + "\n")
+
+        if not defined_but_not_required:  # defined_but_not_required is empty
+            print("All defined entries are used")
+        else:  # defined_but_not_required has entries
+            print(f"The following defined entries are unused:")
+            print("\n".join(sorted(defined_but_not_required)) + "\n")
+    else:
+        # glossary/design-entscheidungen files don't exist, output debug info
+        print(f'{design_entscheidungen_Path}: {"exists" if design_entscheidungen_Path.exists() else "missing"}')
+        print(f'{glossar_Path}: {"exists" if glossar_Path.exists() else "missing"}')
+
+    print("Step 3: convert .md files to .pdf")
     md_files = glob(f'{tempdirname}/**/*.md', recursive=True)
-    if(len(md_files) > 0):
+    if md_files:
         lua_script_path = script_dir.joinpath("makerelativepaths.lua")
         for index, src_str in enumerate(md_files):
             src_path = Path(src_str)
