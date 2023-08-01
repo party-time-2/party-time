@@ -64,6 +64,10 @@ CI/CD ist die Abkürzung für Continuous Integration und Continuous Delivery. Co
 
 E2E-Frontend Tests sind End-to-End-Tests, welche die Funktionalität der Anwendung testen. Sie simulieren die Verwendung der Anwendung durch einen Nutzer für vollständige Anwendungsfälle (Beispiel: Event erstellen angefangen mit dem einloggen auf der Webseite).
 
+## API
+
+Eine _API_ ist eine Schnittstelle, die verwendet wird, um mit einer Anwendung zu kommunizieren. Eine _API_ kann verwendet werden, um Daten von einer Anwendung abzurufen oder Daten in einer Anwendung zu speichern.
+
 ## RESTful-Webservices
 
 Ein RESTful-Webservice ist ein Webservice, der das REST-Architekturstil verwendet. REST steht für Representational State Transfer und ist ein Architekturstil für verteilte Systeme. RESTful-Webservices verwenden HTTP-Methoden (GET, POST, PUT, DELETE) um Ressourcen zu erstellen, zu lesen, zu aktualisieren und zu löschen.
@@ -86,15 +90,42 @@ H2 ist eine relationale Datenbank, die in Java geschrieben ist. Sie wird häufig
 
 ## SPA
 
-SPA ist die Abkürzung für Single Page Application. Eine SPA ist eine Anwendung, die nur eine einzige HTML-Seite lädt und die Inhalte der Seite dynamisch aktualisiert, wenn der Nutzer mit der Anwendung interagiert. Die Inhalte werden über eine API vom Server abgerufen.
+SPA ist die Abkürzung für Single Page Application. Eine SPA ist eine Anwendung, die nur eine einzige HTML-Seite lädt und die Inhalte der Seite dynamisch aktualisiert, wenn der Nutzer mit der Anwendung interagiert. Die Inhalte werden über eine _API_ vom Server abgerufen.
 
 ## Swagger
 
-Swagger ist ein Framework, das verwendet wird, um RESTful-Webservices zu dokumentieren. Es wird verwendet, um die API einer Anwendung zu dokumentieren, damit andere Entwickler (Beispielsweise _Frontend_-Entwickler) die API verwenden können.
+_Swagger_ ist ein Framework, das verwendet wird, um _RESTful-Webservices_ zu dokumentieren. Es wird verwendet, um die _API_ einer Anwendung zu dokumentieren, damit andere Entwickler (Beispielsweise _Frontend_-Entwickler) die _API_ verwenden können.
 
 ## Angular
 
-Angular ist ein Framework für die Entwicklung von _SPA_-Webanwendungen. Es wird verwendet, um _Frontend_-Anwendungen zu entwickeln, die in einem Browser ausgeführt werden.
+_Angular_ ist ein Framework für die Entwicklung von _SPA_-Webanwendungen. Es wird verwendet, um _Frontend_-Anwendungen zu entwickeln, die in einem Browser ausgeführt werden.
 
 ## NPM
 
+_NPM_ ist die Abkürzung für Node Package Manager. Es ist ein Paketmanager für JavaScript, der verwendet wird, um Abhängigkeiten zu verwalten und JavaScript-Anwendungen zu bauen.
+
+## NGRX
+
+_NGRX_ ist ein Framework für die Entwicklung von _Frontend_-Anwendungen mit Angular. Es wird verwendet, um den Zustand einer Anwendung mit Redux-Architekturprinzipien zu verwalten.
+
+## Redux
+
+[//]: <> (TODO: Julian - sollen wir das beschreiben? Wenn ja im NGRX Absatz als Fachbegriff markieren)
+
+## Tailwind CSS
+
+Tailwind CSS ist ein CSS-Framework, das verwendet wird, um das _Frontend_ einer Anwendung zu stylen. Die Styles werden über Klassen angewendet, die in HTML-Elementen verwendet werden.
+
+## GitHub
+
+GitHub ist ein Online-Dienst, der verwendet wird, um Quellcode zu verwalten. Es wird verwendet, um den Quellcode einer Anwendung zu speichern und zu verwalten.
+
+## Issue
+
+Ein Issue ist ein Problem, das in einem Repository auf GitHub gemeldet wird. Es wird verwendet, um Probleme mit dem Quellcode einer Anwendung zu melden. Problem ist hierbei etwas freier zu verstehen als ein Bug, es kann sich auch um eine Verbesserung handeln.
+
+## Plant UML
+
+Plant UML ist ein Werkzeug, das verwendet wird, um UML-Diagramme zu erstellen. Es wird verwendet, um die Architektur einer Anwendung zu dokumentieren.
+
+## Google Maps

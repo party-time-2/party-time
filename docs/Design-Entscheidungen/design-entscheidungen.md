@@ -115,22 +115,18 @@ Das Projekt verwendet den Node Package Manager (_NPM_) als zentrales Tool zur Ve
 Die Verwendung von _NPM_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Verwaltung von Abhängigkeiten: _NPM_ erleichtert die Verwaltung von Abhängigkeiten im Projekt und sorgt dafür, dass alle für das Frontend benötigten Bibliotheken und Tools auf dem neuesten Stand sind und gleiche Versionen konsistent verwendet werden.
-
 - Automatisierung von Prozessen: _NPM_ ermöglicht es Entwicklern, wiederholende Aufgaben im Entwicklungsprozess zu automatisieren, wie z.B. die Ausführung von Tests oder die Bereitstellung von Builds.
-
 - Ökosystem: _NPM_ verfügt über ein großes Ökosystem von Bibliotheken und Tools, die die Entwicklung und Wartung von Anwendungen erleichtern.
-
 - Skalierbarkeit: _NPM_ ist skalierbar und kann mit der Größe und Komplexität des Projekts wachsen, wodurch eine einfache Verwaltung und Entwicklung des Projekts möglich wird.
 
 ## Verwendung von NGRX
 
-Das Projekt verwendet das _NGRX_-Framework zur Implementierung eines zentralen Stores und zur Verwaltung des Anwendungsstatus in der _Angular_-Applikation. _NGRX_ ist eine Bibliothek, die Redux-Architekturprinzipien in _Angular_-Anwendungen implementiert.
+Das Projekt verwendet das _NGRX_-Framework zur Implementierung eines zentralen Stores und zur Verwaltung des Anwendungsstatus in der _Angular_-Applikation.
 
 **Begründung**:
 Die Verwendung von _NGRX_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Zentralisierung des Anwendungsstatus: Durch die Verwendung von _NGRX_ können alle Komponenten der Anwendung auf einen zentralen Store zugreifen, der den gesamten Anwendungsstatus verwaltet. Dadurch wird die Komplexität der Anwendung reduziert und die Wartbarkeit erhöht.
-
 - Vorhersehbarkeit: _NGRX_ basiert auf dem Redux-Muster, das eine klare Trennung von Anwendungsstatus und Benutzerinteraktion ermöglicht. Dadurch wird die Vorhersehbarkeit des Verhaltens der Anwendung verbessert und die Testbarkeit erleichtert.
 
 ## Verwendung von Cypress
@@ -141,6 +137,7 @@ Das Projekt verwendet das _Cypress_-Testing-Framework für die Automatisierung v
 Die Verwendung von _Cypress_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Integration: _Cypress_ lässt sich nahtlos in die Continuous-Integration/Continuous-Delivery-Pipeline des Projekts integrieren und ermöglicht es dem Team, automatisierte Tests zu erstellen und auszuführen, bevor Code in die Produktion übernommen wird.
+- Dokumentation: Im Verlauf von _Cypress_ Tests kann das Framework Screenshots und Videos erstellen, die der Dokumentation der Tests dienen.
 
 ## Verwendung von Tailwind CSS
 
@@ -150,42 +147,34 @@ Das Projekt verwendet das _Tailwind_ CSS Framework für die Gestaltung des Front
 Die Verwendung von _Tailwind_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Effizienz: _Tailwind_ bietet eine Vielzahl von vordefinierten Utility-Klassen um schneller und effizienter zu arbeiten.
-
 - Flexibilität: _Tailwind_ ist sehr flexibel und erlaubt es Designs zu erstellen, ohne aufwendige CSS-Regeln schreiben zu müssen.
-
 - Responsivität: _Tailwind_ verfolgt den Mobile-First Ansatz und erleichtert die Erstellung von responsiven Designs für verschiedene Geräte.
 
 ## Verwendung von GitHub
 
-Das Projekt verwendet _GitHub_ als Code-Repository und Kollaborationsplattform. _GitHub_ ist eine Cloud-basierte Plattform, die es Entwicklern ermöglicht, Code zu teilen, zu speichern und zusammenzuarbeiten.
+Das Projekt verwendet _GitHub_ als Code-Repository und Kollaborationsplattform für _Issue_-Tracking.
 
 **Begründung**:
 Die Verwendung von _GitHub_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Kollaboration: _GitHub_ bietet eine benutzerfreundliche und intuitive Plattform für die Zusammenarbeit zwischen Entwicklern, die es einfach macht, Code zu teilen, zu kommentieren und zusammenzuarbeiten.
-
 - Versionskontrolle: _GitHub_ bietet eine leistungsfähige Versionskontrollfunktion, die es ermöglicht, verschiedene Versionen des Codes zu speichern und bei Bedarf wiederherzustellen.
-
 - Code-Review: _GitHub_ bietet eine integrierte Code-Review-Funktion, die es Entwicklern ermöglicht, den Code zu überprüfen und Feedback zu geben.
-
 - Integrationen: _GitHub_ bietet Integrationen mit einer Vielzahl von Tools und Services, die die Entwicklung und Wartung von Anwendungen erleichtern, wie z.B. Continuous Integration/Continuous Deployment (CI/CD) Tools.
 
 ## Verwendung von PlantUML
 
-Das Projekt verwendet _PlantUML_ als Werkzeug für die Erstellung von UML-Diagrammen. _PlantUML_ ist ein Open-Source-Tool, das es einfach macht, UML-Diagramme in verschiedenen Formaten zu erstellen und zu exportieren.
+Das Projekt verwendet _PlantUML_ als Werkzeug für die Erstellung von UML-Diagrammen.
 
 **Begründung**:
 Die Verwendung von _PlantUML_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Einfache Syntax: _PlantUML_ verwendet eine einfache, textbasierte Syntax, um UML-Diagramme zu erstellen.
 
-- Flexibilität: _PlantUML_ unterstützt verschiedene Arten von UML-Diagrammen, einschließlich Klassendiagrammen, Sequenzdiagrammen und Zustandsdiagrammen, sowie benutzerdefinierte Diagrammtypen.
-
+- Flexibilität: _PlantUML_ unterstützt verschiedene Arten von UML-Diagrammen, einschließlich Klassendiagrammen, Sequenzdiagrammen und Zustandsdiagrammen, sowie benutzerdefinierte Diagrammtypen. In diesem Projekt wird mit _PlantUML_ das Datenbankschema der Anwendung modelliert, sowie mit Sequenz- und Ablaufdiagrammen der Ablauf von Programm-Abschnitten beschrieben.
 - Integration: _PlantUML_ kann leicht in andere Tools und Workflows integriert werden, z.B. in IDEs, CI/CD-Pipelines oder Dokumentationsprozesse.
-
 - Open Source: _PlantUML_ ist ein Open-Source-Tool und bietet daher eine breite Community-Unterstützung und regelmäßige Updates.
-
-- Export: _PlantUML_ bietet eine Vielzahl von Exportoptionen, um die erstellten Diagramme in verschiedenen Formaten zu exportieren, z.B. als Bild-, PDF- oder ASCII-Art-Datei.
+- Export: _PlantUML_ bietet eine Vielzahl von Exportoptionen, um die erstellten Diagramme in verschiedenen Formaten zu exportieren, z.B. als Bild-, PDF- oder ASCII-Art-Datei. In diesem Projekt werden die Diagramme als PNG-Bilder exportiert, welche in der Bibliotheken-Dokumentation referenziert werden.
 
 ## Verwendung von Google-Maps
 
