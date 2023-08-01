@@ -64,5 +64,37 @@ CI/CD ist die Abkürzung für Continuous Integration und Continuous Delivery. Co
 
 E2E-Frontend Tests sind End-to-End-Tests, welche die Funktionalität der Anwendung testen. Sie simulieren die Verwendung der Anwendung durch einen Nutzer für vollständige Anwendungsfälle (Beispiel: Event erstellen angefangen mit dem einloggen auf der Webseite).
 
-## RESTful-Webservice
+## RESTful-Webservices
+
+Ein RESTful-Webservice ist ein Webservice, der das REST-Architekturstil verwendet. REST steht für Representational State Transfer und ist ein Architekturstil für verteilte Systeme. RESTful-Webservices verwenden HTTP-Methoden (GET, POST, PUT, DELETE) um Ressourcen zu erstellen, zu lesen, zu aktualisieren und zu löschen.
+
+## Java
+
+Java ist eine Programmiersprache, die von Oracle bereitgestellt wird. Sie ist eine objektorientierte Programmiersprache, deren Bytecode auf einer Plattform-spezifischen JVM (Java Virtual Machine) ausgeführt wird.
+
+## Spring Boot
+
+Spring Boot ist ein Framework für die Entwicklung von Java-Anwendungen. Es vereinfacht die Entwicklung von Java-Anwendungen, indem es eine Reihe von Bibliotheken und Werkzeugen bereitstellt, die häufig in Java-Anwendungen verwendet werden.
+
+## Maven
+
+Maven ist ein Build-Management-Tool für Java-Anwendungen. Es wird verwendet, um die Abhängigkeiten einer Anwendung zu verwalten und die Anwendung zu bauen.
+
+## H2
+
+H2 ist eine relationale Datenbank, die in Java geschrieben ist. Sie wird häufig für Testzwecke verwendet, da sie in den Speicher geladen werden kann und keine Installation erfordert.
+
+## SPA
+
+SPA ist die Abkürzung für Single Page Application. Eine SPA ist eine Anwendung, die nur eine einzige HTML-Seite lädt und die Inhalte der Seite dynamisch aktualisiert, wenn der Nutzer mit der Anwendung interagiert. Die Inhalte werden über eine API vom Server abgerufen.
+
+## Swagger
+
+Swagger ist ein Framework, das verwendet wird, um RESTful-Webservices zu dokumentieren. Es wird verwendet, um die API einer Anwendung zu dokumentieren, damit andere Entwickler (Beispielsweise _Frontend_-Entwickler) die API verwenden können.
+
+## Angular
+
+Angular ist ein Framework für die Entwicklung von _SPA_-Webanwendungen. Es wird verwendet, um _Frontend_-Anwendungen zu entwickeln, die in einem Browser ausgeführt werden.
+
+## NPM
 

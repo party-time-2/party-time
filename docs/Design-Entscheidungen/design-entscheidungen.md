@@ -8,11 +8,8 @@ Das Projekt verwendet das _NX_-Entwicklungs-Framework für die Verwaltung des _M
 Die Verwendung von _NX_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - _Monorepo_-Verwaltung: _NX_ erleichtert die Verwaltung von Code in einem _Monorepo_, da es eine konsistente Struktur für die Organisation von Code bietet und es einfach macht, Abhängigkeiten zwischen Projekten innerhalb des _Monorepo_ zu verwalten.
-
 - Codegenerierung: _NX_ bietet leistungsfähige Tools für die automatisierte Generierung von Code, einschließlich der Generierung von _Scaffold_s_ für neue _Komponenten_, _Services_ und _Module_.
-
 - Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte _Monorepo_, einschließlich der Integration von Tools wie _Jest_ und _Cypress_ für Tests und der Bereitstellung von Artefakten für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline (_CI/CD_).
-
 - Skalierbarkeit: _NX_ ist für die Entwicklung großer Anwendungen ausgelegt und ermöglicht es, ein Projekt in einer _monolithischen Architektur_ zu skalieren, indem es eine klare Struktur für die Organisation von Code und Abhängigkeiten bietet. Im Rahmen unseres Projekts beinhaltet das _Monorepo_ sowohl das _Frontend_ als auch das _Backend_ der _Anwendung_, sowie _E2E-Frontend Tests_.
 
 ## Verwendung von Client Server
@@ -22,99 +19,93 @@ Die _Client-Server-Architektur_ wird für die Implementierung der _Anwendung_ ve
 **Begründung**:
 Die Verwendung der _Client-Server-Architektur_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Skalierbarkeit: Durch die Trennung der Anwendung in Frontend- und Backend-Komponenten kann jeder Teil der Anwendung unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
-
-- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der Serverseite zu implementieren, um die Anwendung vor Angriffen zu schützen. Wir können somit beispielsweise dem Veranstalter eines Events mehr Rechte geben als einem Teilnehmer.
-
-- Wiederverwendbarkeit: Die Trennung der Anwendung in _Frontend_- und _Backend_-Komponenten ermöglicht es, die Wiederverwendung von Komponenten besser zu organisieren. In unserem Projekt werden _Frontend_-Komponenten nur im _Frontend_ wiederverwendet und _Backend_-Komponenten nur im _Backend_ wiederverwendet.
+- Skalierbarkeit: Durch die Trennung der _Anwendung_ in Frontend- und Backend-Komponenten kann jeder Teil der _Anwendung_ unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
+- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der Serverseite zu implementieren, um die _Anwendung_ vor Angriffen zu schützen. Wir können somit beispielsweise dem Veranstalter eines Events mehr Rechte geben als einem Teilnehmer.
+- Wiederverwendbarkeit: Die Trennung der _Anwendung_ in _Frontend_- und _Backend_-Komponenten ermöglicht es, die Wiederverwendung von Komponenten besser zu organisieren. In unserem Projekt werden _Frontend_-Komponenten nur im _Frontend_ wiederverwendet und _Backend_-Komponenten nur im _Backend_ wiederverwendet.
 
 ## Verwendung eines RESTful-Webservices
 
-Die Anwendung verwendet einen _RESTful-Webservice_ zur Kommunikation zwischen dem Frontend-Client und dem Back-End-Server. Der Webservice implementiert das REST-Architekturmuster, das eine einfache, standardisierte Möglichkeit zur Übertragung von Daten und Funktionen zwischen verschiedenen Systemen bietet.
+Die _Anwendung_ verwendet _RESTful-Webservices_ zur Kommunikation zwischen dem Frontend-Client und dem Back-End-Server.
 
 **Begründung**:
-Die Verwendung eines *RESTful-Webservice*s bietet mehrere Vorteile für das Projekt, einschließlich:
+Die Verwendung eines _RESTful-Webservices_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Interoperabilität: *RESTful-Webservice*s verwenden standardisierte HTTP-Methoden und Datenformate, was es verschiedenen Systemen und Programmiersprachen ermöglicht, miteinander zu kommunizieren.
+- Interoperabilität: _RESTful-Webservices_ verwenden standardisierte HTTP-Methoden und Datenformate, was es verschiedenen Systemen und Programmiersprachen ermöglicht, miteinander zu kommunizieren. In unserem Projekt muss ein Angular Frontend (geschrieben hauptsächlich in TypeScript) mit einem Java Backend kommunizieren.
+- Skalierbarkeit: _RESTful-Webservices_ ermöglichen die Skalierung der _Anwendung_, indem sie den Client und den Server entkoppeln und es dem Server ermöglichen, mehrere Anfragen gleichzeitig zu verarbeiten. Unabhängig davon wie viele Clients das _Frontend_ der Party-Time _Anwendung_ verwenden, kann das _Backend_ die Anfragen verarbeiten.
+- Einfachheit: _RESTful-Webservices_ sind einfach zu implementieren und zu nutzen, da sie auf standardisierten Methoden und Datenformaten basieren.
 
-- Skalierbarkeit: *RESTful-Webservice*s ermöglichen die Skalierung der Anwendung, indem sie den Client und den Server entkoppeln und es dem Server ermöglichen, mehrere Anfragen gleichzeitig zu verarbeiten.
+## Verwendung von Java
 
-- Einfachheit: *RESTful-Webservice*s sind einfach zu implementieren und zu nutzen, da sie auf standardisierten Methoden und Datenformaten basieren.
+Die _Anwendung_ verwendet Java als Programmiersprache für die Implementierung des Back-End-Servers.
+
+**Begründung**:
+
+Die Verwendung von Java bietet mehrere Vorteile für das Projekt, einschließlich:
+
+- Interoperabilität: Java ist eine weit verbreitete Programmiersprache, die es ermöglicht, mit einer Vielzahl von Bibliotheken und Frameworks zu arbeiten. In unserem Projekt verwenden wir beispielsweise das Spring Boot Framework für die Implementierung des Back-End-Servers.
+- Sicherheit: Java Bibliotheken werden regelmäßig von vielen Experten der Open-Source-Community auf sicherheitsrelevante Schwachstellen geprüft, wodurch sich die Sicherheit unserer Anwendung insgesammt erhöht.
+- Wiederverwendbarkeit: Java ist eine objektorientierte Programmiersprache, die die Wiederverwendung von Code und Komponenten fördert. Authentifizierung ist beispielsweise ein Baustein vieler unserer Anforderungen, die nur einmal zentral im Java-_Backend_ implementiert werden muss.
 
 ## Verwendung von Spring Boot
 
-Die Anwendung verwendet das _Spring Boot_-Framework als Basis für die Implementierung des Back-End-Servers. _Spring Boot_ ist ein Framework für die Java-Entwicklung, das die schnelle Entwicklung von produktionsbereiten Anwendungen durch Konventionen und automatisierte Konfigurationen ermöglicht.
+Die _Anwendung_ verwendet das _Spring Boot_-Framework als Basis für die Implementierung des Back-End-Servers.
 
 **Begründung**:
 Die Verwendung von _Spring Boot_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Schnelle Entwicklung: _Spring Boot_ bietet eine umfangreiche Bibliothek von vorgefertigten Modulen und Konfigurationen, welche die Implementierung von Anwendungen beschleunigen können.
-
-- Einfache Konfiguration: _Spring Boot_ verwendet Konventionen und automatisierte Konfigurationen für die einfache konfiguration verschiedener Aspekte der Anwendung, ohne dass manuelle Eingriffe erforderlich sind.
-
+- Einfache Konfiguration: _Spring Boot_ verwendet Konventionen und automatisierte Konfigurationen für die einfache konfiguration verschiedener Aspekte der _Anwendung_, ohne dass manuelle Eingriffe erforderlich sind.
 - Erweiterbarkeit: _Spring Boot_ ist einfach zu erweitern und bietet eine Vielzahl von Erweiterungen und Plugins, welche die Implementierung von zusätzlichen Funktionen erleichtern.
-
 - Standardisierung: _Spring Boot_ ist ein etabliertes Framework, das eine Standardisierung in der Java-Entwicklung fördert und somit eine erhöhte Wiederverwendbarkeit von Code und Komponenten ermöglicht.
 
 ## Verwendung von Maven
 
-Das Projekt verwendet Apache _Maven_ als Build-Management-Tool, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung der Server-Anwendung zu erleichtern. _Maven_ ist ein Open-Source-Tool, das auf Java basiert und in der Lage ist, ein Projekt von der Kompilierung bis zur Bereitstellung zu verwalten.
+Das Projekt verwendet Apache _Maven_ als Build-Management-Tool des _Java_-_Backends_, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung der Server-Anwendung zu erleichtern.
 
 **Begründung**:
 Die Verwendung von _Maven_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Automatisierung: _Maven_ automatisiert den Build-Prozess und ermöglicht eine schnelle, zuverlässige und wiederholbare Erstellung der Anwendung.
-
-- Abhängigkeitsverwaltung: _Maven_ verwaltet die Abhängigkeiten der Anwendung automatisch und stellt sicher, dass die richtigen Versionen von Bibliotheken und Frameworks verwendet werden.
-
+- Automatisierung: _Maven_ automatisiert den Build-Prozess und ermöglicht eine schnelle, zuverlässige und wiederholbare Erstellung der _Anwendung_.
+- Abhängigkeitsverwaltung: _Maven_ verwaltet die Abhängigkeiten der _Anwendung_ automatisch und stellt sicher, dass die richtigen Versionen von Bibliotheken und Frameworks verwendet werden.
 - Erweiterbarkeit: _Maven_ bietet eine Vielzahl von Plugins, die es einfach machen, zusätzliche Funktionalitäten zu integrieren, z.B. zur Code-Qualitätsprüfung, Testausführung oder Dokumentation.
-
 - Standardisierung: _Maven_ ist ein etabliertes Tool, das eine Standardisierung in der Java-Entwicklung fördert und somit eine erhöhte Wiederverwendbarkeit von Code und Komponenten ermöglicht.
 
 ## Verwendung von H2
 
-Das Projekt verwendet eine integrierte H2-Datenbank für die lokale Entwicklung und Tests. H2 ist eine leichte, schnelle und plattformunabhängige Datenbank, welche in Java geschrieben wurde und eine einfache Vergleichbarkeit mit anderen JDBC-Datenbanken ermöglicht.
+Das Projekt verwendet eine integrierte _H2_-Datenbank für die lokale Entwicklung und Tests. _H2_ ist eine leichte, schnelle und plattformunabhängige Datenbank, welche in Java geschrieben wurde und eine einfache Vergleichbarkeit mit anderen JDBC-Datenbanken ermöglicht.
 
 **Begründung**:
 
-Die Verwendung einer H2 Datenbank bietet mehrere Vorteile für das Projekt, einschließlich:
+Die Verwendung einer _H2_ Datenbank bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Einfache Einrichtung: H2 kann als eingebettete Datenbank direkt im Projekt verwendet werden, was eine schnelle Einrichtung und Konfiguration ermöglicht.
-
-- Schnelligkeit: H2 ist eine schnelle Datenbank, die keine langen Initialisierungszeiten benötigt und schnell auf Anfragen reagiert.
-
-- Plattformunabhängigkeit: H2 ist in Java geschrieben und somit plattformunabhängig. Es kann auf verschiedenen Betriebssystemen und Architekturen eingesetzt werden.
-
-- Kompatibilität: H2 ist vergleichbar mit anderen JDBC-Datenbanken und ermöglicht so eine einfache Migration zu anderen, evtl. für den Betrieb besser geeigneten Datenbanken.
-
-- Testfähigkeit: H2 eignet sich besonders gut für Integrationstests und automatisierte Tests, da die eingebettete Datenbank leicht in Testumgebungen gestartet werden kann.
+- Einfache Einrichtung: _H2_ kann als eingebettete Datenbank direkt im Projekt verwendet werden, was eine schnelle Einrichtung und Konfiguration ermöglicht.
+- Schnelligkeit: _H2_ ist eine schnelle Datenbank, die keine langen Initialisierungszeiten benötigt und schnell auf Anfragen reagiert.
+- Plattformunabhängigkeit: _H2_ ist in Java geschrieben und somit plattformunabhängig. Es kann auf verschiedenen Betriebssystemen und Architekturen eingesetzt werden.
+- Kompatibilität: _H2_ ist vergleichbar mit anderen JDBC-Datenbanken und ermöglicht so eine einfache Migration zu anderen, evtl. für den Betrieb besser geeigneten Datenbanken.
+- Testfähigkeit: _H2_ eignet sich besonders gut für Integrationstests und automatisierte Tests, da die eingebettete Datenbank leicht in Testumgebungen gestartet werden kann.
 
 ## Verwendung von Single-Page-Anwendung
 
-Das Projekt implementiert eine Single-Page-Anwendungen (_SPA_)-Architektur für das Frontend. Bei einer _SPA_ handelt es sich um eine Webanwendung, bei der alle notwendigen Ressourcen (HTML, CSS, JavaScript) einmalig geladen werden und anschließend dynamisch Inhalte geladen und aktualisiert werden, ohne dass die Seite neu geladen wird.
+Das Projekt implementiert eine Single-Page-Anwendungen (_SPA_)-Architektur für das Frontend.
 
 **Begründung**:
 Die Verwendung von einer _SPA_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Trennung des Frontends vom Backend, was die Wartbarkeit erhöht und die Entwicklung erleichtert.
+- Trennung des Frontends vom Backend, was die Wartbarkeit erhöht und die Entwicklung erleichtert. Die _SPA_ kann unabhängig vom Backend entwickelt werden, solange die Schnittstellen zwischen Frontend und Backend definiert sind. In diesem Projekt werden die Schnittstellen mit _Swagger_ definiert.
 - Verbesserte Benutzererfahrung, da das Laden und Navigieren zwischen den Seiten nicht zu vollständigen Neuladungen führt, ist die Anwendung reaktionsschneller und bietet eine flüssige Benutzererfahrung.
 
 ## Verwendung von Angular
 
-Das Projekt verwendet das _Angular_-Framework für die Implementierung des Frontends. _Angular_ ist ein leistungsfähiges und umfassendes Framework für die Entwicklung von Single-Page-Anwendungen (*SPA*s).
+Das Projekt verwendet das _Angular_-Framework für die Implementierung des Frontends.
 
 **Begründung**:
 Die Verwendung von _Angular_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Struktur: _Angular_ bietet eine klare Struktur für die Organisation von Code, die es einfach macht, den Überblick über komplexe Anwendungen zu behalten.
-
 - Templates: _Angular_ bietet eine leistungsfähige Vorlagen-Engine für die Erstellung von dynamischen und reaktiven Benutzeroberflächen.
-
 - Komponenten: _Angular_ arbeitet mit Komponenten, die unabhängig voneinander entwickelt werden können und wiederverwendbar sind, was die Entwicklung von komplexen Anwendungen erleichtert.
-
 - TypeScript: _Angular_ ist in TypeScript geschrieben, was zu einer besseren Codequalität und -wartbarkeit führt und die Entwicklung insgesamt effizienter macht.
-
-- Ökosystem: _Angular_ verfügt über ein großes Ökosystem von Bibliotheken und Tools, welche die Entwicklung und Wartung von unserer Anwendung erleichtert
+- Ökosystem: _Angular_ verfügt über ein großes Ökosystem von Bibliotheken und Tools, welche die Entwicklung und Wartung von unserer _Anwendung_ erleichtert
 
 ## Verwendung von NPM (Node Package Manager)
 
