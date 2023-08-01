@@ -5,7 +5,6 @@ import shutil
 from datetime import datetime
 from glob import glob
 from pathlib import Path
-import re
 
 def get_timestamp() -> str:
     current_date = datetime.now()
@@ -20,8 +19,7 @@ with TemporaryDirectory(prefix="party-time-") as tempdirname:
 
     step_count = 1
 
-    print(f"Step {step_count}: copy files to temporary directory")
-    step_count += 1
+    print("Step 1: copy files to temporary directory")
     with open(script_dir.joinpath("export.json")) as exportFile:
         json_data = json.load(exportFile)
         for index, exportFileName in enumerate(json_data):
@@ -43,29 +41,8 @@ with TemporaryDirectory(prefix="party-time-") as tempdirname:
                 shutil.copytree(src_file_relative, dest_file, dirs_exist_ok=True)
                 print(f"Directory copied to {dest_file}")
             print()
-    
-    path_design_entscheidungen = temp_Path.joinpath("docs/Design-Entscheidungen/design-entscheidungen.md")
-    if path_design_entscheidungen.exists():
-        print(f"Step {step_count}: Generate glossary")
-        step_count += 1
-        with open(path_design_entscheidungen, 'r') as file:
-            filedata = file.read()
-        print("design-entscheidungen.md content read")
 
-        filedata = filedata.replace("# Design Entscheidungen", "# Glossar", 1)
-        print("Title replaced")
-
-        path_glossary = path_design_entscheidungen.parent.joinpath("glossar.md")
-        filedata = re.sub(r'\*\*Begründung\*\*:.*?(?=##|$)', '', filedata, flags=re.S)
-        filedata = filedata.rstrip() + "\n"
-        print("'Begründung' sections removed")
-
-        with open(path_glossary, 'w') as file:
-            file.write(filedata)
-        print(f"Glossary written to {path_glossary}\n")
-
-    print(f"Step {step_count}: convert .md file to .pdf")
-    step_count += 1
+    print("Step 2: convert .md files to .pdf")
     md_files = glob(f'{tempdirname}/**/*.md', recursive=True)
     if(len(md_files) > 0):
         lua_script_path = script_dir.joinpath("makerelativepaths.lua")

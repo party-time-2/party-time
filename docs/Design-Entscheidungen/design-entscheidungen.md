@@ -2,31 +2,31 @@
 
 ## Verwendung von NX
 
-Das Projekt verwendet das _NX_-Entwicklungs-Framework für die Verwaltung des Monorepos, der Codegenerierung und der Build- und Test-Workflows. _NX_ ist ein flexibles Framework, das die Entwicklung von großen Anwendungen in einer monolithischen Architektur erleichtert.
+Das Projekt verwendet das _NX_-Entwicklungs-Framework für die Verwaltung des _Monorepo_, der Codegenerierung und der Build- und Test-Workflows.
 
 **Begründung**:
 Die Verwendung von _NX_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Monorepo-Verwaltung: _NX_ erleichtert die Verwaltung von Code in einem Monorepo, da es eine konsistente Struktur für die Organisation von Code bietet und es einfach macht, Abhängigkeiten zwischen Projekten innerhalb des Monorepos zu verwalten.
+- _Monorepo_-Verwaltung: _NX_ erleichtert die Verwaltung von Code in einem _Monorepo_, da es eine konsistente Struktur für die Organisation von Code bietet und es einfach macht, Abhängigkeiten zwischen Projekten innerhalb des _Monorepo_ zu verwalten.
 
-- Codegenerierung: _NX_ bietet leistungsfähige Tools für die automatisierte Generierung von Code, einschließlich der Generierung von Scaffolds für neue Komponenten, Services und Module.
+- Codegenerierung: _NX_ bietet leistungsfähige Tools für die automatisierte Generierung von Code, einschließlich der Generierung von _Scaffold_s_ für neue _Komponenten_, _Services_ und _Module_.
 
-- Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte Monorepo, einschließlich der Integration von Tools wie Jest und _Cypress_ für Tests und der Bereitstellung von Artefakten für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline.
+- Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte _Monorepo_, einschließlich der Integration von Tools wie _Jest_ und _Cypress_ für Tests und der Bereitstellung von Artefakten für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline (_CI/CD_).
 
-- Skalierbarkeit: _NX_ ist für die Entwicklung großer Anwendungen ausgelegt und ermöglicht es, ein Projekt in einer monolithischen Architektur zu skalieren, indem es eine klare Struktur für die Organisation von Code und Abhängigkeiten bietet.
+- Skalierbarkeit: _NX_ ist für die Entwicklung großer Anwendungen ausgelegt und ermöglicht es, ein Projekt in einer _monolithischen Architektur_ zu skalieren, indem es eine klare Struktur für die Organisation von Code und Abhängigkeiten bietet. Im Rahmen unseres Projekts beinhaltet das _Monorepo_ sowohl das _Frontend_ als auch das _Backend_ der _Anwendung_, sowie _E2E-Frontend Tests_.
 
 ## Verwendung von Client Server
 
-Die _Client-Server-Architektur_ wird für die Implementierung der Anwendung verwendet. Die Anwendung besteht aus einem Frontend-Client, der über das Internet auf einen Back-End-Server zugreift, um Daten und Funktionalität zu erhalten.
+Die _Client-Server-Architektur_ wird für die Implementierung der _Anwendung_ verwendet.
 
 **Begründung**:
 Die Verwendung der _Client-Server-Architektur_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Skalierbarkeit: Durch die Trennung der Anwendung in Frontend- und Backend-Komponenten kann jeder Teil der Anwendung unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
 
-- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der Serverseite zu implementieren, um die Anwendung vor Angriffen zu schützen.
+- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der Serverseite zu implementieren, um die Anwendung vor Angriffen zu schützen. Wir können somit beispielsweise dem Veranstalter eines Events mehr Rechte geben als einem Teilnehmer.
 
-- Wiederverwendbarkeit: Die Trennung der Anwendung in Frontend- und Backend-Komponenten ermöglicht es, Komponenten für andere Projekte wiederverwendbar zu machen. Zum Beispiel kann das Frontend für eine mobile App oder eine Desktop-App wiederverwendet werden, die auf die gleichen Back-End-Services zugreift.
+- Wiederverwendbarkeit: Die Trennung der Anwendung in _Frontend_- und _Backend_-Komponenten ermöglicht es, die Wiederverwendung von Komponenten besser zu organisieren. In unserem Projekt werden _Frontend_-Komponenten nur im _Frontend_ wiederverwendet und _Backend_-Komponenten nur im _Backend_ wiederverwendet.
 
 ## Verwendung eines RESTful-Webservices
 
