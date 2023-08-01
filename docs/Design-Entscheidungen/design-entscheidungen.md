@@ -9,7 +9,7 @@ Die Verwendung von _NX_ bietet mehrere Vorteile für das Projekt, einschließlic
 
 - _Monorepo_-Verwaltung: _NX_ erleichtert die Verwaltung von Code in einem _Monorepo_, da es eine konsistente Struktur von Code bietet und Abhängigkeiten zwischen Projekten innerhalb des _Monorepo_ verwaltet.
 - Codegenerierung: _NX_ bietet Tools für die automatisierte Generierung von Code, einschließlich der Generierung von _Scaffold_ für neue _Komponenten_, _Services_ und _Libaries_.
-- Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte _Monorepo_, einschließlich der Integration von  _Cypress_ für Tests für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline (_CI/CD_).
+- Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte _Monorepo_, einschließlich der Integration von _Cypress_ für Tests für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline (_CI/CD_).
 - Skalierbarkeit: _NX_ ermöglicht es, ein Projekt in einer _monolithischen Architektur_ zu skalieren, indem es eine klare Struktur für Code und Abhängigkeiten bietet. Im Rahmen unseres Projekts beinhaltet das _Monorepo_ sowohl das _Frontend_ als auch das _Backend_ der _Anwendung_, sowie _E2E-Tests_.
 
 ## Verwendung von Client Server
@@ -136,7 +136,7 @@ Die Verwendung von _Cypress_ bietet mehrere Vorteile für das Projekt, einschlie
 
 ## Verwendung von Tailwind CSS
 
-Das Projekt verwendet das _Tailwind CSS_  Framework für die Gestaltung des Frontends. _Tailwind_ ist ein Utility-First CSS-Framework, das es Entwicklern ermöglicht, responsive Benutzeroberflächen zu erstellen.
+Das Projekt verwendet das _Tailwind CSS_ Framework für die Gestaltung des Frontends. _Tailwind_ ist ein Utility-First CSS-Framework, das es Entwicklern ermöglicht, responsive Benutzeroberflächen zu erstellen.
 
 **Begründung**:
 Die Verwendung von _Tailwind_ bietet mehrere Vorteile für das Projekt, einschließlich:
@@ -259,7 +259,7 @@ Die Plattform bietet außerdem eine optionale, bis zu 25 Zeichen lange _Adresszu
 
 ## Unterscheidung zwischen Event-Organisator und Event-Teilnehmer
 
-Ein Nutzer kann ein Event als Event-Organisator veranstalten oder als _vent-Teilnehmer an einem Event teilnehmen. Die Plattform unterscheidet zwischen diesen beiden Rollen und bietet dem Nutzer unterschiedliche Ansichten und Funktionen an.
+Ein Nutzer kann ein Event als Event-Organisator veranstalten oder als \_vent-Teilnehmer an einem Event teilnehmen. Die Plattform unterscheidet zwischen diesen beiden Rollen und bietet dem Nutzer unterschiedliche Ansichten und Funktionen an.
 
 **Begründung**:
 
