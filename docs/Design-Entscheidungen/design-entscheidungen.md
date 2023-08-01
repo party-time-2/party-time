@@ -7,10 +7,10 @@ Das Projekt verwendet das _NX_-Entwicklungs-Framework für die Verwaltung des _M
 **Begründung**:
 Die Verwendung von _NX_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- _Monorepo_-Verwaltung: _NX_ erleichtert die Verwaltung von Code in einem _Monorepo_, da es eine konsistente Struktur für die Organisation von Code bietet und es einfach macht, Abhängigkeiten zwischen Projekten innerhalb des _Monorepo_ zu verwalten.
-- Codegenerierung: _NX_ bietet leistungsfähige Tools für die automatisierte Generierung von Code, einschließlich der Generierung von _Scaffold_s_ für neue _Komponenten_, _Services_ und _Module_.
-- Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte _Monorepo_, einschließlich der Integration von Tools wie _Jest_ und _Cypress_ für Tests und der Bereitstellung von Artefakten für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline (_CI/CD_).
-- Skalierbarkeit: _NX_ ist für die Entwicklung großer Anwendungen ausgelegt und ermöglicht es, ein Projekt in einer _monolithischen Architektur_ zu skalieren, indem es eine klare Struktur für die Organisation von Code und Abhängigkeiten bietet. Im Rahmen unseres Projekts beinhaltet das _Monorepo_ sowohl das _Frontend_ als auch das _Backend_ der _Anwendung_, sowie _E2E-Frontend Tests_.
+- _Monorepo_-Verwaltung: _NX_ erleichtert die Verwaltung von Code in einem _Monorepo_, da es eine konsistente Struktur von Code bietet und Abhängigkeiten zwischen Projekten innerhalb des _Monorepo_ verwaltet.
+- Codegenerierung: _NX_ bietet Tools für die automatisierte Generierung von Code, einschließlich der Generierung von _Scaffold_ für neue _Komponenten_, _Services_ und _Libaries_.
+- Build- und Test-Workflows: _NX_ vereinfacht die Konfiguration von Build- und Test-Workflows für das gesamte _Monorepo_, einschließlich der Integration von  _Cypress_ für Tests für die Verwendung in einer Continuous-Integration/Continuous-Delivery-Pipeline (_CI/CD_).
+- Skalierbarkeit: _NX_ ermöglicht es, ein Projekt in einer _monolithischen Architektur_ zu skalieren, indem es eine klare Struktur für Code und Abhängigkeiten bietet. Im Rahmen unseres Projekts beinhaltet das _Monorepo_ sowohl das _Frontend_ als auch das _Backend_ der _Anwendung_, sowie _E2E-Tests_.
 
 ## Verwendung von Client Server
 
@@ -19,48 +19,46 @@ Die _Client-Server-Architektur_ wird für die Implementierung der _Anwendung_ ve
 **Begründung**:
 Die Verwendung der _Client-Server-Architektur_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Skalierbarkeit: Durch die Trennung der _Anwendung_ in Frontend- und Backend-Komponenten kann jeder Teil der _Anwendung_ unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
-- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der Serverseite zu implementieren, um die _Anwendung_ vor Angriffen zu schützen. Wir können somit beispielsweise dem Veranstalter eines Events mehr Rechte geben als einem Teilnehmer.
-- Wiederverwendbarkeit: Die Trennung der _Anwendung_ in _Frontend_- und _Backend_-Komponenten ermöglicht es, die Wiederverwendung von Komponenten besser zu organisieren. In unserem Projekt werden _Frontend_-Komponenten nur im _Frontend_ wiederverwendet und _Backend_-Komponenten nur im _Backend_ wiederverwendet.
+- Skalierbarkeit: Durch die Trennung der _Anwendung_ in _Frontend_- und _Backend_-_Komponenten_ kann jeder Teil der _Anwendung_ unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
+- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der _Backend_-Seite zu implementieren, um die _Anwendung_ vor Angriffen zu schützen. Wir können somit beispielsweise dem Veranstalter eines Events mehr Rechte geben als einem Teilnehmer.
+- Wiederverwendbarkeit: Die Trennung der _Anwendung_ in _Frontend_- und _Backend_-_Komponenten_ ermöglicht es, die Wiederverwendung von _Komponenten_ besser zu organisieren. In unserem Projekt werden _Frontend_-_Komponenten_ nur im _Frontend_ wiederverwendet und _Backend_-Komponenten nur im _Backend_ wiederverwendet.
 
 ## Verwendung eines RESTful-Webservices
 
-Die _Anwendung_ verwendet _RESTful-Webservices_ zur Kommunikation zwischen dem Frontend-Client und dem Back-End-Server.
+Die _Anwendung_ verwendet _RESTful-Webservices_ zur Kommunikation zwischen dem _Frontend_ und dem _Backend_.
 
 **Begründung**:
 Die Verwendung eines _RESTful-Webservices_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Interoperabilität: _RESTful-Webservices_ verwenden standardisierte HTTP-Methoden und Datenformate, was es verschiedenen Systemen und Programmiersprachen ermöglicht, miteinander zu kommunizieren. In unserem Projekt muss ein Angular Frontend (geschrieben hauptsächlich in TypeScript) mit einem Java Backend kommunizieren.
-- Skalierbarkeit: _RESTful-Webservices_ ermöglichen die Skalierung der _Anwendung_, indem sie den Client und den Server entkoppeln und es dem Server ermöglichen, mehrere Anfragen gleichzeitig zu verarbeiten. Unabhängig davon wie viele Clients das _Frontend_ der Party-Time _Anwendung_ verwenden, kann das _Backend_ die Anfragen verarbeiten.
+- Interoperabilität: _RESTful-Webservices_ verwenden standardisierte HTTP-Methoden und Datenformate, was es verschiedenen Systemen und Programmiersprachen ermöglicht, miteinander zu kommunizieren. In unserem Projekt muss ein _Angular_ _Frontend_ (geschrieben _TypeScript_) mit einem _Java_ _Backend_ kommunizieren.
+- Skalierbarkeit: _RESTful-Webservices_ ermöglichen die Skalierung der _Anwendung_, indem sie das _Frontend_ und das _Backend_ entkoppeln und es dem _Backend_ ermöglichen, mehrere Anfragen gleichzeitig zu verarbeiten. Unabhängig davon wie viele Clients das _Frontend_ der Party-Time _Anwendung_ verwenden, kann das _Backend_ die Anfragen verarbeiten.
 - Einfachheit: _RESTful-Webservices_ sind einfach zu implementieren und zu nutzen, da sie auf standardisierten Methoden und Datenformaten basieren.
 
 ## Verwendung von Java
 
-Die _Anwendung_ verwendet Java als Programmiersprache für die Implementierung des Back-End-Servers.
+Die _Anwendung_ verwendet _Java_ als Programmiersprache für die Implementierung des _Backend_.
 
 **Begründung**:
 
-Die Verwendung von Java bietet mehrere Vorteile für das Projekt, einschließlich:
+Die Verwendung von _Java_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Interoperabilität: Java ist eine weit verbreitete Programmiersprache, die es ermöglicht, mit einer Vielzahl von Bibliotheken und Frameworks zu arbeiten. In unserem Projekt verwenden wir beispielsweise das Spring Boot Framework für die Implementierung des Back-End-Servers.
-- Sicherheit: Java Bibliotheken werden regelmäßig von vielen Experten der Open-Source-Community auf sicherheitsrelevante Schwachstellen geprüft, wodurch sich die Sicherheit unserer Anwendung insgesammt erhöht.
-- Wiederverwendbarkeit: Java ist eine objektorientierte Programmiersprache, die die Wiederverwendung von Code und Komponenten fördert. Authentifizierung ist beispielsweise ein Baustein vieler unserer Anforderungen, die nur einmal zentral im Java-_Backend_ implementiert werden muss.
+- Interoperabilität: _Java_ ist eine Programmiersprache, die es ermöglicht, mit einer Vielzahl von _Frameworks_ zu arbeiten. In unserem Projekt verwenden wir beispielsweise das _Spring Boot_ Framework für die Implementierung des _Backend_-Servers.
+- Wiederverwendbarkeit: _Java_ ist eine objektorientierte Programmiersprache, die die Wiederverwendung von Code und _Komponenten_ fördert. Authentifizierung ist beispielsweise ein Baustein vieler unserer Anforderungen, die nur einmal zentral im Java-_Backend_ implementiert werden muss.
 
 ## Verwendung von Spring Boot
 
-Die _Anwendung_ verwendet das _Spring Boot_-Framework als Basis für die Implementierung des Back-End-Servers.
+Die _Anwendung_ verwendet das _Spring Boot_-Framework als Basis für die Implementierung des _Backend_-Servers.
 
 **Begründung**:
 Die Verwendung von _Spring Boot_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Schnelle Entwicklung: _Spring Boot_ bietet eine umfangreiche Bibliothek von vorgefertigten Modulen und Konfigurationen, welche die Implementierung von Anwendungen beschleunigen können.
+- Schnelle Entwicklung: _Spring Boot_ bietet vorgefertigte Module und Konfigurationen, welche die Implementierung von _Anwendungen_ beschleunigen können.
 - Einfache Konfiguration: _Spring Boot_ verwendet Konventionen und automatisierte Konfigurationen für die einfache konfiguration verschiedener Aspekte der _Anwendung_, ohne dass manuelle Eingriffe erforderlich sind.
 - Erweiterbarkeit: _Spring Boot_ ist einfach zu erweitern und bietet eine Vielzahl von Erweiterungen und Plugins, welche die Implementierung von zusätzlichen Funktionen erleichtern.
-- Standardisierung: _Spring Boot_ ist ein etabliertes Framework, das eine Standardisierung in der Java-Entwicklung fördert und somit eine erhöhte Wiederverwendbarkeit von Code und Komponenten ermöglicht.
 
 ## Verwendung von Maven
 
-Das Projekt verwendet Apache _Maven_ als Build-Management-Tool des _Java_-_Backends_, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung der Server-Anwendung zu erleichtern.
+Das Projekt verwendet Apache _Maven_ als Build-Management-Tool des _Java_-_Backends_, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung des _Backend_-Servers zu erleichtern.
 
 **Begründung**:
 Die Verwendung von _Maven_ bietet mehrere Vorteile für das Projekt, einschließlich:
@@ -68,19 +66,18 @@ Die Verwendung von _Maven_ bietet mehrere Vorteile für das Projekt, einschließ
 - Automatisierung: _Maven_ automatisiert den Build-Prozess und ermöglicht eine schnelle, zuverlässige und wiederholbare Erstellung der _Anwendung_.
 - Abhängigkeitsverwaltung: _Maven_ verwaltet die Abhängigkeiten der _Anwendung_ automatisch und stellt sicher, dass die richtigen Versionen von Bibliotheken und Frameworks verwendet werden.
 - Erweiterbarkeit: _Maven_ bietet eine Vielzahl von Plugins, die es einfach machen, zusätzliche Funktionalitäten zu integrieren, z.B. zur Code-Qualitätsprüfung, Testausführung oder Dokumentation.
-- Standardisierung: _Maven_ ist ein etabliertes Tool, das eine Standardisierung in der Java-Entwicklung fördert und somit eine erhöhte Wiederverwendbarkeit von Code und Komponenten ermöglicht.
 
 ## Verwendung von H2
 
-Das Projekt verwendet eine integrierte _H2_-Datenbank für die lokale Entwicklung und Tests. _H2_ ist eine leichte, schnelle und plattformunabhängige Datenbank, welche in Java geschrieben wurde und eine einfache Vergleichbarkeit mit anderen JDBC-Datenbanken ermöglicht.
+Das Projekt verwendet eine integrierte _H2_-Datenbank für die lokale Entwicklung und Tests. _H2_ ist eine leichte, schnelle und plattformunabhängige _Datenbank_, welche in _Java_ geschrieben wurde und eine einfache Vergleichbarkeit mit anderen JDBC-Datenbanken ermöglicht.
 
 **Begründung**:
 
 Die Verwendung einer _H2_ Datenbank bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Einfache Einrichtung: _H2_ kann als eingebettete Datenbank direkt im Projekt verwendet werden, was eine schnelle Einrichtung und Konfiguration ermöglicht.
-- Schnelligkeit: _H2_ ist eine schnelle Datenbank, die keine langen Initialisierungszeiten benötigt und schnell auf Anfragen reagiert.
-- Plattformunabhängigkeit: _H2_ ist in Java geschrieben und somit plattformunabhängig. Es kann auf verschiedenen Betriebssystemen und Architekturen eingesetzt werden.
+- Einfache Einrichtung: _H2_ kann als eingebettete _Datenbank_ direkt im Projekt verwendet werden, was eine schnelle Einrichtung und Konfiguration ermöglicht.
+- Schnelligkeit: _H2_ ist eine schnelle _Datenbank_, die keine langen Initialisierungszeiten benötigt und schnell auf Anfragen reagiert.
+- Plattformunabhängigkeit: _H2_ ist in _Java_ geschrieben und somit plattformunabhängig. Es kann auf verschiedenen Betriebssystemen eingesetzt werden.
 - Kompatibilität: _H2_ ist vergleichbar mit anderen JDBC-Datenbanken und ermöglicht so eine einfache Migration zu anderen, evtl. für den Betrieb besser geeigneten Datenbanken.
 - Testfähigkeit: _H2_ eignet sich besonders gut für Integrationstests und automatisierte Tests, da die eingebettete Datenbank leicht in Testumgebungen gestartet werden kann.
 
@@ -91,62 +88,60 @@ Das Projekt implementiert eine Single-Page-Anwendungen (_SPA_)-Architektur für 
 **Begründung**:
 Die Verwendung von einer _SPA_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Trennung des Frontends vom Backend, was die Wartbarkeit erhöht und die Entwicklung erleichtert. Die _SPA_ kann unabhängig vom Backend entwickelt werden, solange die Schnittstellen zwischen Frontend und Backend definiert sind. In diesem Projekt werden die Schnittstellen mit _Swagger_ definiert.
-- Verbesserte Benutzererfahrung, da das Laden und Navigieren zwischen den Seiten nicht zu vollständigen Neuladungen führt, ist die Anwendung reaktionsschneller und bietet eine flüssige Benutzererfahrung.
+- Trennung des _Frontends_ vom _Backend_, was die Wartbarkeit erhöht und die Entwicklung erleichtert. Die _SPA_ kann unabhängig vom _Backend_ entwickelt werden, solange die Schnittstellen zwischen _Frontend_ und _Backend_ definiert sind. In diesem Projekt werden die Schnittstellen mit _Swagger_ definiert.
+- Verbesserte Benutzererfahrung, da das Laden und Navigieren zwischen den Seiten nicht zu vollständigen Neuladungen führt, ist die _Anwendung_ reaktionsschneller und bietet eine flüssige Benutzererfahrung.
 
 ## Verwendung von Angular
 
-Das Projekt verwendet das _Angular_-Framework für die Implementierung des Frontends.
+Das Projekt verwendet das _Angular_-Framework für die Implementierung des _Frontends_.
 
 **Begründung**:
 Die Verwendung von _Angular_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Struktur: _Angular_ bietet eine klare Struktur für die Organisation von Code, die es einfach macht, den Überblick über komplexe Anwendungen zu behalten.
-- Templates: _Angular_ bietet eine leistungsfähige Vorlagen-Engine für die Erstellung von dynamischen und reaktiven Benutzeroberflächen.
-- Komponenten: _Angular_ arbeitet mit Komponenten, die unabhängig voneinander entwickelt werden können und wiederverwendbar sind, was die Entwicklung von komplexen Anwendungen erleichtert.
-- TypeScript: _Angular_ ist in TypeScript geschrieben, was zu einer besseren Codequalität und -wartbarkeit führt und die Entwicklung insgesamt effizienter macht.
-- Ökosystem: _Angular_ verfügt über ein großes Ökosystem von Bibliotheken und Tools, welche die Entwicklung und Wartung von unserer _Anwendung_ erleichtert
+- Struktur: _Angular_ bietet eine klare Struktur für die Organisation von Code.
+- Templates: _Angular_ bietet eine Vorlagen-Engine für die Erstellung von dynamischen und reaktiven Benutzeroberflächen.
+- Komponenten: _Angular_ arbeitet mit _Komponenten_, die unabhängig voneinander entwickelt werden können und wiederverwendbar sind.
+- Ökosystem: _Angular_ verfügt über ein Ökosystem von Bibliotheken und Tools, welche die Entwicklung und Wartung von unserer _Anwendung_ erleichtert
 
 ## Verwendung von NPM (Node Package Manager)
 
-Das Projekt verwendet den Node Package Manager (_NPM_) als zentrales Tool zur Verwaltung von Abhängigkeiten und zur Automatisierung von Abläufen im Frontend-Entwicklungsprozess.
+Das Projekt verwendet den Node Package Manager (_NPM_) als zentrales Tool zur Verwaltung von Abhängigkeiten und zur Automatisierung von Abläufen im _Frontend_-Entwicklungsprozess.
 
 **Begründung**:
 Die Verwendung von _NPM_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Verwaltung von Abhängigkeiten: _NPM_ erleichtert die Verwaltung von Abhängigkeiten im Projekt und sorgt dafür, dass alle für das Frontend benötigten Bibliotheken und Tools auf dem neuesten Stand sind und gleiche Versionen konsistent verwendet werden.
+- Verwaltung von Abhängigkeiten: _NPM_ erleichtert die Verwaltung von Abhängigkeiten im Projekt und sorgt dafür, dass alle für das _Frontend_ benötigten Bibliotheken und Tools auf dem neuesten Stand sind und gleiche Versionen konsistent verwendet werden.
 - Automatisierung von Prozessen: _NPM_ ermöglicht es Entwicklern, wiederholende Aufgaben im Entwicklungsprozess zu automatisieren, wie z.B. die Ausführung von Tests oder die Bereitstellung von Builds.
-- Ökosystem: _NPM_ verfügt über ein großes Ökosystem von Bibliotheken und Tools, die die Entwicklung und Wartung von Anwendungen erleichtern.
+- Ökosystem: _NPM_ verfügt über ein Ökosystem von Bibliotheken und Tools, die die Entwicklung und Wartung von Anwendungen erleichtern.
 - Skalierbarkeit: _NPM_ ist skalierbar und kann mit der Größe und Komplexität des Projekts wachsen, wodurch eine einfache Verwaltung und Entwicklung des Projekts möglich wird.
 
 ## Verwendung von NGRX
 
-Das Projekt verwendet das _NGRX_-Framework zur Implementierung eines zentralen Stores und zur Verwaltung des Anwendungsstatus in der _Angular_-Applikation.
+Das Projekt verwendet das _NGRX_-Framework zur Implementierung eines Stores und zur Verwaltung des Anwendungsstatus in der _Angular_-_Komponenten_.
 
 **Begründung**:
 Die Verwendung von _NGRX_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Zentralisierung des Anwendungsstatus: Durch die Verwendung von _NGRX_ können alle Komponenten der Anwendung auf einen zentralen Store zugreifen, der den gesamten Anwendungsstatus verwaltet. Dadurch wird die Komplexität der Anwendung reduziert und die Wartbarkeit erhöht.
-- Vorhersehbarkeit: _NGRX_ basiert auf dem Redux-Muster, das eine klare Trennung von Anwendungsstatus und Benutzerinteraktion ermöglicht. Dadurch wird die Vorhersehbarkeit des Verhaltens der Anwendung verbessert und die Testbarkeit erleichtert.
+- Vorhersehbarkeit: _NGRX_ basiert auf dem Redux-Muster, das eine klare Trennung von Anwendungsstatus und Benutzerinteraktion ermöglicht. Dadurch wird die Vorhersehbarkeit des Verhaltens der _Anwendung_ verbessert und die Testbarkeit erleichtert.
 
 ## Verwendung von Cypress
 
-Das Projekt verwendet das _Cypress_-Testing-Framework für die Automatisierung von End-to-End-Tests im Frontend.
+Das Projekt verwendet das _Cypress_-Testing-Framework für die Automatisierung von _End-to-End-Tests_ im _Frontend_.
 
 **Begründung**:
 Die Verwendung von _Cypress_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Integration: _Cypress_ lässt sich nahtlos in die Continuous-Integration/Continuous-Delivery-Pipeline des Projekts integrieren und ermöglicht es dem Team, automatisierte Tests zu erstellen und auszuführen, bevor Code in die Produktion übernommen wird.
+- Integration: _Cypress_ lässt sich nahtlos in die Continuous-Integration/Continuous-Delivery-Pipeline des Projekts integrieren und ermöglicht es dem Team, automatisierte Tests zu erstellen und auszuführen, bevor Code übernommen wird.
 - Dokumentation: Im Verlauf von _Cypress_ Tests kann das Framework Screenshots und Videos erstellen, die der Dokumentation der Tests dienen.
 
 ## Verwendung von Tailwind CSS
 
-Das Projekt verwendet das _Tailwind_ CSS Framework für die Gestaltung des Frontends. _Tailwind_ ist ein Utility-First CSS-Framework, das es Entwicklern ermöglicht, schnell und einfach responsive Benutzeroberflächen zu erstellen.
+Das Projekt verwendet das _Tailwind CSS_  Framework für die Gestaltung des Frontends. _Tailwind_ ist ein Utility-First CSS-Framework, das es Entwicklern ermöglicht, responsive Benutzeroberflächen zu erstellen.
 
 **Begründung**:
 Die Verwendung von _Tailwind_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Effizienz: _Tailwind_ bietet eine Vielzahl von vordefinierten Utility-Klassen um schneller und effizienter zu arbeiten.
+- Effizienz: _Tailwind_ bietet eine Vielzahl von vordefinierten Utility-Klassen.
 - Flexibilität: _Tailwind_ ist sehr flexibel und erlaubt es Designs zu erstellen, ohne aufwendige CSS-Regeln schreiben zu müssen.
 - Responsivität: _Tailwind_ verfolgt den Mobile-First Ansatz und erleichtert die Erstellung von responsiven Designs für verschiedene Geräte.
 
@@ -160,7 +155,7 @@ Die Verwendung von _GitHub_ bietet mehrere Vorteile für das Projekt, einschlie�
 - Kollaboration: _GitHub_ bietet eine benutzerfreundliche und intuitive Plattform für die Zusammenarbeit zwischen Entwicklern, die es einfach macht, Code zu teilen, zu kommentieren und zusammenzuarbeiten.
 - Versionskontrolle: _GitHub_ bietet eine leistungsfähige Versionskontrollfunktion, die es ermöglicht, verschiedene Versionen des Codes zu speichern und bei Bedarf wiederherzustellen.
 - Code-Review: _GitHub_ bietet eine integrierte Code-Review-Funktion, die es Entwicklern ermöglicht, den Code zu überprüfen und Feedback zu geben.
-- Integrationen: _GitHub_ bietet Integrationen mit einer Vielzahl von Tools und Services, die die Entwicklung und Wartung von Anwendungen erleichtern, wie z.B. Continuous Integration/Continuous Deployment (CI/CD) Tools.
+- Integrationen: _GitHub_ bietet Integrationen mit einer Vielzahl von Tools und Services, die die Entwicklung und Wartung von Anwendungen erleichtern, wie z.B. _Continuous Integration/Continuous_ Deployment (CI/CD) Tools.
 
 ## Verwendung von PlantUML
 
@@ -173,23 +168,22 @@ Die Verwendung von _PlantUML_ bietet mehrere Vorteile für das Projekt, einschli
 
 - Flexibilität: _PlantUML_ unterstützt verschiedene Arten von UML-Diagrammen, einschließlich Klassendiagrammen, Sequenzdiagrammen und Zustandsdiagrammen, sowie benutzerdefinierte Diagrammtypen. In diesem Projekt wird mit _PlantUML_ das Datenbankschema der Anwendung modelliert, sowie mit Sequenz- und Ablaufdiagrammen der Ablauf von Programm-Abschnitten beschrieben.
 - Integration: _PlantUML_ kann leicht in andere Tools und Workflows integriert werden, z.B. in IDEs, CI/CD-Pipelines oder Dokumentationsprozesse.
-- Open Source: _PlantUML_ ist ein Open-Source-Tool und bietet daher eine breite Community-Unterstützung und regelmäßige Updates.
 - Export: _PlantUML_ bietet eine Vielzahl von Exportoptionen, um die erstellten Diagramme in verschiedenen Formaten zu exportieren, z.B. als Bild-, PDF- oder ASCII-Art-Datei. In diesem Projekt werden die Diagramme als PNG-Bilder exportiert, welche in der Bibliotheken-Dokumentation referenziert werden.
 
 ## Verwendung von Google-Maps
 
-Das Projekt verwendet die _Google-Maps_ API zur Integration von interaktiven Karten und Geodaten in die Anwendung. Die Google Maps API ist eine verbreitete API, die es ermöglicht, Karten, Standorte, Wegbeschreibungen und geografische Daten in die Anwendung zu integrieren.
+Das Projekt verwendet die _Google-Maps_ _API_ zur Integration von interaktiven Karten und Geodaten in die Anwendung. Die Google Maps _API_ ist eine verbreitete _API_, die es ermöglicht, Karten, Standorte, Wegbeschreibungen und geografische Daten in die Anwendung zu integrieren.
 
 **Begründung**:
 Die Verwendung von _Google-Maps_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Umfangreiche Funktionen: Die _Google-Maps_ API bietet die Darstellung von Karten und Standortmarkierungen
+- Umfangreiche Funktionen: Die _Google-Maps_ _API_ bietet die Darstellung von Karten und Standortmarkierungen
 
-- Die Google Maps API bietet Zugriff auf aktuelle Karten- und Geodaten um genaue und aktuelle Informationen bereitzustellen
+- Die Google Maps _API_ bietet Zugriff auf aktuelle Karten- und Geodaten um genaue und aktuelle Informationen bereitzustellen
 
 ## Erforderliche persönliche Daten von Benutzern
 
-Für die Authentifizierung von Benutzern sowie für soziale Komponenten der Party Time Plattform werden pro Nutzer einen Anzeigenamen, eine E-Mail Adresse sowie ein Passwort erhoben.
+Für die Authentifizierung von Benutzern sowie für soziale Komponenten der Party Time Plattform muss die Plattform _persönliche Daten_ verarbeiten. Pro Nutzer wird mindestens ein Anzeigename, eine E-Mail Adresse sowie ein Passwort verwarbeitet.
 
 **Begründung**:
 
@@ -263,9 +257,9 @@ Die Plattform bietet außerdem eine optionale, bis zu 25 Zeichen lange _Adresszu
 - Für die _Uhrzeit_ und das _Datum_ wird die _Angular_ Standard-Funktionalität namens [DatePipe](https://angular.io/api/common/DatePipe) verwendet. Das Datums-Format richtet sich zunächst nach dem deutschen Zeit-Standard, der in DIN 5008 (z.B. TT.MM.YYYY) definiert ist. In einer späteren Ausbaustufe können im Rahmen einer spezialisten Lokalisierung noch weitere Zeit- und Datums-Formate integriert werden.
 - Die optionale, bis zu 25 Zeichen lange _Adresszusatzzeile_ wird als notwendig angesehen, um insbesondere in Ballungsgebieten den Teilnehmern eines Events das auffinden des Veranstaltungsortes zu vereinfachen.
 
-## Unterscheidung zwischen eigenem Event und Event als Teilnehmer
+## Unterscheidung zwischen Event-Organisator und Event-Teilnehmer
 
-Ein Nutzer kann ein Event als _Event-Organisator_ veranstalten oder als _Event-Teilnehmer_ an einem Event teilnehmen. Die Plattform unterscheidet zwischen diesen beiden Rollen und bietet dem Nutzer unterschiedliche Ansichten und Funktionen an.
+Ein Nutzer kann ein Event als Event-Organisator veranstalten oder als _vent-Teilnehmer an einem Event teilnehmen. Die Plattform unterscheidet zwischen diesen beiden Rollen und bietet dem Nutzer unterschiedliche Ansichten und Funktionen an.
 
 **Begründung**:
 
