@@ -61,12 +61,15 @@ def check_glossary(glossary_root: Path) -> bool:
     # define paths
     design_entscheidungen_Path = glossary_root.joinpath(Path("docs/Design-Entscheidungen/design-entscheidungen.md"))
     glossary_Path = glossary_root.joinpath(Path("docs/Glossar/glossar.md"))
-    if design_entscheidungen_Path.exists() and glossary_Path.exists():
+    roles_Path = glossary_root.joinpath(Path("docs/Rollen/rollen.md"))
+    if design_entscheidungen_Path.exists() and glossary_Path.exists() and roles_Path.exists():
         # paths exist, read content of files
         with open(design_entscheidungen_Path, "r") as file:
             design_entscheidungen_content = file.read()
         with open(glossary_Path, "r") as file:
             glossar_content = file.read()
+        with open(roles_Path, "r") as file:
+            roles_content = file.read()
 
         # determine required entries
         required_re = re.compile(r"_(.*?)_", re.MULTILINE)
@@ -77,7 +80,10 @@ def check_glossary(glossary_root: Path) -> bool:
         print(f"{len(required_terms)} required glossary terms found")
 
         # determine defined entries
-        defined_terms = re.findall(r"(?<=## ).*?(?=$)", glossar_content, re.MULTILINE)
+        defined_entries_re = re.compile(r"(?<=## ).*?(?=$)", re.MULTILINE)
+        defined_terms = []
+        defined_terms.extend(defined_entries_re.findall(glossar_content))
+        defined_terms.extend(defined_entries_re.findall(roles_content))
         defined_terms = set([x.lower() for x in defined_terms])
         print(f"{len(defined_terms)} defined glossary terms found")
         print("")
@@ -104,6 +110,7 @@ def check_glossary(glossary_root: Path) -> bool:
         # glossary/design-entscheidungen files don't exist, output debug info
         print(f'{design_entscheidungen_Path}: {"exists" if design_entscheidungen_Path.exists() else "missing"}')
         print(f'{glossary_Path}: {"exists" if glossary_Path.exists() else "missing"}')
+        print(f'{roles_Path}: {"exists" if roles_Path.exists() else "missing"}')
         return False
     
 def md_to_pdf(md_files_root_Path: Path) -> bool:
