@@ -50,5 +50,14 @@
             "console": "integratedTerminal",
             "justMyCode": true
         },
+        {
+            "name": "Python: Check glossary",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/export.py",
+            "args": ["-c"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
     ]
 }
