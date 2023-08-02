@@ -7,20 +7,15 @@ from glob import glob
 from pathlib import Path
 import re
 
-def get_timestamp() -> str:
-    current_date = datetime.now()
-    return current_date.strftime("--%Y-%m-%d--%H-%M-%S")
-
+step_count = 1
 script_dir = Path(__file__).absolute().parent
 
-with TemporaryDirectory(prefix="party-time-") as tempdirname:
-    temp_Path = Path(tempdirname)
+def copy_to_temp_dir(temp_Path: Path):
+    global step_count
+    print(f"Step {step_count}: copy files to temporary directory")
+    step_count += 1
 
-    print(f"created temporary directory {temp_Path}")
-
-    step_count = 1
-
-    print("Step 1: copy files to temporary directory")
+    global script_dir
     with open(script_dir.joinpath("export.json")) as exportFile:
         json_data = json.load(exportFile)
         for index, exportFileName in enumerate(json_data):
@@ -41,17 +36,22 @@ with TemporaryDirectory(prefix="party-time-") as tempdirname:
                 print(f"Destination dir name: {dest_file}")
                 shutil.copytree(src_file_relative, dest_file, dirs_exist_ok=True)
                 print(f"Directory copied to {dest_file}")
-            print()
+            if index + 1 != len(json_data):
+                print()
 
-    print("Step 2: check glossary definitions")
+def check_glossary(glossary_root: Path) -> bool:
+    global step_count
+    print(f"Step {step_count}: check glossary definitions")
+    step_count += 1
+
     # define paths
-    design_entscheidungen_Path = Path("docs/Design-Entscheidungen/design-entscheidungen.md")
-    glossar_Path = Path("docs/Glossar/glossar.md")
-    if design_entscheidungen_Path.exists() and glossar_Path.exists():
+    design_entscheidungen_Path = glossary_root.joinpath(Path("docs/Design-Entscheidungen/design-entscheidungen.md"))
+    glossary_Path = glossary_root.joinpath(Path("docs/Glossar/glossar.md"))
+    if design_entscheidungen_Path.exists() and glossary_Path.exists():
         # paths exist, read content of files
         with open(design_entscheidungen_Path, "r") as file:
             design_entscheidungen_content = file.read()
-        with open(glossar_Path, "r") as file:
+        with open(glossary_Path, "r") as file:
             glossar_content = file.read()
 
         # determine required entries
@@ -83,23 +83,55 @@ with TemporaryDirectory(prefix="party-time-") as tempdirname:
             print("All defined entries are used")
         else:  # defined_but_not_required has entries
             print(f"The following defined entries are unused:")
-            print("\n".join(sorted(defined_but_not_required)) + "\n")
+            print("\n".join(sorted(defined_but_not_required)))
+
+        return not (required_but_not_defined or defined_but_not_required)
     else:
         # glossary/design-entscheidungen files don't exist, output debug info
         print(f'{design_entscheidungen_Path}: {"exists" if design_entscheidungen_Path.exists() else "missing"}')
-        print(f'{glossar_Path}: {"exists" if glossar_Path.exists() else "missing"}')
+        print(f'{glossary_Path}: {"exists" if glossary_Path.exists() else "missing"}')
+        return False
+    
+def md_to_pdf(md_files_root_Path: Path):
+    global step_count
+    print(f"Step {step_count}: convert .md files to .pdf")
+    step_count += 1
 
-    print("Step 3: convert .md files to .pdf")
-    md_files = glob(f'{tempdirname}/**/*.md', recursive=True)
+    global script_dir
+    md_files = sorted(md_files_root_Path.glob('**/*.md'))
     if md_files:
         lua_script_path = script_dir.joinpath("makerelativepaths.lua")
         for index, src_str in enumerate(md_files):
             src_path = Path(src_str)
             dest_path = src_path.with_suffix(".pdf")
-            print(f"({index+1}/{len(md_files)}): Converting {src_path.relative_to(tempdirname)} -> {dest_path.relative_to(tempdirname)}")
+            print(f"({index+1}/{len(md_files)}): Converting {src_path.relative_to(md_files_root_Path)} -> {dest_path.relative_to(md_files_root_Path)}")
             subprocess.run(["/usr/bin/pandoc", src_path, "-o", dest_path, "--lua-filter", lua_script_path], cwd=temp_Path)
             src_path.unlink()
 
-    export_output_name=f"output{get_timestamp()}"
-    shutil.make_archive(export_output_name, "zip", tempdirname)
+def zip_result(temp_Path: Path):
+    global step_count
+    print(f"Step {step_count}: zip result")
+    step_count += 1
+    def get_timestamp() -> str:
+        current_date = datetime.now()
+        return current_date.strftime("%Y-%m-%d--%H-%M-%S")
+
+    export_output_name=f"output--{get_timestamp()}"
+    shutil.make_archive(export_output_name, "zip", temp_Path)
     print(f"Export output written to {export_output_name}.zip")
+
+
+with TemporaryDirectory(prefix="party-time-") as tempdirname:
+    temp_Path = Path(tempdirname)
+
+    print(f"created temporary directory {temp_Path}")
+
+    copy_to_temp_dir(temp_Path)
+    print()
+
+    check_glossary(temp_Path)
+    print()
+
+    md_to_pdf(temp_Path)
+
+    zip_result(temp_Path)
