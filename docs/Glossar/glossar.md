@@ -4,6 +4,10 @@
 
 Eine _Anwendung_ ist eine Software, die eine bestimmte Funktionalität bereitstellt. Eine _Anwendung_ kann aus mehreren _Komponenten_ bestehen, z. B. einem _Frontend_, einem _Backend_ und einer _Datenbank_.
 
+## Framework
+
+Ein _Framework_ stellt eine Reihe von Funktionen bereit, die verwendet werden können, um eine _Anwendung_ zu entwickeln.
+
 ## Frontend
 
 Das _Frontend_ ist ein Teil einer _Anwendung_, mit dem der Nutzer interagiert, und ist die Schnittstelle zum _Backend_.
@@ -26,11 +30,11 @@ Eine _Client-Server-Architektur_ ist eine Software-_Architektur_, bei der die _A
 
 ## NX
 
-_NX_ ist eine flexible _Anwendung_, das die Entwicklung von _Frontend_ und _Backend_ in einer _monolithischen Architektur_ erleichtert.
+_NX_ ist eine flexible _Anwendung_, das die Entwicklung von _Frontend_ und _Backend_ in einer bestimmen Struktur (z. B. _monolithische Architektur_) erleichtert.
 
 [NX](https://nx.dev/)
 
-## Monolitische Architektur
+## Monolithische Architektur
 
 Eine _monolithische Architektur_ ist eine Software-_Architektur_, bei der alle _Komponenten_ einer _Anwendung_ gemeinsam verwaltet werden.
 
@@ -42,13 +46,17 @@ Ein _Monorepo_ ist ein Software-Entwicklungsansatz, bei dem der gesamte Quellcod
 
 ## Generator
 
-Ein _Generator_ ist ein Werkzeug, das verwendet wird, um _Scaffholds_ zu erstellen. Es wird verwendet, um die Struktur und den Code für eine bestimmte Funktion bereitzustellen.
+Ein _Generator_ ist ein Werkzeug, das verwendet wird, um Code-Abschnitte (_Scaffold_) zu erstellen.
 
 [Generator](https://nx.dev/core-features/plugin-features/use-code-generators)
 
-## Scaffhold
+## Scaffold
 
-Ein _Scaffhold_ ist eine Vorlage, die die Struktur und den Code für ein bestimmtes _Feature_ oder eine bestimmte Funktion bereitstellt. Es ist ein generischer Code, der von einem _Generator_ erstellt wird.
+Ein _Scaffold_ ist eine Vorlage, die die Struktur und den Code für ein bestimmtes _Feature_ oder eine bestimmte Funktion bereitstellt. Es ist ein generischer Code, der von einem _Generator_ erstellt wird.
+
+## Feature
+
+Ein _Feature_ ist eine Funktion, die in einer _Anwendung_ implementiert ist. Ein _Feature_ kann aus mehreren _Komponenten_ bestehen.
 
 ## Angular
 
@@ -88,7 +96,7 @@ _CI/CD_ ist die Abkürzung für Continuous Integration und Continuous Delivery. 
 
 ## E2E-Tests
 
-_E2E-Tests_ sind Tests, welche die Funktionalität der _Anwendung_ testen. Sie simulieren die Verwendung der _Anwendung_ durch einen Nutzer für vollständige \_Anwendung_sfälle (Beispiel: Event erstellen angefangen mit dem einloggen auf der Webseite).
+_E2E-Tests_ sind Tests, welche die Funktionalität der _Anwendung_ testen. Sie simulieren die Verwendung der _Anwendung_ durch einen Nutzer für vollständige Anwendungsfälle (Beispiel: Event erstellen angefangen mit dem einloggen auf der Webseite).
 
 ## API
 
@@ -96,7 +104,7 @@ Eine _API_ ist eine Schnittstelle, die verwendet wird, um mit einer _Anwendung_ 
 
 ## RESTful-Webservices
 
-Ein _RESTful-Webservice_ ist ein Webservice, welcher HTTP-Methoden verwendet um Ressourcen zu erstellen, zu lesen, zu aktualisieren oder zu löschen.
+_RESTful-Webservices_ sind Webservices, welche HTTP-Methoden verwenden um Ressourcen zu erstellen, zu lesen, zu aktualisieren oder zu löschen.
 
 ## Java
 
@@ -132,11 +140,11 @@ _NPM_ ist die Abkürzung für Node Package Manager. Es ist ein Paketmanager für
 
 ## NGRX
 
-_NGRX_ ist ein Framework für die Entwicklung von _Frontend_-Anwendungen mit _Angular_. Es wird verwendet, um den Zustand einer _Anwendung_ zu verwalten.
+_NGRX_ ist ein _Framework_ für die Entwicklung von _Frontend_-Anwendungen mit _Angular_. Es wird verwendet, um den Zustand einer _Anwendung_ zu verwalten.
 
 ## Tailwind CSS
 
-_Tailwind CSS_ ist ein CSS-Framework, das verwendet wird, um das _Frontend_ einer _Anwendung_ zu stylen. Die Styles werden über Klassen angewendet, die in HTML-Elementen verwendet werden.
+_Tailwind CSS_ ist ein CSS-_Framework_, das verwendet wird, um das _Frontend_ einer _Anwendung_ zu stylen. Die Styles werden über Klassen angewendet, die in HTML-Elementen verwendet werden.
 
 ## GitHub
 
@@ -146,9 +154,9 @@ _GitHub_ ist ein Online-Dienst, der verwendet wird, um Quellcode zu verwalten. E
 
 Ein _Issue_ ist ein Problem, das in einem Repository auf _GitHub_ gemeldet wird. Es wird verwendet, um Probleme mit dem Quellcode einer _Anwendung_ zu melden. Problem ist hierbei etwas freier zu verstehen als ein Fehler, es kann sich auch um eine Verbesserung handeln.
 
-## Plant UML
+## PlantUML
 
-_Plant UML_ ist eine _Anwendung_, das verwendet wird, um UML-Diagramme zu erstellen. Es wird verwendet, um die Architektur einer _Anwendung_ zu dokumentieren.
+_PlantUML_ ist eine _Anwendung_, das verwendet wird, um UML-Diagramme zu erstellen. Es wird verwendet, um die Architektur einer _Anwendung_ zu dokumentieren.
 
 ## Google Maps
 
