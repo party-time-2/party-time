@@ -1,7 +1,7 @@
 # F013 - Change Password
 
 This library implements F013 - Change Password.  
-See [F013 Konto anmelden](https://github.com/party-time-2/party-time/issues/13) for more information.
+See [F013 Passwort ändern](https://github.com/party-time-2/party-time/issues/13) for more information.
 
 The sequence diagram for this library can be found [here](/docs/F013/F013_passwortAendern_seq.plantuml)
 
@@ -26,7 +26,7 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 # F015 - Delete Account
 
 This library implements F015 - Delete Account.  
-See [F013 Konto löschen](https://github.com/party-time-2/party-time/issues/15) for more information.
+See [F015 Konto löschen](https://github.com/party-time-2/party-time/issues/15) for more information.
 
 The sequence diagram for this library can be found [here](/docs/F015/F015_kontoLoeschen_seq.plantuml)
 
