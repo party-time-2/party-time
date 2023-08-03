@@ -18,7 +18,9 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/invitation.cy.ts)
 
 ![invite_accepted](/docs/PNG/F008/Tests/accept-invite%20success%20--%20should%20show%20invite_accepted.png)
+
 ![event_not_found](/docs/PNG/F008/Tests/accet-invite%20error%20--%20should%20show%20event_not_found.png)
+
 ![participant_not_invited](/docs/PNG/F008/Tests/accet-invite%20error%20--%20should%20show%20participant_not_invited.png)
 
 ## F009 - Decline Invitation
@@ -39,5 +41,7 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/invitation.cy.ts)
 
 ![invite_declined](/docs/PNG/F009/Tests/decline-invite%20success%20--%20should%20show%20invite_declined.png)
+
 ![event_not_found](/docs/PNG/F009/Tests/decline-invite%20error%20--%20should%20show%20event_not_found.png)
+
 ![participant_not_invited](/docs/PNG/F009/Tests/decline-invite%20error%20--%20should%20show%20participant_not_invited.png)

@@ -16,11 +16,17 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/change.cy.ts)
 
 ![pw_old_required](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_old_required.png)
+
 ![pw_new_required](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_required.png)
+
 ![pw_new_short](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_short.png)
+
 ![pw_new_long](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_long.png)
+
 ![pw_new_wrong_chars](/docs/PNG/F013/Tests/party-time-change-error%20--%20should%20show%20pw_new_wrong_chars.png)
+
 ![change_error](/docs/PNG/F013/Tests/party-time-change%20--%20should%20show%20change_error.png)
+
 ![change_success](/docs/PNG/F013/Tests/party-time-change%20--%20should%20show%20change_success.png)
 
 # F015 - Delete Account

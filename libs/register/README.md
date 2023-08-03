@@ -16,12 +16,21 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/register.cy.ts)
 
 ![user_too_short](/docs/PNG/F010/Tests/party-time-register-error-user%20--%20should%20show%20user_too_short.png)
+
 ![user_too_long](/docs/PNG/F010/Tests/party-time-register-error-user%20--%20should%20show%20user_too_long.png)
+
 ![user_required](/docs/PNG/F010/Tests/party-time-register-error-user%20--%20should%20show%20user_required.png)
+
 ![pw_short](/docs/PNG/F010/Tests/party-time-register-error-pw%20--%20should%20show%20pw_short.png)
+
 ![pw_long](/docs/PNG/F010/Tests/party-time-register-error-pw%20--%20should%20show%20pw_long.png)
+
 ![pw_required](/docs/PNG/F010/Tests/party-time-register-error-pw%20--%20should%20show%20pw_required.png)
+
 ![mail_invalid](/docs/PNG/F010/Tests/party-time-register-error-mail%20--%20should%20show%20mail_invalid.png)
+
 ![mail_required](/docs/PNG/F010/Tests/party-time-register-error-mail%20--%20should%20show%20mail_required.png)
+
 ![mail_in_use](/docs/PNG/F010/Tests/party-time-register%20--%20should%20show%20mail_in_use.png)
+
 ![register_success](/docs/PNG/F010/Tests/party-time-register%20--%20should%20show%20registration_success.png)

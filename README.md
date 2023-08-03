@@ -13,7 +13,7 @@ Sowohl die PlantUML Quellen als auch die Cypress Tests wurden im Rahmen des Prax
 1. Anforderungen/anforderungen.pdf -> umzusetzende Anforderungen
 1. Designentscheidungen/designentscheidungen.pdf & Glossar/glossar.pdf -> getroffene Designentscheidungen und Begründungen (kursive Begriffe können im Glossar nachgeschlagen werden)
 1. PNG/Er-Modell/er-modell.png -> ER-Modell der Datenbank
-1. 
+1.
 
 ## libs -> Bibliotheken
 

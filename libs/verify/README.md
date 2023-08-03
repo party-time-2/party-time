@@ -16,6 +16,9 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/verify.cy.ts)
 
 ![token_required](/docs/PNG/F014/Tests/party-time-verify-error-token%20--%20should%20show%20token_required.png)
+
 ![token_invalid](/docs/PNG/F014/Tests/party-time-verify-error-token%20--%20should%20show%20token_invalid.png)
+
 ![verify_error](/docs/PNG/F014/Tests/party-time-verify%20--%20should%20show%20verify_error.png)
+
 ![verify_success](/docs/PNG/F014/Tests/party-time-verify%20--%20should%20show%20verify_success.png)

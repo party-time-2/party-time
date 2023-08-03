@@ -20,7 +20,7 @@ Die _Client-Server-Architektur_ wird für die Implementierung der _Anwendung_ ve
 Die Verwendung der _Client-Server-Architektur_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
 - Skalierbarkeit: Durch die Trennung der _Anwendung_ in _Frontend_- und _Backend_-_Komponenten_ kann jeder Teil der _Anwendung_ unabhängig skaliert werden, um eine höhere Last zu bewältigen, ohne die Leistung des anderen Teils zu beeinträchtigen.
-- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der _Backend_-Seite zu implementieren, um die _Anwendung_ vor Angriffen zu schützen. Wir können somit beispielsweise dem _Veranstalter_eines Events mehr Rechte geben als einem Teilnehmer.
+- Sicherheit: Die Verwendung einer _Client-Server-Architektur_ ermöglicht es, Sicherheitsmaßnahmen wie Zugriffskontrolle und Verschlüsselung an der _Backend_-Seite zu implementieren, um die _Anwendung_ vor Angriffen zu schützen. Wir können somit beispielsweise dem \_Veranstalter_eines Events mehr Rechte geben als einem Teilnehmer.
 - Wiederverwendbarkeit: Die Trennung der _Anwendung_ in _Frontend_- und _Backend_-_Komponenten_ ermöglicht es, die Wiederverwendung von _Komponenten_ besser zu organisieren. In unserem Projekt werden _Frontend_-_Komponenten_ nur im _Frontend_ wiederverwendet und _Backend_-Komponenten nur im _Backend_ wiederverwendet.
 
 ## Verwendung eines RESTful-Webservices
