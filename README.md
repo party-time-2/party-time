@@ -1,9 +1,11 @@
 # Reihenfolge bei der Sichtung der Daten
 
-Pfade werden in `inline Code` angegeben. Die Pfade sind relativ zum Stammverzeichnis zu verstehen. 
+Pfade werden in `inline Code` angegeben. Die Pfade sind relativ zum Stammverzeichnis zu verstehen.
+
 ## ./docs -> Dokumentation
 
-Innerhalb des Ordners `docs` befinden sich die Dokumentationen. Folgende Pfade sind relativ zu `docs` zu verstehen.
+Innerhalb des Ordners `docs` befindet sich die Dokumentation der Anforderungen. Folgende Pfade sind relativ zu `docs` zu verstehen.
+
 Alle Bilder im Order `PNG` sind ...
 
 - Exporte aus der `.plantuml`-Dateien, welche in `F**` Ordnern gefunden werden können
@@ -22,31 +24,32 @@ Das Sichten dieser Ordner an ist redundant.
 
 ## ./libs -> Bibliotheken
 
-In den Ordnern `libs` befinden sich die Bibliotheken, welche von den Anwendungen verwendet werden. Folgende Pfade sind relativ zu `libs` zu verstehen.
+In dem Ordner `./libs` befinden sich die Dokumentation und Implementierung der Bibliotheken des Frontends. Folgende Pfade sind relativ zu `./libs` zu verstehen.
 
 Anschauen sollten Sie sich in folgender Reihenfolge (Sortierung nach Meilensteine):
 
 1 - Basisfunktionalität der Plattform:
 
-- `register`: implementiert F010
+- `./register`: implementiert F010
   1. `./register/README.pdf`: Beschreibung der Library
-  1. `./register/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `register` zur Verfügung gestellt werden.  
+  1. `./register/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./register` zur Verfügung gestellt werden.  
   &#x200B;
 
-
-- `verify`: implementiert F014
+- `./verify`: implementiert F014
   1. `./verify/README.pdf`: Beschreibung der Library
-  1. `./verify/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `verify` zur Verfügung gestellt werden.  
+  1. `./verify/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./verify` zur Verfügung gestellt werden.  
     &#x200B;
 
-- `account`: implementiert F013, F015
+- `./account`: implementiert F013, F015
   1. `./account/README.pdf`: Beschreibung der Library
-  1. `./account/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `account` zur Verfügung gestellt werden.  
+  1. `./account/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./account` zur Verfügung gestellt werden.  
   &#x200B;
 
-- `auth`: implementiert F011, F012
+- `./auth`: implementiert F011, F012
   1. `./auth/README.pdf`: Beschreibung der Library
-  1. `./auth/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `auth` zur Verfügung gestellt werden.
+  1. `./auth/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./auth` zur Verfügung gestellt werden.
+  &#x200B;
+
 
 2 - Eventfunktionalität (Veranstalter):
 
