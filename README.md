@@ -31,55 +31,59 @@ Anschauen sollten Sie sich in folgender Reihenfolge (Sortierung nach Meilenstein
 1 - Basisfunktionalität der Plattform:
 
 - `./register`: implementiert F010
+
   1. `./register/README.pdf`: Beschreibung der Library
   1. `./register/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./register` zur Verfügung gestellt werden.  
-  &#x200B;
+     &#x200B;
 
 - `./verify`: implementiert F014
+
   1. `./verify/README.pdf`: Beschreibung der Library
   1. `./verify/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./verify` zur Verfügung gestellt werden.  
-    &#x200B;
+     &#x200B;
 
 - `./account`: implementiert F013, F015
+
   1. `./account/README.pdf`: Beschreibung der Library
   1. `./account/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./account` zur Verfügung gestellt werden.  
-  &#x200B;
+     &#x200B;
 
 - `./auth`: implementiert F011, F012
   1. `./auth/README.pdf`: Beschreibung der Library
   1. `./auth/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./auth` zur Verfügung gestellt werden.
-  &#x200B;
+     &#x200B;
 
 2 - Eventfunktionalität (Veranstalter):
 
 - `./event`: implementiert F001, F002, F003, F004, F005, F006, F016
   1. `./event/README.pdf`: Beschreibung der Library
   1. `./event/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./event` zur Verfügung gestellt werden.
-  &#x200B;
+     &#x200B;
 
 3 - Eventfunktionalität (eingeladener Nutzer):
 
 - `./invitation`: implementiert F008, F009
   1. `./invitation/README.pdf`: Beschreibung der Library
   1. `./invitation/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./invitation` zur Verfügung gestellt werden.
-  &#x200B;
+     &#x200B;
 
 4 - Eventfunktionalität (Teilnehmer eines Events):
 
 - `./event`: implementiert F018
   1. `./event/README.pdf`: Beschreibung der Library
   1. `./event/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./event` zur Verfügung gestellt werden.
-  &#x200B;
+     &#x200B;
 
 F07 (Einladung erhalten), F17 (Benachrichtigung zum Event) und F19 (Kalendereintrag exportieren) haben keine Implementierung in einer `./libs` Bibliothek, da sie keinen Frontend-Anteil besitzen. Diese Tatsache kann mit den entsprechenden Ablauf- und Sequenz-Diagrammen vom Stammverzeichnis aus in `/docs/PNG/F07`, `/docs/PNG/F17` und `/docs/PNG/F19` nachvollzogen werden.
 
 ## apps -> Anwendungen
 
 - `./party-time-frontend-e2e`
+
   1. `./party-time-frontend-e2e/src/fixtures/*`: Statische Daten für die E2E-Tests
   1. `./party-time-frontend-e2e/src/support/*`: Hilfsfunktionen für die E2E-Tests
   1. `./party-time-frontend-e2e/src/e2e/*`: Implementierung der E2E-Tests
-  &#x200B;
+     &#x200B;
 
 - `./party-time-frontend`
   1. `./party-time-frontend/src/app/app.routes.*`: Haupt-Routen der Anwendung
@@ -89,8 +93,7 @@ F07 (Einladung erhalten), F17 (Benachrichtigung zum Event) und F19 (Kalendereint
   1. `./party-time-frontend/src/assets/*`: Statische Bilder oder Icons der Anwendung
   1. `./party-time-frontend/src/index.html`: Root-HTML der Anwendung
   1. `./party-time-frontend/src/favicon.ico`: Favicon der Anwendung
-  &#x200B;
-
+     &#x200B;
 
 ## Sonstiges
 

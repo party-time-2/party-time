@@ -1,4 +1,5 @@
 import {
+  pt_addressLineAddition_long_error,
   pt_city,
   pt_zip_chars_error,
   user_email,
@@ -104,6 +105,12 @@ describe('change-event-error', () => {
     cy.get('#addressLine').clear();
     cy.get('#addressLine').type(long_string());
     cy.contains(pt_address_long_error());
+    cy.screenshot();
+  });
+
+  it('should show party_addressLineAddition_long', () => {
+    cy.get('#addressLineAddition').type(long_string());
+    cy.contains(pt_addressLineAddition_long_error());
     cy.screenshot();
   });
 
