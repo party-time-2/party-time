@@ -1,6 +1,6 @@
 import { navigateLogout } from '../support/app.po';
 
-describe('party-time-change logout', () => {
+describe('party-time-logout', () => {
   beforeEach(() => {
     cy.login();
   });
