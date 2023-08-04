@@ -3,17 +3,17 @@
 This library implements F014 - Verify.  
 See [F014 Konto verifizieren](https://github.com/party-time-2/party-time/issues/14) for more information.
 
-The sequence diagram for this library can be found [here](/docs/F014/F014_kontoVerifizieren_seq.plantuml)
+The sequence diagram for this library can be found at [/docs/F014/F014_kontoVerifizieren_seq.plantuml](/docs/F014/F014_kontoVerifizieren_seq.plantuml)
 
 ![F014_kontoVerifizieren_seq](/docs/PNG/F014/F014_kontoVerifizieren_seq.png)
 
-The activity diagram for this library can be found [here](/docs/F014/F014_kontoVerifizieren_act.plantuml)
+The activity diagram for this library can be found at [/docs/F014/F014_kontoVerifizieren_act.plantuml](/docs/F014/F014_kontoVerifizieren_act.plantuml)
 
 ![F014_kontoVerifizieren_act](/docs/PNG/F014/F014_kontoVerifizieren_act.png)
 
-The controller for this library can be found [here](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java)
+<!-- The controller for this library can be found at [/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java) -->
 
-The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/verify.cy.ts)
+The Test-Cases for this library can be found at [/apps/party-time-frontend-e2e/src/e2e/verify.cy.ts](/apps/party-time-frontend-e2e/src/e2e/verify.cy.ts)
 
 ![token_required](/docs/PNG/F014/Tests/party-time-verify-error-token%20--%20should%20show%20token_required.png)
 

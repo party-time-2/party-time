@@ -74,8 +74,6 @@ Anschauen sollten Sie sich in folgender Reihenfolge (Sortierung nach Meilenstein
   1. `./event/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `./event` zur Verfügung gestellt werden.
      &#x200B;
 
-F07 (Einladung erhalten), F17 (Benachrichtigung zum Event) und F19 (Kalendereintrag exportieren) haben keine Implementierung in einer `./libs` Bibliothek, da sie keinen Frontend-Anteil besitzen. Diese Tatsache kann mit den entsprechenden Ablauf- und Sequenz-Diagrammen vom Stammverzeichnis aus in `/docs/PNG/F07`, `/docs/PNG/F17` und `/docs/PNG/F19` nachvollzogen werden.
-
 ## apps -> Anwendungen
 
 - `./party-time-frontend-e2e`
@@ -83,7 +81,8 @@ F07 (Einladung erhalten), F17 (Benachrichtigung zum Event) und F19 (Kalendereint
   1. `./party-time-frontend-e2e/src/fixtures/*`: Statische Daten für die E2E-Tests
   1. `./party-time-frontend-e2e/src/support/*`: Hilfsfunktionen für die E2E-Tests
   1. `./party-time-frontend-e2e/src/e2e/*`: Implementierung der E2E-Tests
-     &#x200B;
+
+  &#x200B;
 
 - `./party-time-frontend`
   1. `./party-time-frontend/src/app/app.routes.*`: Haupt-Routen der Anwendung
@@ -107,10 +106,10 @@ F07 (Einladung erhalten), F17 (Benachrichtigung zum Event) und F19 (Kalendereint
 Folgende Anmerkungen sind zu beachten:
 
 - F007 (Einladung erhalten), F017 (Benachrichtigung zum Event), F019 (Kalendereintrag exportieren) haben keinen Frontend-Teil. Die entsprechenden Ablauf- und Sequenzdiagramme werden der Vollständigkeit halber trotzdem mit ausgeliefert in
-  - `/docs/PNG/F07/*`
-  - `/docs/PNG/F17/*`
-  - `/docs/PNG/F19/*`
-- `./event` implementiert Anforderungen aus dem Meilenstein 2 - Eventfunktionalität (Veranstalter) & 4 - Eventfunktionalität (Teilnehmer eines Events)
+  - `./docs/PNG/F07/*`
+  - `./docs/PNG/F17/*`
+  - `./docs/PNG/F19/*`
+- `./libs/event` implementiert Anforderungen aus dem Meilenstein 2 - Eventfunktionalität (Veranstalter) & 4 - Eventfunktionalität (Teilnehmer eines Events)
 - jede Datei die sich einer Anforderung zuordnen lässt, ist mit der entsprechenden Anforderungsnummer versehen
   - .html -> `<!-- implements FXXX -->`
   - .ts -> `// implements FXXX`
@@ -123,3 +122,5 @@ Folgende Anmerkungen sind zu beachten:
   - Model Klassen
   - Interfaces
   - Typen
+- Codenahe Dokumentation / Datenbankmodell ist in englisch gehalten
+- Diagramme welche sich auf die Anforderungen beziehen sind in deutsch gehalten
