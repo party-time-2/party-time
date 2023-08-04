@@ -46,7 +46,7 @@
             "name": "Python: Export work",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/export.py",
+            "program": "${workspaceFolder}/tools/export.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
@@ -54,7 +54,7 @@
             "name": "Python: Check glossary",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/export.py",
+            "program": "${workspaceFolder}/tools/export.py",
             "args": ["-c"],
             "console": "integratedTerminal",
             "justMyCode": true

@@ -10,6 +10,7 @@ from argparse import ArgumentParser
 
 step_count = 1
 script_dir = Path(__file__).absolute().parent
+root_dir = script_dir.parent
 
 def copy_to_temp_dir(temp_Path: Path):
     """Copy files described in export.json from the working directory to a temp directory
@@ -33,14 +34,16 @@ def copy_to_temp_dir(temp_Path: Path):
             dest_folder.mkdir(parents=True, exist_ok=True)
             print(f"Confirmed {dest_folder} exists")
 
+            src_file_absolute = root_dir.joinpath(src_file_relative)
+
             # Copy file or directory
-            if src_file_relative.is_file():
+            if src_file_absolute.is_file():
                 print(f"Destination file name: {dest_file}")
-                shutil.copy(src_file_relative, dest_file)
+                shutil.copy(src_file_absolute, dest_file)
                 print(f"File copied to {dest_file}")
-            elif src_file_relative.is_dir():
+            elif src_file_absolute.is_dir():
                 print(f"Destination dir name: {dest_file}")
-                shutil.copytree(src_file_relative, dest_file, dirs_exist_ok=True)
+                shutil.copytree(src_file_absolute, dest_file, dirs_exist_ok=True)
                 print(f"Directory copied to {dest_file}")
             if index + 1 != len(json_data):
                 print()
@@ -150,15 +153,18 @@ def zip_result(temp_Path: Path):
         temp_Path (Path): path whose content should be zipped
     """
     global step_count
+    global root_dir
     print(f"Step {step_count}: zip result")
     step_count += 1
     def get_timestamp() -> str:
         current_date = datetime.now()
         return current_date.strftime("%Y-%m-%d--%H-%M-%S")
 
-    export_output_name=f"output--{get_timestamp()}"
-    shutil.make_archive(export_output_name, "zip", temp_Path)
-    print(f"Export output written to {export_output_name}.zip")
+    export_output_name=f"output--{get_timestamp()}.zip"
+    export_target = root_dir.joinpath("dist").joinpath(export_output_name)
+    export_target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.make_archive(export_target.parent.joinpath(export_target.stem), "zip", temp_Path)
+    print(f"Export output written to {export_target}")
 
 
 parser = ArgumentParser(
@@ -173,7 +179,7 @@ parser.add_argument("-c", "--check-glossary",
 args = parser.parse_args()
 
 if args.glossary_only:
-    check_glossary_success = check_glossary(script_dir)
+    check_glossary_success = check_glossary(root_dir)
     if not check_glossary_success:
         exit(1)
 else:
