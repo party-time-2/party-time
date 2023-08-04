@@ -25,6 +25,8 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 
 ![pw_long](/docs/PNG/F010/Tests/party-time-register-error-pw%20--%20should%20show%20pw_long.png)
 
+![pw_wrong_chars](/docs/PNG/F010/Tests/party-time-register-error-pw%20--%20should%20show%20pw_wrong_chars.png)
+
 ![pw_required](/docs/PNG/F010/Tests/party-time-register-error-pw%20--%20should%20show%20pw_required.png)
 
 ![mail_invalid](/docs/PNG/F010/Tests/party-time-register-error-mail%20--%20should%20show%20mail_invalid.png)

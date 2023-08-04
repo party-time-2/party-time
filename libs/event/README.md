@@ -29,6 +29,8 @@ The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2
 
 ![address_short](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_address_short.png)
 
+![adressLineAddition_long](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_addressLineAddition_long.png)
+
 ![city_required](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_city_required.png)
 
 ![city_long](/docs/PNG/F001/Tests/create-event-error%20--%20should%20show%20party_city_long.png)
@@ -229,6 +231,6 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/participants.cy.ts)
 
-![show_map](/docs/PNG/F018/Tests/event-location%20success%20--%20should%20show%20map.png)
+![show_map](/docs/PNG/F018/Tests/event-location%20success%20--%20should%20show_map.png)
 
 ![show_event_not_found](/docs/PNG/F018/Tests/event-location%20error%20--%20should%20show%20event_not_found.png)

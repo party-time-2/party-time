@@ -40,4 +40,4 @@ The controller for this library can be found [here](/apps/party-time-backend/src
 
 The Test-Cases for this library can be found [here](/apps/party-time-frontend-e2e/src/e2e/logout.cy.ts)
 
-![redirect_to_login](/docs/PNG/F012/Tests/party-time-change%20--%20should%20show%20redirect_to_login.png)
+![redirect_to_login](/docs/PNG/F012/Tests/party-time-change%20logout%20--%20should%20show%20redirect_to_login.png)
