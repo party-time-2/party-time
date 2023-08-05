@@ -13,4 +13,4 @@ describe('party-time-delete', () => {
     cy.contains(user_pw_required());
     cy.screenshot();
   });
-}); 
+});
