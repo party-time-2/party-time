@@ -99,7 +99,7 @@ Anschauen sollten Sie sich in folgender Reihenfolge (Sortierung nach Meilenstein
 1. package.json -> listet die NPM Pakete auf, die das Projekt benötigt
 1. nx.json -> Konfiguration für den NX Workspace
 1. tsconfig.base.json -> Konfiguration für den Typescript Compiler
-1. tsconfig.json -> Konfiguration für den Typescript Compiler
+1. tailwind.config.ts -> Konfiguration für TailwindCSS
 
 ## Anmerkungen
 

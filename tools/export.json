@@ -6,7 +6,6 @@
   "apps/party-time-frontend-e2e",
   "nx.json",
   "package.json",
-  "package-lock.json",
   "tailwind.config.ts",
   "tsconfig.base.json"
 ]
