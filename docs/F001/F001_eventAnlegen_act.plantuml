@@ -82,6 +82,9 @@ repeat
     repeat while () is (Datum fehlerhaft) not (Datum fehlerfrei)
     :Adresszusatz prüfen;
     backward: Fehlerhaften Adresszusatz markieren;
+    note right
+        addressLineAddition_long: Eine gültiger Adresszusatz hat maximal 25 Stellen.
+    end note
 repeat while () is (Adresszusatz fehlerhaft) not (Adresszusatz fehlerfrei)
 |Verifizierter Nutzer|
 :Event-anlegen-Formular senden;

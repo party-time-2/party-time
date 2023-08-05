@@ -1,3 +1,4 @@
+//implements F015
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DeleteStore } from './+state/delete.state';
@@ -8,7 +9,6 @@ import {
   PrimaryErrorComponent,
   PrimaryLabelComponent,
 } from '@party-time/ui';
-import { LoginResponseDTO } from '@party-time/models';
 import { DeleteService } from '../services/delete.service';
 
 @Component({

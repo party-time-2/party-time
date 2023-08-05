@@ -57,7 +57,8 @@
         "rangav.vscode-thunder-client",
         "github.vscode-pull-request-github",
         "tomoki1207.pdf",
-        "ms-python.python"
+        "ms-python.python",
+        "njpwerner.autodocstring"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
@@ -70,7 +71,11 @@
         "plantuml.exportIncludeFolderHeirarchy": true,
         "plantuml.exportSubFolder": false,
         "plantuml.jarArgs": ["-DPLANTUML_LIMIT_SIZE=8192"],
-        "prettier.prettierPath": "./node_modules/prettier"
+        "prettier.prettierPath": "./node_modules/prettier",
+        "markdownlint.config": {
+          "MD013": false,
+          "MD049": { "style": "underscore" }
+        }
       }
     }
   },

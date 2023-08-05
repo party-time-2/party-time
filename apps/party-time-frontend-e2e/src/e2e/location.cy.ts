@@ -1,7 +1,7 @@
 import { navigateEventMap } from '../support/app.po';
 
 describe('event-location success', () => {
-  it('should show map', () => {
+  it('should show_map', () => {
     cy.login();
     cy.intercept('GET', '/api/event/participants/1', {
       statusCode: 200,
@@ -35,7 +35,7 @@ describe('event-location success', () => {
 });
 
 describe('event-location error', () => {
-  it('should show event not found', () => {
+  it('should show event_not_found', () => {
     cy.login();
     cy.intercept('GET', '/api/event/participants/1', {
       statusCode: 404,

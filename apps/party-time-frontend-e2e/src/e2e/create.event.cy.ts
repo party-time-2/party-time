@@ -1,6 +1,7 @@
 import {
   pt_addressLineAddition_long_error,
   pt_city,
+  pt_zip_chars_error,
   user_email,
   user_name,
 } from '../support/app.po';
@@ -96,6 +97,12 @@ describe('create-event-error', () => {
   it('should show party_zip_long', () => {
     cy.get('#zip').type('123123123');
     cy.contains(pt_zip_long_error());
+    cy.screenshot();
+  });
+
+  it('should show party_zip_chars', () => {
+    cy.get('#zip').type('abc');
+    cy.contains(pt_zip_chars_error());
     cy.screenshot();
   });
 

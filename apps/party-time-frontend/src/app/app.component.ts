@@ -47,7 +47,6 @@ export class AppComponent implements OnInit {
   mainLinks = [
     { routerLink: '/', name: 'Startseite' },
     { routerLink: 'Login', name: 'auth/login' },
-    { routerLink: '404 Page', name: '404' },
     { routerLink: 'Regestrieren', name: 'auth/register' },
   ];
 
@@ -68,7 +67,6 @@ export class AppComponent implements OnInit {
       this.groups[0].links = [
         { routerLink: '/', name: 'Startseite' },
         { routerLink: 'event', name: 'Party' },
-        { routerLink: '404', name: '404' },
         { routerLink: 'account', name: 'Account' },
         { routerLink: 'auth/logout', name: 'Logout' },
       ];
@@ -77,7 +75,6 @@ export class AppComponent implements OnInit {
         { routerLink: '/', name: 'Startseite' },
         { routerLink: 'event', name: 'Party' },
         { routerLink: 'auth/login', name: 'Login' },
-        { routerLink: '404', name: '404' },
         { routerLink: 'auth/register', name: 'Registrieren' },
       ];
     }

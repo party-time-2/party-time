@@ -81,6 +81,7 @@ describe('party-time-register-error-pw', () => {
     navigateRegister();
     cy.get('#password').type(pw_wrong_chars());
     cy.contains(pw_wrong_chars_error());
+    cy.screenshot();
   });
 });
 
