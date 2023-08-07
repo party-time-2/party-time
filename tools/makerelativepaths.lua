@@ -7,13 +7,17 @@ function Image (img)
 end
 
 function Link (el)
-    local pwd = pandoc.system.get_working_directory()
-    local inputFile = PANDOC_STATE.input_files[1]
-    local mdDir = pandoc.path.join({pwd, pandoc.path.directory(inputFile)})
-    local relative = pandoc.path.make_relative(pwd, mdDir, true)
     local prevLinkTarget = el.target
-    local betterPath = pandoc.path.join({relative, string.sub(prevLinkTarget, 2)})
-    --print(betterPath)
-    el.target = betterPath
+    if prevLinkTarget:sub(1, #"http") ~= "http" then
+        local pwd = pandoc.system.get_working_directory()
+        local inputFile = PANDOC_STATE.input_files[1]
+        local mdDir = pandoc.path.join({pwd, pandoc.path.directory(inputFile)})
+        local relative = pandoc.path.make_relative(pwd, mdDir, true)
+
+
+        local betterPath = pandoc.path.join({relative, string.sub(prevLinkTarget, 2)})
+        --print(betterPath)
+        el.target = betterPath
+    end
     return el
 end
