@@ -31,6 +31,9 @@
     },
     "ghcr.io/devcontainers-contrib/features/nx-npm:1": {
       "version": "latest"
+    },
+    "ghcr.io/rocker-org/devcontainer-features/pandoc:latest": {
+      "version": "latest"
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
