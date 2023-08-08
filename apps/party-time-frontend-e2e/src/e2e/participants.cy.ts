@@ -135,7 +135,9 @@ describe('party-time-add-participant', () => {
     });
     cy.get('#email').type(user_email());
     cy.get('party-time-primary-button > #add').click();
-    cy.get('party-time-participant-selector').contains(user_email()).should('exist')
+    cy.get('party-time-participant-selector')
+      .contains(user_email())
+      .should('exist');
     cy.screenshot();
   });
 });
@@ -193,7 +195,7 @@ describe('party-time-remove-participant', () => {
       body: [],
     });
     cy.get('.flex > p').click();
-    cy.contains(participant_email()).should('not.exist')
+    cy.contains(participant_email()).should('not.exist');
     cy.screenshot();
   });
 });
