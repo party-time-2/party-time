@@ -8,7 +8,7 @@
       "command": "npx nx run party-time-backend:serve & npx nx run party-time-frontend-e2e:e2e"
     },
     "e2e": {
-      "executor": "@nrwl/cypress:cypress",
+      "executor": "@nx/cypress:cypress",
       "options": {
         "cypressConfig": "apps/party-time-frontend-e2e/cypress.config.ts",
         "devServerTarget": "party-time-frontend:serve:development",
@@ -32,7 +32,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/party-time-frontend-e2e/**/*.{js,ts}"]
