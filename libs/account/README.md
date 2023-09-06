@@ -7,9 +7,13 @@ The sequence diagram for this library can be found at [/docs/F013/F013_passwortA
 
 ![F013_passwortAendern_seq.png](/docs/PNG/F013/F013_passwortAendern_seq.png)
 
+\newpage
+
 The activity diagram for this library can be found at [/docs/F013/F013_passwortAendern_act.plantuml](/docs/F013/F013_passwortAendern_act.plantuml)
 
 ![F013_passwortAendern_act](/docs/PNG/F013/F013_passwortAendern_act.png)
+
+\newpage
 
 <!-- The controller for this library can be found at [/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java) -->
 
@@ -29,6 +33,8 @@ The Test-Cases for this library can be found at [/apps/party-time-frontend-e2e/s
 
 ![change_success](/docs/PNG/F013/Tests/party-time-change%20--%20should%20show%20change_success.png)
 
+\newpage
+
 # F015 - Delete Account
 
 This library implements F015 - Delete Account.  
@@ -38,9 +44,13 @@ The sequence diagram for this library can be found at [/docs/F015/F015_kontoLoes
 
 ![F015_kontoLoeschen_seq](/docs/PNG/F015/F015_kontoLoeschen_seq.png)
 
+\newpage
+
 The activity diagram for this library can be found at [/docs/F015/F015_kontoLoeschen_act.plantuml](/docs/F015/F015_kontoLoeschen_act.plantuml)
 
 ![F015_kontoLoeschen_act](/docs/PNG/F015/F015_kontoLoeschen_act.png)
+
+\newpage
 
 <!-- The controller for this library can be found at [/apps/party-time-backend/src/main/java/com/partytime/api/controller/AccountController.java](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AccountController.java) -->
 
