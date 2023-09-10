@@ -7,9 +7,13 @@ The sequence diagram for this library can be found at [/docs/F010/F010_kontoErst
 
 ![F010_kontoErstellen_seq](/docs/PNG/F010/F010_kontoErstellen_seq.png)
 
+\newpage
+
 The activity diagram for this library can be found at [/docs/F010/F010_kontoErstellen_act.plantuml](/docs/F010/F010_kontoErstellen_act.plantuml)
 
 ![F010_kontoErstellen_act](/docs/PNG/F010/F010_kontoErstellen_act.png)
+
+\newpage
 
 <!-- The controller for this library can be found at [/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java) -->
 

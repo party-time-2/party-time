@@ -7,9 +7,13 @@ The sequence diagram for this library can be found at [/docs/F011/F011_kontoAnme
 
 ![F011_kontoAnmelden_seq](/docs/PNG/F011/F011_kontoAnmelden_seq.png)
 
+\newpage
+
 The activity diagram for this library can be found at [/docs/F011/F011_kontoAnmelden_act.plantuml](/docs/F011/F011_kontoAnmelden_act.plantuml)
 
 ![F011_kontoAnmelden_act](/docs/PNG/F011/F011_kontoAnmelden_act.png)
+
+\newpage
 
 <!-- The controller for this library can be found at [/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java) -->
 
@@ -23,6 +27,8 @@ The Test-Cases for this library can be found at [/apps/party-time-frontend-e2e/s
 
 ![login_success](/docs/PNG/F011/Tests/party-time-login%20--%20should%20show%20login_success.png)
 
+\newpage
+
 # F012 - Logout
 
 This library implements F012 - Logout.  
@@ -32,9 +38,13 @@ The sequence diagram for this library can be found at [/docs/F012/F012_kontoAbme
 
 ![F012_kontoAbmelden_seq](/docs/PNG/F012/F012_kontoAbmelden_seq.png)
 
+\newpage
+
 The activity diagram for this library can be found at [/docs/F012/F012_kontoAbmelden_act.plantuml](/docs/F012/F012_kontoAbmelden_act.plantuml)
 
 ![F012_kontoAnmelden_act](/docs/PNG/F012/F012_kontoAbmelden_act.png)
+
+\newpage
 
 <!-- The controller for this library can be found at [/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java](/apps/party-time-backend/src/main/java/com/partytime/api/controller/AuthController.java) -->
 
