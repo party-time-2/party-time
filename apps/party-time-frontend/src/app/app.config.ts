@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     //provideEffects(AuthEffects),
     provideStore({ router: routerReducer }),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
-    importProvidersFrom(StoreDevtoolsModule.instrument()),
+    importProvidersFrom(StoreDevtoolsModule.instrument({connectInZone: true})),
     provideRouterStore(),
     provideHttpClient(withInterceptors([authInterceptor])),
   ],
