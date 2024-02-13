@@ -34,6 +34,11 @@
     },
     "ghcr.io/rocker-org/devcontainer-features/pandoc:latest": {
       "version": "latest"
+    },
+    "ghcr.io/devcontainers-contrib/features/gradle-sdkman:2": {
+      "version": "latest",
+      "jdkVersion": "latest",
+      "jdkDistro": "ms"
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.

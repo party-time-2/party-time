@@ -41,7 +41,7 @@
     "@nx/linter": "16.6.0",
     "@nx/storybook": "16.6.0",
     "@nx/workspace": "16.6.0",
-    "@nxrocks/nx-spring-boot": "^8.0.3",
+    "@nxrocks/nx-spring-boot": "^9.2.2",
     "@schematics/angular": "16.1.8",
     "@storybook/addon-actions": "7.2.1",
     "@storybook/addon-essentials": "7.2.1",
