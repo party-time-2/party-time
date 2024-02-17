@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Account erfolgreich angelegt</title>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background-color: rgba(251, 251, 255);
+            font-size: 16px;
+            line-height: 1.4;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 3.75rem;
+            line-height: 1;
+            color: rgba(27, 27, 31, 1);
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: rgba(69, 70, 79, 1);
+        }
+
+        .btn {
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+            height: 2.25rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: currentColor;
+            color: rgba(0, 22, 79, 1);
+        }
+    </style>
+</head>
+<body>
+<h1>Account erfolgreich angelegt!</h1>
+<p>Hallo {{name}},</p>
+<p>Vielen Dank für die Erstellung deines Accounts auf <a href="{{homepage}}">{{homepage}}</a>. Dein Account wurde erfolgreich angelegt.</p>
+<p>Klicke auf den folgenden Button, um deine E-Mail-Adresse zu verifizieren:</p>
+<p><a href="{{verificationLink}}" class="btn">E-Mail-Adresse verifizieren</a></p>
+<p>Wenn du weitere Fragen hast oder Unterstützung benötigst, besuche unsere Website unter <a href="{{homepage}}">{{homepage}}</a>.</p>
+<p>Beste Grüße,</p>
+<p>Dein Partytime-Team</p>
+</body>
+</html>
