@@ -3,7 +3,6 @@ package com.partytime.configuration.security
 import com.partytime.configuration.PartyTimeConfigurationProperties
 import com.partytime.service.AccountService
 import com.partytime.service.JwtService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
@@ -27,7 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties(PartyTimeConfigurationProperties::class)
-class SecurityConfiguration @Autowired constructor(
+class SecurityConfiguration (
     val authEntryPointJwt: AuthEntryPointJwt
 ) {
     @Bean

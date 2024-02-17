@@ -14,14 +14,14 @@ import com.partytime.jpa.entity.Status
 import com.partytime.jpa.mapper.prettyPrint
 import com.partytime.jpa.repository.EventParticipantRepository
 import com.partytime.jpa.repository.EventRepository
-import com.partytime.mail.MailService
 import com.partytime.mail.model.CancellationData
 import com.partytime.mail.model.EventChangeData
 import com.partytime.mail.model.EventData
 import com.partytime.mail.model.InvitationData
+import com.partytime.mail.model.MailEvent
 import com.partytime.mail.model.UninviteData
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Optional
@@ -29,13 +29,13 @@ import java.util.Optional
 private val eventLogger = KotlinLogging.logger {}
 
 @Service
-class EventService @Autowired constructor(
+class EventService (
     private val eventRepository: EventRepository,
     private val eventParticipantRepository: EventParticipantRepository,
     private val accountService: AccountService,
     private val addressService: AddressService,
-    private val mailService: MailService,
-    private val configurationProperties: PartyTimeConfigurationProperties
+    private val configurationProperties: PartyTimeConfigurationProperties,
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) {
 
     /**
@@ -88,10 +88,10 @@ class EventService @Autowired constructor(
 
         for (eventParticipant in event.eventParticipants) {
             val participant: Account = eventParticipant.account
-            mailService.sendMail(
+            val mailEvent = MailEvent(
+                this,
                 participant.email,
-                "Änderungen am Event " + event.name,
-                MailService.TEMPLATE_CHANGE,
+                "Änderungen am Event ${event.name}",
                 EventChangeData(
                     participant.name,
                     EventData(
@@ -104,6 +104,7 @@ class EventService @Autowired constructor(
                 ),
                 event
             )
+            applicationEventPublisher.publishEvent(mailEvent)
         }
 
         return event
@@ -122,10 +123,10 @@ class EventService @Autowired constructor(
 
         for (eventParticipant in eventParticipants) {
             val account: Account = eventParticipant.account
-            mailService.sendMail(
+            val mailEvent = MailEvent(
+                this,
                 account.email,
                 "Absage des Events " + event.name,
-                MailService.TEMPLATE_DELETE,
                 CancellationData(
                     EventData(
                         event.organizer.name,
@@ -137,6 +138,7 @@ class EventService @Autowired constructor(
                     configurationProperties.url
                 )
             )
+            applicationEventPublisher.publishEvent(mailEvent)
         }
     }
 
@@ -167,9 +169,10 @@ class EventService @Autowired constructor(
 
         eventParticipantRepository.delete(eventParticipant)
 
-        mailService.sendMail(
-            targetEmail, "Du wurdest beim Event " + event.name + " ausgeladen.",
-            MailService.TEMPLATE_UNINVITE,
+        val mailEvent = MailEvent(
+            this,
+            targetEmail,
+            "Du wurdest beim Event ${event.name} ausgeladen.",
             UninviteData(
                 invitedAccount.name,
                 EventData(
@@ -181,6 +184,7 @@ class EventService @Autowired constructor(
                 configurationProperties.url
             )
         )
+        applicationEventPublisher.publishEvent(mailEvent)
     }
 
     /**
@@ -209,9 +213,10 @@ class EventService @Autowired constructor(
         val acceptLink = "$baseLink/accept"
         val declineLink = "$baseLink/decline"
 
-        mailService.sendMail(
-            targetEmail, "Einladung zum Event " + originalEvent.name,
-            MailService.TEMPLATE_INVITATION,
+        val mailEvent = MailEvent(
+            this,
+            targetEmail,
+            "Einladung zum Event " + originalEvent.name,
             InvitationData(
                 invitedAccount.name,
                 EventData(
@@ -226,6 +231,7 @@ class EventService @Autowired constructor(
             ),
             originalEvent
         )
+        applicationEventPublisher.publishEvent(mailEvent)
 
         eventLogger.info { "Accept Link: $acceptLink" }
         eventLogger.info { "Decline Link: $declineLink" }

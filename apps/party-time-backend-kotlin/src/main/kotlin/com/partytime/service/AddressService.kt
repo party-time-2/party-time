@@ -5,12 +5,11 @@ import com.partytime.api.error.ApiError
 import com.partytime.api.error.asException
 import com.partytime.jpa.entity.Address
 import com.partytime.jpa.repository.AddressRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.Optional
 
 @Service
-class AddressService @Autowired constructor(
+class AddressService (
     private val addressRepository: AddressRepository
 ) {
 

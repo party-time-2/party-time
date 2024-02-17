@@ -10,10 +10,10 @@ import com.partytime.configuration.PartyTimeConfigurationProperties
 import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.repository.AccountRepository
-import com.partytime.mail.MailService
-import com.partytime.mail.model.VerifyAccountModel
+import com.partytime.mail.model.MailEvent
+import com.partytime.mail.model.VerifyAccountData
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -21,13 +21,13 @@ import java.util.UUID
 
 private val authLogger = KotlinLogging.logger {}
 @Service
-class AuthService @Autowired constructor(
+class AuthService (
     private val accountService: AccountService,
     private val accountRepository: AccountRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val mailService: MailService,
     private val jwtService: JwtService,
-    private val configurationProperties: PartyTimeConfigurationProperties
+    private val configurationProperties: PartyTimeConfigurationProperties,
+    private val applicationEventPublisher: ApplicationEventPublisher
 ) {
 
     /**
@@ -61,20 +61,21 @@ class AuthService @Autowired constructor(
         val savedAccount = accountRepository.save(account)
 
         // F014 - Konto Verifizieren
-        mailService.sendMail(
-            savedAccount.email, "Verifiziere deinen Account!",
-            MailService.TEMPLATE_VERIFY_ACCOUNT,
-            VerifyAccountModel(
+        val mailEvent = MailEvent(
+            this,
+            savedAccount.email,
+            "Verifiziere deinen Account!",
+            VerifyAccountData(
                 configurationProperties.url,
                 account.name,
-                "${configurationProperties.url} /auth/verify/ ${account.emailVerificationCode}"
+                "${configurationProperties.url}/auth/verify/${account.emailVerificationCode}"
             )
         )
 
-
+        applicationEventPublisher.publishEvent(mailEvent)
 
         authLogger.info {
-            "Account created! Verification Code: " + account.passwordVerificationCode
+            "Account created! Verification Code: " + account.emailVerificationCode
         }
 
         return savedAccount

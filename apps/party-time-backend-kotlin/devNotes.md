@@ -14,6 +14,8 @@
   - https://tolkiana.com/introduction-to-spring-data-r2dbc-with-kotlin/
 - WebFLux H2 console
   - https://github.com/canyaman/spring-boot-webflux-h2-console
+- Spring Events
+  - https://reflectoring.io/spring-boot-application-events-explained/
 
 ## Maybe later
 

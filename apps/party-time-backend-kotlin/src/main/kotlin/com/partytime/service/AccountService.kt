@@ -4,12 +4,11 @@ import com.partytime.api.error.ApiError
 import com.partytime.api.error.asException
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.repository.AccountRepository
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.util.Optional
 
 @Service
-class AccountService @Autowired constructor(
+class AccountService (
     private val accountRepository: AccountRepository
 ) {
     fun getAccount(email: String): Account = optAccount(email)

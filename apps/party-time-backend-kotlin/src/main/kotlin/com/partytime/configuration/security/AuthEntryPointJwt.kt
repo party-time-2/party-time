@@ -5,7 +5,6 @@ import com.partytime.api.error.ApiError
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component
 
 private val authLogger = KotlinLogging.logger {}
 @Component
-class AuthEntryPointJwt @Autowired constructor(
+class AuthEntryPointJwt (
     private val objectMapper: ObjectMapper
 ): AuthenticationEntryPoint {
 

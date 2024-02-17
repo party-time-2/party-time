@@ -1,7 +1,6 @@
 package com.partytime.util
 
 import com.partytime.api.dto.login.LoginRequestDTO
-import com.partytime.configuration.PartyTimeConfigurationProperties
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.entity.Event
 import com.partytime.jpa.repository.AccountRepository
@@ -9,7 +8,6 @@ import com.partytime.jpa.repository.EventRepository
 import com.partytime.service.AddressService
 import com.partytime.service.AuthService
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Profile
@@ -19,15 +17,15 @@ import java.time.LocalDateTime
 import java.util.UUID
 
 private val testDataLogger = KotlinLogging.logger {}
+
 @Component
 @Profile("!prod")
-class TestDataGenerator @Autowired constructor(
+class TestDataGenerator(
     private val accountRepository: AccountRepository,
     private val eventRepository: EventRepository,
     val addressService: AddressService,
     val passwordEncoder: PasswordEncoder,
-    val authService: AuthService,
-    val partyTimeConfigurationProperties: PartyTimeConfigurationProperties
+    val authService: AuthService
 ) : ApplicationRunner {
     companion object {
         const val DEBUG_PASSWORD: String = "Hallo123!party"
@@ -83,15 +81,14 @@ class TestDataGenerator @Autowired constructor(
     // Test Data not used in Production
     private fun createAccount(name: String, email: String, verified: Boolean) {
         if (!accountRepository.existsByEmail(email)) {
-            val account: Account =
-                Account(
-                    email,
-                    verified,
-                    name,
-                    passwordEncoder.encode(DEBUG_PASSWORD)
-                )
+            val account = Account(
+                email,
+                verified,
+                name,
+                passwordEncoder.encode(DEBUG_PASSWORD)
+            )
             if (!verified) {
-                account.emailVerificationCode =UUID.randomUUID().toString()
+                account.emailVerificationCode = UUID.randomUUID().toString()
             }
             accountRepository.save(account)
             testDataLogger.info {

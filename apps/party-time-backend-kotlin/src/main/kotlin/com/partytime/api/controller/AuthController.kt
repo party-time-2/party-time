@@ -15,7 +15,6 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -30,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController
     name = AuthController.TAG,
     description = "API endpoints providing all required logic for authentication"
 )
-class AuthController @Autowired constructor(
+class AuthController (
     private val authService: AuthService
 ) {
     companion object {

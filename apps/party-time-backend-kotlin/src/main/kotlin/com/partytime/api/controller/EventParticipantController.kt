@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.constraints.NotNull
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController
     name = EventParticipantController.TAG,
     description = "API endpoints providing all required logic for event participants"
 )
-class EventParticipantController @Autowired constructor(
+class EventParticipantController (
     private val eventService: EventService
 ) {
     companion object {

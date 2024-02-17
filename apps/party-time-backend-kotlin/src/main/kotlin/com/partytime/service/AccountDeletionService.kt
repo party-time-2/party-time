@@ -6,12 +6,11 @@ import com.partytime.api.error.asException
 import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.jpa.entity.Event
 import jakarta.transaction.Transactional
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
-class AccountDeletionService @Autowired constructor(
+class AccountDeletionService (
     private val accountService: AccountService,
     private val eventService: EventService,
     private val passwordEncoder: PasswordEncoder
