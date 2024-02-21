@@ -20,17 +20,17 @@ describe('AuthService', () => {
 
   const mockBadRequestApiError: ApiError = { status: ApiErrorStatus['400 BAD_REQUEST'], timestamp: new Date(), message: 'Bad Request', error: { status: '400', message: 'Bad Request', timestamp: '2021-12-14T14:00:00.000Z' } };
 
-  beforeEach(async () =>
+  beforeEach( () =>
   {
     mockStorageService = {
        storeAuthToken: jest.fn(),
       removeAuthToken: jest.fn()
      };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [AuthService, { provide: StorageService, useValue: mockStorageService }]
-    }).compileComponents();
+    })
 
     authService = TestBed.inject(AuthService);
     httpTestingController = TestBed.inject(HttpTestingController);
