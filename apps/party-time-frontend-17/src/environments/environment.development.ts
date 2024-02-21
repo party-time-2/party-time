@@ -17,5 +17,9 @@ export const environment = {
     },
   storage: {
     key: "auth_token"
-  }
+  },
+  pages:
+    {
+      login: "login",
+    }
 };
