@@ -17,7 +17,7 @@ export class AuthService implements IAuthService {
     throw new Error('Method not implemented.');
   }
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO | ApiError> {
-    return this.http.post<LoginResponseDTO | ApiError>(environment.api.baseUrl + environment.api.endpoints.authentication.login, loginRequestDTO, {
+    return this.http.post<LoginResponseDTO | ApiError>(environment.api.endpoints.authentication.login(), loginRequestDTO, {
     }).pipe(
       tap((response: LoginResponseDTO | ApiError) => {
         if ('token' in response && response.token) {
@@ -27,12 +27,12 @@ export class AuthService implements IAuthService {
     )
   }
   register(accountRegisterDTO: AccountRegisterDTO): Observable<AccountDTO | ApiError> {
-    return this.http.post<AccountDTO | ApiError>(environment.api.baseUrl + environment.api.endpoints.authentication.register, accountRegisterDTO, {
+    return this.http.post<AccountDTO | ApiError>(environment.api.endpoints.authentication.register(), accountRegisterDTO, {
 
     })
   }
   verifyEmail(token: string): Observable<void | ApiError> {
-    return this.http.get<void | ApiError>(`${environment.api.baseUrl}${environment.api.endpoints.authentication.verifyEmail}/${token}`)
+    return this.http.get<void | ApiError>(environment.api.endpoints.authentication.verify(token))
   }
 
 

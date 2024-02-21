@@ -4,15 +4,16 @@ export const environment = {
       baseUrl: 'http://localhost:8090/api',
       endpoints: {
         authentication: {
-          login: '/auth/login',
-          register: '/auth/register',
-          verifyEmail: '/auth/verify',
+          login(){
+            return environment.api.baseUrl + '/auth/login';
+          },
+          register() {
+           return environment.api.baseUrl + '/auth/register'
+          },
+          verify(token: string) {
+            return environment.api.baseUrl + '/auth/verify/' + token;
+          }
         },
-        account: {
-          delete: '/account/delete',
-          change: "/auth/change",
-        },
-          event: '/api/event',
       },
     },
   storage: {
