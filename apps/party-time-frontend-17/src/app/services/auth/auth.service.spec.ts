@@ -50,7 +50,7 @@ describe('AuthService', () => {
       done();
     });
 
-    const req = httpTestingController.expectOne(environment.api.baseUrl + environment.api.endpoints.authentication.login);
+    const req = httpTestingController.expectOne(environment.api.endpoints.authentication.login());
     expect(req.request.method).toBe('POST');
     req.flush(mockLoginResponse); // Simulate successful response with a token
   });
@@ -67,7 +67,7 @@ describe('AuthService', () => {
       }
     });
 
-    const req = httpTestingController.expectOne(environment.api.baseUrl + environment.api.endpoints.authentication.login);
+    const req = httpTestingController.expectOne(environment.api.endpoints.authentication.login());
     expect(req.request.method).toBe('POST');
     req.flush(mockBadRequestApiError);
   });
@@ -80,7 +80,7 @@ describe('AuthService', () => {
       done();
     });
 
-    const req = httpTestingController.expectOne(environment.api.baseUrl + environment.api.endpoints.authentication.register);
+    const req = httpTestingController.expectOne(environment.api.endpoints.authentication.register());
     expect(req.request.method).toBe('POST');
     req.flush(mockAccountDTO); // Simulate successful response
   });
@@ -98,7 +98,7 @@ describe('AuthService', () => {
       }
     });
 
-    const req = httpTestingController.expectOne(environment.api.baseUrl + environment.api.endpoints.authentication.register);
+    const req = httpTestingController.expectOne(environment.api.endpoints.authentication.register());
     expect(req.request.method).toBe('POST');
     req.flush(mockBadRequestApiError, { status: 400, statusText: 'Bad Request' }); // Simulate error response
   });
@@ -114,7 +114,7 @@ describe('AuthService', () => {
       }
     });
 
-    const req = httpTestingController.expectOne(`${environment.api.baseUrl}${environment.api.endpoints.authentication.verifyEmail}/${mockVerifyEmailToken}`);
+    const req = httpTestingController.expectOne(environment.api.endpoints.authentication.verify(mockVerifyEmailToken));
     expect(req.request.method).toBe('GET');
     req.flush(null); // Simulating a void response
   });
@@ -132,7 +132,7 @@ describe('AuthService', () => {
       }
     });
 
-    const req = httpTestingController.expectOne(`${environment.api.baseUrl}${environment.api.endpoints.authentication.verifyEmail}/${mockVerifyEmailToken}`);
+    const req = httpTestingController.expectOne(environment.api.endpoints.authentication.verify(mockVerifyEmailToken));
     expect(req.request.method).toBe('GET');
     req.flush(mockBadRequestApiError, { status: 400, statusText: 'Bad Request' }); // Simulate error response
   });
