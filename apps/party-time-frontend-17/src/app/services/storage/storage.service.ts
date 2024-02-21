@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IStorageService } from '../../models/storeage-service.interface';
 import { environment } from '../../../environments/environment.development';
+import { IStorageService } from '../../models/storage-service.interface';
 
 @Injectable({
   providedIn: 'root',
