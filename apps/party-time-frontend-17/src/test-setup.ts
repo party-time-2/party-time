@@ -5,4 +5,8 @@ globalThis.ngJest = {
     errorOnUnknownProperties: true,
   },
 };
+
 import 'jest-preset-angular/setup-jest';
+Storage.prototype.getItem = jest.fn();
+Storage.prototype.setItem = jest.fn();
+Storage.prototype.removeItem = jest.fn();

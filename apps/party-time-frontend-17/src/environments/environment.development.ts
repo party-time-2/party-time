@@ -13,6 +13,9 @@ export const environment = {
           change: "/auth/change",
         },
           event: '/api/event',
-      }
-    }
+      },
+    },
+  storage: {
+    key: "auth_token"
+  }
 };
