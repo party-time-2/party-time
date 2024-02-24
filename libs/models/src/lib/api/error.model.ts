@@ -1,4 +1,3 @@
-
 export interface ApiError {
   status: ApiErrorStatus;
   timestamp: Date;
@@ -79,5 +78,5 @@ export enum ApiErrorStatus {
   '508 LOOP_DETECTED',
   '509 BANDWIDTH_LIMIT_EXCEEDED',
   '510 NOT_EXTENDED',
-  '511 NETWORK_AUTHENTICATION_REQUIRED'
+  '511 NETWORK_AUTHENTICATION_REQUIRED',
 }

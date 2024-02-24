@@ -9,33 +9,23 @@
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "dependsOn": [
-        "^install"
-      ],
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend-kotlin/build"
-      ]
+      "dependsOn": ["^install"],
+      "outputs": ["{workspaceRoot}/apps/party-time-backend-kotlin/build"]
     },
     "install": {
       "executor": "@nxrocks/nx-spring-boot:install",
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "dependsOn": [
-        "^install"
-      ],
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend-kotlin/build"
-      ]
+      "dependsOn": ["^install"],
+      "outputs": ["{workspaceRoot}/apps/party-time-backend-kotlin/build"]
     },
     "test": {
       "executor": "@nxrocks/nx-spring-boot:test",
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend-kotlin/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/party-time-backend-kotlin/build"]
     },
     "clean": {
       "executor": "@nxrocks/nx-spring-boot:clean",
@@ -48,27 +38,21 @@
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "dependsOn": [
-        "^install"
-      ]
+      "dependsOn": ["^install"]
     },
     "serve": {
       "executor": "@nxrocks/nx-spring-boot:serve",
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "dependsOn": [
-        "^install"
-      ]
+      "dependsOn": ["^install"]
     },
     "build-image": {
       "executor": "@nxrocks/nx-spring-boot:build-image",
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "outputs": [
-        "{workspaceRoot}/apps/party-time-backend-kotlin/build"
-      ]
+      "outputs": ["{workspaceRoot}/apps/party-time-backend-kotlin/build"]
     },
     "build-info": {
       "executor": "@nxrocks/nx-spring-boot:build-info",

@@ -8,25 +8,19 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/party-time-frontend-17/",
         "index": "apps/party-time-frontend-17//src/index.html",
         "main": "apps/party-time-frontend-17//src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/party-time-frontend-17//tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/party-time-frontend-17//src/favicon.ico",
           "apps/party-time-frontend-17//src/assets"
         ],
-        "styles": [
-          "apps/party-time-frontend-17//src/styles.scss"
-        ],
+        "styles": ["apps/party-time-frontend-17//src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -85,9 +79,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/party-time-frontend-17/jest.config.ts"
       }

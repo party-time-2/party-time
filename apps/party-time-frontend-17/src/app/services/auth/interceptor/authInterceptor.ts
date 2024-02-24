@@ -10,7 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const excludedUrls: string[] = [
       environment.api.endpoints.authentication.login(),
       environment.api.endpoints.authentication.register(),
-      environment.api.endpoints.authentication.verify(""),
+      environment.api.endpoints.authentication.verify(''),
     ];
     if (excludedUrls.includes(req.url)) {
       return next.handle(req);
