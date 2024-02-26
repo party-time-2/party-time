@@ -58,16 +58,14 @@ class SecurityConfiguration (
                     "/swagger-ui.html", "/swagger-ui/**",
                     "/v3/api-docs", "/v3/api-docs/swagger-config"
                 ).permitAll()
-
-                it.requestMatchers(
+                .requestMatchers(
                     HttpMethod.POST,
                     "/api/auth/login",
                     "/api/auth/register",
                     "/api/auth/verify/*",
                     "/api/auth/forgot/*"
                 ).permitAll()
-
-                it.anyRequest().authenticated()
+                .anyRequest().authenticated()
             }
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
