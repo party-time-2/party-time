@@ -37,34 +37,17 @@ import org.springframework.web.context.WebApplicationContext
 //@AutoConfigureJsonTesters
 @WebMvcTest(AuthController::class)
 @TestPropertySource(properties = ["spring.config.additional-location=classpath:application-integration-test.yml"])
-@Import(AuthEntryPointJwt::class, SecurityConfiguration::class, AccountService::class, H2ConsoleProperties::class)
+@Import(AuthEntryPointJwt::class, SecurityConfiguration::class, AccountService::class, H2ConsoleProperties::class, AuthService::class)
 class AuthControllerIntegrationTest @Autowired constructor(
     //private val jsonAccountDTO: JacksonTester<AccountDTO>
-    private val authController: AuthController,
     private val context: WebApplicationContext,
-    private val authEntryPointJwt: AuthEntryPointJwt,
-    private val accountService: AccountService
 ) {
 
     @MockkBean
     private lateinit var accountRepository: AccountRepository
 
-    /*
-    private val authService = AuthService(
-        accountService,
-        accountRepository,
-        passwordEncoder,
-
-    )
-
-    private val authController = AuthController()
-    */
-
     @MockkBean
     private lateinit var authenticationProvider: AuthenticationProvider
-
-    @MockkBean
-    private lateinit var authService: AuthService
 
     @MockkBean
     private lateinit var jwtService: JwtService
@@ -94,15 +77,11 @@ class AuthControllerIntegrationTest @Autowired constructor(
         every { mockOutputAccount.email } returns accountRegisterDTO.email
         every { mockOutputAccount.emailVerified } returns false
 
-        every { authService.registerAccount(any()) } returns mockOutputAccount
-
-        /*
         every { accountRepository.save(
             any()
         ) } returns mockOutputAccount
 
         every { accountRepository.existsByEmail(any()) } returns false
-         */
 
         val response = mvc.perform(
             post("/api/auth/register")
