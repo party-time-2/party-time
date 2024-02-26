@@ -16,6 +16,8 @@
   - https://github.com/canyaman/spring-boot-webflux-h2-console
 - Spring Events
   - https://reflectoring.io/spring-boot-application-events-explained/
+- Testing
+  - practical guide https://thepracticaldeveloper.com/guide-spring-boot-controller-tests/
 
 ## Maybe later
 
