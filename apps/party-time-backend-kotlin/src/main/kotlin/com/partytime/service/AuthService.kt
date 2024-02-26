@@ -42,14 +42,6 @@ class AuthService (
                 .asException()
         }
 
-        Account(
-            accountRegisterDTO.email,
-            false,
-            accountRegisterDTO.name,
-            passwordEncoder.encode(accountRegisterDTO.password),
-            emailVerificationCode = UUID.randomUUID().toString()
-        )
-
         val account = Account(
             accountRegisterDTO.email,
             false,
