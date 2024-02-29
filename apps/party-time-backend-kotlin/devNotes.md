@@ -18,6 +18,9 @@
   - https://reflectoring.io/spring-boot-application-events-explained/
 - Testing
   - practical guide https://thepracticaldeveloper.com/guide-spring-boot-controller-tests/
+  - https://stackoverflow.com/a/61755069
+  - https://blog.marcnuri.com/mockmvc-spring-mvc-framework
+  - RestAssuredMockMvc anstatt Spring MockMvc? https://www.baeldung.com/spring-mock-mvc-rest-assured
 
 ## Maybe later
 
