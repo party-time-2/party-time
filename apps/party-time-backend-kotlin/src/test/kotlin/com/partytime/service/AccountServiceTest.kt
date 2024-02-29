@@ -8,6 +8,7 @@ import com.partytime.jpa.entity.Account
 import com.partytime.jpa.repository.AccountRepository
 import com.partytime.testAbstraction.UnitTest
 import io.mockk.every
+import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
@@ -17,7 +18,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.dao.OptimisticLockingFailureException
 import java.util.Optional
-
 
 class AccountServiceTest : UnitTest() {
 
@@ -76,7 +76,7 @@ class AccountServiceTest : UnitTest() {
 
     @Test
     fun deleteAccountSuccess() {
-        every { accountRepository.delete(testAccount) } returns Unit
+        justRun { accountRepository.delete(testAccount) }
 
         assertDoesNotThrow {
             accountService.deleteAccount(testAccount)
@@ -95,8 +95,4 @@ class AccountServiceTest : UnitTest() {
 
         verify(exactly = 1) { accountRepository.delete(testAccount) }
     }
-
-
-
-
 }

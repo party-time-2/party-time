@@ -59,8 +59,8 @@ class AuthService (
             "Verifiziere deinen Account!",
             VerifyAccountData(
                 configurationProperties.url,
-                account.name,
-                "${configurationProperties.url}/auth/verify/${account.emailVerificationCode}"
+                savedAccount.name,
+                "${configurationProperties.url}/auth/verify/${savedAccount.emailVerificationCode}"
             )
         )
 
