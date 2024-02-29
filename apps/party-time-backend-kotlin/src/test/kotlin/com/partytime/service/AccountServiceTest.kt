@@ -79,7 +79,7 @@ class AccountServiceTest : UnitTest() {
         every { accountRepository.delete(testAccount) } returns Unit
 
         assertDoesNotThrow {
-            accountRepository.delete(testAccount)
+            accountService.deleteAccount(testAccount)
         }
 
         verify(exactly = 1) { accountRepository.delete(testAccount) }
@@ -90,7 +90,7 @@ class AccountServiceTest : UnitTest() {
         every { accountRepository.delete(testAccount) } throws OptimisticLockingFailureException("")
 
         assertThrows<OptimisticLockingFailureException> {
-            accountRepository.delete(testAccount)
+            accountService.deleteAccount(testAccount)
         }
 
         verify(exactly = 1) { accountRepository.delete(testAccount) }
