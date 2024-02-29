@@ -4,7 +4,7 @@ import com.partytime.api.dto.account.AccountDeleteDTO
 import com.partytime.api.dto.changepassword.ChangePasswordDTO
 import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.service.AccountDeletionService
-import com.partytime.service.AccountService
+import com.partytime.service.AuthService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController
 )
 class AccountController (
     private val accountDeletionService: AccountDeletionService,
-    private val accountService: AccountService
+    private val authService: AuthService
 ) {
     companion object {
         const val TAG = "Account API"
@@ -69,6 +69,6 @@ class AccountController (
         ]
     )
     fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: TokenAuthentication) {
-        accountService.changePassword(body, authentication)
+        authService.changePassword(body, authentication)
     }
 }

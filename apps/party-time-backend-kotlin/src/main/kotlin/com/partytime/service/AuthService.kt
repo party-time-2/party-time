@@ -1,11 +1,13 @@
 package com.partytime.service
 
 import com.partytime.api.dto.account.AccountRegisterDTO
+import com.partytime.api.dto.changepassword.ChangePasswordDTO
 import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.dto.login.LoginResponseDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.asException
 import com.partytime.configuration.PartyTimeConfigurationProperties
+import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.repository.AccountRepository
 import com.partytime.mail.model.MailEvent
@@ -103,5 +105,20 @@ class AuthService (
         return LoginResponseDTO(accessToken)
     }
 
+    /**
+     * Implements F013
+     */
+    @Transactional
+    fun  changePassword(changePasswordDTO: ChangePasswordDTO, authentication: TokenAuthentication) {
+        val email = authentication.principal.username
+        val account = accountService.getAccount(email)
+        val oldPasswordMatches = passwordEncoder.matches(changePasswordDTO.oldPassword, account.pwHash)
+        if (!oldPasswordMatches) {
+            throw ApiError.unauthorized().asException()
+        }
 
+        val newPasswordHash = passwordEncoder.encode(changePasswordDTO.newPassword)
+        account.pwHash = newPasswordHash
+        accountRepository.save(account)
+    }
 }

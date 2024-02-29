@@ -1,12 +1,9 @@
 package com.partytime.service
 
-import com.partytime.api.dto.changepassword.ChangePasswordDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.ApiErrorException
 import com.partytime.api.error.asException
 import com.partytime.assertApiErrorExceptionEquals
-import com.partytime.configuration.security.PartyTimeUserDetails
-import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.repository.AccountRepository
 import com.partytime.testAbstraction.UnitTest
@@ -19,19 +16,16 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.dao.OptimisticLockingFailureException
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.Optional
 
 
 class AccountServiceTest : UnitTest() {
 
-    val passwordEncoder = BCryptPasswordEncoder()
     private val accountRepository = mockk<AccountRepository>()
-    private val accountService = AccountService(accountRepository, passwordEncoder)
+    private val accountService = AccountService(accountRepository)
 
     private val eMail = "example@example.com"
-    private val testPassword = "Abc!def5ghi"
-    private val testAccount = Account(eMail, true, "Example Example", passwordEncoder.encode(testPassword))
+    private val testAccount = Account(eMail, true, "Example Example", "Abc!def5ghi")
 
     @Test
     fun getAccountSuccess() {
@@ -102,52 +96,7 @@ class AccountServiceTest : UnitTest() {
         verify(exactly = 1) { accountRepository.delete(testAccount) }
     }
 
-    @Test
-    fun changePasswordSuccess() {
-        val changePasswordDTO = ChangePasswordDTO(
-            testPassword,
-            "Jkl?mno2pqr"
-        )
-        val partyTimeUserDetails = PartyTimeUserDetails(testAccount)
-        val authentication = TokenAuthentication(partyTimeUserDetails)
 
-        every { accountRepository.findAccountByEmail(eMail) } returns Optional.of(testAccount)
-
-        val changedAccount = Account(
-            testAccount.email,
-            testAccount.emailVerified,
-            testAccount.name,
-            passwordEncoder.encode(changePasswordDTO.newPassword)
-        )
-
-        every { accountRepository.save(changedAccount) } returns changedAccount
-
-        accountService.changePassword(changePasswordDTO, authentication)
-
-        verify(exactly = 1) { accountRepository.findAccountByEmail(eMail) }
-        verify(exactly = 1) { accountRepository.save(changedAccount) }
-    }
-
-    @Test
-    fun changePasswordUnauthorized() {
-        val changePasswordDTO = ChangePasswordDTO(
-            "wrong!Password5unauthorized",
-            "Jkl?mno2pqr"
-        )
-        val partyTimeUserDetails = PartyTimeUserDetails(testAccount)
-        val authentication = TokenAuthentication(partyTimeUserDetails)
-
-        every { accountRepository.findAccountByEmail(eMail) } returns Optional.of(testAccount)
-
-        val thrownException = assertThrows<ApiErrorException> {
-            accountService.changePassword(changePasswordDTO, authentication)
-        }
-
-        val expectedException = ApiError.unauthorized().asException()
-        assertApiErrorExceptionEquals(expectedException, thrownException)
-
-        verify(exactly = 1) { accountRepository.findAccountByEmail(eMail) }
-    }
 
 
 }
