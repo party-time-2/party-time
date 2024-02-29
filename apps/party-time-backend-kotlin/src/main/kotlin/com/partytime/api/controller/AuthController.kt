@@ -2,10 +2,8 @@ package com.partytime.api.controller
 
 import com.partytime.api.dto.account.AccountDTO
 import com.partytime.api.dto.account.AccountRegisterDTO
-import com.partytime.api.dto.changepassword.ChangePasswordDTO
 import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.dto.login.LoginResponseDTO
-import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.jpa.mapper.map
 import com.partytime.service.AuthService
 import io.swagger.v3.oas.annotations.Operation
@@ -82,27 +80,6 @@ class AuthController (
     @SecurityRequirements
     fun login(@RequestBody body: @Valid @NotNull LoginRequestDTO): LoginResponseDTO =
         authService.loginUser(body)
-
-    /**
-     * Implements F013
-     */
-    @PostMapping("/change")
-    @Operation(
-        description = "Change the password of an account",
-        responses = [
-            ApiResponse(
-                description = "Password change success",
-                responseCode = "200",
-                useReturnTypeSchema = true
-            ), ApiResponse(
-                description = "The old password is wrong",
-                responseCode = "401"
-            ), ApiResponse(description = "New password does not match requirements", responseCode = "409")
-        ]
-    )
-    fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: TokenAuthentication) {
-        authService.changePassword(body, authentication)
-    }
 
     /**
      * F014 - Konto Verifizieren
