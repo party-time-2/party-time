@@ -2,7 +2,7 @@ package com.partytime.api.controller
 
 import com.partytime.api.dto.account.AccountDeleteDTO
 import com.partytime.api.dto.changepassword.ChangePasswordDTO
-import com.partytime.configuration.security.TokenAuthentication
+import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.service.AccountDeletionService
 import com.partytime.service.AuthService
 import io.swagger.v3.oas.annotations.Operation
@@ -17,6 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Controller for account related matters.
+ *
+ * @param accountDeletionService Service for deleting accounts
+ * @param authService Service for authentication related matters (changing password)
+ * @constructor Constructs a new [AuthController]
+ */
 @RestController
 @RequestMapping("/api/account")
 @Validated
@@ -29,11 +36,17 @@ class AccountController (
     private val authService: AuthService
 ) {
     companion object {
+        /** Tag information for OpenAPI documentation */
         const val TAG = "Account API"
     }
 
     /**
      * Implements F015
+     *
+     * Deletes the account of the authenticated user.
+     *
+     * @param body Information required for deleting the account (current password)
+     * @param authentication Authentication information of the authenticated user
      */
     @DeleteMapping("/delete")
     @Operation(
@@ -46,13 +59,18 @@ class AccountController (
     )
     fun deleteOwnAccount(
         @RequestBody body: @NotNull @Valid AccountDeleteDTO,
-        authentication: TokenAuthentication
+        authentication: AuthenticationToken
     ) {
         accountDeletionService.deleteAccount(body, authentication)
     }
 
     /**
      * Implements F013
+     *
+     * Changes the password of an authenticated user.
+     *
+     * @param body Information required for changing the password (old password & new password)
+     * @param authentication Authentication information of the authenticated user
      */
     @PostMapping("/change")
     @Operation(
@@ -68,7 +86,7 @@ class AccountController (
             ), ApiResponse(description = "New password does not match requirements", responseCode = "409")
         ]
     )
-    fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: TokenAuthentication) {
+    fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: AuthenticationToken) {
         authService.changePassword(body, authentication)
     }
 }

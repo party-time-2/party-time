@@ -8,10 +8,9 @@ import com.partytime.api.error.ApiErrorException
 import com.partytime.api.error.asException
 import com.partytime.assertApiErrorExceptionEquals
 import com.partytime.configuration.PartyTimeConfigurationProperties
+import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.configuration.security.PartyTimeUserDetails
-import com.partytime.configuration.security.TokenAuthentication
 import com.partytime.jpa.entity.Account
-import com.partytime.jpa.repository.AccountRepository
 import com.partytime.mail.model.MailEvent
 import com.partytime.mail.model.VerifyAccountData
 import com.partytime.testAbstraction.UnitTest
@@ -31,7 +30,6 @@ import java.util.UUID
 
 class AuthServiceTest : UnitTest() {
     private val accountService = mockk<AccountService>()
-    private val accountRepository = mockk<AccountRepository>()
     private val passwordEncoder = BCryptPasswordEncoder()
     private val jwtService = mockk<JwtService>()
     private val configurationProperties = mockk<PartyTimeConfigurationProperties>()
@@ -40,7 +38,6 @@ class AuthServiceTest : UnitTest() {
     //AuthService
     private val authService = AuthService(
         accountService,
-        accountRepository,
         passwordEncoder,
         jwtService,
         configurationProperties,
@@ -71,12 +68,11 @@ class AuthServiceTest : UnitTest() {
         )
 
         //setup - mock
-        every { configurationProperties.url } returns url
-        every { accountRepository.existsByEmail(accountRegisterDTO.email) } returns false
-        every { accountRepository.save(account) } answers {
+        every { accountService.optAccountByMail(accountRegisterDTO.email) } returns Optional.empty()
+        every { accountService.saveAccount(account) } answers {
             account.also { it.id = 0 }
         }
-
+        every { configurationProperties.url } returns url
         justRun { applicationEventPublisher.publishEvent(any()) }
 
         //execute
@@ -84,9 +80,9 @@ class AuthServiceTest : UnitTest() {
         assertEquals(account, savedAccount)
 
         //validate
+        verify(exactly = 1) { accountService.optAccountByMail(accountRegisterDTO.email) }
+        verify(exactly = 1) {  accountService.saveAccount(account) }
         verify(exactly = 2) { configurationProperties.url } //accessed twice to construct VerifyAccountData
-        verify(exactly = 1) { accountRepository.existsByEmail(accountRegisterDTO.email) }
-        verify(exactly = 1) { accountRepository.save(account) }
         verify(exactly = 1) {
             applicationEventPublisher.publishEvent(withArg {
                 val mailEvent = it as MailEvent
@@ -113,8 +109,16 @@ class AuthServiceTest : UnitTest() {
             "Abc!def5ghi"
         )
 
+        val account = Account(
+            accountRegisterDTO.email,
+            false,
+            accountRegisterDTO.name,
+            passwordEncoder.encode(accountRegisterDTO.password),
+            emailVerificationCode = UUID.randomUUID().toString()
+        )
+
         //setup - mock
-        every { accountRepository.existsByEmail(accountRegisterDTO.email) } returns true
+        every { accountService.optAccountByMail(accountRegisterDTO.email) } returns Optional.of(account)
 
         //execute
         val thrownException = assertThrows<ApiErrorException> {
@@ -125,7 +129,7 @@ class AuthServiceTest : UnitTest() {
         assertApiErrorExceptionEquals(expectedException, thrownException)
 
         //verify
-        verify(exactly = 1) { accountRepository.existsByEmail(accountRegisterDTO.email) }
+        verify(exactly = 1) { accountService.optAccountByMail(accountRegisterDTO.email) }
     }
 
     @Test
@@ -144,15 +148,15 @@ class AuthServiceTest : UnitTest() {
         }
 
         //setup - mock
-        every { accountRepository.findByEmailVerificationCode(verificationCode) } returns Optional.of(account)
-        every { accountRepository.save(account) } returns account
+        every { accountService.accountByEmailVerificationCode(verificationCode) } returns Optional.of(account)
+        every { accountService.saveAccount(account) } returns account
 
         //execute
         authService.verifyAccount(verificationCode)
 
         //verify
-        verify(exactly = 1) { accountRepository.findByEmailVerificationCode(verificationCode) }
-        verify(exactly = 1) { accountRepository.save(withArg { savedAccount ->
+        verify(exactly = 1) { accountService.accountByEmailVerificationCode(verificationCode) }
+        verify(exactly = 1) { accountService.saveAccount(withArg { savedAccount ->
             assertEquals(account.email, savedAccount.email)
             assertTrue(savedAccount.emailVerified)
             assertEquals(account.name, savedAccount.name)
@@ -167,7 +171,7 @@ class AuthServiceTest : UnitTest() {
         val verificationCode = UUID.randomUUID().toString()
 
         //setup - mock
-        every { accountRepository.findByEmailVerificationCode(verificationCode) } returns Optional.empty()
+        every { accountService.accountByEmailVerificationCode(verificationCode) } returns Optional.empty()
 
         //execute
         val thrownException = assertThrows<ApiErrorException> {
@@ -178,7 +182,7 @@ class AuthServiceTest : UnitTest() {
         assertApiErrorExceptionEquals(expectedException, thrownException)
 
         //verify
-        verify(exactly = 1) { accountRepository.findByEmailVerificationCode(verificationCode) }
+        verify(exactly = 1) { accountService.accountByEmailVerificationCode(verificationCode) }
     }
 
     @Test
@@ -202,7 +206,7 @@ class AuthServiceTest : UnitTest() {
         //setup - mock
         val exampleToken = "exampleToken"
 
-        every { accountService.getAccount(loginRequestDTO.email) } returns account
+        every { accountService.getAccountByMail(loginRequestDTO.email) } returns account
         every { jwtService.createAccessToken(account) } returns exampleToken
 
         //execute
@@ -210,7 +214,7 @@ class AuthServiceTest : UnitTest() {
         assertEquals(exampleToken, loginResponseDTO.token)
 
         //verify
-        verify(exactly = 1) { accountService.getAccount(loginRequestDTO.email) }
+        verify(exactly = 1) { accountService.getAccountByMail(loginRequestDTO.email) }
         verify(exactly = 1) { jwtService.createAccessToken(account) }
     }
 
@@ -233,7 +237,7 @@ class AuthServiceTest : UnitTest() {
         }
 
         //setup - mock
-        every { accountService.getAccount(loginRequestDTO.email) } returns account
+        every { accountService.getAccountByMail(loginRequestDTO.email) } returns account
 
         //execute
         val thrownException = assertThrows<ApiErrorException> {
@@ -243,7 +247,7 @@ class AuthServiceTest : UnitTest() {
         assertApiErrorExceptionEquals(expectedException, thrownException)
 
         //verify
-        verify(exactly = 1) { accountService.getAccount(loginRequestDTO.email) }
+        verify(exactly = 1) { accountService.getAccountByMail(loginRequestDTO.email) }
     }
 
     @Test
@@ -268,7 +272,7 @@ class AuthServiceTest : UnitTest() {
         }
 
         //setup - mock
-        every { accountService.getAccount(loginRequestDTO.email) } returns account
+        every { accountService.getAccountByMail(loginRequestDTO.email) } returns account
 
         //execute
         val thrownException = assertThrows<ApiErrorException> {
@@ -278,7 +282,7 @@ class AuthServiceTest : UnitTest() {
         assertApiErrorExceptionEquals(expectedException, thrownException)
 
         //verify
-        verify(exactly = 1) { accountService.getAccount(loginRequestDTO.email) }
+        verify(exactly = 1) { accountService.getAccountByMail(loginRequestDTO.email) }
     }
 
     @Test
@@ -289,9 +293,9 @@ class AuthServiceTest : UnitTest() {
         )
 
         val partyTimeUserDetails = PartyTimeUserDetails(testAccount)
-        val authentication = TokenAuthentication(partyTimeUserDetails)
+        val authentication = AuthenticationToken(partyTimeUserDetails)
 
-        every { accountService.getAccount(eMail) } returns testAccount
+        every { accountService.getAccountByMail(eMail) } returns testAccount
 
         val changedAccount = Account(
             testAccount.email,
@@ -300,12 +304,12 @@ class AuthServiceTest : UnitTest() {
             passwordEncoder.encode(changePasswordDTO.newPassword)
         )
 
-        every { accountRepository.save(changedAccount) } returns changedAccount
+        every { accountService.saveAccount(changedAccount) } returns changedAccount
 
         authService.changePassword(changePasswordDTO, authentication)
 
-        verify(exactly = 1) { accountService.getAccount(eMail) }
-        verify(exactly = 1) { accountRepository.save(changedAccount) }
+        verify(exactly = 1) { accountService.getAccountByMail(eMail) }
+        verify(exactly = 1) { accountService.saveAccount(changedAccount) }
     }
 
     @Test
@@ -315,9 +319,9 @@ class AuthServiceTest : UnitTest() {
             "Jkl?mno2pqr"
         )
         val partyTimeUserDetails = PartyTimeUserDetails(testAccount)
-        val authentication = TokenAuthentication(partyTimeUserDetails)
+        val authentication = AuthenticationToken(partyTimeUserDetails)
 
-        every { accountService.getAccount(eMail) } returns testAccount
+        every { accountService.getAccountByMail(eMail) } returns testAccount
 
         val thrownException = assertThrows<ApiErrorException> {
             authService.changePassword(changePasswordDTO, authentication)
@@ -326,6 +330,6 @@ class AuthServiceTest : UnitTest() {
         val expectedException = ApiError.unauthorized().asException()
         assertApiErrorExceptionEquals(expectedException, thrownException)
 
-        verify(exactly = 1) { accountService.getAccount(eMail) }
+        verify(exactly = 1) { accountService.getAccountByMail(eMail) }
     }
 }

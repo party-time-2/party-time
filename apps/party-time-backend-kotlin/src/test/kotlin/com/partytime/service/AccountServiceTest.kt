@@ -31,7 +31,7 @@ class AccountServiceTest : UnitTest() {
     fun getAccountSuccess() {
         every { accountRepository.findAccountByEmail(eMail) } returns Optional.of(testAccount)
 
-        val receivedAccount = accountService.getAccount(eMail)
+        val receivedAccount = accountService.getAccountByMail(eMail)
         assertEquals(testAccount, receivedAccount)
 
         verify(exactly = 1) { accountRepository.findAccountByEmail(eMail) }
@@ -42,7 +42,7 @@ class AccountServiceTest : UnitTest() {
         every { accountRepository.findAccountByEmail(eMail) } returns Optional.empty()
 
         val thrownException = assertThrows<ApiErrorException> {
-            accountService.getAccount(eMail)
+            accountService.getAccountByMail(eMail)
         }
 
         val expectedException =
@@ -56,7 +56,7 @@ class AccountServiceTest : UnitTest() {
     @Test
     fun optAccountSuccess() {
         every { accountRepository.findAccountByEmail(eMail) } returns Optional.of(testAccount)
-        val receivedAccount = accountService.optAccount(eMail)
+        val receivedAccount = accountService.optAccountByMail(eMail)
 
         assertEquals(testAccount, receivedAccount.get())
 
@@ -66,7 +66,7 @@ class AccountServiceTest : UnitTest() {
     @Test
     fun optAccountNotFound() {
         every { accountRepository.findAccountByEmail(eMail) } returns Optional.empty()
-        val receivedAccount = accountService.optAccount(eMail)
+        val receivedAccount = accountService.optAccountByMail(eMail)
 
         assertTrue(receivedAccount.isEmpty)
 

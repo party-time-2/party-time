@@ -4,7 +4,7 @@ import com.partytime.api.dto.account.AccountDTO
 import com.partytime.api.dto.account.AccountRegisterDTO
 import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.dto.login.LoginResponseDTO
-import com.partytime.jpa.mapper.map
+import com.partytime.jpa.mapper.toAccountDTO
 import com.partytime.service.AuthService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -20,6 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Controller for authentication related matters.
+ *
+ * @param authService Service for authentication related matters (e.g. logging in)
+ * @constructor Constructs a new [AuthController]
+ */
 @RestController
 @RequestMapping("/api/auth")
 @Validated
@@ -31,12 +37,20 @@ class AuthController (
     private val authService: AuthService
 ) {
     companion object {
+        /** Tag information for OpenAPI documentation */
         const val TAG: String = "Authentication API"
     }
+
+    //TODO move [register] to AccountController
 
 
     /**
      * F010 - Konto Erstellen
+     *
+     * Creates a new account with the provided information.
+     *
+     * @param body Information about the to-be-created account.
+     * @return Information about the registered account.
      */
     @PostMapping("/register")
     @Operation(
@@ -55,10 +69,15 @@ class AuthController (
     )
     @SecurityRequirements
     fun register(@RequestBody body: @Valid @NotNull AccountRegisterDTO): AccountDTO =
-        authService.registerAccount(body).map()
+        authService.registerAccount(body).toAccountDTO()
 
     /**
      * Implements F011
+     *
+     * Logs a user into the plattform.
+     *
+     * @param body Information required for the log-in
+     * @return Information about the successful log-in (contains the auth-token for password-less authentication)
      */
     @PostMapping("/login")
     @Operation(
@@ -83,6 +102,10 @@ class AuthController (
 
     /**
      * F014 - Konto Verifizieren
+     *
+     * Verifies the validity of the provided e-mail address of an account.
+     *
+     * @param code The e-mail-verification code used to identify which account should be marked as e-mail-verified
      */
     @PostMapping("/verify/{code}")
     @Operation(
