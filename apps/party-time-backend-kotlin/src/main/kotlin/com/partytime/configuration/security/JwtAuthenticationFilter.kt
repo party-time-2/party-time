@@ -10,11 +10,25 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.web.filter.OncePerRequestFilter
 
+/**
+ * Filter that transforms a Jwt-based authentication header into a code-accessible [AuthenticationToken]
+ *
+ * @param jwtService Service for processing Jwt information
+ * @param userDetailsService Service for loading user details (mainly the password hash)
+ * @constructor Constructs a new [JwtAuthenticationFilter]
+ */
 class JwtAuthenticationFilter(
     private val jwtService: JwtService,
     private val userDetailsService: UserDetailsService
 ): OncePerRequestFilter() {
 
+    /**
+     * Filter that transforms an auth-header into a code-accessible [AuthenticationToken]
+     *
+     * @param request Incoming request that contains the auth-header
+     * @param response Outgoing response that won't be modified by this function
+     * @param filterChain used to proceed with the request
+     */
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -31,7 +45,7 @@ class JwtAuthenticationFilter(
                     val userDetails = userDetailsService.loadUserByUsername(jwtService.getEmail(claims))
 
                     if (userDetails is PartyTimeUserDetails) {
-                        val auth = TokenAuthentication(userDetails)
+                        val auth = AuthenticationToken(userDetails)
 
                         SecurityContextHolder.getContext().authentication = auth
                     }

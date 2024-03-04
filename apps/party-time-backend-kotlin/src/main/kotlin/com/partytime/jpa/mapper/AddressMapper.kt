@@ -3,7 +3,13 @@ package com.partytime.jpa.mapper
 import com.partytime.api.dto.address.AddressDTO
 import com.partytime.jpa.entity.Address
 
-fun Address.map(): AddressDTO = AddressDTO(
+/**
+ * Transforms an [Address] entity into a (serializable) [AddressDTO]
+ *
+ * @receiver transformation subject
+ * @return transformation result, ready for serialization and transmission to the client
+ */
+fun Address.toAddressDTO(): AddressDTO = AddressDTO(
     addressLine,
     addressLineAddition,
     zip,
@@ -11,15 +17,13 @@ fun Address.map(): AddressDTO = AddressDTO(
     country
 )
 
-fun AddressDTO.map(): Address = Address(
-    addressLine = addressLine,
-    addressLineAddition = addressLineAddition,
-    zip = zip,
-    city = city,
-    country = country
-)
-
-fun Address.prettyPrint(): String = listOfNotNull(
+/**
+ * Formats an [Address] entity in a human-readable format.
+ *
+ * @receiver formatting subject
+ * @return address block
+ */
+fun Address.toMultiLineString(): String = listOfNotNull(
     addressLine,
     addressLineAddition?.let { "\n$it" },
     "$zip $city",

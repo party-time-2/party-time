@@ -1,10 +1,7 @@
 package com.partytime.mail
 
 import com.partytime.configuration.PartyTimeConfigurationProperties
-import com.partytime.jpa.entity.Account
-import com.partytime.jpa.entity.Event
-import com.partytime.jpa.mapper.prettyPrint
-import com.partytime.mail.model.EventData
+import com.partytime.jpa.mapper.toIcsEventData
 import com.partytime.mail.model.IcsEventData
 import com.partytime.mail.model.MailEvent
 import com.partytime.mail.model.MustacheData
@@ -25,11 +22,17 @@ import java.io.File
 import java.io.FileOutputStream
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
-import java.time.LocalDateTime
-import java.util.UUID
 
 private val mailLogger = KotlinLogging.logger {}
 
+/**
+ * Listener for [MailEvent] events.
+ *
+ * @param javaMailSender Sender for mails, configured by Spring with application configuration details
+ * @param loader Loader for mustache mail templates
+ * @param mustacheCompiler Compiler for inserting information into mustache mail templates
+ * @param configurationProperties Used to check if actual mail sending is enabled (or just logging) and server url retrieval
+ */
 @Component
 class MailEventListener(
     private val javaMailSender: JavaMailSender,
@@ -38,13 +41,23 @@ class MailEventListener(
     private val configurationProperties: PartyTimeConfigurationProperties
 ): ApplicationListener<MailEvent> {
     companion object {
+        /** Mail template for e-mail verification */
         const val TEMPLATE_VERIFY_ACCOUNT: String = "verify_account"
+        /** Mail template for event invitation */
         const val TEMPLATE_INVITATION: String = "invitation"
+        /** Mail template for changed event details */
         const val TEMPLATE_CHANGE: String = "change-event"
+        /** Mail template for event cancellation */
         const val TEMPLATE_DELETE: String = "delete-event"
+        /** Mail template for event uninviting */
         const val TEMPLATE_UNINVITE: String = "uninvite"
     }
 
+    /**
+     * Handles [MailEvent] sent through the event system.
+     *
+     * @param event The [MailEvent] containing information about the e-mail to be sent
+     */
     override fun onApplicationEvent(event: MailEvent) {
         val mustacheRenderResult = renderMustache(event.template, event.data)
 
@@ -65,7 +78,7 @@ class MailEventListener(
                     file = realFile
 
                     FileOutputStream(realFile).use { out ->
-                        val build: IcsEventData = buildIcsEventDataFromEvent(icsEvent)
+                        val build: IcsEventData = icsEvent.toIcsEventData(configurationProperties.url)
                         val reader = loader.getTemplate("event-ics")
                         val icsText = mustacheCompiler.compile(reader)
                             .execute(build)
@@ -94,7 +107,7 @@ class MailEventListener(
             mailLogger.info { "SUBJECT: ${event.subject}" }
 
             if (event.icsEvent != null) {
-                val build: IcsEventData = buildIcsEventDataFromEvent(event.icsEvent)
+                val build: IcsEventData = event.icsEvent.toIcsEventData(configurationProperties.url)
                 val reader = loader.getTemplate("event-ics")
                 val icsText = mustacheCompiler.compile(reader)
                     .execute(build)
@@ -110,25 +123,7 @@ class MailEventListener(
         return compile.execute(data)
     }
 
-    /**
-     * Implements F019
-     */
-    private fun buildIcsEventDataFromEvent(event: Event): IcsEventData {
-        val organizer: Account = event.organizer
-        return IcsEventData(
-            EventData(
-                organizer.name,
-                event.name,
-                event.address.prettyPrint(),
-                formatTimestamp(event.dateTime)
-            ),
-            configurationProperties.url,
-            formatTimestamp(LocalDateTime.now()),
-            organizer.email,
-            UUID.randomUUID().toString().replace("-", "")
-        )
-    }
 
-    private fun formatTimestamp(ts: LocalDateTime): String =
-        "${ts.year}${ts.monthValue}${ts.dayOfMonth}T${ts.hour}${ts.minute}${ts.second}Z"
+
+
 }

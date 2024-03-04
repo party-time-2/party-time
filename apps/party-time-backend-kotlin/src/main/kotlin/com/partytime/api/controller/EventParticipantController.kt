@@ -1,9 +1,9 @@
 package com.partytime.api.controller
 
 import com.partytime.api.dto.event.ParticipatingEventDTO
-import com.partytime.configuration.security.TokenAuthentication
+import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.jpa.entity.EventParticipant
-import com.partytime.jpa.mapper.mapParticipating
+import com.partytime.jpa.mapper.toParticipatingEventDTO
 import com.partytime.service.EventService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * Controller for Event participant related matters.
+ *
+ * @param eventService Service for managing event related matters (e.g. accepting invites)
+ * @constructor Constructs a new [EventParticipantController]
+ */
 @RestController
 @RequestMapping("/api/event/participants")
 @Validated
@@ -27,9 +33,16 @@ class EventParticipantController (
     private val eventService: EventService
 ) {
     companion object {
+        /** Tag information for OpenAPI documentation */
         const val TAG: String = "Event Participants API"
     }
 
+    /**
+     * Fetches all events an authenticated user has a participation status for.
+     *
+     * @param authentication Authentication information of the user requesting the events they've a participation status for
+     * @return List of [ParticipatingEventDTO] containing information about the events participated in.
+     */
     @GetMapping
     @Operation(
         description = "Get all participating events",
@@ -41,9 +54,15 @@ class EventParticipantController (
             )
         ]
     )
-    fun getEvents(authentication: TokenAuthentication): List<ParticipatingEventDTO> =
-        eventService.getParticipatingEvents(authentication.principal.username).map(EventParticipant::mapParticipating)
+    fun getEvents(authentication: AuthenticationToken): List<ParticipatingEventDTO> =
+        eventService.getParticipatingEvents(authentication.principal).map(EventParticipant::toParticipatingEventDTO)
 
+    /**
+     * Fetches details of a single event.
+     *
+     * @param event id of the event for which to fetch details
+     * @param authentication Authentication details of the user requesting event details
+     */
     @GetMapping("/{event}")
     @Operation(
         description = "Get a single participating event",
@@ -61,12 +80,17 @@ class EventParticipantController (
     )
     fun getEvent(
         @PathVariable("event") event: @NotNull Long,
-        authentication: TokenAuthentication
+        authentication: AuthenticationToken
     ): ParticipatingEventDTO =
-        eventService.getParticipatingEvent(event, authentication.principal.username).mapParticipating()
+        eventService.getParticipatingEvent(event, authentication.principal).toParticipatingEventDTO()
 
     /**
      * Implements F008
+     *
+     * Handles accepting an event invitation.
+     *
+     * @param event id of the event for which to accept an invitation
+     * @param authentication Authentication details of the user accepting an event invitation
      */
     @PostMapping("/{event}/invitation/accept")
     @Operation(
@@ -92,13 +116,18 @@ class EventParticipantController (
     )
     fun acceptInvitation(
         @PathVariable("event") event: @NotNull Long,
-        authentication: TokenAuthentication
+        authentication: AuthenticationToken
     ) {
-        eventService.acceptInvitation(event, authentication.principal.username)
+        eventService.acceptInvitation(event, authentication.principal)
     }
 
     /**
      * Implements F009
+     *
+     * Handles declining an event invitation.
+     *
+     * @param event id of the event for which to decline an invitation
+     * @param authentication Authentication details of the user declining an event invitation
      */
     @PostMapping("/{event}/invitation/decline")
     @Operation(
@@ -124,8 +153,8 @@ class EventParticipantController (
     )
     fun declineInvitation(
         @PathVariable("event") event: @NotNull Long,
-        authentication: TokenAuthentication
+        authentication: AuthenticationToken
     ) {
-        eventService.declineInvitation(event, authentication.principal.username)
+        eventService.declineInvitation(event, authentication.principal)
     }
 }
