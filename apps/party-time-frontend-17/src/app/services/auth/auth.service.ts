@@ -20,8 +20,12 @@ export class AuthService implements IAuthService {
   private storageService: StorageService = inject(StorageService);
 
   isAuthenticated(): Observable<boolean> {
-    throw new Error('Method not implemented.');
+    return new Observable<boolean>((observer) => {
+      observer.next(this.storageService.getAuthToken() !== null);
+      observer.complete();
+    });
   }
+
   login(
     loginRequestDTO: LoginRequestDTO
   ): Observable<LoginResponseDTO | ApiError> {

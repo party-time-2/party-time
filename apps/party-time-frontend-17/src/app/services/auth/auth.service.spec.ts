@@ -185,4 +185,26 @@ describe('AuthService', () => {
     // Verify that the storage service's removeAuthToken method was called
     expect(mockStorageService.removeAuthToken).toHaveBeenCalled();
   });
+
+  it('should return true from isAuthenticated when a token exists', (done) => {
+    // Mock getAuthToken to simulate the presence of an auth token
+    mockStorageService.getAuthToken = jest
+      .fn()
+      .mockReturnValue(mockLoginResponse.token);
+
+    authService.isAuthenticated().subscribe((isAuthenticated) => {
+      expect(isAuthenticated).toBe(true);
+      done();
+    });
+  });
+
+  it('should return false from isAuthenticated when no token exists', (done) => {
+    // Mock getAuthToken to simulate the absence of an auth token
+    mockStorageService.getAuthToken = jest.fn().mockReturnValue(null);
+
+    authService.isAuthenticated().subscribe((isAuthenticated) => {
+      expect(isAuthenticated).toBe(false);
+      done();
+    });
+  });
 });
