@@ -11,7 +11,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { StorageService } from '../../storage/storage.service';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 describe('AuthInterceptor', () => {
   let httpMock: HttpTestingController;

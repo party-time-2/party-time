@@ -9,7 +9,7 @@ import {
 } from '@party-time/models';
 import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { StorageService } from '../storage/storage.service';
 
 @Injectable({

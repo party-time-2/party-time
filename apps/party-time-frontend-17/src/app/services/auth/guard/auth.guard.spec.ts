@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 import { authGuard } from './auth.guard';
 import { AuthService } from '../auth.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 // Mock implementations
 const mockRouter = {

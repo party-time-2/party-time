@@ -1,7 +1,7 @@
 import { HttpInterceptor } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { StorageService } from '../../storage/storage.service';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 export class AuthInterceptor implements HttpInterceptor {
   storageService = inject(StorageService);

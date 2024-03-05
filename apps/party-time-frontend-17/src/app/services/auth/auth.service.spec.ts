@@ -13,7 +13,7 @@ import {
   LoginRequestDTO,
   LoginResponseDTO,
 } from '@party-time/models';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 describe('AuthService', () => {
   let authService: AuthService;
