@@ -27,6 +27,13 @@
       },
       "outputs": ["{workspaceRoot}/apps/party-time-backend-kotlin/build"]
     },
+    "test.coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/party-time-backend-kotlin",
+        "command": "./gradlew koverHtmlReport"
+      }
+    },
     "clean": {
       "executor": "@nxrocks/nx-spring-boot:clean",
       "options": {
