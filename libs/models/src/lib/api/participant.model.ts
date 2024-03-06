@@ -8,5 +8,15 @@ export interface ParticipantDTO {
 export enum ParticipantStatus {
   INVITED = 'INVITED',
   PARTICIPATING = 'PARTICIPATING',
-  REJECTED = 'REJECTED',
+  DECLINED = 'DECLINED',
+}
+
+export interface InvitationCreateDTO {
+  participantEmail: string;
+}
+
+export interface AccountInvitationDetailsDTO {
+  id: number;
+  status: ParticipantStatus;
+  invitee: AccountDTO;
 }

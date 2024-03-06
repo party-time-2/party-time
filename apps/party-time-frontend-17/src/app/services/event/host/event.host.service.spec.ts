@@ -6,7 +6,12 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
-import { EventDTO, ParticipantDTO } from '@party-time/models';
+import {
+  AccountInvitationDetailsDTO,
+  EventDTO,
+  ParticipantDTO,
+  ParticipantStatus,
+} from '@party-time/models';
 
 describe('EventHostService', () => {
   let service: EventHostService;
@@ -116,21 +121,27 @@ describe('EventHostService', () => {
   });
 
   it('should invite a participant', () => {
+    const invidedParticipant: AccountInvitationDetailsDTO = {
+      id: 0,
+      status: ParticipantStatus.INVITED,
+      invitee: {
+        id: 0,
+        name: 'string',
+        email: 'string',
+      },
+    };
     service
       .inviteParticipant(eventId, participantEmail)
       .subscribe((response) => {
-        expect(response).toEqual(mockParticipants);
+        expect(response).toEqual([invidedParticipant]);
       });
 
     const req = httpTestingController.expectOne(
-      environment.api.endpoints.event.host.inviteParticipant(
-        eventId,
-        participantEmail
-      )
+      environment.api.endpoints.event.host.inviteParticipant(eventId)
     );
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({});
-    req.flush(mockParticipants);
+    expect(req.request.body).toEqual({ participantEmail });
+    req.flush([invidedParticipant]);
   });
 
   it('should remove a participant', () => {

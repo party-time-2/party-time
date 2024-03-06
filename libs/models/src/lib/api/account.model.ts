@@ -16,3 +16,7 @@ export interface AccountLoginDTO {
   name: string;
   emailVerified?: boolean;
 }
+
+export interface AccountDeleteDTO {
+  password: string;
+}

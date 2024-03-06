@@ -1,6 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { IEventHostService } from '../../../models/event.host.interface';
-import { ApiError, EventDTO, ParticipantDTO } from '@party-time/models';
+import {
+  AccountInvitationDetailsDTO,
+  ApiError,
+  EventDTO,
+  ParticipantDTO,
+} from '@party-time/models';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
@@ -41,20 +46,17 @@ export class EventHostService implements IEventHostService {
   inviteParticipant(
     eventId: string,
     participantEmail: string
-  ): Observable<ApiError | ParticipantDTO[]> {
-    return this.http.post<ApiError | ParticipantDTO[]>(
-      environment.api.endpoints.event.host.inviteParticipant(
-        eventId,
-        participantEmail
-      ),
-      {}
+  ): Observable<ApiError | AccountInvitationDetailsDTO[]> {
+    return this.http.post<ApiError | AccountInvitationDetailsDTO[]>(
+      environment.api.endpoints.event.host.inviteParticipant(eventId),
+      { participantEmail }
     );
   }
   removeParticipant(
     eventId: string,
     participantEmail: string
-  ): Observable<ApiError | ParticipantDTO[]> {
-    return this.http.delete<ApiError | ParticipantDTO[]>(
+  ): Observable<ApiError | AccountInvitationDetailsDTO[]> {
+    return this.http.delete<ApiError | AccountInvitationDetailsDTO[]>(
       environment.api.endpoints.event.host.removeParticipant(
         eventId,
         participantEmail

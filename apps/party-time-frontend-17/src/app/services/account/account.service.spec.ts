@@ -5,7 +5,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { ChangePasswordDTO } from '@party-time/models';
+import { AccountDeleteDTO, ChangePasswordDTO } from '@party-time/models';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
 
 describe('AccountService', () => {
@@ -44,18 +44,21 @@ describe('AccountService', () => {
     req.flush(null);
   });
 
-  it('should send a POST request to delete account', () => {
-    const password = 'password';
+  it('should send a DELETE request to delete account', () => {
+    const accountDeleteDTO: AccountDeleteDTO = {
+      password: 'password',
+    };
 
-    service.deleteAccount(password).subscribe(() => {
+    service.deleteAccount(accountDeleteDTO).subscribe(() => {
       // add any assertions here if needed
     });
 
     const req = httpTestingController.expectOne(
       environment.api.endpoints.account.deleteAccount()
     );
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ body: { password } });
+
+    expect(req.request.method).toBe('DELETE');
+    expect(req.request.body).toEqual(accountDeleteDTO);
 
     req.flush(null);
   });

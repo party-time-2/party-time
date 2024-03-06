@@ -1,4 +1,10 @@
-import { ApiError, EventDTO, ParticipantDTO } from '@party-time/models';
+import {
+  AccountInvitationDetailsDTO,
+  ApiError,
+  EventDTO,
+  InvitationCreateDTO,
+  ParticipantDTO,
+} from '@party-time/models';
 import { Observable } from 'rxjs';
 
 /**
@@ -48,7 +54,7 @@ export interface IEventHostService {
   inviteParticipant(
     eventId: string,
     participantEmail: string
-  ): Observable<ApiError | ParticipantDTO[]>;
+  ): Observable<ApiError | AccountInvitationDetailsDTO[]>;
 
   /**
    * Removes a participant from an event.
@@ -58,8 +64,8 @@ export interface IEventHostService {
    */
   removeParticipant(
     eventId: string,
-    participantEmail: string
-  ): Observable<ApiError | ParticipantDTO[]>;
+    invitationId: string
+  ): Observable<ApiError | AccountInvitationDetailsDTO[]>;
 
   /**
    * Retrieves a list of participants for an event.

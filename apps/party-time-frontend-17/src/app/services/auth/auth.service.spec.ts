@@ -153,7 +153,7 @@ describe('AuthService', () => {
     const req = httpTestingController.expectOne(
       environment.api.endpoints.authentication.verify(mockVerifyEmailToken)
     );
-    expect(req.request.method).toBe('GET');
+    expect(req.request.method).toBe('POST');
     req.flush(null); // Simulating a void response
   });
 
@@ -171,7 +171,7 @@ describe('AuthService', () => {
     const req = httpTestingController.expectOne(
       environment.api.endpoints.authentication.verify(mockVerifyEmailToken)
     );
-    expect(req.request.method).toBe('GET');
+    expect(req.request.method).toBe('POST');
     req.flush(mockBadRequestApiError, {
       status: 400,
       statusText: 'Bad Request',

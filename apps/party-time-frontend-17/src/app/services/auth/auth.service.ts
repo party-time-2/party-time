@@ -32,8 +32,7 @@ export class AuthService implements IAuthService {
     return this.http
       .post<LoginResponseDTO | ApiError>(
         environment.api.endpoints.authentication.login(),
-        loginRequestDTO,
-        {}
+        loginRequestDTO
       )
       .pipe(
         tap((response: LoginResponseDTO | ApiError) => {
@@ -48,12 +47,12 @@ export class AuthService implements IAuthService {
   ): Observable<AccountDTO | ApiError> {
     return this.http.post<AccountDTO | ApiError>(
       environment.api.endpoints.authentication.register(),
-      accountRegisterDTO,
-      {}
+      accountRegisterDTO
     );
   }
   verifyEmail(token: string): Observable<void | ApiError> {
-    return this.http.get<void | ApiError>(
+    return this.http.request<void | ApiError>(
+      'POST',
       environment.api.endpoints.authentication.verify(token)
     );
   }

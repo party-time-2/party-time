@@ -9,8 +9,8 @@ export const environment = {
         register() {
           return environment.api.baseUrl + '/auth/register';
         },
-        verify(token: string) {
-          return environment.api.baseUrl + '/auth/verify/' + token;
+        verify(code: string) {
+          return environment.api.baseUrl + '/auth/verify/' + code;
         },
       },
       account: {
@@ -24,41 +24,43 @@ export const environment = {
       event: {
         host: {
           getOrganizedEvents() {
-            return environment.api.baseUrl + '/event';
+            return environment.api.baseUrl + '/host/event';
           },
           updateEvent() {
-            return environment.api.baseUrl + '/event/';
+            return environment.api.baseUrl + '/host/event';
           },
           createEvent() {
-            return environment.api.baseUrl + '/event';
+            return environment.api.baseUrl + '/host/event';
           },
           deleteEvent(eventId: string) {
-            return environment.api.baseUrl + '/event/' + eventId;
+            return environment.api.baseUrl + '/host/event/' + eventId;
           },
           getEvent(eventId: string) {
-            return environment.api.baseUrl + '/event/' + eventId;
+            return environment.api.baseUrl + '/host/event/' + eventId;
           },
-          inviteParticipant(eventId: string, participantEmail: string) {
+          inviteParticipant(eventId: string) {
             return (
               environment.api.baseUrl +
-              '/event/' +
+              '/host/event/' +
               eventId +
-              '/participant/' +
-              participantEmail
+              '/participants'
             );
           },
-          removeParticipant(eventId: string, participantEmail: string) {
+          removeParticipant(eventId: string, invideId: string) {
             return (
               environment.api.baseUrl +
-              '/event/' +
+              '/host/event/' +
               eventId +
-              '/participant/' +
-              participantEmail
+              '/participants/' +
+              invideId
             );
           },
           getParticipants(eventId: string) {
             return (
-              environment.api.baseUrl + '/event/' + eventId + '/participants'
+              environment.api.baseUrl +
+              '/host/event/' +
+              eventId +
+              '/participants'
             );
           },
         },
@@ -66,7 +68,7 @@ export const environment = {
           declineEvent(eventId: string) {
             return (
               environment.api.baseUrl +
-              '/event/participants' +
+              '/participant/event/' +
               eventId +
               'invitation/decline'
             );
@@ -74,16 +76,16 @@ export const environment = {
           acceptEvent(eventId: string) {
             return (
               environment.api.baseUrl +
-              '/event/participants' +
+              '/participant/event' +
               eventId +
               'invitation/accept'
             );
           },
           getParticipatingEvents() {
-            return environment.api.baseUrl + '/event/participants';
+            return environment.api.baseUrl + '/participant/events';
           },
           getParticipatingEvent(eventId: string) {
-            return environment.api.baseUrl + '/event/participants/' + eventId;
+            return environment.api.baseUrl + '/participant/event/' + eventId;
           },
         },
       },

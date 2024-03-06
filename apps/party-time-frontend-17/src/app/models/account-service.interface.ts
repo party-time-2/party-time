@@ -1,4 +1,8 @@
-import { ApiError, ChangePasswordDTO } from '@party-time/models';
+import {
+  AccountDeleteDTO,
+  ApiError,
+  ChangePasswordDTO,
+} from '@party-time/models';
 import { Observable } from 'rxjs';
 
 /**
@@ -19,5 +23,7 @@ export interface IAccountService {
    * @param password - The password for account deletion.
    * @returns An Observable that emits void or an ApiError.
    */
-  deleteAccount(password: string): Observable<void | ApiError>;
+  deleteAccount(
+    accountDeleteDTO: AccountDeleteDTO
+  ): Observable<void | ApiError>;
 }
