@@ -21,9 +21,7 @@ export class EventParticipantsService implements IEventParticipantService {
   acceptEvent(eventId: string): Observable<void | ApiError> {
     return this.http.post<void | ApiError>(
       environment.api.endpoints.event.participant.acceptEvent(eventId),
-      {
-        // observe: 'response',
-      }
+      {}
     );
   }
   getParticipaintingEvents(): Observable<ApiError | ParticipantEventDTO[]> {
