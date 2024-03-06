@@ -24,7 +24,7 @@ export const environment = {
       event: {
         host: {
           getOrganizedEvents() {
-            return environment.api.baseUrl + '/host/event';
+            return environment.api.baseUrl + '/host/events';
           },
           updateEvent() {
             return environment.api.baseUrl + '/host/event';
@@ -70,15 +70,15 @@ export const environment = {
               environment.api.baseUrl +
               '/participant/event/' +
               eventId +
-              'invitation/decline'
+              '/invitation/decline'
             );
           },
           acceptEvent(eventId: string) {
             return (
               environment.api.baseUrl +
-              '/participant/event' +
+              '/participant/event/' +
               eventId +
-              'invitation/accept'
+              '/invitation/accept'
             );
           },
           getParticipatingEvents() {

@@ -44,46 +44,42 @@ describe('Environment', () => {
     describe('Host Endpoints', () => {
       it('should return the correct get organized events URL', () => {
         expect(environment.api.endpoints.event.host.getOrganizedEvents()).toBe(
-          'http://localhost:8090/api/event'
+          'http://localhost:8090/api/host/events'
         );
       });
 
       it('should return the correct update event URL', () => {
         expect(environment.api.endpoints.event.host.updateEvent()).toBe(
-          'http://localhost:8090/api/event/'
+          'http://localhost:8090/api/host/event'
         );
       });
 
       it('should return the correct create event URL', () => {
         expect(environment.api.endpoints.event.host.createEvent()).toBe(
-          'http://localhost:8090/api/event'
+          'http://localhost:8090/api/host/event'
         );
       });
 
       it('should return the correct delete event URL', () => {
         const eventId = '123';
         expect(environment.api.endpoints.event.host.deleteEvent(eventId)).toBe(
-          'http://localhost:8090/api/event/123'
+          'http://localhost:8090/api/host/event/123'
         );
       });
 
       it('should return the correct get event URL', () => {
         const eventId = '123';
         expect(environment.api.endpoints.event.host.getEvent(eventId)).toBe(
-          'http://localhost:8090/api/event/123'
+          'http://localhost:8090/api/host/event/123'
         );
       });
 
       it('should return the correct invite participant URL', () => {
         const eventId = '123';
-        const participantEmail = 'test@example.com';
         expect(
-          environment.api.endpoints.event.host.inviteParticipant(
-            eventId,
-            participantEmail
-          )
+          environment.api.endpoints.event.host.inviteParticipant(eventId)
         ).toBe(
-          'http://localhost:8090/api/event/123/participant/test@example.com'
+          'http://localhost:8090/api/host/event/' + eventId + '/participants'
         );
       });
 
@@ -96,7 +92,7 @@ describe('Environment', () => {
             participantEmail
           )
         ).toBe(
-          'http://localhost:8090/api/event/123/participant/test@example.com'
+          'http://localhost:8090/api/host/event/123/participants/test@example.com'
         );
       });
 
@@ -104,7 +100,7 @@ describe('Environment', () => {
         const eventId = '123';
         expect(
           environment.api.endpoints.event.host.getParticipants(eventId)
-        ).toBe('http://localhost:8090/api/event/123/participants');
+        ).toBe('http://localhost:8090/api/host/event/123/participants');
       });
     });
 
@@ -114,7 +110,7 @@ describe('Environment', () => {
         expect(
           environment.api.endpoints.event.participant.declineEvent(eventId)
         ).toBe(
-          'http://localhost:8090/api/event/participants123invitation/decline'
+          'http://localhost:8090/api/participant/event/123/invitation/decline'
         );
       });
 
@@ -123,14 +119,14 @@ describe('Environment', () => {
         expect(
           environment.api.endpoints.event.participant.acceptEvent(eventId)
         ).toBe(
-          'http://localhost:8090/api/event/participants123invitation/accept'
+          'http://localhost:8090/api/participant/event/123/invitation/accept'
         );
       });
 
       it('should return the correct get participating events URL', () => {
         expect(
           environment.api.endpoints.event.participant.getParticipatingEvents()
-        ).toBe('http://localhost:8090/api/event/participants');
+        ).toBe('http://localhost:8090/api/participant/events');
       });
 
       it('should return the correct get participating event URL', () => {
@@ -139,7 +135,7 @@ describe('Environment', () => {
           environment.api.endpoints.event.participant.getParticipatingEvent(
             eventId
           )
-        ).toBe('http://localhost:8090/api/event/participants/123');
+        ).toBe('http://localhost:8090/api/participant/event/' + eventId);
       });
     });
   });
