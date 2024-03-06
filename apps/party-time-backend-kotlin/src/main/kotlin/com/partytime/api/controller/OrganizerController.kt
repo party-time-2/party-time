@@ -46,7 +46,7 @@ class OrganizerController(
 ) {
     companion object {
         /** Tag information for OpenAPI documentation */
-        const val TAG: String = "Host Event API"
+        const val TAG: String = "Organizer API"
     }
 
     /**

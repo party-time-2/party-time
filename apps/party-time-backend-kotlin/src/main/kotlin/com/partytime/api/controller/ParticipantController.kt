@@ -34,7 +34,7 @@ class ParticipantController (
 ) {
     companion object {
         /** Tag information for OpenAPI documentation */
-        const val TAG: String = "Event Participants API"
+        const val TAG: String = "Participant API"
     }
 
     /**
