@@ -6,7 +6,8 @@ plugins {
 	kotlin("jvm") version "1.9.22"
 	kotlin("plugin.spring") version "1.9.22"
 	kotlin("plugin.jpa") version "1.9.22"
-	id("maven-publish")
+	//id("maven-publish")
+    id("org.jetbrains.kotlinx.kover") version "0.7.6"
 }
 
 group = "com.partytime"
@@ -80,6 +81,7 @@ springBoot {
 	buildInfo()
 }
 
+/*
 publishing {
 	publications {
 		create<MavenPublication>("mavenJava") {
@@ -87,3 +89,4 @@ publishing {
 		}
 	}
 }
+ */
