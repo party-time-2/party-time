@@ -17,8 +17,7 @@ data class AccountDTO(
     val name: String,
     @field:NotEmpty
     @field:Email
-    val email: String,
-    val emailVerified: Boolean
+    val email: String
 )
 
 data class AccountRegisterDTO(

@@ -2,15 +2,19 @@ package com.partytime.api.dto.event
 
 import com.partytime.api.dto.account.AccountDTO
 import com.partytime.api.dto.address.AddressDTO
-import com.partytime.jpa.entity.Status
 import jakarta.validation.Valid
 import jakarta.validation.constraints.FutureOrPresent
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
 import java.time.LocalDateTime
 
-//FIXME Maybe rework EventDTO <-> ParticipatingEventDTO relationship
-
+/**
+ * Data container for creating new events.
+ *
+ * @param name The name of the new event
+ * @param dateTime The date and time of the new event
+ * @param address The address of the new event
+ */
 data class EventCreateDTO(
     @field:NotEmpty
     @field:Size(min = 5, max = 20)
@@ -21,50 +25,72 @@ data class EventCreateDTO(
     val address: AddressDTO
 )
 
-sealed interface IEventDTO {
+/**
+ * Interface specifying the fields of EventDetails container
+ */
+sealed interface EventDetails {
+    /** The eventId */
     val id: Long
+    /** The name of the event */
     val name: String
-    val organizer: AccountDTO
+    /** The date and time of the event */
     val dateTime: LocalDateTime
+    /** The address of the event */
     val address: AddressDTO
-    val participants: List<ParticipantDTO>
 }
 
-interface IParticipatingEventDTO: IEventDTO {
-    val status: Status
-}
+/**
+ * Implementation of [EventDetails], notably lacking any organizer information.
+ */
+data class EventDetailsDTO(
+    override val id: Long,
+    @field:NotEmpty
+    @field:Size(min = 5, max=20)
+    override val name: String,
+    @field:FutureOrPresent
+    override val dateTime: LocalDateTime,
+    @field:Valid
+    override val address: AddressDTO
+) : EventDetails
 
-
-data class EventDTO(
+/**
+ * Everything [EventDetails] entails + organizer information
+ *
+ * @param organizer The organizer of the event
+ */
+data class OrganizedEventDetailsDTO(
     override val id: Long,
     @field:NotEmpty
     @field:Size(min = 5, max=20)
     override val name: String,
     @field:Valid
-    override val organizer: AccountDTO,
     @field:FutureOrPresent
     override val dateTime: LocalDateTime,
-    @Valid
-    override val address: AddressDTO,
-    override val participants: List<ParticipantDTO>
-): IEventDTO
-
-data class ParticipatingEventDTO (
-    override val id: Long,
-    @field:NotEmpty
-    @field:Size(min = 5, max=20)
-    override val name: String,
     @field:Valid
-    override val organizer: AccountDTO,
-    @field:FutureOrPresent
-    override val dateTime: LocalDateTime,
-    @Valid
     override val address: AddressDTO,
-    override val participants: List<ParticipantDTO>,
-    override val status: Status
-): IParticipatingEventDTO, IEventDTO
+    @field:Valid
+    val organizer: AccountDTO
+): EventDetails
 
-data class ParticipantDTO(
-    val account: AccountDTO,
-    val status: Status
+
+/**
+ * Combination of invitation details (no info who got invited, just status) and event details (including organizer)
+ *
+ * @param invitationDetailsDTO Information about the invitation status, without any account information
+ * @param organizedEventDetailsDTO Information about the event, with organizer information
+ */
+data class ParticipantEventDTO(
+    val invitationDetailsDTO: InvitationDetailsDTO,
+    val organizedEventDetailsDTO: OrganizedEventDetailsDTO
+)
+
+/**
+ * Combination of invitation details (who got invited and just status) and event details (no organizer account)
+ *
+ * @param accountInvitationDetailsDTO Information about the invitation status of participants, with account information
+ * @param eventDetailsDTO Information about the event, without organizer information
+ */
+data class OrganizerEventDTO(
+    val accountInvitationDetailsDTO: List<AccountInvitationDetailsDTO>,
+    val eventDetailsDTO: EventDetailsDTO
 )

@@ -1,13 +1,16 @@
 package com.partytime.api.controller
 
+import com.partytime.api.dto.event.AccountInvitationDetailsDTO
 import com.partytime.api.dto.event.EventCreateDTO
-import com.partytime.api.dto.event.EventDTO
-import com.partytime.api.dto.event.ParticipantDTO
+import com.partytime.api.dto.event.EventDetailsDTO
+import com.partytime.api.dto.event.InvitationCreateDTO
+import com.partytime.api.dto.event.OrganizerEventDTO
 import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.jpa.entity.Event
-import com.partytime.jpa.entity.EventParticipant
-import com.partytime.jpa.mapper.toParticipantDTO
-import com.partytime.jpa.mapper.toEventDTO
+import com.partytime.jpa.entity.Invitation
+import com.partytime.jpa.mapper.toAccountInvitationDTO
+import com.partytime.jpa.mapper.toEventDetailsDTO
+import com.partytime.jpa.mapper.toOrganizerEventDTO
 import com.partytime.service.EventService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -18,32 +21,32 @@ import jakarta.validation.constraints.NotNull
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * Controller for Event related matters.
+ * Controller for Event organization related matters.
  *
  * @param eventService Service for managing event-organizing related matters (e.g. creating an event)
- * @constructor Constructs a new [EventController]
+ * @constructor Constructs a new [OrganizerController]
  */
 @RestController
-@RequestMapping("/api/event")
+@RequestMapping("/api/host")
 @Validated
 @Tag(
-    name = EventController.TAG,
-    description = "API endpoints providing all required logic for events"
+    name = OrganizerController.TAG,
+    description = "API endpoints for event organizer"
 )
-class EventController (
+class OrganizerController(
     private val eventService: EventService
 ) {
     companion object {
         /** Tag information for OpenAPI documentation */
-        const val TAG: String = "Event Host API"
+        const val TAG: String = "Host Event API"
     }
 
     /**
@@ -52,14 +55,15 @@ class EventController (
      * Fetches event information of events organized by the user.
      *
      * @param authentication Authentication information of the event organizer
+     * @return List of Event information (missing Organizer name, since that's the authenticated user)
      */
-    @GetMapping
+    @GetMapping("/events")
     @Operation(
         description = "Get events wherever the authenticated user is the organizer",
         responses = [ApiResponse(description = "Data", responseCode = "200", useReturnTypeSchema = true)]
     )
-    fun getEvents(authentication: AuthenticationToken): List<EventDTO> =
-        eventService.getEvents(authentication.principal).map(Event::toEventDTO)
+    fun getEvents(authentication: AuthenticationToken): List<EventDetailsDTO> =
+        eventService.getEvents(authentication.principal).map(Event::toEventDetailsDTO)
 
     /**
      * Implements F016
@@ -69,7 +73,7 @@ class EventController (
      * @param eventId id of the event organized by the user
      * @param authentication Authentication information of the event organizer
      */
-    @GetMapping("/{id}")
+    @GetMapping("/event/{id}")
     @Operation(
         description = "Get event by id if the authenticated user is the organizer",
         responses = [
@@ -90,124 +94,8 @@ class EventController (
     fun getEvent(
         @Parameter(description = "The id of the event") @PathVariable("id") eventId: Long,
         authentication: AuthenticationToken
-    ): EventDTO =
-        eventService.getEvent(authentication.principal, eventId).toEventDTO()
-
-    /**
-     * Implements F006
-     *
-     * Fetches a participant list of an event organized by the user.
-     *
-     * @param eventId id of the event organized by the user
-     * @param authentication Authentication information of the event organizer
-     */
-    @GetMapping("/{id}/participants")
-    @Operation(
-        description = "Get participants of given event if the authenticated user is the organizer",
-        responses = [
-            ApiResponse(
-                description = "Data",
-                responseCode = "200",
-                useReturnTypeSchema = true
-            ),
-            ApiResponse(
-                description = "Not organizer",
-                responseCode = "403"
-            ),
-            ApiResponse(
-                description = "Event not found",
-                responseCode = "404"
-            )
-        ]
-    )
-    fun getParticipants(
-        @Parameter(description = "The id of the event") @PathVariable("id") eventId: Long,
-        authentication: AuthenticationToken
-    ): List<ParticipantDTO> =
-        eventService.getParticipants(eventId, authentication.principal).map(EventParticipant::toParticipantDTO)
-
-    /**
-     * Implements F004
-     * Implements F007
-     *
-     * Invites an account to an event organized by the user.
-     *
-     * @param eventId id of the event organized by the user
-     * @param email E-mail address of the account to be invited
-     * @param authentication Authentication information of the event organizer
-     */
-    @PostMapping("/{id}/participants/{email}")
-    @Operation(
-        description = "Invite account if the authenticated user is the organizer",
-        responses = [
-            ApiResponse(
-                description = "Invitation e-mail sent",
-                responseCode = "200",
-                useReturnTypeSchema = true
-            ),
-            ApiResponse(
-                description = "Invitation failed",
-                responseCode = "400"
-            ),
-            ApiResponse(
-                description = "Not organizer",
-                responseCode = "403"
-            ),
-            ApiResponse(
-                description = "Event not found",
-                responseCode = "404"
-            )
-        ]
-    )
-    fun inviteParticipant(
-        @Parameter(description = "The id of the event") @PathVariable("id") eventId: Long,
-        @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") email: String,
-        authentication: AuthenticationToken
-    ): List<ParticipantDTO> {
-        eventService.inviteParticipant(eventId, email, authentication.principal)
-        return eventService.getParticipants(eventId, authentication.principal).map(EventParticipant::toParticipantDTO)
-    }
-
-    /**
-     * Implements F005
-     *
-     * Uninvites an account from an event organized by the user.
-     *
-     * @param eventId id of the event organized by the user
-     * @param email E-mail address of the account to be uninvited
-     * @param authentication Authentication information of the event organizer
-     */
-    @DeleteMapping("/{id}/participants/{email}")
-    @Operation(
-        description = "Cancel invitation of account to own event if the authenticated user is the organizer",
-        responses = [
-            ApiResponse(
-                description = "Account uninvited",
-                responseCode = "200",
-                useReturnTypeSchema = true
-            ),
-            ApiResponse(
-                description = "Uninvite failed",
-                responseCode = "400"
-            ),
-            ApiResponse(
-                description = "Not organizer",
-                responseCode = "403"
-            ),
-            ApiResponse(
-                description = "Event not found",
-                responseCode = "404"
-            )
-        ]
-    )
-    fun uninviteParticipant(
-        @Parameter(description = "The id of the event") @PathVariable("id") eventId: Long,
-        @Parameter(description = "The e-mail of the guest to invite") @PathVariable("email") email: String,
-        authentication: AuthenticationToken
-    ): List<ParticipantDTO> {
-        eventService.uninviteParticipant(eventId, email, authentication.principal)
-        return eventService.getParticipants(eventId, authentication.principal).map(EventParticipant::toParticipantDTO)
-    }
+    ): OrganizerEventDTO =
+        eventService.getEvent(authentication.principal, eventId).toOrganizerEventDTO()
 
     /**
      * Implements F001
@@ -217,7 +105,7 @@ class EventController (
      * @param body Information about the event to be created
      * @param authentication Authentication information of the event organizer
      */
-    @PostMapping
+    @PostMapping("/event")
     @Operation(
         description = "Create an event as authenticated user",
         responses = [
@@ -235,8 +123,8 @@ class EventController (
     fun createEvent(
         @RequestBody body: @NotNull @Valid EventCreateDTO,
         authentication: AuthenticationToken
-    ): EventDTO =
-        eventService.createEvent(body, authentication.principal).toEventDTO()
+    ): OrganizerEventDTO =
+        eventService.createEvent(body, authentication.principal).toOrganizerEventDTO()
 
     /**
      * Implements F002
@@ -246,7 +134,7 @@ class EventController (
      * @param body Information about the event to be updated. Must contain the eventId of a saved event.
      * @param authentication Authentication information of the event organizer
      */
-    @PutMapping
+    @PatchMapping("/event")
     @Operation(
         description = "Update own event if the authenticated user is the organizer",
         responses = [
@@ -270,10 +158,11 @@ class EventController (
         ]
     )
     fun updateEvent(
-        @RequestBody body: @NotNull @Valid EventDTO,
+        @RequestBody body: @NotNull @Valid EventDetailsDTO,
         authentication: AuthenticationToken
-    ): EventDTO =
-        eventService.updateEvent(body, authentication.principal).toEventDTO()
+    ): OrganizerEventDTO =
+        eventService.updateEvent(body, authentication.principal).toOrganizerEventDTO()
+
 
     /**
      * Implements F003
@@ -283,7 +172,7 @@ class EventController (
      * @param eventId id of the to-be-canceled event organized by the user
      * @param authentication Authentication information of the event organizer
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/event/{eventId}")
     @Operation(
         description = "Delete own event if the authenticated user is the organizer",
         responses = [
@@ -307,9 +196,127 @@ class EventController (
         ]
     )
     fun deleteEvent(
-        @Parameter(description = "The id of the event") @PathVariable("id") eventId: Long,
+        @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
         authentication: AuthenticationToken
     ) {
         eventService.deleteEventById(eventId, authentication.principal)
+    }
+
+
+
+    /**
+     * Implements F006
+     *
+     * Fetches a participant list of an event organized by the user.
+     *
+     * @param eventId id of the event organized by the user
+     * @param authentication Authentication information of the event organizer
+     */
+    @GetMapping("/event/{eventId}/participants")
+    @Operation(
+        description = "Get participants of given event if the authenticated user is the organizer",
+        responses = [
+            ApiResponse(
+                description = "Data",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            ApiResponse(
+                description = "Not organizer",
+                responseCode = "403"
+            ),
+            ApiResponse(
+                description = "Event not found",
+                responseCode = "404"
+            )
+        ]
+    )
+    fun getParticipants(
+        @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
+        authentication: AuthenticationToken
+    ): List<AccountInvitationDetailsDTO> =
+        eventService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
+
+    /**
+     * Implements F004
+     * Implements F007
+     *
+     * Invites an account to an event organized by the user.
+     *
+     * @param eventId id of the event organized by the user
+     * @param body E-mail address container with e-mail of the invitee account
+     * @param authentication Authentication information of the event organizer
+     */
+    @PostMapping("/event/{eventId}/participants")
+    @Operation(
+        description = "Invite account if the authenticated user is the organizer",
+        responses = [
+            ApiResponse(
+                description = "Invitation e-mail sent",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            ApiResponse(
+                description = "Invitation failed",
+                responseCode = "400"
+            ),
+            ApiResponse(
+                description = "Not organizer",
+                responseCode = "403"
+            ),
+            ApiResponse(
+                description = "Event not found",
+                responseCode = "404"
+            )
+        ]
+    )
+    fun inviteParticipant(
+        @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
+        @RequestBody body: @NotNull @Valid InvitationCreateDTO,
+        authentication: AuthenticationToken
+    ): List<AccountInvitationDetailsDTO> {
+        eventService.inviteParticipant(eventId, body, authentication.principal)
+        return eventService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
+    }
+
+    /**
+     * Implements F005
+     *
+     * Uninvites an account from an event organized by the user.
+     *
+     * @param eventId id of the event organized by the user
+     * @param inviteId id of the invitation whose account should be uninvited
+     * @param authentication Authentication information of the event organizer
+     */
+    @DeleteMapping("/event/{eventId}/participants/{inviteId}")
+    @Operation(
+        description = "Cancel invitation of account to own event if the authenticated user is the organizer",
+        responses = [
+            ApiResponse(
+                description = "Account uninvited",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            ApiResponse(
+                description = "Uninvite failed",
+                responseCode = "400"
+            ),
+            ApiResponse(
+                description = "Not organizer",
+                responseCode = "403"
+            ),
+            ApiResponse(
+                description = "Event not found",
+                responseCode = "404"
+            )
+        ]
+    )
+    fun uninviteParticipant(
+        @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
+        @Parameter(description = "The id of the invitation") @PathVariable("inviteId") inviteId: Long,
+        authentication: AuthenticationToken
+    ): List<AccountInvitationDetailsDTO> {
+        eventService.uninviteParticipant(eventId, inviteId, authentication.principal)
+        return eventService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
     }
 }

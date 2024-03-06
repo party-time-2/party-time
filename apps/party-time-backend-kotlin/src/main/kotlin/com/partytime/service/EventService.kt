@@ -1,7 +1,8 @@
 package com.partytime.service
 
 import com.partytime.api.dto.event.EventCreateDTO
-import com.partytime.api.dto.event.EventDTO
+import com.partytime.api.dto.event.EventDetailsDTO
+import com.partytime.api.dto.event.InvitationCreateDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.asException
 import com.partytime.configuration.JacksonConfiguration
@@ -9,10 +10,10 @@ import com.partytime.configuration.PartyTimeConfigurationProperties
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.entity.Address
 import com.partytime.jpa.entity.Event
-import com.partytime.jpa.entity.EventParticipant
+import com.partytime.jpa.entity.Invitation
 import com.partytime.jpa.entity.Status
 import com.partytime.jpa.mapper.toMultiLineString
-import com.partytime.jpa.repository.EventParticipantRepository
+import com.partytime.jpa.repository.InvitationRepository
 import com.partytime.jpa.repository.EventRepository
 import com.partytime.mail.model.CancellationData
 import com.partytime.mail.model.EventChangeData
@@ -24,7 +25,6 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.Optional
 
 private val eventLogger = KotlinLogging.logger {}
 
@@ -32,7 +32,7 @@ private val eventLogger = KotlinLogging.logger {}
  * A [Service] class for event related functionality.
  *
  * @param eventRepository Repository where event related information can be stored
- * @param eventParticipantRepository Repository where event-participation related information can be stored.
+ * @param invitationRepository Repository where event-participation related information can be stored.
  * @param accountService Service used fetch accounts (for e-mail recipient information and event organizer ownership checks)
  * @param addressService Service used to store, retrieve and update the location of events
  * @param configurationProperties Properties used to retrieve the url of the server for e-mail content
@@ -42,7 +42,7 @@ private val eventLogger = KotlinLogging.logger {}
 @Service
 class EventService (
     private val eventRepository: EventRepository,
-    private val eventParticipantRepository: EventParticipantRepository,
+    private val invitationRepository: InvitationRepository,
     private val accountService: AccountService,
     private val addressService: AddressService,
     private val configurationProperties: PartyTimeConfigurationProperties,
@@ -106,7 +106,7 @@ class EventService (
      * @return The [Event] with the changed event details
      */
     @Transactional
-    fun updateEvent(body: EventDTO, organizerEmail: String): Event {
+    fun updateEvent(body: EventDetailsDTO, organizerEmail: String): Event {
         val ownEvent: Event = fetchOwnEvent(body.id, organizerEmail)
 
         ownEvent.address = addressService.saveAddress(body.address)
@@ -116,7 +116,7 @@ class EventService (
         val event = eventRepository.save(ownEvent)
 
         //inform participants about the updated event details
-        for (eventParticipant in event.eventParticipants) {
+        for (eventParticipant in event.invitations) {
             val participant: Account = eventParticipant.account
             val mailEvent = MailEvent(
                 this,
@@ -152,7 +152,7 @@ class EventService (
     fun deleteEventById(eventId: Long, organizerEmail: String) {
         val event: Event = fetchOwnEvent(eventId, organizerEmail)
 
-        val eventParticipants = event.eventParticipants
+        val eventParticipants = event.invitations
 
         eventRepository.delete(event)
 
@@ -199,32 +199,30 @@ class EventService (
      * Uninvites the participant of an event and informs the uninvited participant about the uninviting.
      *
      * @param eventId id of the event for which a participant should be univited
-     * @param targetEmail E-mail-address of the participant to be univited
+     * @param inviteId id of the invitation whose account should be uninvited
      * @param organizerEmail E-mail-address of the event organizer
      */
     @Transactional
-    fun uninviteParticipant(eventId: Long, targetEmail: String, organizerEmail: String) {
+    fun uninviteParticipant(eventId: Long, inviteId: Long, organizerEmail: String) {
         val event: Event = fetchOwnEvent(eventId, organizerEmail)
 
-        val invitedAccount = accountService.getAccountByMail(targetEmail)
-
-        val eventParticipant = eventParticipantRepository
-            .findByEvent_IdAndAccount_Id(eventId, invitedAccount.id!!)
+        val invitation = invitationRepository
+            .findByEvent_IdAndId(eventId, inviteId)
             .orElseThrow {
                 ApiError
-                    .badRequest("Der Account mit der Email $targetEmail wurde nicht eingeladen")
+                    .badRequest("Eine Einladung mit der id $inviteId existiert nicht für das Event mit der id $eventId")
                     .asException()
             }
 
-        eventParticipantRepository.delete(eventParticipant)
+        invitationRepository.delete(invitation)
 
         //inform uninvited participant about the uninviting
         val mailEvent = MailEvent(
             this,
-            targetEmail,
+            invitation.account.email,
             "Du wurdest beim Event ${event.name} ausgeladen.",
             UninviteData(
-                invitedAccount.name,
+                invitation.account.name,
                 EventData(
                     event.organizer.name,
                     event.name,
@@ -244,26 +242,26 @@ class EventService (
      * Invites a participant to an event and informs the invited participant about the invitation.
      *
      * @param eventId id of the event for which a participant should be invited
-     * @param targetEmail E-mail-address of the user to be invited
+     * @param invitationCreateDTO E-mail address container with e-mail of the invitee account
      * @param organizerEmail E-mail-address of the event organizer
      */
     @Transactional
-    fun inviteParticipant(eventId: Long, targetEmail: String, organizerEmail: String) {
+    fun inviteParticipant(eventId: Long, invitationCreateDTO: InvitationCreateDTO, organizerEmail: String) {
         val ownEvent: Event = fetchOwnEvent(eventId, organizerEmail)
-        val invitedAccount = accountService.getAccountByMail(targetEmail)
+        val invitedAccount = accountService.getAccountByMail(invitationCreateDTO.email)
 
-        if (eventParticipantRepository.existsByEvent_IdAndAccount_Id(eventId, invitedAccount.id!!)) {
-            throw ApiError.badRequest("Der Account mit der Email $targetEmail wurde bereits eingeladen")
+        if (invitationRepository.existsByEvent_IdAndAccount_Id(eventId, invitedAccount.id!!)) {
+            throw ApiError.badRequest("Der Account mit der Email ${invitationCreateDTO.email} wurde bereits eingeladen")
                 .asException()
         }
 
-        val participant = EventParticipant(
+        val invitation = Invitation(
             invitedAccount,
             ownEvent,
             Status.INVITED
         )
 
-        eventParticipantRepository.save(participant)
+        invitationRepository.save(invitation)
 
         //Inform invited user about invitation
         val baseLink: String = configurationProperties.url + eventId + "/invitation/"
@@ -272,7 +270,7 @@ class EventService (
 
         val mailEvent = MailEvent(
             this,
-            targetEmail,
+            invitation.account.email,
             "Einladung zum Event " + ownEvent.name,
             InvitationData(
                 invitedAccount.name,
@@ -315,8 +313,8 @@ class EventService (
      * @return List of [Event] the user is a participant of
      */
     @Transactional(readOnly = true)
-    fun getParticipatingEvents(participantEmail: String): List<EventParticipant> =
-        eventParticipantRepository.findAllByAccount_Email(participantEmail)
+    fun getParticipatingEvents(participantEmail: String): List<Invitation> =
+        invitationRepository.findAllByAccount_Email(participantEmail)
 
     /**
      * Implements F007
@@ -326,18 +324,13 @@ class EventService (
      * @param eventId id of the event for which a participant has been invited
      * @param participantEmail E-mail-address of the participant
      */
-    fun getParticipatingEvent(eventId: Long, participantEmail: String): EventParticipant {
-        return Optional.of(getEventParticipant(eventId, participantEmail))
-            .orElseThrow {
-                ApiError.notFound("Das Event konnte nicht gefunden werden").asException()
-            }
-    }
-
-    private fun getEventParticipant(event: Long, email: String): EventParticipant =
-        eventParticipantRepository.findByEvent_IdAndAccount_Email(event, email)
-            .orElseThrow {
-                ApiError.notFound("Das Event konnte nicht gefunden werden").asException()
-            }
+    fun getInvitation(eventId: Long, participantEmail: String): Invitation =
+        accountService.getAccountByMail(participantEmail).let { account ->
+            invitationRepository.findByEvent_IdAndAccount_Id(eventId, account.id!!)
+                .orElseThrow {
+                    ApiError.notFound("Die Einladung konnte nicht gefunden werden").asException()
+                }
+        }
 
     /**
      * Implements F006
@@ -346,10 +339,10 @@ class EventService (
      *
      * @param eventId id of the event for which a participation information should be fetched
      * @param organizerEmail E-mail-address of the event organizer
-     * @return List of [EventParticipant] of the event with the provided id
+     * @return List of [Invitation] of the event with the provided id
      */
-    fun getParticipants(eventId: Long, organizerEmail: String): List<EventParticipant> {
-        return fetchOwnEvent(eventId, organizerEmail).eventParticipants.sortedBy { it.account.name }
+    fun getParticipants(eventId: Long, organizerEmail: String): List<Invitation> {
+        return fetchOwnEvent(eventId, organizerEmail).invitations.sortedBy { it.account.name }
     }
 
     /**
@@ -361,9 +354,9 @@ class EventService (
      * @param participantEmail E-mail-address of the accepting participant
      */
     fun acceptInvitation(eventId: Long, participantEmail: String) {
-        val eventParticipant = getEventParticipant(eventId, participantEmail)
+        val eventParticipant = getInvitation(eventId, participantEmail)
         eventParticipant.status = Status.PARTICIPATING
-        eventParticipantRepository.save(eventParticipant)
+        invitationRepository.save(eventParticipant)
     }
 
     /**
@@ -375,9 +368,9 @@ class EventService (
      * @param participantEmail E-mail-address of the rejecting participant
      */
     fun declineInvitation(eventId: Long, participantEmail: String) {
-        val eventParticipant = getEventParticipant(eventId, participantEmail)
-        eventParticipant.status = Status.REJECTED
-        eventParticipantRepository.save(eventParticipant)
+        val eventParticipant = getInvitation(eventId, participantEmail)
+        eventParticipant.status = Status.DECLINED
+        invitationRepository.save(eventParticipant)
     }
 
     private fun fetchOwnEvent(eventId: Long, email: String): Event {

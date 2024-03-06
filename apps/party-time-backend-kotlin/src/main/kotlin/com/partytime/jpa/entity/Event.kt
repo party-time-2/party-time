@@ -30,5 +30,5 @@ class Event(
     @JoinColumn(name = DatabaseConstants.Event.COLUMN_ADDRESS)
     var address: Address,
     @OneToMany(mappedBy = "event")
-    var eventParticipants: MutableSet<EventParticipant> = HashSet()
+    var invitations: MutableSet<Invitation> = HashSet()
 ): EntityWithLongId()

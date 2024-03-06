@@ -19,8 +19,8 @@ object DatabaseConstants {
         const val COLUMN_ADDRESS: String = "ADDRESS_ID"
     }
 
-    object EventParticipant {
-        const val TABLE_NAME: String = "EVENT_PARTICIPANT"
+    object Invitation {
+        const val TABLE_NAME: String = "INVITATION"
         const val COLUMN_ACCOUNT_ID: String = "ACCOUNT_ID"
         const val COLUMN_EVENT_ID: String = "EVENT_ID"
         const val COLUMN_STATUS: String = "STATUS"

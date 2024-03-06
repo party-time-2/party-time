@@ -1,9 +1,9 @@
 package com.partytime.api.controller
 
-import com.partytime.api.dto.event.ParticipatingEventDTO
+import com.partytime.api.dto.event.ParticipantEventDTO
 import com.partytime.configuration.security.AuthenticationToken
-import com.partytime.jpa.entity.EventParticipant
-import com.partytime.jpa.mapper.toParticipatingEventDTO
+import com.partytime.jpa.entity.Invitation
+import com.partytime.jpa.mapper.toParticipantEventDTO
 import com.partytime.service.EventService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * Controller for Event participant related matters.
+ * Controller for Event participation related matters.
  *
  * @param eventService Service for managing event related matters (e.g. accepting invites)
- * @constructor Constructs a new [EventParticipantController]
+ * @constructor Constructs a new [ParticipantController]
  */
 @RestController
-@RequestMapping("/api/event/participants")
+@RequestMapping("/api/participant")
 @Validated
 @Tag(
-    name = EventParticipantController.TAG,
+    name = ParticipantController.TAG,
     description = "API endpoints providing all required logic for event participants"
 )
-class EventParticipantController (
+class ParticipantController (
     private val eventService: EventService
 ) {
     companion object {
@@ -41,9 +41,9 @@ class EventParticipantController (
      * Fetches all events an authenticated user has a participation status for.
      *
      * @param authentication Authentication information of the user requesting the events they've a participation status for
-     * @return List of [ParticipatingEventDTO] containing information about the events participated in.
+     * @return List of [ParticipantEventDTO] containing information about the events invited in.
      */
-    @GetMapping
+    @GetMapping("/events")
     @Operation(
         description = "Get all participating events",
         responses = [
@@ -54,16 +54,17 @@ class EventParticipantController (
             )
         ]
     )
-    fun getEvents(authentication: AuthenticationToken): List<ParticipatingEventDTO> =
-        eventService.getParticipatingEvents(authentication.principal).map(EventParticipant::toParticipatingEventDTO)
+    fun getEvents(authentication: AuthenticationToken): List<ParticipantEventDTO> =
+        eventService.getParticipatingEvents(authentication.principal).map(Invitation::toParticipantEventDTO)
 
     /**
-     * Fetches details of a single event.
+     * Fetches details of a single event the authenticated user has been invited to.
      *
-     * @param event id of the event for which to fetch details
+     * @param eventId id of the event for which to fetch details
      * @param authentication Authentication details of the user requesting event details
+     * @return Details about a single the authenticated user has been invited to
      */
-    @GetMapping("/{event}")
+    @GetMapping("/event/{eventId}")
     @Operation(
         description = "Get a single participating event",
         responses = [
@@ -79,20 +80,20 @@ class EventParticipantController (
         ]
     )
     fun getEvent(
-        @PathVariable("event") event: @NotNull Long,
+        @PathVariable("eventId") eventId: @NotNull Long,
         authentication: AuthenticationToken
-    ): ParticipatingEventDTO =
-        eventService.getParticipatingEvent(event, authentication.principal).toParticipatingEventDTO()
+    ): ParticipantEventDTO =
+        eventService.getInvitation(eventId, authentication.principal).toParticipantEventDTO()
 
     /**
      * Implements F008
      *
      * Handles accepting an event invitation.
      *
-     * @param event id of the event for which to accept an invitation
+     * @param eventId id of the event for which to accept an invitation
      * @param authentication Authentication details of the user accepting an event invitation
      */
-    @PostMapping("/{event}/invitation/accept")
+    @PostMapping("/event/{eventId}/invitation/accept")
     @Operation(
         description = "Accept invitation for an event",
         responses = [
@@ -115,10 +116,10 @@ class EventParticipantController (
         ]
     )
     fun acceptInvitation(
-        @PathVariable("event") event: @NotNull Long,
+        @PathVariable("eventId") eventId: @NotNull Long,
         authentication: AuthenticationToken
     ) {
-        eventService.acceptInvitation(event, authentication.principal)
+        eventService.acceptInvitation(eventId, authentication.principal)
     }
 
     /**
@@ -126,10 +127,10 @@ class EventParticipantController (
      *
      * Handles declining an event invitation.
      *
-     * @param event id of the event for which to decline an invitation
+     * @param eventId id of the event for which to decline an invitation
      * @param authentication Authentication details of the user declining an event invitation
      */
-    @PostMapping("/{event}/invitation/decline")
+    @PostMapping("/event/{eventId}/invitation/decline")
     @Operation(
         description = "Decline invitation for an event",
         responses = [
@@ -152,9 +153,9 @@ class EventParticipantController (
         ]
     )
     fun declineInvitation(
-        @PathVariable("event") event: @NotNull Long,
+        @PathVariable("eventId") eventId: @NotNull Long,
         authentication: AuthenticationToken
     ) {
-        eventService.declineInvitation(event, authentication.principal)
+        eventService.declineInvitation(eventId, authentication.principal)
     }
 }

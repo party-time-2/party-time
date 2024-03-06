@@ -11,15 +11,15 @@ import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 
 @Entity
-@Table(name = DatabaseConstants.EventParticipant.TABLE_NAME)
-class EventParticipant(
+@Table(name = DatabaseConstants.Invitation.TABLE_NAME)
+class Invitation(
     @ManyToOne
-    @JoinColumn(name = DatabaseConstants.EventParticipant.COLUMN_ACCOUNT_ID)
+    @JoinColumn(name = DatabaseConstants.Invitation.COLUMN_ACCOUNT_ID)
     var account: Account,
     @ManyToOne
-    @JoinColumn(name = DatabaseConstants.EventParticipant.COLUMN_EVENT_ID)
+    @JoinColumn(name = DatabaseConstants.Invitation.COLUMN_EVENT_ID)
     var event: Event,
     @Enumerated(EnumType.STRING)
-    @Column(name = DatabaseConstants.EventParticipant.COLUMN_STATUS)
+    @Column(name = DatabaseConstants.Invitation.COLUMN_STATUS)
     var status: Status
 ): EntityWithLongId()

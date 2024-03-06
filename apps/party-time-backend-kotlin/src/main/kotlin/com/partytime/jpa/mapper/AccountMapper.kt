@@ -10,4 +10,4 @@ import com.partytime.jpa.entity.Account
  * @receiver transformation subject
  * @return transformation result, ready for serialization and transmission to the client
  */
-fun Account.toAccountDTO(): AccountDTO = AccountDTO(id!!, name, email, emailVerified)
+fun Account.toAccountDTO(): AccountDTO = AccountDTO(id!!, name, email)
