@@ -73,6 +73,7 @@ class AuthController (
      * Verifies the validity of the provided e-mail address of an account.
      *
      * @param code The e-mail-verification code used to identify which account should be marked as e-mail-verified
+     * @param emptyBody An empty message body, as required by the HTTP POST method
      */
     @PostMapping("/verify/{code}")
     @Operation(
@@ -89,7 +90,10 @@ class AuthController (
         ]
     )
     @SecurityRequirements
-    fun verifyMail(@PathVariable("code") code: @NotNull @NotEmpty String) {
+    fun verifyMail(
+        @PathVariable("code") code: @NotNull @NotEmpty String,
+        @RequestBody emptyBody: Unit
+    ) {
         authService.verifyAccount(code)
     }
 }

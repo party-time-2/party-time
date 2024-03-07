@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -91,6 +92,7 @@ class ParticipantController (
      * Handles accepting an event invitation.
      *
      * @param eventId id of the event for which to accept an invitation
+     * @param emptyBody An empty message body, as required by the HTTP POST method
      * @param authentication Authentication details of the user accepting an event invitation
      */
     @PostMapping("/event/{eventId}/invitation/accept")
@@ -117,6 +119,7 @@ class ParticipantController (
     )
     fun acceptInvitation(
         @PathVariable("eventId") eventId: @NotNull Long,
+        @RequestBody emptyBody: Unit,
         authentication: AuthenticationToken
     ) {
         participantService.acceptInvitation(eventId, authentication.principal)
@@ -128,6 +131,7 @@ class ParticipantController (
      * Handles declining an event invitation.
      *
      * @param eventId id of the event for which to decline an invitation
+     * @param emptyBody An empty message body, as required by the HTTP POST method
      * @param authentication Authentication details of the user declining an event invitation
      */
     @PostMapping("/event/{eventId}/invitation/decline")
@@ -154,6 +158,7 @@ class ParticipantController (
     )
     fun declineInvitation(
         @PathVariable("eventId") eventId: @NotNull Long,
+        @RequestBody emptyBody: Unit,
         authentication: AuthenticationToken
     ) {
         participantService.declineInvitation(eventId, authentication.principal)
