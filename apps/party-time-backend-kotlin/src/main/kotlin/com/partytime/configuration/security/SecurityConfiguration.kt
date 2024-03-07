@@ -61,9 +61,9 @@ class SecurityConfiguration (
                 .requestMatchers(
                     HttpMethod.POST,
                     "/api/auth/login",
-                    "/api/auth/register",
+                    "/api/account",
                     "/api/auth/verify/*",
-                    "/api/auth/forgot/*"
+                    "/api/account/pwchange"
                 ).permitAll()
                 .anyRequest().authenticated()
             }
