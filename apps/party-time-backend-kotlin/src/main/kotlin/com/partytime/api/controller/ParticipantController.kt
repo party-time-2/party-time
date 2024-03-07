@@ -4,7 +4,7 @@ import com.partytime.api.dto.event.ParticipantEventDTO
 import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.jpa.entity.Invitation
 import com.partytime.jpa.mapper.toParticipantEventDTO
-import com.partytime.service.EventService
+import com.partytime.service.ParticipantService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * Controller for Event participation related matters.
+ * Controller for event participation related matters.
  *
- * @param eventService Service for managing event related matters (e.g. accepting invites)
+ * @param participantService Service for managing event participation related matters (e.g. accepting invites)
  * @constructor Constructs a new [ParticipantController]
  */
 @RestController
@@ -30,11 +30,11 @@ import org.springframework.web.bind.annotation.RestController
     description = "API endpoints providing all required logic for event participants"
 )
 class ParticipantController (
-    private val eventService: EventService
+    private val participantService: ParticipantService
 ) {
     companion object {
         /** Tag information for OpenAPI documentation */
-        const val TAG: String = "Participant API"
+        const val TAG: String = "Event Participant API"
     }
 
     /**
@@ -55,7 +55,7 @@ class ParticipantController (
         ]
     )
     fun getEvents(authentication: AuthenticationToken): List<ParticipantEventDTO> =
-        eventService.getParticipatingEvents(authentication.principal).map(Invitation::toParticipantEventDTO)
+        participantService.getParticipatingEvents(authentication.principal).map(Invitation::toParticipantEventDTO)
 
     /**
      * Fetches details of a single event the authenticated user has been invited to.
@@ -83,7 +83,7 @@ class ParticipantController (
         @PathVariable("eventId") eventId: @NotNull Long,
         authentication: AuthenticationToken
     ): ParticipantEventDTO =
-        eventService.getInvitation(eventId, authentication.principal).toParticipantEventDTO()
+        participantService.getInvitation(eventId, authentication.principal).toParticipantEventDTO()
 
     /**
      * Implements F008
@@ -119,7 +119,7 @@ class ParticipantController (
         @PathVariable("eventId") eventId: @NotNull Long,
         authentication: AuthenticationToken
     ) {
-        eventService.acceptInvitation(eventId, authentication.principal)
+        participantService.acceptInvitation(eventId, authentication.principal)
     }
 
     /**
@@ -156,6 +156,6 @@ class ParticipantController (
         @PathVariable("eventId") eventId: @NotNull Long,
         authentication: AuthenticationToken
     ) {
-        eventService.declineInvitation(eventId, authentication.principal)
+        participantService.declineInvitation(eventId, authentication.principal)
     }
 }

@@ -11,7 +11,7 @@ import com.partytime.jpa.entity.Invitation
 import com.partytime.jpa.mapper.toAccountInvitationDTO
 import com.partytime.jpa.mapper.toEventDetailsDTO
 import com.partytime.jpa.mapper.toOrganizerEventDTO
-import com.partytime.service.EventService
+import com.partytime.service.OrganizerService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * Controller for Event organization related matters.
+ * Controller for event organization related matters.
  *
- * @param eventService Service for managing event-organizing related matters (e.g. creating an event)
+ * @param organizerService Service for managing event-organizing related matters (e.g. creating an event)
  * @constructor Constructs a new [OrganizerController]
  */
 @RestController
@@ -42,11 +42,11 @@ import org.springframework.web.bind.annotation.RestController
     description = "API endpoints for event organizer"
 )
 class OrganizerController(
-    private val eventService: EventService
+    private val organizerService: OrganizerService
 ) {
     companion object {
         /** Tag information for OpenAPI documentation */
-        const val TAG: String = "Organizer API"
+        const val TAG: String = "Event Organizer API"
     }
 
     /**
@@ -63,7 +63,7 @@ class OrganizerController(
         responses = [ApiResponse(description = "Data", responseCode = "200", useReturnTypeSchema = true)]
     )
     fun getEvents(authentication: AuthenticationToken): List<EventDetailsDTO> =
-        eventService.getEvents(authentication.principal).map(Event::toEventDetailsDTO)
+        organizerService.getEvents(authentication.principal).map(Event::toEventDetailsDTO)
 
     /**
      * Implements F016
@@ -72,6 +72,7 @@ class OrganizerController(
      *
      * @param eventId id of the event organized by the user
      * @param authentication Authentication information of the event organizer
+     * @return Details of a single Event (missing Organizer info, since that's the authenticated user)
      */
     @GetMapping("/event/{id}")
     @Operation(
@@ -95,7 +96,7 @@ class OrganizerController(
         @Parameter(description = "The id of the event") @PathVariable("id") eventId: Long,
         authentication: AuthenticationToken
     ): OrganizerEventDTO =
-        eventService.getEvent(authentication.principal, eventId).toOrganizerEventDTO()
+        organizerService.getEvent(authentication.principal, eventId).toOrganizerEventDTO()
 
     /**
      * Implements F001
@@ -104,6 +105,7 @@ class OrganizerController(
      *
      * @param body Information about the event to be created
      * @param authentication Authentication information of the event organizer
+     * @return Details about the newly created event (missing Organizer info, since that's the authenticated user)
      */
     @PostMapping("/event")
     @Operation(
@@ -124,7 +126,7 @@ class OrganizerController(
         @RequestBody body: @NotNull @Valid EventCreateDTO,
         authentication: AuthenticationToken
     ): OrganizerEventDTO =
-        eventService.createEvent(body, authentication.principal).toOrganizerEventDTO()
+        organizerService.createEvent(body, authentication.principal).toOrganizerEventDTO()
 
     /**
      * Implements F002
@@ -133,6 +135,7 @@ class OrganizerController(
      *
      * @param body Information about the event to be updated. Must contain the eventId of a saved event.
      * @param authentication Authentication information of the event organizer
+     * @return Details about the updated event (missing Organizer info, since that's the authenticated user)
      */
     @PatchMapping("/event")
     @Operation(
@@ -161,7 +164,7 @@ class OrganizerController(
         @RequestBody body: @NotNull @Valid EventDetailsDTO,
         authentication: AuthenticationToken
     ): OrganizerEventDTO =
-        eventService.updateEvent(body, authentication.principal).toOrganizerEventDTO()
+        organizerService.updateEvent(body, authentication.principal).toOrganizerEventDTO()
 
 
     /**
@@ -199,7 +202,7 @@ class OrganizerController(
         @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
         authentication: AuthenticationToken
     ) {
-        eventService.deleteEventById(eventId, authentication.principal)
+        organizerService.deleteEventById(eventId, authentication.principal)
     }
 
 
@@ -207,10 +210,11 @@ class OrganizerController(
     /**
      * Implements F006
      *
-     * Fetches a participant list of an event organized by the user.
+     * Fetches an invitation list of an event organized by the user.
      *
      * @param eventId id of the event organized by the user
      * @param authentication Authentication information of the event organizer
+     * @return List of invites of a specific event
      */
     @GetMapping("/event/{eventId}/participants")
     @Operation(
@@ -235,7 +239,7 @@ class OrganizerController(
         @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
         authentication: AuthenticationToken
     ): List<AccountInvitationDetailsDTO> =
-        eventService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
+        organizerService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
 
     /**
      * Implements F004
@@ -246,6 +250,7 @@ class OrganizerController(
      * @param eventId id of the event organized by the user
      * @param body E-mail address container with e-mail of the invitee account
      * @param authentication Authentication information of the event organizer
+     * @return List of all event invitees after the new invitee has been invited
      */
     @PostMapping("/event/{eventId}/participants")
     @Operation(
@@ -275,8 +280,8 @@ class OrganizerController(
         @RequestBody body: @NotNull @Valid InvitationCreateDTO,
         authentication: AuthenticationToken
     ): List<AccountInvitationDetailsDTO> {
-        eventService.inviteParticipant(eventId, body, authentication.principal)
-        return eventService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
+        organizerService.inviteParticipant(eventId, body, authentication.principal)
+        return organizerService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
     }
 
     /**
@@ -287,6 +292,7 @@ class OrganizerController(
      * @param eventId id of the event organized by the user
      * @param inviteId id of the invitation whose account should be uninvited
      * @param authentication Authentication information of the event organizer
+     * @return List of all event invitees after the previous invitee has been uninvited
      */
     @DeleteMapping("/event/{eventId}/participants/{inviteId}")
     @Operation(
@@ -316,7 +322,7 @@ class OrganizerController(
         @Parameter(description = "The id of the invitation") @PathVariable("inviteId") inviteId: Long,
         authentication: AuthenticationToken
     ): List<AccountInvitationDetailsDTO> {
-        eventService.uninviteParticipant(eventId, inviteId, authentication.principal)
-        return eventService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
+        organizerService.uninviteParticipant(eventId, inviteId, authentication.principal)
+        return organizerService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)
     }
 }

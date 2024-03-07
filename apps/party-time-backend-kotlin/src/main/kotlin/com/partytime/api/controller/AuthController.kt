@@ -1,10 +1,7 @@
 package com.partytime.api.controller
 
-import com.partytime.api.dto.account.AccountDTO
-import com.partytime.api.dto.account.AccountRegisterDTO
 import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.dto.login.LoginResponseDTO
-import com.partytime.jpa.mapper.toAccountDTO
 import com.partytime.service.AuthService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -40,36 +37,6 @@ class AuthController (
         /** Tag information for OpenAPI documentation */
         const val TAG: String = "Authentication API"
     }
-
-    //TODO move [register] to AccountController
-
-
-    /**
-     * F010 - Konto Erstellen
-     *
-     * Creates a new account with the provided information.
-     *
-     * @param body Information about the to-be-created account.
-     * @return Information about the registered account.
-     */
-    @PostMapping("/register")
-    @Operation(
-        description = "Register a new account",
-        responses = [
-            ApiResponse(
-                description = "The account object of the newly created account",
-                responseCode = "200",
-                useReturnTypeSchema = true
-            ),
-            ApiResponse(
-                description = "Account with e-mail already exists",
-                responseCode = "400"
-            )
-        ]
-    )
-    @SecurityRequirements
-    fun register(@RequestBody body: @Valid @NotNull AccountRegisterDTO): AccountDTO =
-        authService.registerAccount(body).toAccountDTO()
 
     /**
      * Implements F011

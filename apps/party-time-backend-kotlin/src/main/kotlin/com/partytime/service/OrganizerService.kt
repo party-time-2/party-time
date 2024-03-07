@@ -13,8 +13,8 @@ import com.partytime.jpa.entity.Event
 import com.partytime.jpa.entity.Invitation
 import com.partytime.jpa.entity.Status
 import com.partytime.jpa.mapper.toMultiLineString
-import com.partytime.jpa.repository.InvitationRepository
 import com.partytime.jpa.repository.EventRepository
+import com.partytime.jpa.repository.InvitationRepository
 import com.partytime.mail.model.CancellationData
 import com.partytime.mail.model.EventChangeData
 import com.partytime.mail.model.EventData
@@ -26,10 +26,9 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-private val eventLogger = KotlinLogging.logger {}
-
+private val organizerServiceLogger = KotlinLogging.logger {}
 /**
- * A [Service] class for event related functionality.
+ * A [Service] class for hosting events related functionality.
  *
  * @param eventRepository Repository where event related information can be stored
  * @param invitationRepository Repository where event-participation related information can be stored.
@@ -37,10 +36,10 @@ private val eventLogger = KotlinLogging.logger {}
  * @param addressService Service used to store, retrieve and update the location of events
  * @param configurationProperties Properties used to retrieve the url of the server for e-mail content
  * @param applicationEventPublisher Used to send [MailEvent] for event invite/uninvite/changed/canceled information
- * @constructor Constructs a new [EventService]
+ * @constructor Constructs a new [OrganizerService]
  */
 @Service
-class EventService (
+class OrganizerService (
     private val eventRepository: EventRepository,
     private val invitationRepository: InvitationRepository,
     private val accountService: AccountService,
@@ -48,7 +47,6 @@ class EventService (
     private val configurationProperties: PartyTimeConfigurationProperties,
     private val applicationEventPublisher: ApplicationEventPublisher
 ) {
-
     /**
      * Implements F001
      *
@@ -196,9 +194,9 @@ class EventService (
     /**
      * Implements F005
      *
-     * Uninvites the participant of an event and informs the uninvited participant about the uninviting.
+     * Uninvites an invitee of an event and informs the invitee about the uninviting.
      *
-     * @param eventId id of the event for which a participant should be univited
+     * @param eventId id of the event for which an invitee should be univited
      * @param inviteId id of the invitation whose account should be uninvited
      * @param organizerEmail E-mail-address of the event organizer
      */
@@ -239,9 +237,9 @@ class EventService (
      * Implements F004
      * Implements F007
      *
-     * Invites a participant to an event and informs the invited participant about the invitation.
+     * Invites an account to an event and informs the invited participant about the invitation.
      *
-     * @param eventId id of the event for which a participant should be invited
+     * @param eventId id of the event for which an account should be invited
      * @param invitationCreateDTO E-mail address container with e-mail of the invitee account
      * @param organizerEmail E-mail-address of the event organizer
      */
@@ -288,8 +286,8 @@ class EventService (
         )
         applicationEventPublisher.publishEvent(mailEvent)
 
-        eventLogger.info { "Accept Link: $acceptLink" }
-        eventLogger.info { "Decline Link: $declineLink" }
+        organizerServiceLogger.info { "Accept Link: $acceptLink" }
+        organizerServiceLogger.info { "Decline Link: $declineLink" }
     }
 
     /**
@@ -304,35 +302,6 @@ class EventService (
     fun getEvents(organizerEmail: String): List<Event> = eventRepository.findByOrganizer_Email(organizerEmail)
 
     /**
-     * Implements F007
-     *
-     * Fetches all events a user has been invited to (including events where the user has declined the invite)
-     * Participating in this instance means having a [Status].
-     *
-     * @param participantEmail E-mail-address of the participant
-     * @return List of [Event] the user is a participant of
-     */
-    @Transactional(readOnly = true)
-    fun getParticipatingEvents(participantEmail: String): List<Invitation> =
-        invitationRepository.findAllByAccount_Email(participantEmail)
-
-    /**
-     * Implements F007
-     *
-     * Fetches information about an Event participation.
-     *
-     * @param eventId id of the event for which a participant has been invited
-     * @param participantEmail E-mail-address of the participant
-     */
-    fun getInvitation(eventId: Long, participantEmail: String): Invitation =
-        accountService.getAccountByMail(participantEmail).let { account ->
-            invitationRepository.findByEvent_IdAndAccount_Id(eventId, account.id!!)
-                .orElseThrow {
-                    ApiError.notFound("Die Einladung konnte nicht gefunden werden").asException()
-                }
-        }
-
-    /**
      * Implements F006
      *
      * Fetches all participation information of an event.
@@ -343,34 +312,6 @@ class EventService (
      */
     fun getParticipants(eventId: Long, organizerEmail: String): List<Invitation> {
         return fetchOwnEvent(eventId, organizerEmail).invitations.sortedBy { it.account.name }
-    }
-
-    /**
-     * Implements F008
-     *
-     * Updates an event participation with information about accepting the invitation.
-     *
-     * @param eventId id of the event for which a participant has accepted the invitation
-     * @param participantEmail E-mail-address of the accepting participant
-     */
-    fun acceptInvitation(eventId: Long, participantEmail: String) {
-        val eventParticipant = getInvitation(eventId, participantEmail)
-        eventParticipant.status = Status.PARTICIPATING
-        invitationRepository.save(eventParticipant)
-    }
-
-    /**
-     * Implements F009
-     *
-     * Updates an event participation with information about declining the invitation.
-     *
-     * @param eventId id of the event for which a participant has accepted the invitation
-     * @param participantEmail E-mail-address of the rejecting participant
-     */
-    fun declineInvitation(eventId: Long, participantEmail: String) {
-        val eventParticipant = getInvitation(eventId, participantEmail)
-        eventParticipant.status = Status.DECLINED
-        invitationRepository.save(eventParticipant)
     }
 
     private fun fetchOwnEvent(eventId: Long, email: String): Event {
@@ -388,4 +329,5 @@ class EventService (
         // return event where id = id and organizer = email
         return event
     }
+
 }

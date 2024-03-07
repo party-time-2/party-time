@@ -1,12 +1,16 @@
 package com.partytime.api.controller
 
+import com.partytime.api.dto.account.AccountDTO
 import com.partytime.api.dto.account.AccountDeleteDTO
+import com.partytime.api.dto.account.AccountRegisterDTO
 import com.partytime.api.dto.changepassword.ChangePasswordDTO
 import com.partytime.configuration.security.AuthenticationToken
+import com.partytime.jpa.mapper.toAccountDTO
 import com.partytime.service.AccountDeletionService
-import com.partytime.service.AuthService
+import com.partytime.service.AccountService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
+import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotNull
@@ -20,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController
 /**
  * Controller for account related matters.
  *
- * @param accountDeletionService Service for deleting accounts
- * @param authService Service for authentication related matters (changing password)
+ * @param accountService Service used for registering accounts and changing passwords
+ * @param accountDeletionService Service used for deleting accounts
  * @constructor Constructs a new [AuthController]
  */
 @RestController
@@ -32,13 +36,40 @@ import org.springframework.web.bind.annotation.RestController
     description = "API Endpoints providing all required logic for an Account"
 )
 class AccountController (
-    private val accountDeletionService: AccountDeletionService,
-    private val authService: AuthService
+    private val accountService: AccountService,
+    private val accountDeletionService: AccountDeletionService
 ) {
     companion object {
         /** Tag information for OpenAPI documentation */
         const val TAG = "Account API"
     }
+
+    /**
+     * F010 - Konto Erstellen
+     *
+     * Creates a new account with the provided information.
+     *
+     * @param body Information about the to-be-created account.
+     * @return Information about the registered account.
+     */
+    @PostMapping
+    @Operation(
+        description = "Register a new account",
+        responses = [
+            ApiResponse(
+                description = "The account object of the newly created account",
+                responseCode = "200",
+                useReturnTypeSchema = true
+            ),
+            ApiResponse(
+                description = "Account with e-mail already exists",
+                responseCode = "400"
+            )
+        ]
+    )
+    @SecurityRequirements
+    fun register(@RequestBody body: @Valid @NotNull AccountRegisterDTO): AccountDTO =
+        accountService.registerAccount(body).toAccountDTO()
 
     /**
      * Implements F015
@@ -48,7 +79,7 @@ class AccountController (
      * @param body Information required for deleting the account (current password)
      * @param authentication Authentication information of the authenticated user
      */
-    @DeleteMapping("/delete")
+    @DeleteMapping
     @Operation(
         description = "Deletes the Account of the Logged In User",
         responses = [ApiResponse(
@@ -60,9 +91,7 @@ class AccountController (
     fun deleteOwnAccount(
         @RequestBody body: @NotNull @Valid AccountDeleteDTO,
         authentication: AuthenticationToken
-    ) {
-        accountDeletionService.deleteAccount(body, authentication)
-    }
+    ) = accountDeletionService.deleteAccount(body, authentication)
 
     /**
      * Implements F013
@@ -72,7 +101,7 @@ class AccountController (
      * @param body Information required for changing the password (old password & new password)
      * @param authentication Authentication information of the authenticated user
      */
-    @PostMapping("/change")
+    @PostMapping("/pwchange")
     @Operation(
         description = "Change the password of an account",
         responses = [
@@ -86,7 +115,6 @@ class AccountController (
             ), ApiResponse(description = "New password does not match requirements", responseCode = "409")
         ]
     )
-    fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: AuthenticationToken) {
-        authService.changePassword(body, authentication)
-    }
+    fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: AuthenticationToken) =
+        accountService.changePassword(body, authentication)
 }
