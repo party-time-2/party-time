@@ -30,13 +30,6 @@ describe('AuthService', () => {
     password: 'password',
   };
 
-  const mockAccountRegisterDTO: AccountRegisterDTO = {
-    email: 'test',
-    password: 'password',
-    name: 'test',
-  };
-  const mockAccountDTO = { email: 'test', name: 'test' };
-
   const mockBadRequestApiError: ApiError = {
     status: ApiErrorStatus['400 BAD_REQUEST'],
     timestamp: new Date(),
@@ -104,40 +97,6 @@ describe('AuthService', () => {
     );
     expect(req.request.method).toBe('POST');
     req.flush(mockBadRequestApiError);
-  });
-
-  it('should return AccountDTO on successful registration', (done) => {
-    authService.register(mockAccountRegisterDTO).subscribe((response) => {
-      expect(response).toEqual(mockAccountDTO);
-      done();
-    });
-
-    const req = httpTestingController.expectOne(
-      environment.api.endpoints.authentication.register()
-    );
-    expect(req.request.method).toBe('POST');
-    req.flush(mockAccountDTO); // Simulate successful response
-  });
-
-  it('should return ApiError on registration failure', (done) => {
-    authService.register(mockAccountRegisterDTO).subscribe({
-      next: () => {
-        fail('Expected error');
-      },
-      error: (error) => {
-        expect(error.error).toEqual(mockBadRequestApiError);
-        done();
-      },
-    });
-
-    const req = httpTestingController.expectOne(
-      environment.api.endpoints.authentication.register()
-    );
-    expect(req.request.method).toBe('POST');
-    req.flush(mockBadRequestApiError, {
-      status: 400,
-      statusText: 'Bad Request',
-    }); // Simulate error response
   });
 
   it('should successfully verify email without returning a value', (done) => {

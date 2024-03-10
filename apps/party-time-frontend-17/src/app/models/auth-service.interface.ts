@@ -27,15 +27,6 @@ export interface IAuthService {
   ): Observable<LoginResponseDTO | ApiError>;
 
   /**
-   * Registers a new user account with the provided account registration data.
-   * @param accountRegisterDTO - The account registration data.
-   * @returns An Observable that emits an AccountDTO if the registration is successful, or an ApiError if there is an error.
-   */
-  register(
-    accountRegisterDTO: AccountRegisterDTO
-  ): Observable<AccountDTO | ApiError>;
-
-  /**
    * Verifies the user's email with the provided verification token.
    * @param token - The verification token.
    * @returns An Observable that emits void if the email verification is successful, or an ApiError if there is an error.

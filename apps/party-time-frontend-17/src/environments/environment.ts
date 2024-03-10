@@ -2,23 +2,23 @@ export const environment = {
   api: {
     baseUrl: 'http://localhost:8090/api',
     endpoints: {
+      account: {
+        register() {
+          return environment.api.baseUrl + '/account';
+        },
+        delete() {
+          return environment.api.baseUrl + '/account';
+        },
+        changePassword() {
+          return environment.api.baseUrl + '/account/pwchange';
+        },
+      },
       authentication: {
         login() {
           return environment.api.baseUrl + '/auth/login';
         },
-        register() {
-          return environment.api.baseUrl + '/auth/register';
-        },
         verify(code: string) {
           return environment.api.baseUrl + '/auth/verify/' + code;
-        },
-      },
-      account: {
-        changePassword() {
-          return environment.api.baseUrl + '/account/change';
-        },
-        deleteAccount() {
-          return environment.api.baseUrl + '/account/delete';
         },
       },
       event: {

@@ -4,6 +4,8 @@ import {
   ChangePasswordDTO,
   ApiError,
   AccountDeleteDTO,
+  AccountDTO,
+  AccountRegisterDTO,
 } from '@party-time/models';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -29,10 +31,19 @@ export class AccountService implements IAccountService {
   ): Observable<void | ApiError> {
     return this.http.request<void | ApiError>(
       'DELETE',
-      environment.api.endpoints.account.deleteAccount(),
+      environment.api.endpoints.account.delete(),
       {
         body: accountDeleteDTO,
       }
+    );
+  }
+
+  register(
+    accountRegisterDTO: AccountRegisterDTO
+  ): Observable<AccountDTO | ApiError> {
+    return this.http.post<AccountDTO | ApiError>(
+      environment.api.endpoints.account.register(),
+      accountRegisterDTO
     );
   }
 }

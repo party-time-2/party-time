@@ -5,12 +5,35 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { AccountDeleteDTO, ChangePasswordDTO } from '@party-time/models';
+import {
+  AccountDeleteDTO,
+  AccountRegisterDTO,
+  ApiError,
+  ApiErrorStatus,
+  ChangePasswordDTO,
+} from '@party-time/models';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
 
 describe('AccountService', () => {
   let service: AccountService;
   let httpTestingController: HttpTestingController;
+  const mockAccountRegisterDTO: AccountRegisterDTO = {
+    email: 'test',
+    password: 'password',
+    name: 'test',
+  };
+  const mockAccountDTO = { email: 'test', name: 'test' };
+
+  const mockBadRequestApiError: ApiError = {
+    status: ApiErrorStatus['400 BAD_REQUEST'],
+    timestamp: new Date(),
+    message: 'Bad Request',
+    error: {
+      status: '400',
+      message: 'Bad Request',
+      timestamp: '2021-12-14T14:00:00.000Z',
+    },
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -50,16 +73,50 @@ describe('AccountService', () => {
     };
 
     service.deleteAccount(accountDeleteDTO).subscribe(() => {
-      // add any assertions here if needed
+      //
     });
 
     const req = httpTestingController.expectOne(
-      environment.api.endpoints.account.deleteAccount()
+      environment.api.endpoints.account.delete()
     );
 
     expect(req.request.method).toBe('DELETE');
     expect(req.request.body).toEqual(accountDeleteDTO);
 
     req.flush(null);
+  });
+
+  it('should return AccountDTO on successful registration', (done) => {
+    service.register(mockAccountRegisterDTO).subscribe((response) => {
+      expect(response).toEqual(mockAccountDTO);
+      done();
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.account.register()
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockAccountDTO); // Simulate successful response
+  });
+
+  it('should return ApiError on registration failure', (done) => {
+    service.register(mockAccountRegisterDTO).subscribe({
+      next: () => {
+        fail('Expected error');
+      },
+      error: (error) => {
+        expect(error.error).toEqual(mockBadRequestApiError);
+        done();
+      },
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.account.register()
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockBadRequestApiError, {
+      status: 400,
+      statusText: 'Bad Request',
+    }); // Simulate error response
   });
 });

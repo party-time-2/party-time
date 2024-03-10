@@ -42,14 +42,7 @@ export class AuthService implements IAuthService {
         })
       );
   }
-  register(
-    accountRegisterDTO: AccountRegisterDTO
-  ): Observable<AccountDTO | ApiError> {
-    return this.http.post<AccountDTO | ApiError>(
-      environment.api.endpoints.authentication.register(),
-      accountRegisterDTO
-    );
-  }
+
   verifyEmail(token: string): Observable<void | ApiError> {
     return this.http.request<void | ApiError>(
       'POST',

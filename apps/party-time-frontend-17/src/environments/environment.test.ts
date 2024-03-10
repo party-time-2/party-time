@@ -13,8 +13,8 @@ describe('Environment', () => {
     });
 
     it('should return the correct register URL', () => {
-      expect(environment.api.endpoints.authentication.register()).toBe(
-        'http://localhost:8090/api/auth/register'
+      expect(environment.api.endpoints.account.register()).toBe(
+        'http://localhost:8090/api/account'
       );
     });
 
@@ -29,13 +29,13 @@ describe('Environment', () => {
   describe('Account Endpoints', () => {
     it('should return the correct change password URL', () => {
       expect(environment.api.endpoints.account.changePassword()).toBe(
-        'http://localhost:8090/api/account/change'
+        'http://localhost:8090/api/account/pwchange'
       );
     });
 
     it('should return the correct delete account URL', () => {
-      expect(environment.api.endpoints.account.deleteAccount()).toBe(
-        'http://localhost:8090/api/account/delete'
+      expect(environment.api.endpoints.account.delete()).toBe(
+        'http://localhost:8090/api/account'
       );
     });
   });
