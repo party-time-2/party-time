@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-error',
+  selector: 'app-not-found',
   standalone: true,
   imports: [CommonModule],
-  template: `<p>error works!</p>`,
+  template: `<p>not-found works!</p>`,
   styles: ``,
 })
-export class ErrorComponent {}
+export class NotFoundComponent {}
