@@ -4,8 +4,8 @@
 
 - Kotlin `data class` wird nicht ge-mockt.
   - Mocking `data class` würde die eingebauten copy/equals/toString Methoden stören https://github.com/mockk/mockk/issues/508#issuecomment-716763259
-  - Mocking sollte das Ziel haben Verhalten zu prüfen, nicht ob `data class` funktioniert, wenn man die Standard-Implementierung stört 
-    
+  - Mocking sollte das Ziel haben Verhalten zu prüfen, nicht ob `data class` funktioniert, wenn man die Standard-Implementierung stört
+
 ## Unit Tests
 
 - Müssen ohne `SpringContext` auskommen.
@@ -23,4 +23,3 @@
 
 - Müssen mit vollständigem `SpringContext` durchgeführt werden
 - Routen werden angesprochen und Ergebnis wird überprüft (Black-Box-Test)
-

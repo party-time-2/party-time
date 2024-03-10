@@ -21,9 +21,9 @@
   - https://stackoverflow.com/a/61755069
   - https://blog.marcnuri.com/mockmvc-spring-mvc-framework
   - RestAssuredMockMvc anstatt Spring MockMvc? https://www.baeldung.com/spring-mock-mvc-rest-assured
-  - Mocking 
+  - Mocking
     - MockK Guidebook https://notwoods.github.io/mockk-guidebook/docs/matching/with/
-    - https://mockk.io/ 
+    - https://mockk.io/
   - Jwt refresh token flow
     - https://stackoverflow.com/a/54378384
 
