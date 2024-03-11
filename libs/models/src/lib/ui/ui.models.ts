@@ -1,8 +1,8 @@
 export interface ILogo {
-  src: string;
-  alt: string;
-  href: string;
-  name: string;
+  src: string | undefined;
+  alt: string | undefined;
+  href: string | undefined;
+  name: string | undefined;
 }
 
 export interface IGoup {
