@@ -13,6 +13,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider
+import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer
@@ -70,9 +71,7 @@ class SecurityConfiguration (
         authenticationProvider: AuthenticationProvider
     ): SecurityFilterChain {
         http.csrf { it.disable() }
-            .cors {
-                it.configurationSource(corsConfigurationSource())
-            }
+            .cors(Customizer.withDefaults())
             .exceptionHandling { it.authenticationEntryPoint(authEntryPointJwt) }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authenticationProvider(authenticationProvider)
@@ -156,11 +155,17 @@ class SecurityConfiguration (
      *
      * @return A new [CorsConfigurationSource] that restricts CORS responses to certain routes
      */
-    private fun corsConfigurationSource(): CorsConfigurationSource =
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource =
         UrlBasedCorsConfigurationSource().also {
             val configuration = CorsConfiguration().apply {
                 addAllowedOrigin(properties.url)
-                addAllowedMethod("*")
+                addAllowedHeader("content-type")
+                addAllowedMethod(HttpMethod.GET)
+                addAllowedMethod(HttpMethod.POST)
+                addAllowedMethod(HttpMethod.PATCH)
+                addAllowedMethod(HttpMethod.DELETE)
+                addAllowedMethod(HttpMethod.OPTIONS)
             }
 
             it.registerCorsConfiguration("/api/**", configuration)
