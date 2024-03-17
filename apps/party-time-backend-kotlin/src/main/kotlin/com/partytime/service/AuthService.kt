@@ -7,10 +7,12 @@ import com.partytime.api.error.asException
 import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.jpa.entity.Account
 import com.partytime.mail.model.MailEvent
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+private val authServiceLogger = KotlinLogging.logger {}
 /**
  *  A [Service] class for authentication related functionality.
  *
@@ -42,6 +44,7 @@ class AuthService(
         account.emailVerified = true
         account.emailVerificationCode = null
         accountService.saveAccount(account)
+        authServiceLogger.info { "Account ${account.email} verified." }
     }
 
     /**
@@ -70,6 +73,7 @@ class AuthService(
         }
 
         val accessToken = jwtService.createAccessToken(account)
+        authServiceLogger.info { "Account ${account.email} JWT created." }
         return LoginResponseDTO(accessToken)
     }
 }
