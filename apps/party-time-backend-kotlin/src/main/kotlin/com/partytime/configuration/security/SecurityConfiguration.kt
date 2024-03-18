@@ -161,6 +161,7 @@ class SecurityConfiguration (
             val configuration = CorsConfiguration().apply {
                 addAllowedOrigin(properties.url)
                 addAllowedHeader("content-type")
+                addAllowedHeader("authorization")
                 addAllowedMethod(HttpMethod.GET)
                 addAllowedMethod(HttpMethod.POST)
                 addAllowedMethod(HttpMethod.PATCH)
