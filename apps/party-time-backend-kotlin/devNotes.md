@@ -24,8 +24,10 @@
   - Mocking
     - MockK Guidebook https://notwoods.github.io/mockk-guidebook/docs/matching/with/
     - https://mockk.io/
-  - Jwt refresh token flow
-    - https://stackoverflow.com/a/54378384
+  - Avoiding JUnit BeforeEach!
+    - https://www.youtube.com/watch?v=cs2Wu9Co-2s
+- Jwt refresh token flow
+  - https://stackoverflow.com/a/54378384
 
 ## Maybe later
 
