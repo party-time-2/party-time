@@ -1,5 +1,8 @@
 package com.partytime.service
 
+import com.partytime.EMAIL
+import com.partytime.NAME
+import com.partytime.PASSWORD
 import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.ApiErrorException
@@ -21,11 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.Optional
 import java.util.UUID
 
-private const val email = "example@example.com"
-private const val name = "Example Example"
-private const val plainTextPassword = "Abc!def5ghi"
-
-class AuthServiceTest : UnitTest() {
+class AuthServiceUnitTest : UnitTest() {
     private val accountService = mockk<AccountService>()
     private val cryptService = mockk<CryptService>()
     private val jwtService = mockk<JwtService>()
@@ -40,7 +39,7 @@ class AuthServiceTest : UnitTest() {
     )
 
     private val testPasswordEncoder = BCryptPasswordEncoder()
-    private val encodedPassword = testPasswordEncoder.encode(plainTextPassword)
+    private val encodedPassword = testPasswordEncoder.encode(PASSWORD)
 
     @Nested
     inner class VerifyAccountTests {
@@ -48,9 +47,9 @@ class AuthServiceTest : UnitTest() {
         private val invalidVerificationCode = UUID.randomUUID().toString()
 
         private val account = Account(
-            email,
+            EMAIL,
             false,
-            name,
+            NAME,
             encodedPassword,
             emailVerificationCode = validVerificationCode
         ).apply {
@@ -105,28 +104,28 @@ class AuthServiceTest : UnitTest() {
         private val invalidPassword = "wrong!Password5unauthorized"
 
         private val invalidLoginRequestDTO = LoginRequestDTO(
-            email,
+            EMAIL,
             invalidPassword
         )
 
         private val validLoginRequestDTO = LoginRequestDTO(
-            email,
-            plainTextPassword
+            EMAIL,
+            PASSWORD
         )
 
         private val verifiedAccount = Account(
-            email,
+            EMAIL,
             true,
-            name,
+            NAME,
             encodedPassword
         ).apply {
             id = 0
         }
 
         private val unverifiedAccount = Account(
-            email,
+            EMAIL,
             false,
-            name,
+            NAME,
             encodedPassword
         ).apply {
             id = 0
@@ -138,8 +137,8 @@ class AuthServiceTest : UnitTest() {
         @Test
         fun loginUserSuccess() {
             //setup - mock
-            every { accountService.getAccountByMail(email) } returns verifiedAccount
-            every { cryptService.passwordMatchesHash(plainTextPassword, encodedPassword) } returns true
+            every { accountService.getAccountByMail(EMAIL) } returns verifiedAccount
+            every { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) } returns true
             every { jwtService.createAccessToken(verifiedAccount) } returns exampleJwtToken
 
             //execute
@@ -147,15 +146,15 @@ class AuthServiceTest : UnitTest() {
             assertEquals(exampleJwtToken, loginResponseDTO.token)
 
             //verify
-            verify(exactly = 1) { accountService.getAccountByMail(email) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(plainTextPassword, encodedPassword) }
+            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
+            verify(exactly = 1) { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) }
             verify(exactly = 1) { jwtService.createAccessToken(verifiedAccount) }
         }
 
         @Test
         fun loginUserForbidden() {
             //setup - mock
-            every { accountService.getAccountByMail(email) } returns unverifiedAccount
+            every { accountService.getAccountByMail(EMAIL) } returns unverifiedAccount
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
@@ -166,13 +165,13 @@ class AuthServiceTest : UnitTest() {
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //verify
-            verify(exactly = 1) { accountService.getAccountByMail(email) }
+            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
         }
 
         @Test
         fun loginUserUnauthorized() {
             //setup - mock
-            every { accountService.getAccountByMail(email) } returns verifiedAccount
+            every { accountService.getAccountByMail(EMAIL) } returns verifiedAccount
             every { cryptService.passwordMatchesHash(invalidPassword, encodedPassword) } returns false
 
             //execute
@@ -183,7 +182,7 @@ class AuthServiceTest : UnitTest() {
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //verify
-            verify(exactly = 1) { accountService.getAccountByMail(email) }
+            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
             verify(exactly = 1) { cryptService.passwordMatchesHash(invalidPassword, encodedPassword) }
         }
     }
