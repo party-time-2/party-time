@@ -8,7 +8,6 @@ import com.partytime.api.error.asException
 import com.partytime.assertApiErrorExceptionEquals
 import com.partytime.configuration.PartyTimeConfigurationProperties
 import com.partytime.configuration.security.AuthenticationToken
-import com.partytime.configuration.security.PartyTimeUserDetails
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.repository.AccountRepository
 import com.partytime.mail.model.MailEvent
@@ -241,17 +240,17 @@ class AccountServiceTest : UnitTest() {
 
         private val wrongPassword = "wrong!Password5unauthorized"
 
-        val invalidChangePasswordDTO = ChangePasswordDTO(
+        private val invalidChangePasswordDTO = ChangePasswordDTO(
             wrongPassword,
             newPassword
         )
 
-        private val partyTimeUserDetails = PartyTimeUserDetails(savedAccount)
-        private val authentication = AuthenticationToken(partyTimeUserDetails)
+        private val authentication = mockk<AuthenticationToken>()
 
         @Test
         fun changePasswordSuccess() {
             //setup - mock
+            every { authentication.principal } returns eMail
             every { accountRepository.findAccountByEmail(eMail) } returns Optional.of(savedAccount)
             every { cryptService.passwordMatchesHash(password, encodedPassword) } returns true
             every { cryptService.encodePassword(newPassword) } returns newEncodedPassword
@@ -266,6 +265,7 @@ class AccountServiceTest : UnitTest() {
             }
 
             //validate
+            verify(exactly = 1) { authentication.principal }
             verify(exactly = 1) { accountRepository.findAccountByEmail(eMail) }
             verify(exactly = 1) { cryptService.passwordMatchesHash(password, encodedPassword) }
             verify(exactly = 1) { cryptService.encodePassword(newPassword) }
@@ -283,7 +283,8 @@ class AccountServiceTest : UnitTest() {
         @Test
         fun changePasswordUnauthorized() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(authentication.principal) } returns Optional.of(savedAccount)
+            every { authentication.principal } returns eMail
+            every { accountRepository.findAccountByEmail(eMail) } returns Optional.of(savedAccount)
             every { cryptService.passwordMatchesHash(wrongPassword, encodedPassword) } returns false
 
             //execute
@@ -294,7 +295,8 @@ class AccountServiceTest : UnitTest() {
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //validate
-            verify(exactly = 1) { accountRepository.findAccountByEmail(authentication.principal) }
+            verify(exactly = 1) { authentication.principal }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(eMail) }
             verify(exactly = 1) { cryptService.passwordMatchesHash(wrongPassword, encodedPassword) }
         }
     }
