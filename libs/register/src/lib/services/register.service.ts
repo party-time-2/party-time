@@ -1,7 +1,8 @@
 //implements F010
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { AccountDTO, AccountRegisterDTO } from '@party-time/models';
+import { AccountDTO, AccountRegisterDTO, ApiError } from '@party-time/models';
+import { environment } from '../../../../../apps/party-time-frontend/src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,7 +14,12 @@ export class RegisterService {
   private registerPath = '/api/auth/register';
 
   // Registers a new account
-  registerAccount(account: AccountRegisterDTO): Observable<AccountDTO> {
-    return this.http.post<AccountDTO>(this.registerPath, account);
+  registerAccount(
+    accountRegisterDTO: AccountRegisterDTO
+  ): Observable<AccountDTO> {
+    return this.http.post<AccountDTO>(
+      'http://localhost:8090/api/account',
+      accountRegisterDTO
+    );
   }
 }

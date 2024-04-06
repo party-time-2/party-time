@@ -54,7 +54,7 @@ import { SecondaryButtonComponent } from '@party-time/ui';
                 Zugesagt |
                 <button
                   (click)="
-                    onParticipantStatusChaned(ParticipantStatusValue.REJECTED)
+                    onParticipantStatusChaned(ParticipantStatusValue.DECLINED)
                   "
                 >
                   Absagen
@@ -115,7 +115,7 @@ export class EventParticipatingSelectorComponent {
     if (this.event?.participatingStatus === ParticipantStatus.PARTICIPATING) {
       return ParticipantStatus.PARTICIPATING;
     }
-    return this.event?.participatingStatus ?? ParticipantStatus.REJECTED;
+    return this.event?.participatingStatus ?? ParticipantStatus.DECLINED;
   }
 
   onParticipantStatusChaned(participantStatus: ParticipantStatus) {

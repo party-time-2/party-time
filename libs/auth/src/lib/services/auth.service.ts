@@ -2,9 +2,12 @@
 //implements F012
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { LoginRequestDTO, LoginResponseDTO } from '@party-time/models';
-import { Observable } from 'rxjs';
-import { BYPASS_LOG } from './interceptor.service';
+import {
+  ApiError,
+  LoginRequestDTO,
+  LoginResponseDTO,
+} from '@party-time/models';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +18,21 @@ export class AuthService {
   private loginPath = '/api/auth/login';
 
   // Logs in a user
-  login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {
-    return this.http.post<LoginResponseDTO>(this.loginPath, loginRequestDTO, {
-      context: new HttpContext().set(BYPASS_LOG, true),
-    });
+  login(
+    loginRequestDTO: LoginRequestDTO
+  ): Observable<LoginResponseDTO | ApiError> {
+    return this.http
+      .post<LoginResponseDTO | ApiError>(
+        'http://localhost:8090/' + this.loginPath,
+        loginRequestDTO
+      )
+      .pipe(
+        tap((response: LoginResponseDTO | ApiError) => {
+          if ('token' in response && response.token) {
+            this.storeToken(response.token);
+          }
+        })
+      );
   }
 
   // Logs out a user

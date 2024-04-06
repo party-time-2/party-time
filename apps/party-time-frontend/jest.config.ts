@@ -3,6 +3,7 @@ export default {
   displayName: 'party-time-frontend',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
+  coverageDirectory: '../../coverage/apps/party-time-frontend',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

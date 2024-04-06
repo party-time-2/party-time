@@ -12,7 +12,7 @@ export class EnumToParticipantStatusPipe implements PipeTransform {
         return 'Eingeladen';
       case ParticipantStatus.PARTICIPATING:
         return 'Zugesagt';
-      case ParticipantStatus.REJECTED:
+      case ParticipantStatus.DECLINED:
         return 'Abgelehnt';
       default:
         return '';
