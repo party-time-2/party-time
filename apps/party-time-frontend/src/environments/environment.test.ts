@@ -1,4 +1,4 @@
-import { environment } from './environment';
+import { environment } from '../../../party-time-frontend/src/environments/environment';
 
 describe('Environment', () => {
   it('should have the correct API base URL', () => {
