@@ -8,6 +8,7 @@ export const appRoutes: Route[] = [
       import('./pages/landing/landing.component').then(
         (c) => c.LandingComponent
       ),
+    title: 'Party Time',
   },
   {
     path: 'account',
