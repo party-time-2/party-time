@@ -11,20 +11,18 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'account',
-    loadComponent: () =>
-      import('./pages/account/account.component').then(
-        (c) => c.AccountComponent
-      ),
+    loadChildren: () =>
+      import('./pages/account/account-routes').then((r) => r.ACCOUNT_ROUTES),
   },
   {
     path: 'event',
-    loadComponent: () =>
-      import('./pages/event/event.component').then((c) => c.EventComponent),
+    loadChildren: () =>
+      import('./pages/event/event-routes').then((r) => r.EVENT_ROUTES),
   },
   {
     path: 'auth',
-    loadComponent: () =>
-      import('./pages/auth/auth.component').then((c) => c.AuthComponent),
+    loadChildren: () =>
+      import('./pages/auth/auth-routes').then((r) => r.AUTH_ROUTES),
   },
   {
     path: '**',

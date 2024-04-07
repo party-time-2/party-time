@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-account',
+  selector: 'app-events',
   standalone: true,
   imports: [CommonModule],
-  template: `<p>account works!</p>`,
+  template: `<p>events works!</p>`,
   styles: ``,
 })
-export class AccountComponent {}
+export class EventsComponent {}
