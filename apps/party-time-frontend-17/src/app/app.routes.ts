@@ -30,5 +30,6 @@ export const appRoutes: Route[] = [
       import('./pages/not-found/not-found.component').then(
         (c) => c.NotFoundComponent
       ),
+    title: 'Seite nicht gefunden',
   },
 ];
