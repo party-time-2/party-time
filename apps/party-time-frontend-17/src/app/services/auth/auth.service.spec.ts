@@ -81,23 +81,23 @@ describe('AuthService', () => {
     req.flush(mockLoginResponse); // Simulate successful response with a token
   });
 
-  it('should not store a token if login response contains ApiError', (done) => {
-    authService.login(loginRequestDTO).subscribe((response) => {
-      if ('error' in response && response.error) {
-        expect(response).toEqual(mockBadRequestApiError);
-        expect(mockStorageService.storeAuthToken).not.toHaveBeenCalled();
-        done();
-      } else {
-        fail('Expected an ApiError');
-      }
-    });
+  // it('should not store a token if login response contains ApiError', (done) => {
+  //   authService.login(loginRequestDTO).subscribe((response) => {
+  //     if ('error' in response && response.error) {
+  //       expect(response).toEqual(mockBadRequestApiError);
+  //       expect(mockStorageService.storeAuthToken).not.toHaveBeenCalled();
+  //       done();
+  //     } else {
+  //       fail('Expected an ApiError');
+  //     }
+  //   });
 
-    const req = httpTestingController.expectOne(
-      environment.api.endpoints.authentication.login()
-    );
-    expect(req.request.method).toBe('POST');
-    req.flush(mockBadRequestApiError);
-  });
+  //   const req = httpTestingController.expectOne(
+  //     environment.api.endpoints.authentication.login()
+  //   );
+  //   expect(req.request.method).toBe('POST');
+  //   req.flush(mockBadRequestApiError);
+  // });
 
   it('should successfully verify email without returning a value', (done) => {
     authService.verifyEmail(mockVerifyEmailToken).subscribe({
@@ -165,5 +165,60 @@ describe('AuthService', () => {
       expect(isAuthenticated).toBe(false);
       done();
     });
+  });
+
+  it('should store the token on successful login', (done) => {
+    const mockLoginRequestDTO: LoginRequestDTO = {
+      email: 'test',
+      password: 'password',
+    };
+    const mockLoginResponse: LoginResponseDTO = {
+      token: 'mockToken',
+    };
+
+    authService.login(mockLoginRequestDTO).subscribe((response) => {
+      expect(response).toEqual(mockLoginResponse);
+      expect(mockStorageService.storeAuthToken).toHaveBeenCalledWith(
+        mockLoginResponse.token
+      );
+      done();
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.authentication.login()
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockLoginResponse);
+  });
+
+  it('should throw an error if login response contains ApiError', (done) => {
+    const mockLoginRequestDTO: LoginRequestDTO = {
+      email: 'test',
+      password: 'password',
+    };
+    const mockApiError: ApiError = {
+      status: ApiErrorStatus['400 BAD_REQUEST'],
+      timestamp: new Date(),
+      message: 'Bad Request',
+      error: {
+        status: '400',
+        message: 'Bad Request',
+        timestamp: '2021-12-14T14:00:00.000Z',
+      },
+    };
+
+    authService.login(mockLoginRequestDTO).subscribe({
+      error: (error) => {
+        expect(error).toEqual(mockApiError);
+        expect(mockStorageService.storeAuthToken).not.toHaveBeenCalled();
+        done();
+      },
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.authentication.login()
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockApiError);
   });
 });

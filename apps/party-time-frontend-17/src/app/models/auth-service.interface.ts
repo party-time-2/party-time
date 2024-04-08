@@ -22,9 +22,7 @@ export interface IAuthService {
    * @param loginRequestDTO - The login request data.
    * @returns An Observable that emits a LoginResponseDTO if the login is successful, or an ApiError if there is an error.
    */
-  login(
-    loginRequestDTO: LoginRequestDTO
-  ): Observable<LoginResponseDTO | ApiError>;
+  login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO>;
 
   /**
    * Verifies the user's email with the provided verification token.
