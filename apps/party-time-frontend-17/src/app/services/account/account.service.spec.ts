@@ -22,7 +22,7 @@ describe('AccountService', () => {
     password: 'password',
     name: 'test',
   };
-  const mockAccountDTO = { email: 'test', name: 'test' };
+  const mockAccountDTO = { email: 'test', name: 'test', id: '1' };
 
   const mockBadRequestApiError: ApiError = {
     status: ApiErrorStatus['400 BAD_REQUEST'],
@@ -105,7 +105,7 @@ describe('AccountService', () => {
         fail('Expected error');
       },
       error: (error) => {
-        expect(error.error).toEqual(mockBadRequestApiError);
+        expect(error).toEqual(mockBadRequestApiError);
         done();
       },
     });
@@ -114,9 +114,6 @@ describe('AccountService', () => {
       environment.api.endpoints.account.register()
     );
     expect(req.request.method).toBe('POST');
-    req.flush(mockBadRequestApiError, {
-      status: 400,
-      statusText: 'Bad Request',
-    }); // Simulate error response
+    req.flush(mockBadRequestApiError); // Simulate error response
   });
 });

@@ -34,7 +34,5 @@ export interface IAccountService {
    * @param accountRegisterDTO - The account registration data.
    * @returns An Observable that emits an AccountDTO if the registration is successful, or an ApiError if there is an error.
    */
-  register(
-    accountRegisterDTO: AccountRegisterDTO
-  ): Observable<AccountDTO | ApiError>;
+  register(accountRegisterDTO: AccountRegisterDTO): Observable<AccountDTO>;
 }
