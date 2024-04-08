@@ -11,10 +11,10 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController
     name = AuthController.TAG,
     description = "API endpoints providing all required logic for authentication"
 )
-class AuthController (
+class AuthController(
     private val authService: AuthService
 ) {
     companion object {
@@ -72,10 +72,10 @@ class AuthController (
      *
      * Verifies the validity of the provided e-mail address of an account.
      *
-     * @param code The e-mail-verification code used to identify which account should be marked as e-mail-verified
+     * @param token The e-mail-verification token used to identify which account should be marked as e-mail-verified
      * @param emptyBody An empty message body, as required by the HTTP POST method
      */
-    @PostMapping("/verify/{code}")
+    @PostMapping("/verify")
     @Operation(
         description = "Verify the e-mail of an account",
         responses = [
@@ -91,9 +91,9 @@ class AuthController (
     )
     @SecurityRequirements
     fun verifyMail(
-        @PathVariable("code") code: @NotNull @NotEmpty String,
+        @RequestParam token: @NotNull @NotEmpty String,
         @RequestBody emptyBody: Unit
     ) {
-        authService.verifyAccount(code)
+        authService.verifyAccount(token)
     }
 }

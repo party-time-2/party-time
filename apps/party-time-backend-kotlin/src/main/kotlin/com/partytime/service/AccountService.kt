@@ -69,7 +69,7 @@ class AccountService(
             VerifyAccountData(
                 configurationProperties.url,
                 savedAccount.name,
-                "${configurationProperties.url}/auth/verify/${savedAccount.emailVerificationCode}"
+                "${configurationProperties.url}/auth/verify/?token=${savedAccount.emailVerificationCode}"
             )
         )
 

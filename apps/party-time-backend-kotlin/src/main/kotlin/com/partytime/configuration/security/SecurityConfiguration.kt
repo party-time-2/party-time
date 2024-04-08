@@ -87,7 +87,7 @@ class SecurityConfiguration (
                     HttpMethod.POST,
                     "/api/auth/login",
                     "/api/account",
-                    "/api/auth/verify/**"
+                    "/api/auth/verify"
                 ).permitAll()
 
                 //allow remaining /api/ routes for authenticated users

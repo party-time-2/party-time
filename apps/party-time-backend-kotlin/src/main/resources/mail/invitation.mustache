@@ -46,27 +46,27 @@
 </head>
 <body>
 <h1>Einladung!</h1>
-<p>Hallo {{name}},</p>
-<p>Du hast von {{organizer}} eine Einladung zum Event {{event}} erhalten!</p>
+<p>Hallo {{recipientName}},</p>
+<p>Du hast von {{event.organizerName}} eine Einladung zum Event {{event.eventName}} erhalten!</p>
 <div style="padding: 15px">
     <table class="demo">
         <tbody>
         <tr>
             <td>Eventname</td>
-            <td>{{event}}</td>
+            <td>{{event.eventName}}</td>
         </tr>
         <tr>
             <td>Ort</td>
-            <td>{{location}}</td>
+            <td>{{event.location}}</td>
         </tr>
         <tr>
             <td>Datum und Uhrzeit</td>
-            <td>{{datetime}}</td>
+            <td>{{event.startTime}}</td>
         </tr>
         </tbody>
     </table>
 </div>
-<p>Gib doch {{organizer}} eine Rückmeldung, ob du zum Event {{event}} kommen kannst/magst:</p>
+<p>Gib doch {{event.organizerName}} eine Rückmeldung, ob du zum Event {{event.eventName}} kommen kannst/magst:</p>
 <p>
     <a href="{{acceptLink}}" class="btn">Zusagen</a><br/>
     <a href="{{declineLink}}" class="btn">Absagen</a>

@@ -25,7 +25,7 @@ BEGIN:VCALENDAR
         DTSTAMP:{{generatedTimestamp}}
         ORGANIZER;CN="{{event.organizerName}}":MAILTO:{{organizerEmail}}
         UID:{{uid}}
-        DTSTART;TZID=Europe/Berlin:{{start}}
+        DTSTART;TZID=Europe/Berlin:{{event.startTime}}
         DTEND;TZID=Europe/Berlin:20130710T190000
         SUMMARY:{{event.eventName}}
         LOCATION:{{event.location}}
