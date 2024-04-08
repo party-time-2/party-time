@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
