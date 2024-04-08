@@ -7,6 +7,7 @@ export const ACCOUNT_ROUTES: Routes = [
     loadComponent: () =>
       import('./delete/delete.component').then((c) => c.DeleteComponent),
     title: 'Account löschen',
+    canActivate: [authGuard],
   },
   {
     path: 'register',

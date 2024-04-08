@@ -1,9 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { IAuthService } from '../../../models/auth-service.interface';
-import { AuthService } from '../../../services/auth/auth.service';
 import {
   FormGroup,
   FormControl,
@@ -112,6 +109,7 @@ import { PageHeaderComponent } from '../../../components/page-header/page-header
           color="primary"
           type="submit"
           data-cy="submit-button"
+          [disabled]="!changePasswordForm.valid"
         >
           Passwort ändern
         </button>
