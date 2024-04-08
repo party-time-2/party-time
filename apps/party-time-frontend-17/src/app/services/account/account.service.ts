@@ -17,25 +17,41 @@ import { environment } from 'apps/party-time-frontend-17/src/environments/enviro
 export class AccountService implements IAccountService {
   private http: HttpClient = inject(HttpClient);
 
-  changePassword(
-    changeRequestDTO: ChangePasswordDTO
-  ): Observable<void | ApiError> {
-    return this.http.post<void | ApiError>(
-      environment.api.endpoints.account.changePassword(),
-      changeRequestDTO
-    );
+  changePassword(changeRequestDTO: ChangePasswordDTO): Observable<void> {
+    return this.http
+      .post<void | ApiError>(
+        environment.api.endpoints.account.changePassword(),
+        changeRequestDTO
+      )
+      .pipe(
+        map((response: void | ApiError) => {
+          if (response === null) {
+            return;
+          } else {
+            throw response as ApiError;
+          }
+        })
+      );
   }
 
-  deleteAccount(
-    accountDeleteDTO: AccountDeleteDTO
-  ): Observable<void | ApiError> {
-    return this.http.request<void | ApiError>(
-      'DELETE',
-      environment.api.endpoints.account.delete(),
-      {
-        body: accountDeleteDTO,
-      }
-    );
+  deleteAccount(accountDeleteDTO: AccountDeleteDTO): Observable<void> {
+    return this.http
+      .request<void | ApiError>(
+        'DELETE',
+        environment.api.endpoints.account.delete(),
+        {
+          body: accountDeleteDTO,
+        }
+      )
+      .pipe(
+        map((response: void | ApiError) => {
+          if (response === null) {
+            return;
+          } else {
+            throw response as ApiError;
+          }
+        })
+      );
   }
 
   register(accountRegisterDTO: AccountRegisterDTO): Observable<AccountDTO> {

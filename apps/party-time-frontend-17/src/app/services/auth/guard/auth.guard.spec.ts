@@ -68,9 +68,7 @@ describe('authGuard', () => {
 
     resultObservable.subscribe((isAllowed) => {
       expect(isAllowed).toBeFalsy();
-      expect(mockRouter.navigate).toHaveBeenCalledWith([
-        environment.pages.login,
-      ]);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['auth/login']);
       done();
     });
   });

@@ -3,12 +3,15 @@ import {
   HTTP_INTERCEPTORS,
   HttpClient,
   HttpInterceptorFn,
+  provideHttpClient,
+  withInterceptors,
 } from '@angular/common/http';
 
-import { AuthInterceptor } from './authInterceptor';
+import { authInterceptor } from './authInterceptor';
 import {
   HttpClientTestingModule,
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { StorageService } from '../../storage/storage.service';
 import { environment } from '../../../../environments/environment';
@@ -23,9 +26,9 @@ describe('AuthInterceptor', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
       providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+        provideHttpClient(withInterceptors([authInterceptor])),
+        provideHttpClientTesting(),
         { provide: StorageService, useValue: storageServiceMock },
       ],
     });

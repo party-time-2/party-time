@@ -67,6 +67,27 @@ describe('AccountService', () => {
     req.flush(null);
   });
 
+  it('should throw ApiError on change password failure', (done) => {
+    const changeRequestDTO: ChangePasswordDTO = {
+      newPassword: 'newPassword',
+      oldPassword: 'oldPassword',
+    };
+
+    service.changePassword(changeRequestDTO).subscribe({
+      next: () => fail('Expected an error, not a password change success'),
+      error: (error) => {
+        expect(error).toEqual(mockBadRequestApiError);
+        done();
+      },
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.account.changePassword()
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockBadRequestApiError);
+  });
+
   it('should send a DELETE request to delete account', () => {
     const accountDeleteDTO: AccountDeleteDTO = {
       password: 'password',
@@ -84,6 +105,24 @@ describe('AccountService', () => {
     expect(req.request.body).toEqual(accountDeleteDTO);
 
     req.flush(null);
+  });
+
+  it('should return ApiError on delete account failure', (done) => {
+    const accountDeleteDTO: AccountDeleteDTO = { password: 'password' };
+
+    service.deleteAccount(accountDeleteDTO).subscribe({
+      next: () => fail('Expected an error, not delete account success'),
+      error: (error) => {
+        expect(error).toEqual(mockBadRequestApiError);
+        done();
+      },
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.account.delete()
+    );
+    expect(req.request.method).toBe('DELETE');
+    req.flush(mockBadRequestApiError);
   });
 
   it('should return AccountDTO on successful registration', (done) => {

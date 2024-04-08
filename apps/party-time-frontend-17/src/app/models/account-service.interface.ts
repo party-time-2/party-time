@@ -16,18 +16,14 @@ export interface IAccountService {
    * @param changeRequestDTO - The change password request DTO.
    * @returns An Observable that emits void or an ApiError.
    */
-  changePassword(
-    changeRequestDTO: ChangePasswordDTO
-  ): Observable<void | ApiError>;
+  changePassword(changeRequestDTO: ChangePasswordDTO): Observable<void>;
 
   /**
    * Deletes the account.
    * @param password - The password for account deletion.
    * @returns An Observable that emits void or an ApiError.
    */
-  deleteAccount(
-    accountDeleteDTO: AccountDeleteDTO
-  ): Observable<void | ApiError>;
+  deleteAccount(accountDeleteDTO: AccountDeleteDTO): Observable<void>;
 
   /**
    * Registers a new user account with the provided account registration data.
