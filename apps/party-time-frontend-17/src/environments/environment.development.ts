@@ -18,7 +18,7 @@ export const environment = {
           return environment.api.baseUrl + '/auth/login';
         },
         verify(code: string) {
-          return environment.api.baseUrl + '/auth/verify/' + code;
+          return environment.api.baseUrl + '/auth/verify?token=' + code;
         },
       },
       event: {
@@ -93,8 +93,5 @@ export const environment = {
   },
   storage: {
     key: 'auth_token',
-  },
-  pages: {
-    login: 'login',
   },
 };
