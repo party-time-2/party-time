@@ -1,4 +1,5 @@
 import { Route, Routes } from '@angular/router';
+import { authGuard } from '../../services/auth/guard/auth.guard';
 
 export const ACCOUNT_ROUTES: Routes = [
   {
@@ -20,5 +21,6 @@ export const ACCOUNT_ROUTES: Routes = [
         (c) => c.ChangePasswordComponent
       ),
     title: 'Passwort ändern',
+    canActivate: [authGuard],
   },
 ];
