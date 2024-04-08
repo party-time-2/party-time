@@ -115,7 +115,7 @@ class AccountServiceUnitTest : UnitTest() {
                     assertEquals(URL, verifyAccountData.homepage)
                     assertEquals(savedAccount.name, verifyAccountData.name)
                     assertEquals(
-                        "$URL/auth/verify/${savedAccount.emailVerificationCode}",
+                        "$URL/auth/verify/?token=${savedAccount.emailVerificationCode}",
                         verifyAccountData.verificationLink
                     )
                 })
@@ -290,7 +290,7 @@ class AccountServiceUnitTest : UnitTest() {
             val thrownException = assertThrows<ApiErrorException> {
                 accountService.changePassword(invalidChangePasswordDTO, authentication)
             }
-            val expectedException = ApiError.unauthorized().asException()
+            val expectedException = ApiError.unauthorized("Das alte Passwort ist falsch. Bitte versuche es erneut.").asException()
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //validate

@@ -32,9 +32,10 @@ class ApiError private constructor(
             parent
         )
 
-        fun unauthorized() = ApiError(
+        fun unauthorized(message: String? = null) = ApiError(
             HttpStatus.UNAUTHORIZED,
-            "Die Anfrage konnte nicht bearbeitet werden, da keine gültigen Authentifizierungsdaten für die angeforderte Ressource vorliegen!",
+            message
+                ?: "Die Anfrage konnte nicht bearbeitet werden, da keine gültigen Authentifizierungsdaten für die angeforderte Ressource vorliegen!",
         )
 
         fun forbidden(parent: Throwable? = null) = ApiError(

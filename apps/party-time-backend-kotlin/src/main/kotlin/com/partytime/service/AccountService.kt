@@ -112,7 +112,7 @@ class AccountService(
         val account = getAccountByMail(email)
         val oldPasswordMatches = cryptService.passwordMatchesHash(changePasswordDTO.oldPassword, account.pwHash)
         if (!oldPasswordMatches) {
-            throw ApiError.unauthorized().asException()
+            throw ApiError.unauthorized("Das alte Passwort ist falsch. Bitte versuche es erneut.").asException()
         }
 
         val newPasswordHash = cryptService.encodePassword(changePasswordDTO.newPassword)
