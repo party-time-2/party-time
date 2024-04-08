@@ -161,7 +161,6 @@ export class RegisterComponent {
   private accountService: IAccountService = inject(AccountService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
   private router: Router = inject(Router);
-  private r: ActivatedRoute = inject(ActivatedRoute);
 
   registerForm = new FormGroup({
     name: new FormControl('', [
@@ -178,9 +177,8 @@ export class RegisterComponent {
     ]),
   });
 
-  private navigateToLogin(email = '') {
-    this.router.navigate(['/auth/login'], {
-      relativeTo: this.r,
+  private navigateToVerifikation(email = '') {
+    this.router.navigate(['/auth/verify'], {
       queryParams: { email },
     });
   }
@@ -193,12 +191,12 @@ export class RegisterComponent {
           next: (response: AccountDTO) => {
             console.log('Registration successful:', response);
             this.snackBar
-              .open('Registrierung erfolgreich!', 'zum Login', {
+              .open('Registrierung erfolgreich!', 'zur Verifikation', {
                 duration: 5000,
               })
               .afterDismissed()
               .subscribe(() => {
-                this.navigateToLogin(response.email);
+                this.navigateToVerifikation(response.email);
               });
           },
           error: (apiError: ApiError) => {

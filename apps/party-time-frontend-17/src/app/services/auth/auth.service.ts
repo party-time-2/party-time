@@ -7,7 +7,7 @@ import {
   LoginRequestDTO,
   LoginResponseDTO,
 } from '@party-time/models';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../storage/storage.service';
@@ -26,18 +26,19 @@ export class AuthService implements IAuthService {
     });
   }
 
-  login(
-    loginRequestDTO: LoginRequestDTO
-  ): Observable<LoginResponseDTO | ApiError> {
+  login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {
     return this.http
       .post<LoginResponseDTO | ApiError>(
         environment.api.endpoints.authentication.login(),
         loginRequestDTO
       )
       .pipe(
-        tap((response: LoginResponseDTO | ApiError) => {
+        map((response: LoginResponseDTO | ApiError) => {
           if ('token' in response && response.token) {
             this.storageService.storeAuthToken(response.token);
+            return response as LoginResponseDTO;
+          } else {
+            throw response as ApiError;
           }
         })
       );
@@ -46,7 +47,8 @@ export class AuthService implements IAuthService {
   verifyEmail(token: string): Observable<void | ApiError> {
     return this.http.request<void | ApiError>(
       'POST',
-      environment.api.endpoints.authentication.verify(token)
+      environment.api.endpoints.authentication.verify(token),
+      { body: {} }
     );
   }
 
