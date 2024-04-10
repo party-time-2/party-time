@@ -2,7 +2,9 @@ import {
   AccountInvitationDetailsDTO,
   ApiError,
   EventDTO,
+  EventDetailsDTO,
   InvitationCreateDTO,
+  OrganizerEventDTO,
   ParticipantDTO,
 } from '@party-time/models';
 import { Observable } from 'rxjs';
@@ -15,35 +17,35 @@ export interface IEventHostService {
    * Retrieves a list of organized events.
    * @returns An Observable that emits either an ApiError or an array of EventDTO objects.
    */
-  getOrganizedEvents(): Observable<ApiError | EventDTO[]>;
+  getOrganizedEvents(): Observable<OrganizerEventDTO[]>;
 
   /**
    * Retrieves an event by its ID.
    * @param eventId - The ID of the event to retrieve.
    * @returns An Observable that emits either an ApiError or an EventDTO object.
    */
-  getEvent(eventId: string): Observable<ApiError | EventDTO>;
+  getEvent(eventId: string): Observable<OrganizerEventDTO>;
 
   /**
    * Deletes an event by its ID.
    * @param eventId - The ID of the event to delete.
    * @returns An Observable that emits either an ApiError or void.
    */
-  deleteEvent(eventId: string): Observable<ApiError | void>;
+  deleteEvent(eventId: string): Observable<void>;
 
   /**
    * Updates an existing event.
    * @param event - The updated EventDTO object.
    * @returns An Observable that emits either an ApiError or the updated EventDTO object.
    */
-  updateEvent(event: EventDTO): Observable<ApiError | EventDTO>;
+  updateEvent(event: EventDetailsDTO): Observable<OrganizerEventDTO>;
 
   /**
    * Creates a new event.
    * @param event - The EventDTO object representing the new event.
    * @returns An Observable that emits either an ApiError or the created EventDTO object.
    */
-  createEvent(event: EventDTO): Observable<ApiError | EventDTO>;
+  createEvent(event: EventDTO): Observable<OrganizerEventDTO>;
 
   /**
    * Invites a participant to an event.
@@ -54,7 +56,7 @@ export interface IEventHostService {
   inviteParticipant(
     eventId: string,
     participantEmail: string
-  ): Observable<ApiError | AccountInvitationDetailsDTO[]>;
+  ): Observable<AccountInvitationDetailsDTO[]>;
 
   /**
    * Removes a participant from an event.
@@ -65,12 +67,12 @@ export interface IEventHostService {
   removeParticipant(
     eventId: string,
     invitationId: string
-  ): Observable<ApiError | AccountInvitationDetailsDTO[]>;
+  ): Observable<AccountInvitationDetailsDTO[]>;
 
   /**
    * Retrieves a list of participants for an event.
    * @param eventId - The ID of the event to retrieve participants for.
    * @returns An Observable that emits either an ApiError or an array of ParticipantDTO objects.
    */
-  getParticipants(eventId: string): Observable<ApiError | ParticipantDTO[]>;
+  getParticipants(eventId: string): Observable<ParticipantDTO[]>;
 }

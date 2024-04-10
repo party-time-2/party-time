@@ -1,7 +1,7 @@
 // implements F016
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Address, EventDTO, ParticipantEventDTO } from '@party-time/models';
+import { AddressDTO, EventDTO, ParticipantEventDTO } from '@party-time/models';
 
 @Component({
   selector: 'party-time-map',

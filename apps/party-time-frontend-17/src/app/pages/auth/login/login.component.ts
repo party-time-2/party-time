@@ -83,7 +83,13 @@ import { MatInputModule } from '@angular/material/input';
             Passwort darf maximal 30 Zeichen lang sein.
           </mat-error>
         </mat-form-field>
-        <button mat-button color="primary" type="submit" data-cy="login-button">
+        <button
+          mat-button
+          [disabled]="!loginForm.valid"
+          color="primary"
+          type="submit"
+          data-cy="login-button"
+        >
           Login
         </button>
       </form>

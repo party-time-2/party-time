@@ -8,7 +8,7 @@ import {
 } from '@party-time/ui';
 import { OtherStore } from './+state/other.state';
 import { Router } from '@angular/router';
-import { Address, ParticipantStatus } from '@party-time/models';
+import { AddressDTO, ParticipantStatus } from '@party-time/models';
 import { EventService } from '../services/event.service';
 import { EventParticipatingSelectorComponent } from '../selectors/event-participating-selector.component';
 
