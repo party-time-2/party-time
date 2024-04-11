@@ -77,5 +77,14 @@ class ParticipantService (
         invitationRepository.save(eventParticipant)
     }
 
-
+    /**
+     * Deletes all invitations of a user
+     *
+     * @param participantEmail E-mail-address of the user whose invitations should be deleted
+     */
+    @Transactional
+    fun deleteAllInvitations(participantEmail: String) {
+        val invitations = getParticipatingEvents(participantEmail)
+        invitationRepository.deleteAllInBatch(invitations)
+    }
 }

@@ -5,6 +5,7 @@ import com.partytime.api.error.ApiError
 import com.partytime.api.error.asException
 import com.partytime.configuration.security.AuthenticationToken
 import com.partytime.jpa.entity.Event
+import com.partytime.jpa.entity.Status
 import org.springframework.stereotype.Service
 
 /**
@@ -15,13 +16,15 @@ import org.springframework.stereotype.Service
  * @param accountService Service used to fetch account related information and delete an account
  * @param cryptService Used to encode passwords and check if passwords match hashes
  * @param organizerService Service used to retrieve organized events during account deletion
+ * @param participantService Service used to retrieve and cancel invitations
  * @constructor Creates a new [AccountDeletionService]
  */
 @Service
 class AccountDeletionService(
     private val accountService: AccountService,
     private val cryptService: CryptService,
-    private val organizerService: OrganizerService
+    private val organizerService: OrganizerService,
+    private val participantService: ParticipantService
 ) {
 
     /**
@@ -38,6 +41,7 @@ class AccountDeletionService(
         // Check Password
         val account = accountService.getAccountByMail(authentication.principal)
         if (!cryptService.passwordMatchesHash(deleteDTO.password, account.pwHash)) {
+            //FIXME better error message
             throw ApiError.unauthorized().asException()
         }
 
@@ -45,6 +49,14 @@ class AccountDeletionService(
         // Include all Deletes here
         val events: List<Event> = organizerService.getEvents(account.email)
         organizerService.deleteMultipleEvents(events, authentication.principal)
+
+        val invitations = participantService.getParticipatingEvents(account.email)
+        invitations.forEach { invitation ->
+            if(invitation.status != Status.DECLINED)
+                participantService.declineInvitation(invitation.event.id!!, account.email)
+        }
+
+        participantService.deleteAllInvitations(account.email)
 
         // Lastly remove the Account
         accountService.deleteAccount(account)
