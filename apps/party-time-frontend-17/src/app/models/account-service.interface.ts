@@ -1,11 +1,10 @@
+import { Observable } from 'rxjs';
 import {
   AccountDTO,
   AccountDeleteDTO,
   AccountRegisterDTO,
-  ApiError,
   ChangePasswordDTO,
-} from '@party-time/models';
-import { Observable } from 'rxjs';
+} from './dto/account-dto.interface';
 
 /**
  * Represents an account service.

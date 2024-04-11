@@ -10,13 +10,14 @@ import {
 import { CustomValidators } from '../../../validators/custom.validators';
 import { IAccountService } from '../../../models/account-service.interface';
 import { AccountService } from '../../../services/account/account.service';
-import { ApiError, ChangePasswordDTO } from '@party-time/models';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { PageHeaderComponent } from '../../../components/page-header/page-header.component';
+import { ChangePasswordDTO } from '../../../models/dto/account-dto.interface';
+import { ApiError } from '../../../models/error.interface';
 
 @Component({
   selector: 'app-change-password',
@@ -164,7 +165,7 @@ export class ChangePasswordComponent {
           },
           error: (apiError: ApiError) => {
             console.error('Password change error:', apiError);
-            this.snackBar.open(apiError.error.message, 'OK', {
+            this.snackBar.open(apiError.message, 'OK', {
               duration: 5000,
             });
           },

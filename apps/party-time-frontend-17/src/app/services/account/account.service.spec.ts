@@ -5,14 +5,13 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import {
-  AccountDeleteDTO,
-  AccountRegisterDTO,
-  ApiError,
-  ApiErrorStatus,
-  ChangePasswordDTO,
-} from '@party-time/models';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
+import {
+  AccountRegisterDTO,
+  ChangePasswordDTO,
+  AccountDeleteDTO,
+} from '../../models/dto/account-dto.interface';
+import { ApiError, ApiErrorStatus } from '../../models/error.interface';
 
 describe('AccountService', () => {
   let service: AccountService;
@@ -28,7 +27,7 @@ describe('AccountService', () => {
     status: ApiErrorStatus['400 BAD_REQUEST'],
     timestamp: new Date(),
     message: 'Bad Request',
-    error: {
+    additionalInformation: {
       status: '400',
       message: 'Bad Request',
       timestamp: '2021-12-14T14:00:00.000Z',

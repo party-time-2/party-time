@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ILogo } from '@party-time/models';
 
 @Component({
   selector: 'app-logo',
@@ -10,7 +9,7 @@ import { ILogo } from '@party-time/models';
     <img [src]="src" class="mr-3 h-9" [alt]="alt" />
     <div class="">
       <span
-        class="self-center bg-no-repeat text-xl font-semibold hover:text-on-surface-variant-light sm:block dark:hover:text-on-secondary-light"
+        class="hover:text-on-surface-variant-light dark:hover:text-on-secondary-light self-center bg-no-repeat text-xl font-semibold sm:block"
       >
         {{ name }}
       </span>
@@ -18,7 +17,7 @@ import { ILogo } from '@party-time/models';
   </a>`,
   styles: ``,
 })
-export class LogoComponent implements ILogo {
+export class LogoComponent {
   @Input() src: string | undefined;
   @Input() alt: string | undefined;
   @Input() href: string | undefined;

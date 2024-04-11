@@ -14,10 +14,14 @@ import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { IAccountService } from '../../../models/account-service.interface';
 import { AccountService } from '../../../services/account/account.service';
-import { AccountDTO, AccountRegisterDTO, ApiError } from '@party-time/models';
 import { CustomValidators } from '../../../validators/custom.validators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  AccountDTO,
+  AccountRegisterDTO,
+} from '../../../models/dto/account-dto.interface';
+import { ApiError } from '../../../models/error.interface';
 
 @Component({
   selector: 'app-register',
@@ -201,7 +205,7 @@ export class RegisterComponent {
           },
           error: (apiError: ApiError) => {
             console.error('Registration error:', apiError);
-            this.snackBar.open(apiError.error.message, 'OK', {
+            this.snackBar.open(apiError.message, 'OK', {
               duration: 5000,
             });
           },

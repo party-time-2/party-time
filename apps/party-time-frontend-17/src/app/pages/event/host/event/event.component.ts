@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { EventHostService } from 'apps/party-time-frontend-17/src/app/services/event/host/event.host.service';
 import { IEventHostService } from 'apps/party-time-frontend-17/src/app/models/event.host.interface';
-import { EventDTO, OrganizerEventDTO } from '@party-time/models';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { PageHeaderComponent } from 'apps/party-time-frontend-17/src/app/components/page-header/page-header.component';
 import { NavbarComponent } from 'apps/party-time-frontend-17/src/app/components/navbar/navbar.component';
@@ -18,6 +17,7 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { OrganizerEventDTO } from 'apps/party-time-frontend-17/src/app/models/dto/event-dto.interface';
 
 @Component({
   selector: 'app-event',
@@ -85,7 +85,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   styles: ``,
 })
 export class EventComponent {
-  @Input() set eventId(eventId: string) {
+  @Input() set eventId(eventId: number) {
     this.eventParticipantsService
       .getEvent(eventId)
       .subscribe((event: OrganizerEventDTO) => {
@@ -111,7 +111,7 @@ export class EventComponent {
 
   hostEventForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    dateTime: new FormControl('', Validators.required),
+    dateTime: new FormControl(new Date(), Validators.required),
     address: new FormGroup({
       addressLine: new FormControl('', Validators.required),
       addressLineAddition: new FormControl(''),

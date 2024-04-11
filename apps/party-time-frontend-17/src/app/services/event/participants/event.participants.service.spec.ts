@@ -6,31 +6,36 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
-import { ParticipantEventDTO, ParticipantStatus } from '@party-time/models';
+import {
+  ParticipantEventDTO,
+  Status,
+} from '../../../models/dto/event-dto.interface';
 
 describe('EventParticipantsService', () => {
   let service: EventParticipantsService;
   let httpTestingController: HttpTestingController;
   const eventId = '1';
   const mockEvent: ParticipantEventDTO = {
-    id: '1',
-    name: 'Abschlussfeier von Gustav Gans',
-    organizer: {
+    invitationDetailsDTO: {
       id: 1,
-      name: 'Gustav Gans',
-      email: 'gustav@gans.de',
-      emailVerified: true,
+      status: Status.PARTICIPATING,
     },
-    dateTime: new Date().toISOString(),
-    address: {
-      addressLine: 'Entenstraße 1',
-      addressLineAddition: '',
-      zip: '12345',
-      city: 'Entenhausen',
-      country: 'Deutschland',
+    organizedEventDetailsDTO: {
+      id: 1,
+      name: 'Test Event',
+      dateTimes: new Date(),
+      organizer: {
+        email: 'test@test.de',
+        id: 1,
+        name: 'Test',
+      },
+      address: {
+        addressLine: 'Test Street 1',
+        zip: '12345',
+        city: 'Test City',
+        country: 'Test Country',
+      },
     },
-    participants: [],
-    participatingStatus: ParticipantStatus.PARTICIPATING,
   };
 
   const mockEvents: ParticipantEventDTO[] = [mockEvent];

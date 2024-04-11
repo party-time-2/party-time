@@ -16,7 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IAuthService } from '../../../models/auth-service.interface';
 import { AuthService } from '../../../services/auth/auth.service';
-import { ApiError } from '@party-time/models';
+import { ApiError } from '../../../models/error.interface';
 
 @Component({
   selector: 'app-verify',
@@ -101,7 +101,7 @@ export class VerifyComponent {
           },
           error: (apiError: ApiError) => {
             this.snackBar.open(
-              apiError.error.message || 'Etwas ist schief gelaufen.',
+              apiError.message || 'Etwas ist schief gelaufen.',
               'OK',
               {
                 duration: 5000,

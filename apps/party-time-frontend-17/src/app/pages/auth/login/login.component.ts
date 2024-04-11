@@ -10,13 +10,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoginRequestDTO } from '@party-time/models';
 import { FooterComponent } from '../../../components/footer/footer.component';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { PageHeaderComponent } from '../../../components/page-header/page-header.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { LoginRequestDTO } from '../../../models/dto/auth-dto.interface';
+import { ApiError } from '../../../models/error.interface';
 
 @Component({
   selector: 'app-login',
@@ -123,7 +124,7 @@ export class LoginComponent {
           next: () => {
             this.router.navigate(['/']);
           },
-          error: (error) => {
+          error: (error: ApiError) => {
             this.snackBar.open('Login fehlgeschlagen', 'OK', {
               duration: 5000,
             });

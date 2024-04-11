@@ -59,7 +59,7 @@ export const environment = {
             return (
               environment.api.baseUrl +
               '/host/event/' +
-              eventId +
+              eventId.toString() +
               '/participants'
             );
           },

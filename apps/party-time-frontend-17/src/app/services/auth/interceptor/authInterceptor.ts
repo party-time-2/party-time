@@ -1,6 +1,5 @@
 import {
   HttpHandlerFn,
-  HttpInterceptor,
   HttpInterceptorFn,
   HttpRequest,
 } from '@angular/common/http';

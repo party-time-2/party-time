@@ -1,15 +1,15 @@
 import { Injectable, inject } from '@angular/core';
 import { IAccountService } from '../../models/account-service.interface';
-import {
-  ChangePasswordDTO,
-  ApiError,
-  AccountDeleteDTO,
-  AccountDTO,
-  AccountRegisterDTO,
-} from '@party-time/models';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
+import {
+  ChangePasswordDTO,
+  AccountDeleteDTO,
+  AccountRegisterDTO,
+  AccountDTO,
+} from '../../models/dto/account-dto.interface';
+import { ApiError } from '../../models/error.interface';
 
 @Injectable({
   providedIn: 'root',

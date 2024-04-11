@@ -18,7 +18,8 @@ import { FooterComponent } from '../../../components/footer/footer.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { AccountDeleteDTO, ApiError } from '@party-time/models';
+import { AccountDeleteDTO } from '../../../models/dto/account-dto.interface';
+import { ApiError } from '../../../models/error.interface';
 
 @Component({
   selector: 'app-delete',
@@ -113,7 +114,7 @@ export class DeleteComponent {
             this.router.navigate(['/']);
           },
           error: (apiError: ApiError) => {
-            this.snackBar.open(apiError.error.message, 'OK', {
+            this.snackBar.open(apiError.message, 'OK', {
               duration: 5000,
             });
           },

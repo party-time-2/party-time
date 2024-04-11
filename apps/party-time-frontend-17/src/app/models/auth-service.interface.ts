@@ -1,11 +1,6 @@
-import {
-  AccountDTO,
-  AccountRegisterDTO,
-  ApiError,
-  LoginRequestDTO,
-  LoginResponseDTO,
-} from '@party-time/models';
 import { Observable } from 'rxjs';
+import { LoginRequestDTO, LoginResponseDTO } from './dto/auth-dto.interface';
+import { ApiError } from './error.interface';
 
 /**
  * Represents the interface for an authentication service.
