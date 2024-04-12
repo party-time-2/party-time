@@ -88,4 +88,20 @@ describe('AuthInterceptor', () => {
     expect(req.request.headers.get('Authorization')).toEqual(token);
     req.flush({});
   });
+
+  it('should pass through requests to excluded URLs without modification', () => {
+    const http = TestBed.inject(HttpClient);
+    http
+      .post(environment.api.endpoints.authentication.login(), {})
+      .subscribe((response) => {
+        expect(response).toBeTruthy(); // Basic check to ensure response handling
+      });
+
+    // Check that the request passed through as-is, without the Authorization header
+    const req = httpMock.expectOne(
+      environment.api.endpoints.authentication.login()
+    );
+    expect(req.request.headers.has('Authorization')).toBe(false);
+    req.flush({}); // Simulate a response
+  });
 });
