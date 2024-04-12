@@ -151,4 +151,28 @@ describe('AuthService', () => {
       });
     });
   });
+
+  describe('isLoggedIn', () => {
+    it('should return true when there is a token', () => {
+      // Simulate a scenario where the token is present in the storage service
+      mockStorageService.getAuthToken = jest.fn().mockReturnValue('token');
+
+      // Trigger any method that updates the authStatus based on the token presence
+      authService.logout(); // This will call hasToken() internally and update authStatus$
+
+      const isLoggedIn = authService.isLoggedIn();
+      expect(isLoggedIn).toBe(true);
+    });
+
+    it('should return false when there is no token', () => {
+      // Simulate a scenario where the token is not present
+      mockStorageService.getAuthToken = jest.fn().mockReturnValue(null);
+
+      // Trigger any method that updates the authStatus based on the token presence
+      authService.logout(); // This will call hasToken() internally and update authStatus$
+
+      const isLoggedIn = authService.isLoggedIn();
+      expect(isLoggedIn).toBe(false);
+    });
+  });
 });

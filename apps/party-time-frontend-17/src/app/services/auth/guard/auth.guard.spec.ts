@@ -9,7 +9,6 @@ import { Observable, of } from 'rxjs';
 import { authGuard } from './auth.guard';
 import { AuthService } from '../auth.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { environment } from '../../../../environments/environment';
 
 // Mock implementations
 const mockRouter = {
@@ -17,7 +16,7 @@ const mockRouter = {
 };
 
 const authServiceMock = {
-  isAuthenticated: jest.fn(),
+  isLoggedIn: jest.fn(),
 };
 
 describe('authGuard', () => {
@@ -35,11 +34,11 @@ describe('authGuard', () => {
 
     // Reset mocks before each test
     mockRouter.navigate.mockReset();
-    authServiceMock.isAuthenticated.mockReset();
+    authServiceMock.isLoggedIn.mockReset();
   });
 
   it('should allow route activation for authenticated user', (done) => {
-    authServiceMock.isAuthenticated.mockReturnValue(of(true)); // Simulate authenticated user
+    authServiceMock.isLoggedIn.mockReturnValue(true); // Simulate authenticated user
 
     // Execute the guard and normalize the output to an Observable
     const result = TestBed.runInInjectionContext(() =>
@@ -57,7 +56,7 @@ describe('authGuard', () => {
   });
 
   it('should redirect to login for unauthenticated user', (done) => {
-    authServiceMock.isAuthenticated.mockReturnValue(of(false)); // Simulate unauthenticated user
+    authServiceMock.isLoggedIn.mockReturnValue(false); // Simulate unauthenticated user
 
     const result = TestBed.runInInjectionContext(() =>
       authGuard(mockRoute, mockState)
@@ -68,7 +67,7 @@ describe('authGuard', () => {
 
     resultObservable.subscribe((isAllowed) => {
       expect(isAllowed).toBeFalsy();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['auth/login']);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/auth/login']);
       done();
     });
   });
