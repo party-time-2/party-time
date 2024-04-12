@@ -79,24 +79,6 @@ describe('AuthService', () => {
     req.flush(mockLoginResponse); // Simulate successful response with a token
   });
 
-  // it('should not store a token if login response contains ApiError', (done) => {
-  //   authService.login(loginRequestDTO).subscribe((response) => {
-  //     if ('error' in response && response.error) {
-  //       expect(response).toEqual(mockBadRequestApiError);
-  //       expect(mockStorageService.storeAuthToken).not.toHaveBeenCalled();
-  //       done();
-  //     } else {
-  //       fail('Expected an ApiError');
-  //     }
-  //   });
-
-  //   const req = httpTestingController.expectOne(
-  //     environment.api.endpoints.authentication.login()
-  //   );
-  //   expect(req.request.method).toBe('POST');
-  //   req.flush(mockBadRequestApiError);
-  // });
-
   it('should successfully verify email without returning a value', (done) => {
     authService.verifyEmail(mockVerifyEmailToken).subscribe({
       next: () => {
@@ -114,33 +96,32 @@ describe('AuthService', () => {
     req.flush(null); // Simulating a void response
   });
 
-  // it('should return an ApiError on failed email verification', (done) => {
-  //   authService.verifyEmail(mockVerifyEmailToken).subscribe({
-  //     next: () => {
-  //       fail('Expected an error');
-  //     },
-  //     error: (error) => {
-  //       expect(error.error).toEqual(mockBadRequestApiError);
-  //       done();
-  //     },
-  //   });
-
-  //   const req = httpTestingController.expectOne(
-  //     environment.api.endpoints.authentication.verify(mockVerifyEmailToken)
-  //   );
-  //   expect(req.request.method).toBe('POST');
-  //   req.flush(mockBadRequestApiError, {
-  //     status: 400,
-  //     statusText: 'Bad Request',
-  //   }); // Simulate error response
-  // });
-
   it('should remove the auth token on logout', () => {
     // Call the logout method
     authService.logout();
 
     // Verify that the storage service's removeAuthToken method was called
     expect(mockStorageService.removeAuthToken).toHaveBeenCalled();
+  });
+
+  it('should throw an error if login response does not contain a valid token', (done) => {
+    const invalidResponse = {}; // Simulating an invalid response
+
+    authService.login(loginRequestDTO).subscribe({
+      next: () => {
+        fail('Expected to throw an Invalid response error');
+      },
+      error: (error) => {
+        expect(error.message).toEqual('Invalid response');
+        done();
+      },
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.authentication.login()
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse); // Simulate invalid response
   });
 
   it('should return true from isAuthenticated when a token exists', (done) => {
@@ -189,34 +170,23 @@ describe('AuthService', () => {
     req.flush(mockLoginResponse);
   });
 
-  // it('should throw an error if login response contains ApiError', (done) => {
-  //   const mockLoginRequestDTO: LoginRequestDTO = {
-  //     email: 'test',
-  //     password: 'password',
-  //   };
-  //   const mockApiError: ApiError = {
-  //     status: ApiErrorStatus['400 BAD_REQUEST'],
-  //     timestamp: new Date(),
-  //     message: 'Bad Request',
-  //     additionalInformation: {
-  //       status: '400',
-  //       message: 'Bad Request',
-  //       timestamp: '2021-12-14T14:00:00.000Z',
-  //     },
-  //   };
+  it('should return an ApiError on failed email verification', (done) => {
+    const apiErrorResponse = { status: 400, message: 'Invalid token' };
 
-  //   authService.login(mockLoginRequestDTO).subscribe({
-  //     error: (error: ApiError) => {
-  //       expect(error).toEqual(mockApiError);
-  //       expect(mockStorageService.storeAuthToken).not.toHaveBeenCalled();
-  //       done();
-  //     },
-  //   });
+    authService.verifyEmail(mockVerifyEmailToken).subscribe({
+      next: (error) => {
+        expect(error).toEqual(apiErrorResponse);
+        done();
+      },
+      error: () => {
+        fail('Expected to handle the error without failing');
+      },
+    });
 
-  //   const req = httpTestingController.expectOne(
-  //     environment.api.endpoints.authentication.login()
-  //   );
-  //   expect(req.request.method).toBe('POST');
-  //   req.flush(mockApiError);
-  // });
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.authentication.verify(mockVerifyEmailToken)
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(apiErrorResponse, { status: 400, statusText: 'Bad Request' });
+  });
 });
