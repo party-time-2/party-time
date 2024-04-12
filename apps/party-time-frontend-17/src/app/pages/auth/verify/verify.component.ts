@@ -31,37 +31,38 @@ import { ApiError } from '../../../models/error.interface';
     NavbarComponent,
     FooterComponent,
   ],
-  template: `<section
-    class="flex h-screen flex-col items-center justify-center"
-  >
-    <app-page-header Title="Verify" data-cy="verify-header"></app-page-header>
-    <form
-      [formGroup]="verifyForm"
-      (ngSubmit)="onSubmit()"
-      data-cy="verify-form"
-      class="mx-auto flex w-full max-w-md flex-col gap-4 rounded-lg bg-white px-4 py-6 shadow-md"
-    >
-      <mat-form-field appearance="fill" data-cy="token-field">
-        <mat-label>Token</mat-label>
-        <input matInput formControlName="token" data-cy="token-input" />
-        <mat-error
-          *ngIf="verifyForm.get('token')?.errors?.['required']"
-          data-cy="token-required-error"
-        >
-          Token ist erforderlich.
-        </mat-error>
-      </mat-form-field>
-      <button
-        mat-button
-        color="primary"
-        [disabled]="!verifyForm.valid"
-        type="submit"
-        data-cy="verify-button"
+  template: `
+    <app-navbar></app-navbar>
+    <section class="flex h-screen flex-col items-center justify-center">
+      <app-page-header Title="Verify" data-cy="verify-header"></app-page-header>
+      <form
+        [formGroup]="verifyForm"
+        (ngSubmit)="onSubmit()"
+        data-cy="verify-form"
+        class="mx-auto flex w-full max-w-md flex-col gap-4 rounded-lg bg-white px-4 py-6 shadow-md"
       >
-        Verifizieren
-      </button>
-    </form>
-  </section> `,
+        <mat-form-field appearance="fill" data-cy="token-field">
+          <mat-label>Token</mat-label>
+          <input matInput formControlName="token" data-cy="token-input" />
+          <mat-error
+            *ngIf="verifyForm.get('token')?.errors?.['required']"
+            data-cy="token-required-error"
+          >
+            Token ist erforderlich.
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-button
+          color="primary"
+          [disabled]="!verifyForm.valid"
+          type="submit"
+          data-cy="verify-button"
+        >
+          Verifizieren
+        </button>
+      </form>
+    </section>
+  `,
   styles: ``,
 })
 export class VerifyComponent {

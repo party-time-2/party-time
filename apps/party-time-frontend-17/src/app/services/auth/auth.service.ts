@@ -1,6 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { IAuthService } from '../../models/auth-service.interface';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  of,
+  throwError,
+} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../storage/storage.service';
@@ -8,7 +15,6 @@ import {
   LoginRequestDTO,
   LoginResponseDTO,
 } from '../../models/dto/auth-dto.interface';
-import { ApiError } from '../../models/error.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +22,18 @@ import { ApiError } from '../../models/error.interface';
 export class AuthService implements IAuthService {
   private http: HttpClient = inject(HttpClient);
   private storageService: StorageService = inject(StorageService);
+  private authStatus$ = new BehaviorSubject<boolean>(this.hasToken());
 
   isAuthenticated(): Observable<boolean> {
-    return new Observable<boolean>((observer) => {
-      observer.next(this.storageService.getAuthToken() !== null);
-      observer.complete();
-    });
+    return this.authStatus$.asObservable();
+  }
+
+  isLoggedIn() {
+    return this.authStatus$.value;
+  }
+
+  private hasToken(): boolean {
+    return this.storageService.getAuthToken() !== null;
   }
 
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO> {
@@ -34,6 +46,7 @@ export class AuthService implements IAuthService {
         map((response) => {
           if ('token' in response && response.token) {
             this.storageService.storeAuthToken(response.token);
+            this.authStatus$.next(this.hasToken());
             return response;
           } else {
             throw new Error('Invalid response');
@@ -59,5 +72,6 @@ export class AuthService implements IAuthService {
 
   logout(): void {
     this.storageService.removeAuthToken();
+    this.authStatus$.next(this.hasToken());
   }
 }
