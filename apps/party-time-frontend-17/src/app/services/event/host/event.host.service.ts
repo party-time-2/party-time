@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { IEventHostService } from '../../../models/event.host.interface';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
 import {
@@ -9,7 +9,6 @@ import {
   EventCreateDTO,
   AccountInvitationDetailsDTO,
   InvitationCreateDTO,
-  InvitationDetailsDTO,
 } from '../../../models/dto/event-dto.interface';
 import { ApiError } from '../../../models/error.interface';
 
