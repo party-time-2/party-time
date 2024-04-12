@@ -2,9 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { IEventParticipantService } from '../../../models/event.participant.interface';
 import { Observable, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { env } from 'process';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
-import { ApiError } from '../../../models/error.interface';
 import { ParticipantEventDTO } from '../../../models/dto/event-dto.interface';
 
 @Injectable({

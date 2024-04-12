@@ -102,4 +102,88 @@ describe('EventParticipantsService', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockEvent);
   });
+
+  it('should handle errors on declining an event', () => {
+    const mockError = {
+      status: 404,
+      statusText: 'Not Found',
+      error: { message: 'Event not found' },
+    };
+
+    service.declineEvent(eventId).subscribe((response) => {
+      expect(response).toEqual(mockError.error); // Check if error.error is returned as expected
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.event.participant.declineEvent(eventId)
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockError.error, {
+      status: mockError.status,
+      statusText: mockError.statusText,
+    });
+  });
+
+  it('should handle errors on accepting an event', () => {
+    const mockError = {
+      status: 500,
+      statusText: 'Server Error',
+      error: { message: 'Internal Server Error' },
+    };
+
+    service.acceptEvent(eventId).subscribe((response) => {
+      expect(response).toEqual(mockError.error); // Check if error.error is returned as expected
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.event.participant.acceptEvent(eventId)
+    );
+    expect(req.request.method).toBe('POST');
+    req.flush(mockError.error, {
+      status: mockError.status,
+      statusText: mockError.statusText,
+    });
+  });
+
+  it('should handle errors on fetching participating events', () => {
+    const mockError = {
+      status: 400,
+      statusText: 'Bad Request',
+      error: { message: 'Invalid parameters' },
+    };
+
+    service.getParticipaintingEvents().subscribe((response) => {
+      expect(response).toEqual(mockError.error); // Check if error.error is returned as expected
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.event.participant.getParticipatingEvents()
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush(mockError.error, {
+      status: mockError.status,
+      statusText: mockError.statusText,
+    });
+  });
+
+  it('should handle errors on fetching a specific participating event', () => {
+    const mockError = {
+      status: 403,
+      statusText: 'Forbidden',
+      error: { message: 'Access denied' },
+    };
+
+    service.getParticipaintingEvent(eventId).subscribe((response) => {
+      expect(response).toEqual(mockError.error); // Check if error.error is returned as expected
+    });
+
+    const req = httpTestingController.expectOne(
+      environment.api.endpoints.event.participant.getParticipatingEvent(eventId)
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush(mockError.error, {
+      status: mockError.status,
+      statusText: mockError.statusText,
+    });
+  });
 });
