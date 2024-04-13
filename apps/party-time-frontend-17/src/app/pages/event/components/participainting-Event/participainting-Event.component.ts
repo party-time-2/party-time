@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-participainting-event',
   standalone: true,
   imports: [CommonModule],
-  template: `<p>create works!</p>`,
+  template: `<p>participainting-Event works!</p>`,
   styles: ``,
 })
-export class CreateComponent {}
+export class ParticipaintingEventComponent {}

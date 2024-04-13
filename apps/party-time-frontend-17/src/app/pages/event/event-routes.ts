@@ -1,15 +1,11 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../../services/auth/guard/auth.guard';
 
 export const EVENT_ROUTES: Routes = [
   {
-    path: 'participant',
-    loadChildren: () =>
-      import('./participant/participant-routes').then(
-        (r) => r.PARTICIPANT_ROUTES
-      ),
-  },
-  {
-    path: 'host',
-    loadChildren: () => import('./host/host-routes').then((r) => r.HOST_ROUTES),
+    path: '',
+    loadComponent: () =>
+      import('./overview/overview.component').then((c) => c.OverviewComponent),
+    canActivate: [authGuard],
   },
 ];
