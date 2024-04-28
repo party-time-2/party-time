@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs';
-import { ApiError } from './error.interface';
 import { ParticipantEventDTO } from './dto/event-dto.interface';
 
 /**
@@ -24,12 +23,12 @@ export interface IEventParticipantService {
    * Retrieves a list of events in which the user is participating.
    * @returns An Observable that emits an array of ParticipantEventDTO or an ApiError.
    */
-  getParticipaintingEvents(): Observable<ParticipantEventDTO[]>;
+  getParticipatingEvents(): Observable<ParticipantEventDTO[]>;
 
   /**
    * Retrieves a specific event in which the user is participating.
    * @param eventId - The ID of the event.
    * @returns An Observable that emits a ParticipantEventDTO or an ApiError.
    */
-  getParticipaintingEvent(eventId: string): Observable<ParticipantEventDTO>;
+  getParticipatingEvent(eventId: string): Observable<ParticipantEventDTO>;
 }

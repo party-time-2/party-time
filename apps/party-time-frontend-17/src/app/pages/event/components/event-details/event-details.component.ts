@@ -30,7 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
           <button (click)="onEditClicked(eventDetails.id)">
             <mat-icon fontIcon="edit"></mat-icon>
           </button>
-          <button (click)="onDelteClicked(eventDetails.id)">
+          <button (click)="onDeleteClicked(eventDetails.id)">
             <mat-icon fontIcon="delete"></mat-icon>
           </button>
         </mat-card-actions>
@@ -49,7 +49,7 @@ export class EventDetailsComponent {
     this.editClicked.emit(id);
   }
 
-  onDelteClicked(id: number): void {
+  onDeleteClicked(id: number): void {
     this.deleteClicked.emit(id);
   }
 }

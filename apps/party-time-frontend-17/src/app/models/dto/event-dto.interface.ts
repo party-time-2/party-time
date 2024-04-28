@@ -49,7 +49,7 @@ export interface InvitationDetailsDTO {
 export interface OrganizedEventDetailsDTO {
   id: number;
   name: string;
-  dateTimes: Date;
+  dateTime: Date;
   address: AddressDTO;
   organizer: AccountDTO;
 }
