@@ -23,7 +23,7 @@ describe('EventParticipantsService', () => {
     organizedEventDetailsDTO: {
       id: 1,
       name: 'Test Event',
-      dateTimes: new Date(),
+      dateTime: new Date(),
       organizer: {
         email: 'test@test.de',
         id: 1,
@@ -80,7 +80,7 @@ describe('EventParticipantsService', () => {
   });
 
   it('should get participating events', () => {
-    service.getParticipaintingEvents().subscribe((response) => {
+    service.getParticipatingEvents().subscribe((response) => {
       expect(response).toEqual(mockEvents);
     });
 
@@ -92,7 +92,7 @@ describe('EventParticipantsService', () => {
   });
 
   it('should get participating event', () => {
-    service.getParticipaintingEvent(eventId).subscribe((response) => {
+    service.getParticipatingEvent(eventId).subscribe((response) => {
       expect(response).toEqual(mockEvent);
     });
 
@@ -152,7 +152,7 @@ describe('EventParticipantsService', () => {
       error: { message: 'Invalid parameters' },
     };
 
-    service.getParticipaintingEvents().subscribe((response) => {
+    service.getParticipatingEvents().subscribe((response) => {
       expect(response).toEqual(mockError.error); // Check if error.error is returned as expected
     });
 
@@ -173,7 +173,7 @@ describe('EventParticipantsService', () => {
       error: { message: 'Access denied' },
     };
 
-    service.getParticipaintingEvent(eventId).subscribe((response) => {
+    service.getParticipatingEvent(eventId).subscribe((response) => {
       expect(response).toEqual(mockError.error); // Check if error.error is returned as expected
     });
 

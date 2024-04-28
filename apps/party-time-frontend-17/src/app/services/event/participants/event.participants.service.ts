@@ -1,9 +1,10 @@
 import { Injectable, inject } from '@angular/core';
 import { IEventParticipantService } from '../../../models/event.participant.interface';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
 import { ParticipantEventDTO } from '../../../models/dto/event-dto.interface';
+import { ApiError } from '../../../models/error.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class EventParticipantsService implements IEventParticipantService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -35,18 +36,18 @@ export class EventParticipantsService implements IEventParticipantService {
         })
       );
   }
-  getParticipaintingEvents(): Observable<ParticipantEventDTO[]> {
+  getParticipatingEvents(): Observable<ParticipantEventDTO[]> {
     return this.http
       .get<ParticipantEventDTO[]>(
         environment.api.endpoints.event.participant.getParticipatingEvents()
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
-  getParticipaintingEvent(eventId: string): Observable<ParticipantEventDTO> {
+  getParticipatingEvent(eventId: string): Observable<ParticipantEventDTO> {
     return this.http
       .get<ParticipantEventDTO>(
         environment.api.endpoints.event.participant.getParticipatingEvent(
@@ -55,7 +56,7 @@ export class EventParticipantsService implements IEventParticipantService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
