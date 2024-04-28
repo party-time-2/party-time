@@ -31,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [mat-menu-trigger-for]="event">Event</button>
+        <button mat-menu-item routerLink="/events">Events</button>
         <button mat-menu-item [mat-menu-trigger-for]="account">Account</button>
         <button mat-menu-item routerLink="/impressum">Impressum</button>
         <button mat-menu-item routerLink="/datenschutz">
@@ -40,10 +40,6 @@ import { MatIconModule } from '@angular/material/icon';
       </mat-menu>
       <button routerLink="/">Party Time</button>
     </mat-toolbar>
-
-    <mat-menu #event="matMenu">
-      <button mat-menu-item routerLink="/event/host/events">Erstellen</button>
-    </mat-menu>
 
     <mat-menu #account="matMenu">
       @if (isAuthenticated$ | async;) {
