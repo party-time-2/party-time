@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { IEventHostService } from '../../../models/event.host.interface';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'apps/party-time-frontend-17/src/environments/environment';
 import {
@@ -25,7 +25,7 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -37,19 +37,19 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
 
   deleteEvent(eventId: number): Observable<void> {
     return this.http
-      .delete<ApiError>(
+      .delete<void>(
         environment.api.endpoints.event.host.deleteEvent(eventId.toString())
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -62,7 +62,7 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -75,7 +75,7 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -93,7 +93,7 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -111,7 +111,7 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
@@ -123,7 +123,7 @@ export class EventHostService implements IEventHostService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }

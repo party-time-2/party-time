@@ -15,6 +15,7 @@ import {
   LoginRequestDTO,
   LoginResponseDTO,
 } from '../../models/dto/auth-dto.interface';
+import { ApiError } from '../../models/error.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,9 @@ export class AuthService implements IAuthService {
             throw new Error('Invalid response');
           }
         }),
-        catchError((error) => throwError(() => new Error(error.message)))
+        catchError((error) => {
+          return throwError(() => error.error as ApiError);
+        })
       );
   }
 
@@ -65,7 +68,7 @@ export class AuthService implements IAuthService {
       )
       .pipe(
         catchError((error) => {
-          return of(error.error);
+          return throwError(() => error.error as ApiError);
         })
       );
   }
