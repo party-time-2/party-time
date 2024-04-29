@@ -8,11 +8,14 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { authInterceptor } from './services/auth/interceptor/authInterceptor';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideNativeDatetimeAdapter } from '@ng-matero/extensions/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes, withComponentInputBinding()),
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideNativeDatetimeAdapter(),
   ],
 };
