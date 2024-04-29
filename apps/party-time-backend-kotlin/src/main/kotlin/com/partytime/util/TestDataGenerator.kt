@@ -13,8 +13,7 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Profile
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import java.util.UUID
 
 private val testDataLogger = KotlinLogging.logger {}
@@ -63,7 +62,7 @@ class TestDataGenerator(
                 Event(
                     accountRepository.findAccountByEmail("verified$rand@partytime.de").orElseThrow(),
                     name,
-                    ZonedDateTime.now(ZoneOffset.UTC).plusMonths(3),
+                    LocalDateTime.now().plusMonths(3),
                     addressService.saveAddress(
                         "Teststraße $rand",
                         null,

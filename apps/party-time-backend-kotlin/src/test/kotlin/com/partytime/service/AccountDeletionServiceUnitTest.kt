@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 class AccountDeletionServiceUnitTest : UnitTest() {
 
@@ -46,7 +46,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
     private val organizerAccount = Account(ORGANIZER_EMAIL, true, ORGANIZER_NAME, encodedOrganizerPassword)
     private val eventId = 0L
     private val event =
-        Event(organizerAccount, "TestEvent", ZonedDateTime.now(), Address("", "", "", "", ""), mutableSetOf()).apply {
+        Event(organizerAccount, "TestEvent", LocalDateTime.now(), Address("", "", "", "", ""), mutableSetOf()).apply {
             id = eventId
         }
     private val invitation = Invitation(userAccount, event, Status.INVITED).also {

@@ -8,8 +8,7 @@ import com.partytime.jpa.entity.Event
 import com.partytime.jpa.entity.Invitation
 import com.partytime.mail.model.EventData
 import com.partytime.mail.model.IcsEventData
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 import java.util.UUID
 
 /**
@@ -69,11 +68,11 @@ fun Event.toIcsEventData(url: String): IcsEventData {
             formatTimestamp(dateTime)
         ),
         url,
-        formatTimestamp(ZonedDateTime.now(ZoneOffset.UTC)),
+        formatTimestamp(LocalDateTime.now()),
         organizer.email,
         UUID.randomUUID().toString().replace("-", "")
     )
 }
 
-private fun formatTimestamp(ts: ZonedDateTime): String =
+private fun formatTimestamp(ts: LocalDateTime): String =
     "${ts.year}${ts.monthValue}${ts.dayOfMonth}T${ts.hour}${ts.minute}${ts.second}Z"
