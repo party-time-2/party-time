@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.http.HttpStatus
 import java.io.Serializable
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 
 class ApiError private constructor(
@@ -60,5 +59,5 @@ class ApiError private constructor(
 
     }
 
-    val timeStamp: ZonedDateTime = ZonedDateTime.now(ZoneOffset.UTC)
+    val timeStamp: LocalDateTime = LocalDateTime.now()
 }

@@ -11,7 +11,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.FutureOrPresent
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = DatabaseConstants.Event.TABLE_NAME)
@@ -25,7 +25,7 @@ class Event(
     var name: String,
     @field:FutureOrPresent
     @Column(name = DatabaseConstants.Event.COLUMN_DATE_TIME)
-    var dateTime: ZonedDateTime,
+    var dateTime: LocalDateTime,
     @ManyToOne
     @JoinColumn(name = DatabaseConstants.Event.COLUMN_ADDRESS)
     var address: Address,
