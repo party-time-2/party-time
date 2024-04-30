@@ -78,24 +78,32 @@ import {
                 [timeInterval]="timeInterval"
                 [touchUi]="touchUi"
                 [timeInput]="timeInput"
+                [startAt]="today"
+                oninput="logEventForm()"
+                (selectedChanged)="logEventForm()"
               ></mtx-datetimepicker>
               <input
                 [mtxDatetimepicker]="datetimePicker"
                 formControlName="dateTime"
                 [value]="today"
+                [ngModel]="today"
                 matInput
                 required
                 placeholder="Datum und Uhrzeit"
+                (dateInput)="logEventForm()"
               />
+              
               <mtx-datetimepicker-toggle
                 [for]="datetimePicker"
                 matSuffix
-              ></mtx-datetimepicker-toggle>
+              >
+            </mtx-datetimepicker-toggle>
             </mat-form-field>
           </section>
         </form>
       </mat-dialog-content>
       <mat-dialog-actions>
+        <!-- FIXME: eventForm.valid gibt true zurück, aber Button wird nicht enabled -->
         <button
           mat-button
           color="primary"
@@ -114,7 +122,7 @@ import {
 export class EventDialogComponent {
   private snackBar = inject(MatSnackBar);
   private eventHostService = inject(EventHostService);
-  today = '2024-04-24T13:45:00.000Z';
+  today = new Date('2024-08-24T13:45:00.000Z');
 
   type: MtxDatetimepickerType = 'datetime';
   mode: MtxDatetimepickerMode = 'auto';
@@ -141,6 +149,10 @@ export class EventDialogComponent {
   });
 
   constructor(private dialogRef: MatDialogRef<OverviewComponent>) {}
+
+  logEventForm() {
+    console.log(this.eventForm);
+  }
 
   convertDateToISO(date: string) {
     return new Date(date).toISOString();
