@@ -6,7 +6,7 @@ import jakarta.validation.Valid
 import jakarta.validation.constraints.FutureOrPresent
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 /**
  * Data container for creating new events.
@@ -20,7 +20,7 @@ data class EventCreateDTO(
     @field:Size(min = 5, max = 20)
     val name: String,
     @field:FutureOrPresent
-    val dateTime: LocalDateTime,
+    val dateTime: ZonedDateTime,
     @field:Valid
     val address: AddressDTO
 )
@@ -34,7 +34,7 @@ sealed interface EventDetails {
     /** The name of the event */
     val name: String
     /** The date and time of the event */
-    val dateTime: LocalDateTime
+    val dateTime: ZonedDateTime
     /** The address of the event */
     val address: AddressDTO
 }
@@ -48,7 +48,7 @@ data class EventDetailsDTO(
     @field:Size(min = 5, max=20)
     override val name: String,
     @field:FutureOrPresent
-    override val dateTime: LocalDateTime,
+    override val dateTime: ZonedDateTime,
     @field:Valid
     override val address: AddressDTO
 ) : EventDetails
@@ -65,7 +65,7 @@ data class OrganizedEventDetailsDTO(
     override val name: String,
     @field:Valid
     @field:FutureOrPresent
-    override val dateTime: LocalDateTime,
+    override val dateTime: ZonedDateTime,
     @field:Valid
     override val address: AddressDTO,
     @field:Valid
