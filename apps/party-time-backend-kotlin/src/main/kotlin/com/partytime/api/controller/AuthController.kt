@@ -64,7 +64,7 @@ class AuthController(
         ]
     )
     @SecurityRequirements
-    fun login(@RequestBody body: @Valid @NotNull LoginRequestDTO): LoginResponseDTO =
+    fun login(@Valid @NotNull @RequestBody body: LoginRequestDTO): LoginResponseDTO =
         authService.loginUser(body)
 
     /**
