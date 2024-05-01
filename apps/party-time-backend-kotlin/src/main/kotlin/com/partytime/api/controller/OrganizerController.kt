@@ -123,7 +123,7 @@ class OrganizerController(
         ]
     )
     fun createEvent(
-        @RequestBody body: @NotNull @Valid EventCreateDTO,
+        @Valid @NotNull @RequestBody body: EventCreateDTO,
         authentication: AuthenticationToken
     ): OrganizerEventDTO =
         organizerService.createEvent(body, authentication.principal).toOrganizerEventDTO()
@@ -161,7 +161,7 @@ class OrganizerController(
         ]
     )
     fun updateEvent(
-        @RequestBody body: @NotNull @Valid EventDetailsDTO,
+        @Valid @NotNull @RequestBody body: EventDetailsDTO,
         authentication: AuthenticationToken
     ): OrganizerEventDTO =
         organizerService.updateEvent(body, authentication.principal).toOrganizerEventDTO()
@@ -277,7 +277,7 @@ class OrganizerController(
     )
     fun inviteParticipant(
         @Parameter(description = "The id of the event") @PathVariable("eventId") eventId: Long,
-        @RequestBody body: @NotNull @Valid InvitationCreateDTO,
+        @Valid @NotNull @RequestBody body: InvitationCreateDTO,
         authentication: AuthenticationToken
     ): List<AccountInvitationDetailsDTO> {
         organizerService.inviteParticipant(eventId, body, authentication.principal)

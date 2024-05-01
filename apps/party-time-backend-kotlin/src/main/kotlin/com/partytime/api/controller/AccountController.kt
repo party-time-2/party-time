@@ -68,7 +68,7 @@ class AccountController (
         ]
     )
     @SecurityRequirements
-    fun register(@RequestBody body: @Valid @NotNull AccountRegisterDTO): AccountDTO =
+    fun register(@Valid @NotNull @RequestBody body:  AccountRegisterDTO): AccountDTO =
         accountService.registerAccount(body).toAccountDTO()
 
     /**
@@ -89,7 +89,7 @@ class AccountController (
         ), ApiResponse(description = "The Old Password is Wrong", responseCode = "401")]
     )
     fun deleteOwnAccount(
-        @RequestBody body: @NotNull @Valid AccountDeleteDTO,
+        @Valid @NotNull @RequestBody body: AccountDeleteDTO,
         authentication: AuthenticationToken
     ) = accountDeletionService.deleteAccount(body, authentication)
 
@@ -115,6 +115,6 @@ class AccountController (
             ), ApiResponse(description = "New password does not match requirements", responseCode = "409")
         ]
     )
-    fun changePassword(@RequestBody body: @Valid @NotNull ChangePasswordDTO, authentication: AuthenticationToken) =
+    fun changePassword(@Valid @NotNull @RequestBody body: ChangePasswordDTO, authentication: AuthenticationToken) =
         accountService.changePassword(body, authentication)
 }
