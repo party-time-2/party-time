@@ -16,8 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from '../components/event-dialog/event-dialog.component';
 import {
   EventCreateDTO,
+  EventDetailsDTO,
   OrganizerEventDTO,
 } from '../../../models/dto/event-dto.interface';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-overview',
@@ -76,8 +78,16 @@ export class OverviewComponent {
   private eventParticipantsService = inject(EventParticipantsService);
   private snackBar = inject(MatSnackBar);
   private openDialog = inject(MatDialog);
-  organizedEvents$ = this.eventHostService.getOrganizedEvents();
+  // Using BehaviorSubject to manage the events list
+  private organizedEventsSource = new BehaviorSubject<EventDetailsDTO[]>([]);
+  organizedEvents$ = this.organizedEventsSource.asObservable();
   participatingEvents$ = this.eventParticipantsService.getParticipatingEvents();
+
+  constructor() {
+    this.eventHostService.getOrganizedEvents().subscribe((events) => {
+      this.organizedEventsSource.next(events);
+    });
+  }
 
   addNewEvent() {
     const dialogRef = this.openDialog.open(EventDialogComponent);
@@ -85,7 +95,11 @@ export class OverviewComponent {
       if (result) {
         this.eventHostService.createEvent(result).subscribe({
           next: (organizerEventDTO: OrganizerEventDTO) => {
-            console.log('Event created', organizerEventDTO);
+            const currentEvents = this.organizedEventsSource.value;
+            this.organizedEventsSource.next([
+              ...currentEvents,
+              organizerEventDTO.eventDetailsDTO,
+            ]);
           },
           error: (error: ApiError) => {
             console.error('Error creating event:', error);
