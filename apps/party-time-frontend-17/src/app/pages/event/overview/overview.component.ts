@@ -47,7 +47,10 @@ import { BehaviorSubject } from 'rxjs';
     <div class="flex flex-wrap justify-center">
       @if (organizedEvents$ | async) { @for (organizedEvent of organizedEvents$
       | async; track $index) {
-      <app-event-details [eventDetails]="organizedEvent"></app-event-details>
+      <app-event-details
+        (deleteClicked)="onEventDelete($event)"
+        [eventDetails]="organizedEvent"
+      ></app-event-details>
       }@empty {
       <p>No events found</p>
       } }@else {
@@ -78,7 +81,6 @@ export class OverviewComponent {
   private eventParticipantsService = inject(EventParticipantsService);
   private snackBar = inject(MatSnackBar);
   private openDialog = inject(MatDialog);
-  // Using BehaviorSubject to manage the events list
   private organizedEventsSource = new BehaviorSubject<EventDetailsDTO[]>([]);
   organizedEvents$ = this.organizedEventsSource.asObservable();
   participatingEvents$ = this.eventParticipantsService.getParticipatingEvents();
@@ -102,11 +104,25 @@ export class OverviewComponent {
             ]);
           },
           error: (error: ApiError) => {
-            console.error('Error creating event:', error);
-            this.snackBar.open(error.message, 'Close');
+            this.snackBar.open(error.message, 'Ok', { duration: 2000 });
           },
         });
       }
+    });
+  }
+
+  onEventDelete(eventId: number) {
+    this.eventHostService.deleteEvent(eventId).subscribe({
+      next: () => {
+        const currentEvents = this.organizedEventsSource.value;
+        this.organizedEventsSource.next(
+          currentEvents.filter((event) => event.id !== eventId)
+        );
+        this.snackBar.open('Event gelöscht', 'Ok', { duration: 2000 });
+      },
+      error: (error: ApiError) => {
+        this.snackBar.open(error.message, 'Ok', { duration: 2000 });
+      },
     });
   }
 
@@ -120,7 +136,7 @@ export class OverviewComponent {
               this.eventParticipantsService.getParticipatingEvents();
           },
           error: (error: ApiError) => {
-            this.snackBar.open(error.message, 'Close');
+            this.snackBar.open(error.message, 'Ok', { duration: 2000 });
           },
         });
     } else {
@@ -132,7 +148,7 @@ export class OverviewComponent {
               this.eventParticipantsService.getParticipatingEvents();
           },
           error: (error: ApiError) => {
-            this.snackBar.open(error.message, 'Close');
+            this.snackBar.open(error.message, 'Ok', { duration: 2000 });
           },
         });
     }
