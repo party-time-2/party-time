@@ -1,4 +1,4 @@
-import { Component, Inject, Input, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -6,7 +6,6 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogModule,
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
@@ -16,9 +15,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { PageHeaderComponent } from 'apps/party-time-frontend-17/src/app/components/page-header/page-header.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { EventHostService } from 'apps/party-time-frontend-17/src/app/services/event/host/event.host.service';
 import {
@@ -27,7 +24,7 @@ import {
 } from 'apps/party-time-frontend-17/src/app/models/dto/event-dto.interface';
 import { OverviewComponent } from '../../overview/overview.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import {
   MtxCalendarView,
   MtxDatetimepickerMode,
@@ -321,6 +318,7 @@ export class EventDialogComponent {
         .get('dateTime')
         ?.setValue(new Date(data.eventDetailsDTO.dateTime));
       this.eventDetailsDTO = data.eventDetailsDTO;
+      this.eventForm.markAllAsTouched();
     }
   }
 
