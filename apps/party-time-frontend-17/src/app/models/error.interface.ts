@@ -2,8 +2,10 @@ export interface ApiError {
   status: ApiErrorStatus;
   message: string;
   additionalInformation: {
-    [key: string]: string;
-  };
+    name: string;
+    rejectedValue: string;
+    message: string;
+  }[];
   timestamp: Date;
 }
 

@@ -27,7 +27,7 @@ import { MatIconModule } from '@angular/material/icon';
           <pre>{{ eventDetails.address | json }}</pre>
         </mat-card-content>
         <mat-card-actions>
-          <button (click)="onEditClicked(eventDetails.id)">
+          <button (click)="onEditClicked(eventDetails)">
             <mat-icon fontIcon="edit"></mat-icon>
           </button>
           <button (click)="onDeleteClicked(eventDetails.id)">
@@ -42,11 +42,11 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class EventDetailsComponent {
   @Input() eventDetails: EventDetailsDTO | undefined;
-  @Output() editClicked = new EventEmitter<number>();
+  @Output() editClicked = new EventEmitter<EventDetailsDTO>();
   @Output() deleteClicked = new EventEmitter<number>();
 
-  onEditClicked(id: number): void {
-    this.editClicked.emit(id);
+  onEditClicked(eventDetailsDTO: EventDetailsDTO): void {
+    this.editClicked.emit(eventDetailsDTO);
   }
 
   onDeleteClicked(id: number): void {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -20,7 +20,10 @@ import { PageHeaderComponent } from 'apps/party-time-frontend-17/src/app/compone
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { EventHostService } from 'apps/party-time-frontend-17/src/app/services/event/host/event.host.service';
-import { EventCreateDTO } from 'apps/party-time-frontend-17/src/app/models/dto/event-dto.interface';
+import {
+  EventCreateDTO,
+  EventDetailsDTO,
+} from 'apps/party-time-frontend-17/src/app/models/dto/event-dto.interface';
 import { OverviewComponent } from '../../overview/overview.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
@@ -50,7 +53,12 @@ import {
   ],
   template: `
     <section class="flex w-96 flex-col gap-4">
-      <h2 mat-dialog-title>Event Erstellen</h2>
+      <h2 mat-dialog-title>Event</h2>
+      @if (eventCreateDTO) {
+      <h3 mat-dialog-title>Event bearbeiten</h3>
+      } @else {
+      <h3 mat-dialog-title>Event erstellen</h3>
+      }
       <mat-dialog-content>
         <form [formGroup]="eventForm" data-cy="event-form">
           <section class="flex flex-col gap-4">
@@ -241,6 +249,8 @@ import {
   styles: ``,
 })
 export class EventDialogComponent {
+  @Input() eventCreateDTO: EventDetailsDTO | undefined;
+
   eventDate = undefined;
   type: MtxDatetimepickerType = 'datetime';
   mode: MtxDatetimepickerMode = 'auto';
@@ -258,12 +268,12 @@ export class EventDialogComponent {
       Validators.minLength(5),
       Validators.maxLength(20),
     ]),
-    dateTime: new FormControl(new Date(), [Validators.required]),
+    dateTime: new FormControl(new Date(), [Validators.required]), //In der Zukunft liegen
     address: new FormGroup({
       addressLine: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(24),
+        Validators.maxLength(25),
       ]),
       addressLineAddition: new FormControl(''),
       zip: new FormControl('', [
@@ -284,7 +294,11 @@ export class EventDialogComponent {
     }),
   });
 
-  constructor(private dialogRef: MatDialogRef<OverviewComponent>) {}
+  constructor(private dialogRef: MatDialogRef<OverviewComponent>) {
+    if (this.eventCreateDTO) {
+      this.eventForm.patchValue(this.eventCreateDTO);
+    }
+  }
 
   onSubmit() {
     if (this.eventForm.invalid) {

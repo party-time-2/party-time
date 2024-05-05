@@ -13,11 +13,8 @@ export interface AddressDTO {
   country: string;
 }
 
-export interface EventDetailsDTO {
+export interface EventDetailsDTO extends EventCreateDTO {
   id: number;
-  name: string;
-  dateTime: Date;
-  address: AddressDTO;
 }
 
 export interface AccountInvitationDetailsDTO {
