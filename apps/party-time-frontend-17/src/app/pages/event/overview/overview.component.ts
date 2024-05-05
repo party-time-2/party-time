@@ -49,6 +49,7 @@ import { BehaviorSubject } from 'rxjs';
       | async; track $index) {
       <app-event-details
         (deleteClicked)="onEventDelete($event)"
+        (editClicked)="onEventEdit($event)"
         [eventDetails]="organizedEvent"
       ></app-event-details>
       }@empty {
@@ -104,7 +105,37 @@ export class OverviewComponent {
             ]);
           },
           error: (error: ApiError) => {
-            this.snackBar.open(error.message, 'Ok', { duration: 2000 });
+            // Display the detailed error message using MatSnackBar
+            this.snackBar.open('Event konnte nicht erstellt werden', 'Ok', {
+              duration: 5000,
+            });
+          },
+        });
+      }
+    });
+  }
+
+  onEventEdit(eventDetailsDTO: EventDetailsDTO) {
+    const dialogRef = this.openDialog.open(EventDialogComponent, {
+      data: { eventDetailsDTO },
+    });
+    dialogRef.afterClosed().subscribe((result: EventDetailsDTO | null) => {
+      if (result) {
+        this.eventHostService.updateEvent(result).subscribe({
+          next: (organizerEventDTO: OrganizerEventDTO) => {
+            const currentEvents = this.organizedEventsSource.value;
+            this.organizedEventsSource.next(
+              currentEvents.map((event) =>
+                event.id === eventDetailsDTO.id
+                  ? organizerEventDTO.eventDetailsDTO
+                  : event
+              )
+            );
+          },
+          error: (error: ApiError) => {
+            this.snackBar.open('Event konnte nicht bearbeitet werden', 'Ok', {
+              duration: 5000,
+            });
           },
         });
       }
