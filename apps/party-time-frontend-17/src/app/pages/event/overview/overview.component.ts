@@ -50,6 +50,7 @@ import { BehaviorSubject } from 'rxjs';
       <app-event-details
         (deleteClicked)="onEventDelete($event)"
         (editClicked)="onEventEdit($event)"
+        (participantsClicked)="onParticipant($event)"
         [eventDetails]="organizedEvent"
       ></app-event-details>
       }@empty {
@@ -157,6 +158,11 @@ export class OverviewComponent {
         this.snackBar.open(error.message, 'Ok', { duration: 2000 });
       },
     });
+  }
+
+  onParticipant(eventId: number) {
+    // handle participant
+    console.log('Participant clicked', eventId);
   }
 
   onParticipantStatusChange(event: { eventId: number; status: number }) {

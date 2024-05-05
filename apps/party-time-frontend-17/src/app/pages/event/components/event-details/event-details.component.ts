@@ -26,13 +26,33 @@ import { MatIconModule } from '@angular/material/icon';
           <p>{{ eventDetails.dateTime | date : 'dd.MM.yyyy HH:mm' }}</p>
           <pre>{{ eventDetails.address | json }}</pre>
         </mat-card-content>
-        <mat-card-actions>
-          <button (click)="onEditClicked(eventDetails)">
-            <mat-icon fontIcon="edit"></mat-icon>
-          </button>
-          <button (click)="onDeleteClicked(eventDetails.id)">
-            <mat-icon fontIcon="delete"></mat-icon>
-          </button>
+        <mat-card-actions class="flex justify-between">
+          <div>
+            <button
+              color="primary"
+              mat-mini-fab
+              class="mr-3"
+              (click)="onEditClicked(eventDetails)"
+            >
+              <mat-icon fontIcon="edit"></mat-icon>
+            </button>
+            <button
+              mat-mini-fab
+              color="accent"
+              (click)="onParticipantsClicked(eventDetails.id)"
+            >
+              <mat-icon fontIcon="groups"></mat-icon>
+            </button>
+          </div>
+          <div>
+            <button
+              mat-mini-fab
+              color="warn"
+              (click)="onDeleteClicked(eventDetails.id)"
+            >
+              <mat-icon fontIcon="delete"></mat-icon>
+            </button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </section>
@@ -44,6 +64,7 @@ export class EventDetailsComponent {
   @Input() eventDetails: EventDetailsDTO | undefined;
   @Output() editClicked = new EventEmitter<EventDetailsDTO>();
   @Output() deleteClicked = new EventEmitter<number>();
+  @Output() participantsClicked = new EventEmitter<number>();
 
   onEditClicked(eventDetailsDTO: EventDetailsDTO): void {
     this.editClicked.emit(eventDetailsDTO);
@@ -51,5 +72,9 @@ export class EventDetailsComponent {
 
   onDeleteClicked(id: number): void {
     this.deleteClicked.emit(id);
+  }
+
+  onParticipantsClicked(id: number): void {
+    this.participantsClicked.emit(id);
   }
 }
