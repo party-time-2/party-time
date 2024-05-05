@@ -34,6 +34,7 @@ import {
   MtxDatetimepickerModule,
   MtxDatetimepickerType,
 } from '@ng-matero/extensions/datetimepicker';
+import { CustomValidators } from 'apps/party-time-frontend-17/src/app/validators/custom.validators';
 
 @Component({
   selector: 'app-event-dialog',
@@ -115,6 +116,11 @@ import {
                 *ngIf="eventForm.get('dateTime')?.errors?.['required']"
               >
                 Datum und Uhrzeit sind erforderlich.
+              </mat-error>
+              <mat-error
+                *ngIf="eventForm.get('dateTime')?.errors?.['futureDate']"
+              >
+                Datum und Uhrzeit müssen in der Zukunft liegen.
               </mat-error>
             </mat-form-field>
 
@@ -276,8 +282,8 @@ export class EventDialogComponent {
     dateTime: new FormControl(
       // tomorrow
       new Date(Date.now() + 24 * 60 * 60 * 1000),
-      [Validators.required]
-    ), //In der Zukunft liegen
+      [Validators.required, CustomValidators.futureDateValidator]
+    ),
     address: new FormGroup({
       addressLine: new FormControl('', [
         Validators.required,
@@ -314,8 +320,7 @@ export class EventDialogComponent {
       this.eventForm
         .get('dateTime')
         ?.setValue(new Date(data.eventDetailsDTO.dateTime));
-
-      console.log(this.eventForm.value);
+      this.eventDetailsDTO = data.eventDetailsDTO;
     }
   }
 

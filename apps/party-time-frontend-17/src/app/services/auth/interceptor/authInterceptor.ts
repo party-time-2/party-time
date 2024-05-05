@@ -30,6 +30,5 @@ export const authInterceptor: HttpInterceptorFn = (
     headers: req.headers.set('Authorization', token),
   });
 
-  console.log('AuthInterceptor: ', authReq);
   return next(authReq);
 };

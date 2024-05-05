@@ -56,7 +56,7 @@ export class EventHostService implements IEventHostService {
 
   updateEvent(event: EventDetailsDTO): Observable<OrganizerEventDTO> {
     return this.http
-      .put<OrganizerEventDTO>(
+      .patch<OrganizerEventDTO>(
         environment.api.endpoints.event.host.updateEvent(),
         event
       )

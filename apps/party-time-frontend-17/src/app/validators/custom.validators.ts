@@ -1,6 +1,16 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export class CustomValidators {
+  static futureDateValidator(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    const value = control.value;
+    const currentDate = new Date();
+    const selectedDate = new Date(value);
+
+    return selectedDate > currentDate ? null : { futureDate: true };
+  }
+
   static passwordStrength(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const errors: ValidationErrors = {};
