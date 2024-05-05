@@ -39,7 +39,7 @@ class JwtAuthenticationFilter(
         try {
             if (authHeader != null && authHeader.isNotBlank()) {
                 val claims: Claims = jwtService.extractClaims(authHeader)
-                val valid: Boolean = jwtService.isValid(claims, true)
+                val valid: Boolean = jwtService.isValid(claims)
                 if (valid && SecurityContextHolder.getContext().authentication == null) {
                     // Token Valid and no Authentication present
                     val userDetails = userDetailsService.loadUserByUsername(jwtService.getEmail(claims))

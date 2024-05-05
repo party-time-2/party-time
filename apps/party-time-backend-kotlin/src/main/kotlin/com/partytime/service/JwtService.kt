@@ -20,18 +20,19 @@ import javax.crypto.SecretKey
  * @constructor Constructs a new [JwtService]
  */
 @Service
-class JwtService (
+class JwtService(
     private val configurationProperties: PartyTimeConfigurationProperties
 ) {
     companion object {
         /** Issuer URL of all created auth tokens */
         const val ISSUER: String = "https://partytime.de/auth"
-        /** Subject of tokens asking for a refresh */
-        const val SUB_REFRESH: String = "refresh-token" //TODO clarify whether implemented
+
         /** Descriptor of e-mail claim */
         const val CLAIM_EMAIL: String = "email"
+
         /** Descriptor of name claim */
         const val CLAIM_NAME: String = "name"
+
         /** Descriptor of e-mail-verified claim */
         const val CLAIM_EMAIL_VERIFIED: String = "email_verified"
     }
@@ -43,48 +44,7 @@ class JwtService (
      * @return Access token for the provided [Account]
      */
     fun createAccessToken(account: Account): String =
-        createAccessToken(account.email, account.name, account.emailVerified)
-
-    private fun createAccessToken(email: String, name: String, emailVerified: Boolean): String =
-        createToken(email, name, emailVerified)
-
-    /**
-     * Checks the validity and extracts the claims of a token
-     *
-     * @param token the Jwt from which claims should be extracted
-     * @return extracted claims of a validated token
-     */
-    fun extractClaims(token: String): Claims = Jwts //TODO check if builder result can't be saved in property
-        .parser()
-        .requireIssuer(ISSUER)
-        .clockSkewSeconds(10)
-        .verifyWith(getSignInKey())
-        .build()
-        .parseSignedClaims(token)
-        .payload
-
-    /**
-     * Checks if extracted claims are valid.
-     *
-     * @param claims Instance of [Claims] whose validity should be checked
-     * @param accessToken Indicates whether the claims originate from an access token (equals false if refresh token)
-     * @return Information about the validity of the claims
-     */
-    fun isValid(claims: Claims, accessToken: Boolean): Boolean = claims.run {
-        issuer.equals(ISSUER)
-                && id != null
-                && issuedAt.before(Date())
-                && if (accessToken) (subject != null) else subject.equals(SUB_REFRESH)
-                && get(CLAIM_EMAIL) != null
-    }
-
-    /**
-     * Extract the e-mail address from Jwt Claims
-     *
-     * @param claims extract the e-mail address from this [Claims] object
-     * @return e-mail address contained in the provided [Claims] object
-     */
-    fun getEmail(claims: Claims): String = claims.get(CLAIM_EMAIL, String::class.java)
+        createToken(account.email, account.name, account.emailVerified)
 
     /**
      * Implements F011
@@ -113,4 +73,40 @@ class JwtService (
     private fun createDate(date: LocalDateTime): Date =
         Date.from(date.atZone(ZoneId.systemDefault()).toInstant())
 
+    /**
+     * Checks the validity and extracts the claims of a token
+     *
+     * @param token the Jwt from which claims should be extracted
+     * @return extracted claims of a validated token
+     */
+    fun extractClaims(token: String): Claims = Jwts //TODO check if builder result can't be saved in property
+        .parser()
+        .requireIssuer(ISSUER)
+        .clockSkewSeconds(10)
+        .verifyWith(getSignInKey())
+        .build()
+        .parseSignedClaims(token)
+        .payload
+
+    /**
+     * Checks if extracted claims are valid.
+     *
+     * @param claims Instance of [Claims] whose validity should be checked
+     * @return Information about the validity of the claims
+     */
+    fun isValid(claims: Claims): Boolean = claims.run {
+        issuer.equals(ISSUER)
+                && id != null
+                && issuedAt.before(Date())
+                && subject != null
+                && get(CLAIM_EMAIL) != null
+    }
+
+    /**
+     * Extract the e-mail address from Jwt Claims
+     *
+     * @param claims extract the e-mail address from this [Claims] object
+     * @return e-mail address contained in the provided [Claims] object
+     */
+    fun getEmail(claims: Claims): String = claims.get(CLAIM_EMAIL, String::class.java)
 }
