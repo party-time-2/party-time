@@ -29,5 +29,7 @@ export const authInterceptor: HttpInterceptorFn = (
   const authReq = req.clone({
     headers: req.headers.set('Authorization', token),
   });
+
+  console.log('AuthInterceptor: ', authReq);
   return next(authReq);
 };

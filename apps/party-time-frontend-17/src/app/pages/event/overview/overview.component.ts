@@ -93,7 +93,9 @@ export class OverviewComponent {
   }
 
   addNewEvent() {
-    const dialogRef = this.openDialog.open(EventDialogComponent);
+    const dialogRef = this.openDialog.open(EventDialogComponent, {
+      data: { eventDetailsDTO: null },
+    });
     dialogRef.afterClosed().subscribe((result: EventCreateDTO | null) => {
       if (result) {
         this.eventHostService.createEvent(result).subscribe({

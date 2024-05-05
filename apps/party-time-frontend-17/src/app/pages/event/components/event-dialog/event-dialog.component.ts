@@ -1,7 +1,8 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Inject, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import {
+  MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -54,7 +55,7 @@ import {
   template: `
     <section class="flex w-96 flex-col gap-4">
       <h2 mat-dialog-title>Event</h2>
-      @if (eventCreateDTO) {
+      @if (eventDetailsDTO) {
       <h3 mat-dialog-title>Event bearbeiten</h3>
       } @else {
       <h3 mat-dialog-title>Event erstellen</h3>
@@ -179,6 +180,11 @@ import {
                 >
                   Postleitzahl muss genau 5 Zeichen lang sein.
                 </mat-error>
+                <mat-error
+                  *ngIf="eventForm.get(['address', 'zip'])?.errors?.['pattern']"
+                >
+                  Postleitzahl darf nur Zahlen enthalten.
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field appearance="fill" data-cy="city-field">
@@ -249,8 +255,7 @@ import {
   styles: ``,
 })
 export class EventDialogComponent {
-  @Input() eventCreateDTO: EventDetailsDTO | undefined;
-
+  eventDetailsDTO: EventDetailsDTO | undefined;
   eventDate = undefined;
   type: MtxDatetimepickerType = 'datetime';
   mode: MtxDatetimepickerMode = 'auto';
@@ -268,7 +273,11 @@ export class EventDialogComponent {
       Validators.minLength(5),
       Validators.maxLength(20),
     ]),
-    dateTime: new FormControl(new Date(), [Validators.required]), //In der Zukunft liegen
+    dateTime: new FormControl(
+      // tomorrow
+      new Date(Date.now() + 24 * 60 * 60 * 1000),
+      [Validators.required]
+    ), //In der Zukunft liegen
     address: new FormGroup({
       addressLine: new FormControl('', [
         Validators.required,
@@ -280,6 +289,7 @@ export class EventDialogComponent {
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(5),
+        Validators.pattern('^[0-9]*$'),
       ]),
       city: new FormControl('', [
         Validators.required,
@@ -294,14 +304,31 @@ export class EventDialogComponent {
     }),
   });
 
-  constructor(private dialogRef: MatDialogRef<OverviewComponent>) {
-    if (this.eventCreateDTO) {
-      this.eventForm.patchValue(this.eventCreateDTO);
+  constructor(
+    private dialogRef: MatDialogRef<OverviewComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: { eventDetailsDTO: EventDetailsDTO }
+  ) {
+    if (data.eventDetailsDTO) {
+      this.eventForm.patchValue(data.eventDetailsDTO);
+      this.eventForm
+        .get('dateTime')
+        ?.setValue(new Date(data.eventDetailsDTO.dateTime));
+
+      console.log(this.eventForm.value);
     }
   }
 
   onSubmit() {
     if (this.eventForm.invalid) {
+      return;
+    }
+    if (this.eventDetailsDTO) {
+      const eventDetailsDTO = {
+        ...this.eventDetailsDTO,
+        ...this.eventForm.value,
+      };
+      this.dialogRef.close(eventDetailsDTO as unknown as EventDetailsDTO);
       return;
     }
     this.dialogRef.close(this.eventForm.value as unknown as EventCreateDTO);
