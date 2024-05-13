@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
-import java.util.UUID
 import javax.crypto.SecretKey
 
 /**
@@ -21,7 +20,8 @@ import javax.crypto.SecretKey
  */
 @Service
 class JwtService(
-    private val configurationProperties: PartyTimeConfigurationProperties
+    private val configurationProperties: PartyTimeConfigurationProperties,
+    private val cryptService: CryptService,
 ) {
     companion object {
         /** Issuer URL of all created auth tokens */
@@ -57,21 +57,31 @@ class JwtService(
      * @return A newly created Jwt containing the provided information inside its [Claims]
      */
     private fun createToken(email: String, name: String, emailVerified: Boolean): String = Jwts.builder()
-        .id(UUID.randomUUID().toString())
+        .id(cryptService.randomUUID().toString())
         .issuedAt(createDate(LocalDateTime.now()))
         .issuer(ISSUER)
-        .subject(UUID.randomUUID().toString())
+        .subject(cryptService.randomUUID().toString())
         .claim(CLAIM_EMAIL, email)
         .claim(CLAIM_NAME, name)
         .claim(CLAIM_EMAIL_VERIFIED, emailVerified)
         .signWith(getSignInKey(), Jwts.SIG.HS384)
         .compact()
 
-    private fun getSignInKey(): SecretKey = Decoders.BASE64.decode(configurationProperties.jwt.secret)
-        .let(Keys::hmacShaKeyFor)
+    private fun getSignInKey(): SecretKey = Keys.hmacShaKeyFor(
+        Decoders.BASE64.decode(configurationProperties.jwt.secret)
+    )
 
     private fun createDate(date: LocalDateTime): Date =
         Date.from(date.atZone(ZoneId.systemDefault()).toInstant())
+
+    private val jwtParser by lazy { //has to be lazy, so that it's not initialized too early during tests
+        Jwts
+        .parser()
+        .requireIssuer(ISSUER)
+        .clockSkewSeconds(10)
+        .verifyWith(getSignInKey())
+        .build()
+    }
 
     /**
      * Checks the validity and extracts the claims of a token
@@ -79,14 +89,7 @@ class JwtService(
      * @param token the Jwt from which claims should be extracted
      * @return extracted claims of a validated token
      */
-    fun extractClaims(token: String): Claims = Jwts //TODO check if builder result can't be saved in property
-        .parser()
-        .requireIssuer(ISSUER)
-        .clockSkewSeconds(10)
-        .verifyWith(getSignInKey())
-        .build()
-        .parseSignedClaims(token)
-        .payload
+    fun extractClaims(token: String): Claims = jwtParser.parseSignedClaims(token).payload
 
     /**
      * Checks if extracted claims are valid.
