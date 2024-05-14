@@ -15,11 +15,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { EventDialogComponent } from '../components/event-dialog/event-dialog.component';
 import {
+  AccountInvitationDetailsDTO,
   EventCreateDTO,
   EventDetailsDTO,
   OrganizerEventDTO,
 } from '../../../models/dto/event-dto.interface';
 import { BehaviorSubject } from 'rxjs';
+import { ParticipantsDialogComponent } from '../components/participants-dialog/participants-dialog.component';
 
 @Component({
   selector: 'app-overview',
@@ -161,8 +163,16 @@ export class OverviewComponent {
   }
 
   onParticipant(eventId: number) {
-    // handle participant
-    console.log('Participant clicked', eventId);
+    this.eventHostService.getParticipants(eventId).subscribe({
+      next: (accountInvitationDetailsDTO: AccountInvitationDetailsDTO[]) => {
+        this.openDialog.open(ParticipantsDialogComponent, {
+          data: { accountInvitationDetailsDTO },
+        });
+      },
+      error: (error: ApiError) => {
+        this.snackBar.open(error.message, 'Ok', { duration: 2000 });
+      },
+    });
   }
 
   onParticipantStatusChange(event: { eventId: number; status: number }) {
