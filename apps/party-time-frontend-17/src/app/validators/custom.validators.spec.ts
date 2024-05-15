@@ -48,5 +48,19 @@ describe('CustomValidators', () => {
         specialCharRequired: true,
       });
     });
+
+    it('should return futureDate: true if the selected date is in the future', () => {
+      const control = new FormControl(
+        new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString()
+      );
+      const result = CustomValidators.futureDateValidator(control);
+      expect(result).toBeNull();
+    });
+    
+    it('should return an error object if the selected date is in the past', () => {
+      const control = new FormControl('2021-01-01');
+      const result = CustomValidators.futureDateValidator(control);
+      expect(result).toEqual({ futureDate: true });
+    });
   });
 });
