@@ -32,11 +32,7 @@ describe('AuthService', () => {
     status: ApiErrorStatus['400 BAD_REQUEST'],
     timestamp: new Date(),
     message: 'Bad Request',
-    additionalInformation: {
-      status: '400',
-      message: 'Bad Request',
-      timestamp: '2021-12-14T14:00:00.000Z',
-    },
+    additionalInformation: [],
   };
 
   beforeEach(() => {

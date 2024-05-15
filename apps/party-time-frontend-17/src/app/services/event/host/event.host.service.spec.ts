@@ -91,7 +91,7 @@ describe('EventHostService', () => {
     const req = httpTestingController.expectOne(
       environment.api.endpoints.event.host.updateEvent()
     );
-    expect(req.request.method).toBe('PUT');
+    expect(req.request.method).toBe('PATCH');
     expect(req.request.body).toEqual(mockEvent);
     req.flush(mockEvent);
   });
@@ -239,7 +239,7 @@ describe('EventHostService', () => {
     const req = httpTestingController.expectOne(
       environment.api.endpoints.event.host.updateEvent()
     );
-    expect(req.request.method).toBe('PUT');
+    expect(req.request.method).toBe('PATCH');
     req.flush(mockError.error, {
       status: mockError.status,
       statusText: mockError.statusText,
