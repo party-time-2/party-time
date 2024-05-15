@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "3.2.2"
-	id("io.spring.dependency-management") version "1.1.4"
+	id("org.springframework.boot") version "3.2.5"
+	id("io.spring.dependency-management") version "1.1.5"
 	kotlin("jvm") version "1.9.22"
-	kotlin("plugin.spring") version "1.9.22"
-	kotlin("plugin.jpa") version "1.9.22"
-	//id("maven-publish")
+	kotlin("plugin.spring") version "1.9.24"
+	kotlin("plugin.jpa") version "1.9.24"
     id("org.jetbrains.kotlinx.kover") version "0.7.6"
 }
 
@@ -51,7 +50,7 @@ dependencies {
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 
     //logging
-    implementation("io.github.oshai:kotlin-logging:6.0.3")
+    implementation("io.github.oshai:kotlin-logging:6.0.9")
 
     //dev
 	implementation("org.springframework.boot:spring-boot-devtools")
@@ -60,11 +59,13 @@ dependencies {
 
     //test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
 	testImplementation("org.springframework.security:spring-security-test")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
     constraints {
         testImplementation("io.mockk:mockk-jvm:1.13.10") {
-            because("old version has atLeast = 0 bug (mockk issue #969)")
+            because("old version has \"atLeast = 0\" bug (mockk issue #969)")
         }
     }
 
