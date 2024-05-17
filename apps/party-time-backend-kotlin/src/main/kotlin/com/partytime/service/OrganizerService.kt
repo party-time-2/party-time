@@ -5,13 +5,13 @@ import com.partytime.api.dto.event.EventDetailsDTO
 import com.partytime.api.dto.event.InvitationCreateDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.asException
-import com.partytime.configuration.JacksonConfiguration
 import com.partytime.configuration.PartyTimeConfigurationProperties
 import com.partytime.jpa.entity.Account
 import com.partytime.jpa.entity.Address
 import com.partytime.jpa.entity.Event
 import com.partytime.jpa.entity.Invitation
 import com.partytime.jpa.entity.Status
+import com.partytime.jpa.mapper.toEmailFormat
 import com.partytime.jpa.mapper.toMultiLineString
 import com.partytime.jpa.repository.EventRepository
 import com.partytime.jpa.repository.InvitationRepository
@@ -67,12 +67,6 @@ class OrganizerService (
 
         val address: Address = addressService.saveAddress(body.address)
 
-        Event(
-            organizer = account,
-            name = body.name,
-            dateTime = body.dateTime,
-            address = address
-        )
         val event = Event(
             organizer = account,
             name = body.name,
@@ -114,8 +108,8 @@ class OrganizerService (
         val event = eventRepository.save(ownEvent)
 
         //inform participants about the updated event details
-        for (eventParticipant in event.invitations) {
-            val participant: Account = eventParticipant.account
+        for (invitation in event.invitations) {
+            val participant: Account = invitation.account
             val mailEvent = MailEvent(
                 this,
                 participant.email,
@@ -126,7 +120,7 @@ class OrganizerService (
                         event.organizer.name,
                         event.name,
                         event.address.toMultiLineString(),
-                        JacksonConfiguration.dateTimeFormatter.format(event.dateTime)
+                        event.dateTime.toEmailFormat()
                     ),
                     configurationProperties.url
                 ),
@@ -166,7 +160,7 @@ class OrganizerService (
                         event.organizer.name,
                         event.name,
                         event.address.toMultiLineString(),
-                        JacksonConfiguration.dateTimeFormatter.format(event.dateTime)
+                        event.dateTime.toEmailFormat()
                     ),
                     account.name,
                     configurationProperties.url
@@ -225,7 +219,7 @@ class OrganizerService (
                     event.organizer.name,
                     event.name,
                     event.address.toMultiLineString(),
-                    JacksonConfiguration.dateTimeFormatter.format(event.dateTime)
+                    event.dateTime.toEmailFormat()
                 ),
                 configurationProperties.url
             )
@@ -276,7 +270,7 @@ class OrganizerService (
                     ownEvent.organizer.name,
                     ownEvent.name,
                     ownEvent.address.toMultiLineString(),
-                    JacksonConfiguration.dateTimeFormatter.format(ownEvent.dateTime),
+                    ownEvent.dateTime.toEmailFormat()
                 ),
                 acceptLink,
                 declineLink,

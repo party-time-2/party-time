@@ -43,21 +43,11 @@ class JwtServiceUnitTest : UnitTest() {
             }.time
 
             return Stream.of(
-                Arguments.of(
-                    "Not Issuer", "Not null", dateThreeMonthsAgo, "Not null", "Not null"
-                ),
-                Arguments.of(
-                    JwtService.ISSUER, null, dateThreeMonthsAgo, "Not null", "Not null"
-                ),
-                Arguments.of(
-                    JwtService.ISSUER, "Not null", dateThreeMonthsFuture, "Not null", "Not null"
-                ),
-                Arguments.of(
-                    JwtService.ISSUER, "Not null", dateThreeMonthsAgo, null, "Not null"
-                ),
-                Arguments.of(
-                    JwtService.ISSUER, "Not null", dateThreeMonthsAgo, "Not null", null
-                ),
+                Arguments.of("Not Issuer", "Not null", dateThreeMonthsAgo, "Not null", "Not null"),
+                Arguments.of(JwtService.ISSUER, null, dateThreeMonthsAgo, "Not null", "Not null"),
+                Arguments.of(JwtService.ISSUER, "Not null", dateThreeMonthsFuture, "Not null", "Not null"),
+                Arguments.of(JwtService.ISSUER, "Not null", dateThreeMonthsAgo, null, "Not null"),
+                Arguments.of(JwtService.ISSUER, "Not null", dateThreeMonthsAgo, "Not null", null),
             )
         }
     }

@@ -15,3 +15,5 @@ const val ZIP = "12345"
 const val CITY = "Test City"
 const val COUNTRY = "Test Country"
 
+const val EVENT_NAME = "TestEvent"
+
