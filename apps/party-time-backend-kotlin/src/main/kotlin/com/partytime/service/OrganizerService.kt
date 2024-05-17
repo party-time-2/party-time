@@ -154,7 +154,7 @@ class OrganizerService (
             val mailEvent = MailEvent(
                 this,
                 account.email,
-                "Absage des Events " + event.name,
+                "Absage des Events ${event.name}",
                 CancellationData(
                     EventData(
                         event.organizer.name,

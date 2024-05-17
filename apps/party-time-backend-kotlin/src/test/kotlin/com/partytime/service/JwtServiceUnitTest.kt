@@ -119,7 +119,7 @@ class JwtServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class IsValid {
+    inner class IsValid : UnitTest() {
         @Test
         fun isValidTrue() {
             //setup - mock
@@ -148,10 +148,21 @@ class JwtServiceUnitTest : UnitTest() {
         fun isValidFalse(issuer: String, id: String?, issuedAt: Date, subject: String?, email: String?) {
             //setup - mock
             every { claims.issuer } returns issuer
-            every { claims.id } returns id
-            every { claims.issuedAt } returns issuedAt
-            every { claims.subject } returns subject
-            every { claims[JwtService.CLAIM_EMAIL] } returns email
+            //only configure additional mocks if they can be reached
+            //otherwise mockk would complain about unnecessary mocks
+            if (issuer == JwtService.ISSUER) {
+                every { claims.id } returns id
+                if (id != null) {
+                    every { claims.issuedAt } returns issuedAt
+                    if (issuedAt.before(Date())) {
+                        every { claims.subject } returns subject
+                        if (subject != null) {
+                            every { claims[JwtService.CLAIM_EMAIL] } returns email
+                        }
+                    }
+                }
+            }
+
 
             //execute
             assertFalse(jwtService.isValid(claims))

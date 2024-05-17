@@ -31,7 +31,7 @@ class AddressServiceUnitTest : UnitTest() {
     )
 
     @Nested
-    inner class SaveAddressTest{
+    inner class SaveAddressTest : UnitTest() {
         @Test
         fun saveAddressAlreadyExistsSuccess() {
             //setup - mock
@@ -50,7 +50,15 @@ class AddressServiceUnitTest : UnitTest() {
             assertEquals(result, address)
 
             //verify
-            verify(exactly = 1) { addressRepository.findByData(ADDRESS_LINE, ADDRESS_LINE_ADDITION, ZIP, CITY, COUNTRY) }
+            verify(exactly = 1) {
+                addressRepository.findByData(
+                    ADDRESS_LINE,
+                    ADDRESS_LINE_ADDITION,
+                    ZIP,
+                    CITY,
+                    COUNTRY
+                )
+            }
         }
 
         @Test
@@ -81,13 +89,21 @@ class AddressServiceUnitTest : UnitTest() {
             assertEquals(result.country, COUNTRY)
 
             //verify
-            verify(exactly = 1) { addressRepository.findByData(ADDRESS_LINE, ADDRESS_LINE_ADDITION, ZIP, CITY, COUNTRY) }
+            verify(exactly = 1) {
+                addressRepository.findByData(
+                    ADDRESS_LINE,
+                    ADDRESS_LINE_ADDITION,
+                    ZIP,
+                    CITY,
+                    COUNTRY
+                )
+            }
             verify(exactly = 1) { addressRepository.save(any()) }
         }
     }
 
     @Nested
-    inner class SaveAddressWithDTOTest{
+    inner class SaveAddressWithDTOTest : UnitTest() {
         private val addressDTO = AddressDTO(
             ADDRESS_LINE,
             ADDRESS_LINE_ADDITION,
@@ -114,7 +130,15 @@ class AddressServiceUnitTest : UnitTest() {
             assertEquals(result, address)
 
             //verify
-            verify(exactly = 1) { addressRepository.findByData(ADDRESS_LINE, ADDRESS_LINE_ADDITION, ZIP, CITY, COUNTRY) }
+            verify(exactly = 1) {
+                addressRepository.findByData(
+                    ADDRESS_LINE,
+                    ADDRESS_LINE_ADDITION,
+                    ZIP,
+                    CITY,
+                    COUNTRY
+                )
+            }
         }
 
         @Test
@@ -145,7 +169,15 @@ class AddressServiceUnitTest : UnitTest() {
             assertEquals(result.country, COUNTRY)
 
             //verify
-            verify(exactly = 1) { addressRepository.findByData(ADDRESS_LINE, ADDRESS_LINE_ADDITION, ZIP, CITY, COUNTRY) }
+            verify(exactly = 1) {
+                addressRepository.findByData(
+                    ADDRESS_LINE,
+                    ADDRESS_LINE_ADDITION,
+                    ZIP,
+                    CITY,
+                    COUNTRY
+                )
+            }
             verify(exactly = 1) { addressRepository.save(any()) }
         }
     }

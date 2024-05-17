@@ -53,7 +53,7 @@ class AccountServiceUnitTest : UnitTest() {
     private val verificationCode = UUID.randomUUID()
 
     @Nested
-    inner class RegisterAccountTests {
+    inner class RegisterAccountTests: UnitTest() {
         private val accountRegisterDTO = AccountRegisterDTO(
             NAME,
             EMAIL,
@@ -179,7 +179,7 @@ class AccountServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class DeleteAccountTests {
+    inner class DeleteAccountTests: UnitTest() {
         private val account = Account(
             EMAIL,
             false,
@@ -219,7 +219,7 @@ class AccountServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class ChangePasswordTests {
+    inner class ChangePasswordTests: UnitTest() {
         private val savedAccount = Account(
             EMAIL,
             true,
@@ -301,7 +301,7 @@ class AccountServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class GetAccountByMailTests {
+    inner class GetAccountByMailTests: UnitTest() {
         private val account = Account(
             EMAIL,
             true,
@@ -342,7 +342,7 @@ class AccountServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class OptAccountByMailTests {
+    inner class OptAccountByMailTests: UnitTest() {
         private val account = Account(
             EMAIL,
             true,

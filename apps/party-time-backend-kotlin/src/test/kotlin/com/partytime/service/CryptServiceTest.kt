@@ -32,7 +32,7 @@ class CryptServiceTest : UnitTest() {
     }
 
     @Nested
-    inner class PasswordMatchesHash {
+    inner class PasswordMatchesHash: UnitTest() {
         @Test
         fun passwordMatchesHashTrue() {
             //setup - mock

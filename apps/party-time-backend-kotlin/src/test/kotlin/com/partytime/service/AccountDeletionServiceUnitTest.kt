@@ -54,7 +54,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class DeleteAccountTest {
+    inner class DeleteAccountTest: UnitTest() {
         private val accountDeleteDTO = AccountDeleteDTO(
             PASSWORD
         )

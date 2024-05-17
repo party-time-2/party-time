@@ -42,7 +42,7 @@ class AuthServiceUnitTest : UnitTest() {
     private val encodedPassword = testPasswordEncoder.encode(PASSWORD)
 
     @Nested
-    inner class VerifyAccountTests {
+    inner class VerifyAccountTests : UnitTest() {
         private val validVerificationCode = UUID.randomUUID().toString()
         private val invalidVerificationCode = UUID.randomUUID().toString()
 
@@ -99,7 +99,7 @@ class AuthServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class LoginUserTests {
+    inner class LoginUserTests : UnitTest() {
         private val verificationCode = UUID.randomUUID().toString()
         private val invalidPassword = "wrong!Password5unauthorized"
 

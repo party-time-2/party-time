@@ -30,6 +30,7 @@ import com.partytime.jpa.mapper.toEmailFormat
 import com.partytime.jpa.mapper.toMultiLineString
 import com.partytime.jpa.repository.EventRepository
 import com.partytime.jpa.repository.InvitationRepository
+import com.partytime.mail.model.CancellationData
 import com.partytime.mail.model.EventChangeData
 import com.partytime.mail.model.MailEvent
 import com.partytime.testAbstraction.UnitTest
@@ -42,6 +43,7 @@ import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -161,7 +163,7 @@ class OrganizerServiceUnitTest : UnitTest() {
 
 
     @Nested
-    inner class CreateEventTest {
+    inner class CreateEventTest: UnitTest() {
         private val eventCreateDTO = EventCreateDTO(
             EVENT_NAME,
             eventZonedDateTime,
@@ -219,7 +221,7 @@ class OrganizerServiceUnitTest : UnitTest() {
 
 
     @Nested
-    inner class GetEvent {
+    inner class GetEvent: UnitTest() {
         @Test
         fun getEventSuccess() {
             //setup - mock
@@ -245,7 +247,7 @@ class OrganizerServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class UpdateEvent {
+    inner class UpdateEvent: UnitTest() {
         private val eventDetailsDTO = EventDetailsDTO(
             eventID,
             EVENT_NAME,
@@ -281,6 +283,7 @@ class OrganizerServiceUnitTest : UnitTest() {
                     assertEquals(address, it.address)
                 })
             }
+            verify(exactly = 1) { configurationProperties.url }
             verify(exactly = 1) {
                 applicationEventPublisher.publishEvent(withArg<MailEvent> {
                     assertEquals(it.recipientEmail, EMAIL)
@@ -313,11 +316,58 @@ class OrganizerServiceUnitTest : UnitTest() {
     }
 
 
-    @Disabled
-    @Test
-    fun deleteEventById() {
-        TODO()
+    @Nested
+    inner class DeleteEventById: UnitTest() {
+        @Test
+        fun deleteEventByIdSuccess() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+            justRun { eventRepository.delete(savedEvent) }
+            every { configurationProperties.url } returns URL
+            justRun { applicationEventPublisher.publishEvent(any<MailEvent>()) }
+
+            //execute
+            assertDoesNotThrow {
+                organizerService.deleteEventById(eventID, ORGANIZER_EMAIL)
+            }
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+            verify(exactly = 1) { eventRepository.delete(savedEvent) }
+            verify(exactly = 1) { configurationProperties.url }
+            verify(exactly = 1) {
+                applicationEventPublisher.publishEvent(withArg<MailEvent> {
+                    assertEquals(it.recipientEmail, EMAIL)
+                    assertEquals(it.subject, "Absage des Events $EVENT_NAME")
+                    when (val mustacheData = it.data) {
+                        is CancellationData -> {
+                            assertEquals(NAME, mustacheData.recipientName)
+                            assertEquals(ORGANIZER_NAME, mustacheData.event.organizerName)
+                            assertEquals(EVENT_NAME, mustacheData.event.eventName)
+                            assertEquals(address.toMultiLineString(), mustacheData.event.location)
+                            assertEquals(eventZonedDateTime.toEmailFormat(), mustacheData.event.startTime)
+                            assertEquals(URL, mustacheData.homepage)
+
+                        }
+
+                        else -> fail("E-Mail data is not of type `CancellationData`")
+                    }
+                })
+            }
+        }
+
+        @Test
+        fun deleteEventByIdNotFound() = templateFetchOwnEventForbidden {
+            organizerService.deleteEventById(eventID, ORGANIZER_EMAIL)
+        }
+
+        @Test
+        fun deleteEventByIdForbidden() = templateFetchOwnEventForbidden {
+            organizerService.deleteEventById(eventID, ORGANIZER_EMAIL)
+        }
     }
+
+
 
     @Disabled
     @Test
