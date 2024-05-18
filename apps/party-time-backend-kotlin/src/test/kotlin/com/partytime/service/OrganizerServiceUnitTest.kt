@@ -16,6 +16,7 @@ import com.partytime.ZIP
 import com.partytime.api.dto.address.AddressDTO
 import com.partytime.api.dto.event.EventCreateDTO
 import com.partytime.api.dto.event.EventDetailsDTO
+import com.partytime.api.dto.event.InvitationCreateDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.ApiErrorException
 import com.partytime.api.error.asException
@@ -32,15 +33,17 @@ import com.partytime.jpa.repository.EventRepository
 import com.partytime.jpa.repository.InvitationRepository
 import com.partytime.mail.model.CancellationData
 import com.partytime.mail.model.EventChangeData
+import com.partytime.mail.model.InvitationData
 import com.partytime.mail.model.MailEvent
+import com.partytime.mail.model.UninviteData
 import com.partytime.testAbstraction.UnitTest
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.Assertions.fail
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -79,12 +82,13 @@ class OrganizerServiceUnitTest : UnitTest() {
         encodedOrganizerPassword
     )
 
+    private val otherAccountId = 1L
     private val otherAccount = Account(
         EMAIL,
         true,
         NAME,
         encodedOtherPassword
-    )
+    ).also { it.id = otherAccountId }
 
     private val address = Address(
         ADDRESS_LINE,
@@ -96,6 +100,7 @@ class OrganizerServiceUnitTest : UnitTest() {
 
     private val eventZonedDateTime = ZonedDateTime.now().plusDays(5)
     private val eventID = 0L
+    private val invitationID = 0L
 
 
     private val savedEvent = Event(
@@ -103,16 +108,16 @@ class OrganizerServiceUnitTest : UnitTest() {
         EVENT_NAME,
         eventZonedDateTime,
         address
-    ).apply {
-        id = eventID
+    ).also { it.id = eventID }
 
-        invitations.add(
-            Invitation(
-                otherAccount,
-                this,
-                Status.PARTICIPATING
-            )
-        )
+
+    private val invitation = Invitation(
+        otherAccount,
+        savedEvent,
+        Status.PARTICIPATING
+    ).also {
+        it.id = invitationID
+        savedEvent.invitations.add(it)
     }
 
     private val savedDifferentEvent = Event(
@@ -163,7 +168,7 @@ class OrganizerServiceUnitTest : UnitTest() {
 
 
     @Nested
-    inner class CreateEventTest: UnitTest() {
+    inner class CreateEventTest : UnitTest() {
         private val eventCreateDTO = EventCreateDTO(
             EVENT_NAME,
             eventZonedDateTime,
@@ -221,7 +226,7 @@ class OrganizerServiceUnitTest : UnitTest() {
 
 
     @Nested
-    inner class GetEvent: UnitTest() {
+    inner class GetEvent : UnitTest() {
         @Test
         fun getEventSuccess() {
             //setup - mock
@@ -247,7 +252,7 @@ class OrganizerServiceUnitTest : UnitTest() {
     }
 
     @Nested
-    inner class UpdateEvent: UnitTest() {
+    inner class UpdateEvent : UnitTest() {
         private val eventDetailsDTO = EventDetailsDTO(
             eventID,
             EVENT_NAME,
@@ -317,7 +322,7 @@ class OrganizerServiceUnitTest : UnitTest() {
 
 
     @Nested
-    inner class DeleteEventById: UnitTest() {
+    inner class DeleteEventById : UnitTest() {
         @Test
         fun deleteEventByIdSuccess() {
             //setup - mock
@@ -367,35 +372,257 @@ class OrganizerServiceUnitTest : UnitTest() {
         }
     }
 
+    @Nested
+    inner class DeleteMultipleEvents : UnitTest() {
+        private val events = listOf(savedEvent)
 
+        @Test
+        fun deleteMultipleEventsSuccess() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+            justRun { eventRepository.delete(savedEvent) }
+            every { configurationProperties.url } returns URL
+            justRun { applicationEventPublisher.publishEvent(any<MailEvent>()) }
 
-    @Disabled
-    @Test
-    fun deleteMultipleEvents() {
-        TODO()
+            //execute
+            assertDoesNotThrow {
+                organizerService.deleteMultipleEvents(events, ORGANIZER_EMAIL)
+            }
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+            verify(exactly = 1) { eventRepository.delete(savedEvent) }
+            verify(exactly = 1) { configurationProperties.url }
+            verify(exactly = 1) {
+                applicationEventPublisher.publishEvent(withArg<MailEvent> {
+                    assertEquals(it.recipientEmail, EMAIL)
+                    assertEquals(it.subject, "Absage des Events $EVENT_NAME")
+                    when (val mustacheData = it.data) {
+                        is CancellationData -> {
+                            assertEquals(NAME, mustacheData.recipientName)
+                            assertEquals(ORGANIZER_NAME, mustacheData.event.organizerName)
+                            assertEquals(EVENT_NAME, mustacheData.event.eventName)
+                            assertEquals(address.toMultiLineString(), mustacheData.event.location)
+                            assertEquals(eventZonedDateTime.toEmailFormat(), mustacheData.event.startTime)
+                            assertEquals(URL, mustacheData.homepage)
+
+                        }
+
+                        else -> fail("E-Mail data is not of type `CancellationData`")
+                    }
+                })
+            }
+        }
+
+        @Test
+        fun deleteMultipleEventsNotFound() = templateFetchOwnEventForbidden {
+            organizerService.deleteMultipleEvents(events, ORGANIZER_EMAIL)
+        }
+
+        @Test
+        fun deleteMultipleEventsForbidden() = templateFetchOwnEventForbidden {
+            organizerService.deleteMultipleEvents(events, ORGANIZER_EMAIL)
+        }
     }
 
-    @Disabled
-    @Test
-    fun uninviteParticipant() {
-        TODO()
+    @Nested
+    inner class UninviteParticipant: UnitTest() {
+        @Test
+        fun uninviteParticipantSuccess() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+            every { invitationRepository.findByEvent_IdAndId(eventID, invitationID) } returns Optional.of(invitation)
+            justRun { invitationRepository.delete(invitation) }
+            every { configurationProperties.url } returns URL
+            justRun { applicationEventPublisher.publishEvent(any<MailEvent>()) }
+
+            //execute
+            assertDoesNotThrow {
+                organizerService.uninviteParticipant(eventID, invitationID, ORGANIZER_EMAIL)
+            }
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+            verify(exactly = 1) { invitationRepository.findByEvent_IdAndId(eventID, invitationID) }
+            verify(exactly = 1) { invitationRepository.delete(invitation) }
+            verify(exactly = 1) { configurationProperties.url }
+            verify(exactly = 1) {
+                applicationEventPublisher.publishEvent(withArg<MailEvent> {
+                    assertEquals(it.recipientEmail, EMAIL)
+                    assertEquals(it.subject, "Du wurdest beim Event $EVENT_NAME ausgeladen.")
+                    when (val mustacheData = it.data) {
+                        is UninviteData -> {
+                            assertEquals(NAME, mustacheData.name)
+                            assertEquals(ORGANIZER_NAME, mustacheData.event.organizerName)
+                            assertEquals(EVENT_NAME, mustacheData.event.eventName)
+                            assertEquals(address.toMultiLineString(), mustacheData.event.location)
+                            assertEquals(eventZonedDateTime.toEmailFormat(), mustacheData.event.startTime)
+                            assertEquals(URL, mustacheData.homepage)
+
+                        }
+
+                        else -> fail("E-Mail data is not of type `UninviteData`")
+                    }
+                })
+            }
+        }
+
+        @Test
+        fun deleteMultipleEventsBadRequest() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+            every { invitationRepository.findByEvent_IdAndId(eventID, invitationID) } returns Optional.empty()
+
+            //execute
+            val thrownException = assertThrows<ApiErrorException> {
+                organizerService.uninviteParticipant(eventID, invitationID, ORGANIZER_EMAIL)
+            }
+            val expectedException = ApiError
+                .badRequest("Eine Einladung mit der id $invitationID existiert nicht für das Event mit der id $eventID")
+                .asException()
+            assertApiErrorExceptionEquals(expectedException, thrownException)
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+            verify(exactly = 1) { invitationRepository.findByEvent_IdAndId(eventID, invitationID) }
+        }
+
+
+        @Test
+        fun deleteMultipleEventsNotFound() = templateFetchOwnEventForbidden {
+            organizerService.uninviteParticipant(eventID, invitationID, ORGANIZER_EMAIL)
+        }
+
+        @Test
+        fun deleteMultipleEventsForbidden() = templateFetchOwnEventForbidden {
+            organizerService.uninviteParticipant(eventID, invitationID, ORGANIZER_EMAIL)
+        }
     }
 
-    @Disabled
-    @Test
-    fun inviteParticipant() {
-        TODO()
+
+    @Nested
+    inner class InviteParticipant: UnitTest() {
+        private val invitationCreateDTO = InvitationCreateDTO(
+            EMAIL
+        )
+
+        @Test
+        fun inviteParticipantSuccess() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+            every { accountService.getAccountByMail(EMAIL) } returns otherAccount
+            every { invitationRepository.existsByEvent_IdAndAccount_Id(eventID, otherAccountId) } returns false
+            every { invitationRepository.save(any<Invitation>()) } answers {
+                firstArg<Invitation>().also { it.id = invitationID }
+            }
+            every { configurationProperties.url } returns URL
+            justRun { applicationEventPublisher.publishEvent(any<MailEvent>()) }
+
+            //execute
+            assertDoesNotThrow {
+                organizerService.inviteParticipant(eventID, invitationCreateDTO, ORGANIZER_EMAIL)
+            }
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
+            verify(exactly = 1) { invitationRepository.existsByEvent_IdAndAccount_Id(eventID, otherAccountId) }
+            verify(exactly = 1) {  invitationRepository.save(withArg<Invitation> {
+                assertEquals(otherAccount, it.account)
+                assertEquals(savedEvent, it.event)
+                assertEquals(Status.INVITED, it.status)
+            }) }
+            verify(exactly = 2) { configurationProperties.url }
+            verify(exactly = 1) {
+                applicationEventPublisher.publishEvent(withArg<MailEvent> {
+                    assertEquals(it.recipientEmail, EMAIL)
+                    assertEquals(it.subject, "Einladung zum Event $EVENT_NAME")
+                    when (val mustacheData = it.data) {
+                        is InvitationData -> {
+                            assertEquals(NAME, mustacheData.recipientName)
+                            assertEquals(ORGANIZER_NAME, mustacheData.event.organizerName)
+                            assertEquals(EVENT_NAME, mustacheData.event.eventName)
+                            assertEquals(address.toMultiLineString(), mustacheData.event.location)
+                            assertEquals(eventZonedDateTime.toEmailFormat(), mustacheData.event.startTime)
+                            val baseLink = "$URL$eventID/invitation/"
+                            assertEquals("$baseLink/accept", mustacheData.acceptLink)
+                            assertEquals("$baseLink/decline", mustacheData.declineLink)
+                            assertEquals(URL, mustacheData.homepage)
+                        }
+
+                        else -> fail("E-Mail data is not of type `InvitationData`")
+                    }
+                })
+            }
+        }
+
+        @Test
+        fun inviteParticipantBadRequest() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+            every { accountService.getAccountByMail(EMAIL) } returns otherAccount
+            every { invitationRepository.existsByEvent_IdAndAccount_Id(eventID, otherAccountId) } returns true
+
+            //execute
+            val thrownException = assertThrows<ApiErrorException> {
+                organizerService.inviteParticipant(eventID, invitationCreateDTO, ORGANIZER_EMAIL)
+            }
+            val expectedException = ApiError.badRequest("Der Account mit der Email $EMAIL wurde bereits eingeladen")
+                .asException()
+            assertApiErrorExceptionEquals(expectedException, thrownException)
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
+            verify(exactly = 1) { invitationRepository.existsByEvent_IdAndAccount_Id(eventID, otherAccountId) }
+        }
+
+        @Test
+        fun inviteParticipantNotFound() = templateFetchOwnEventForbidden {
+            organizerService.inviteParticipant(eventID, invitationCreateDTO, ORGANIZER_EMAIL)
+        }
+
+        @Test
+        fun inviteParticipantForbidden() = templateFetchOwnEventForbidden {
+            organizerService.inviteParticipant(eventID, invitationCreateDTO, ORGANIZER_EMAIL)
+        }
     }
 
-    @Disabled
     @Test
     fun getEvents() {
-        TODO()
+        //setup - mock
+        every { eventRepository.findByOrganizer_Email(ORGANIZER_EMAIL) } returns listOf(savedEvent)
+        //execute
+        val events = organizerService.getEvents(ORGANIZER_EMAIL)
+        assertIterableEquals(listOf(savedEvent), events)
+
+        //verify
+        verify(exactly = 1) { eventRepository.findByOrganizer_Email(ORGANIZER_EMAIL) }
     }
 
-    @Disabled
-    @Test
-    fun getParticipants() {
-        TODO()
+    @Nested
+    inner class GetParticipants: UnitTest() {
+        @Test
+        fun getParticipantsSuccess() {
+            //setup - mock
+            every { eventRepository.findById(eventID) } returns Optional.of(savedEvent)
+
+            //execute
+            val invitations = organizerService.getParticipants(eventID, ORGANIZER_EMAIL)
+            assertIterableEquals(listOf(invitation), invitations)
+
+            //verify
+            verify(exactly = 1) { eventRepository.findById(eventID) }
+        }
+
+        @Test
+        fun getParticipantsNotFound() = templateFetchOwnEventForbidden {
+            organizerService.getParticipants(eventID, ORGANIZER_EMAIL)
+        }
+
+        @Test
+        fun getParticipantsForbidden() = templateFetchOwnEventForbidden {
+            organizerService.getParticipants(eventID, ORGANIZER_EMAIL)
+        }
     }
 }

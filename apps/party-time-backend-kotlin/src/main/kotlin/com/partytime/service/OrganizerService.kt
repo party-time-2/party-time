@@ -263,7 +263,7 @@ class OrganizerService (
         val mailEvent = MailEvent(
             this,
             invitation.account.email,
-            "Einladung zum Event " + ownEvent.name,
+            "Einladung zum Event ${ownEvent.name}",
             InvitationData(
                 invitedAccount.name,
                 EventData(
@@ -304,9 +304,8 @@ class OrganizerService (
      * @param organizerEmail E-mail-address of the event organizer
      * @return List of [Invitation] of the event with the provided id
      */
-    fun getParticipants(eventId: Long, organizerEmail: String): List<Invitation> {
-        return fetchOwnEvent(eventId, organizerEmail).invitations.sortedBy { it.account.name }
-    }
+    fun getParticipants(eventId: Long, organizerEmail: String): List<Invitation> =
+        fetchOwnEvent(eventId, organizerEmail).invitations.sortedBy { it.account.name }
 
     private fun fetchOwnEvent(eventId: Long, email: String): Event {
         val event = eventRepository.findById(eventId)
