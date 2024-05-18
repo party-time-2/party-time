@@ -56,7 +56,7 @@ describe('CustomValidators', () => {
       const result = CustomValidators.futureDateValidator(control);
       expect(result).toBeNull();
     });
-    
+
     it('should return an error object if the selected date is in the past', () => {
       const control = new FormControl('2021-01-01');
       const result = CustomValidators.futureDateValidator(control);
