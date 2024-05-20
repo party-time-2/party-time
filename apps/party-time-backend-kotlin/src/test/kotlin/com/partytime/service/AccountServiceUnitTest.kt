@@ -24,7 +24,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -52,20 +52,29 @@ class AccountServiceUnitTest : UnitTest() {
     private val encodedPassword = testPasswordEncoder.encode(PASSWORD)
     private val verificationCode = UUID.randomUUID()
 
+    private val unverifiedAccount = Account(
+        EMAIL,
+        false,
+        NAME,
+        encodedPassword,
+        emailVerificationCode = verificationCode.toString()
+    )
+
+    private val verifiedAccount = Account(
+        EMAIL,
+        true,
+        NAME,
+        encodedPassword
+    ).also {
+        it.id = 0L
+    }
+
     @Nested
     inner class RegisterAccountTests: UnitTest() {
         private val accountRegisterDTO = AccountRegisterDTO(
             NAME,
             EMAIL,
             PASSWORD
-        )
-
-        private val existingAccount = Account(
-            EMAIL,
-            false,
-            NAME,
-            encodedPassword,
-            emailVerificationCode = verificationCode.toString()
         )
 
         @Test
@@ -125,7 +134,7 @@ class AccountServiceUnitTest : UnitTest() {
         @Test
         fun registerAccountAlreadyExists() {
             //setup - mock
-            every { accountService.optAccountByMail(EMAIL) } returns Optional.of(existingAccount)
+            every { accountService.optAccountByMail(EMAIL) } returns Optional.of(unverifiedAccount)
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
@@ -143,92 +152,59 @@ class AccountServiceUnitTest : UnitTest() {
 
     @Test
     fun saveAccountSuccess() {
-        //setup - data
-        val account = Account(
-            EMAIL,
-            true,
-            NAME,
-            encodedPassword
-        )
-
         //setup - mock
-        every { accountRepository.save(account) } answers {
+        every { accountRepository.save(unverifiedAccount) } answers {
             firstArg<Account>().also {
                 if (it.id == null) it.id = 0L
             }
         }
 
         //execute
-        val savedAccount = accountService.saveAccount(account)
+        val savedAccount = accountService.saveAccount(unverifiedAccount)
         assertEquals(EMAIL, savedAccount.email)
-        assertTrue(savedAccount.emailVerified)
+        assertFalse(savedAccount.emailVerified)
         assertEquals(NAME, savedAccount.name)
         assertEquals(encodedPassword, savedAccount.pwHash)
         assertEquals(0, savedAccount.id)
-        assertNull(savedAccount.emailVerificationCode)
+        assertNotNull(savedAccount.emailVerificationCode)
 
         //verify
-        verify(exactly = 1) {
-            accountRepository.save(withArg {
-                assertEquals(EMAIL, it.email)
-                assertEquals(NAME, it.name)
-                assertEquals(encodedPassword, it.pwHash)
-                assertTrue(it.emailVerified)
-            })
-        }
+        verify(exactly = 1) { accountRepository.save(unverifiedAccount) }
     }
 
     @Nested
     inner class DeleteAccountTests: UnitTest() {
-        private val account = Account(
-            EMAIL,
-            false,
-            NAME,
-            encodedPassword
-        ).also {
-            it.id = 0L
-        }
-
         @Test
         fun deleteAccountSuccess() {
             //setup - mock
-            justRun { accountRepository.delete(account) }
+            justRun { accountRepository.delete(verifiedAccount) }
 
             //execute
             assertDoesNotThrow {
-                accountService.deleteAccount(account)
+                accountService.deleteAccount(verifiedAccount)
             }
 
             //verify
-            verify(exactly = 1) { accountRepository.delete(account) }
+            verify(exactly = 1) { accountRepository.delete(verifiedAccount) }
         }
 
         @Test
         fun deleteAccountNotFound() {
             //setup - mock
-            every { accountRepository.delete(account) } throws OptimisticLockingFailureException("")
+            every { accountRepository.delete(verifiedAccount) } throws OptimisticLockingFailureException("")
 
             //execute
             assertThrows<OptimisticLockingFailureException> {
-                accountService.deleteAccount(account)
+                accountService.deleteAccount(verifiedAccount)
             }
 
             //verify
-            verify(exactly = 1) { accountRepository.delete(account) }
+            verify(exactly = 1) { accountRepository.delete(verifiedAccount) }
         }
     }
 
     @Nested
     inner class ChangePasswordTests: UnitTest() {
-        private val savedAccount = Account(
-            EMAIL,
-            true,
-            NAME,
-            encodedPassword
-        ).also {
-            it.id = 0L
-        }
-
         private val newPassword = "Jkl?mno2pqr"
         private val newEncodedPassword = testPasswordEncoder.encode(newPassword)
 
@@ -250,7 +226,7 @@ class AccountServiceUnitTest : UnitTest() {
         fun changePasswordSuccess() {
             //setup - mock
             every { authentication.principal } returns EMAIL
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(savedAccount)
+            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
             every { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) } returns true
             every { cryptService.encodePassword(newPassword) } returns newEncodedPassword
             every { accountRepository.save(any()) } answers {
@@ -283,7 +259,7 @@ class AccountServiceUnitTest : UnitTest() {
         fun changePasswordUnauthorized() {
             //setup - mock
             every { authentication.principal } returns EMAIL
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(savedAccount)
+            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
             every { cryptService.passwordMatchesHash(wrongPassword, encodedPassword) } returns false
 
             //execute
@@ -302,23 +278,14 @@ class AccountServiceUnitTest : UnitTest() {
 
     @Nested
     inner class GetAccountByMailTests: UnitTest() {
-        private val account = Account(
-            EMAIL,
-            true,
-            NAME,
-            encodedPassword
-        ).also {
-            it.id = 0L
-        }
-
         @Test
         fun getAccountByMailSuccess() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(account)
+            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
 
             //execute
             val receivedAccount = accountService.getAccountByMail(EMAIL)
-            assertEquals(account, receivedAccount)
+            assertEquals(verifiedAccount, receivedAccount)
 
             //validate
             verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
@@ -343,23 +310,14 @@ class AccountServiceUnitTest : UnitTest() {
 
     @Nested
     inner class OptAccountByMailTests: UnitTest() {
-        private val account = Account(
-            EMAIL,
-            true,
-            NAME,
-            encodedPassword
-        ).also {
-            it.id = 0L
-        }
-
         @Test
         fun optAccountByMailSuccess() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(account)
+            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
 
             //execute
             val receivedAccount = accountService.optAccountByMail(EMAIL)
-            assertEquals(account, receivedAccount.get())
+            assertEquals(verifiedAccount, receivedAccount.get())
 
             //validate
             verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
@@ -367,12 +325,45 @@ class AccountServiceUnitTest : UnitTest() {
 
         @Test
         fun optAccountByMailNotFound() {
+            //setup - mock
             every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.empty()
-            val receivedAccount = accountService.optAccountByMail(EMAIL)
 
+            //execute
+            val receivedAccount = accountService.optAccountByMail(EMAIL)
             assertTrue(receivedAccount.isEmpty)
 
+            //validate
             verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
+        }
+    }
+
+    @Nested
+    inner class AccountByEmailVerificationCode {
+
+        @Test
+        fun accountByEmailVerificationCodeNotEmpty() {
+            //setup - mock
+            every { accountRepository.findByEmailVerificationCode(verificationCode.toString()) } returns Optional.of(unverifiedAccount)
+
+            //execute
+            val receivedAccount = accountService.accountByEmailVerificationCode(verificationCode.toString())
+            assertEquals(unverifiedAccount, receivedAccount.get())
+
+            //validate
+            verify(exactly = 1) { accountRepository.findByEmailVerificationCode(verificationCode.toString()) }
+        }
+
+        @Test
+        fun accountByEmailVerificationCodeEmpty() {
+            //setup - mock
+            every { accountRepository.findByEmailVerificationCode(verificationCode.toString()) } returns Optional.empty()
+
+            //execute
+            val receivedAccount = accountService.accountByEmailVerificationCode(verificationCode.toString())
+            assertTrue(receivedAccount.isEmpty)
+
+            //validate
+            verify(exactly = 1) { accountRepository.findByEmailVerificationCode(verificationCode.toString()) }
         }
     }
 }

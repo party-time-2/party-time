@@ -17,5 +17,5 @@ abstract class BaseEntity<T: Serializable>: HasId<T> {
             } ?: false
     }
 
-    override fun hashCode(): Int = javaClass.hashCode()
+    override fun hashCode(): Int = id?.toInt() ?: 0
 }

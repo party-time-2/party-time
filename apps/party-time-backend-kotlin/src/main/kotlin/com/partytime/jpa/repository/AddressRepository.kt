@@ -19,7 +19,7 @@ interface AddressRepository : JpaRepository<Address, Long> {
     )
     fun findByData(
         addressLine: String,
-        addressLineAddition: String,
+        addressLineAddition: String?,
         zip: String,
         city: String,
         country: String

@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-private val authServiceLogger = KotlinLogging.logger {}
+private val authServiceLogger = KotlinLogging.logger("AuthService")
 /**
  *  A [Service] class for authentication related functionality.
  *

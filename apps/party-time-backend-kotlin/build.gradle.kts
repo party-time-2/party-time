@@ -87,6 +87,14 @@ springBoot {
 	buildInfo()
 }
 
+koverReport {
+    filters {
+        excludes {
+            classes("io.github.oshai.kotlinlogging.KLogger")
+        }
+    }
+}
+
 /*
 publishing {
 	publications {

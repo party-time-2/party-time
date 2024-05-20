@@ -17,7 +17,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.UUID
 
-private val testDataLogger = KotlinLogging.logger {}
+private val testDataLogger = KotlinLogging.logger("TestDataGenerator")
 
 @Component
 @Profile("!prod")

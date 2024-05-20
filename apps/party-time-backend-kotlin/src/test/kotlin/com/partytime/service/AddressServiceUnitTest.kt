@@ -15,12 +15,40 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import java.util.Optional
+import java.util.stream.Stream
 
 class AddressServiceUnitTest : UnitTest() {
     private val addressRepository = mockk<AddressRepository>()
 
     private val addressService = AddressService(addressRepository)
+
+    companion object {
+        @JvmStatic
+        fun addressProvider(): Stream<Arguments> = Stream.of(
+            Arguments.of(
+                Address(
+                    ADDRESS_LINE,
+                    ADDRESS_LINE_ADDITION,
+                    ZIP,
+                    CITY,
+                    COUNTRY
+                )
+            ),
+            Arguments.of(
+                Address(
+                    ADDRESS_LINE,
+                    null,
+                    ZIP,
+                    CITY,
+                    COUNTRY
+                )
+            ),
+        )
+    }
 
     private val address = Address(
         ADDRESS_LINE,
@@ -32,45 +60,53 @@ class AddressServiceUnitTest : UnitTest() {
 
     @Nested
     inner class SaveAddressTest : UnitTest() {
-        @Test
-        fun saveAddressAlreadyExistsSuccess() {
+        @ParameterizedTest
+        @MethodSource("com.partytime.service.AddressServiceUnitTest#addressProvider")
+        fun saveAddressAlreadyExistsSuccess(testAddress: Address) {
             //setup - mock
             every {
                 addressRepository.findByData(
-                    ADDRESS_LINE,
-                    ADDRESS_LINE_ADDITION,
-                    ZIP,
-                    CITY,
-                    COUNTRY
+                    testAddress.addressLine,
+                    testAddress.addressLineAddition,
+                    testAddress.zip,
+                    testAddress.city,
+                    testAddress.country
                 )
-            } returns Optional.of(address)
+            } returns Optional.of(testAddress)
 
             //execute
-            val result = addressService.saveAddress(ADDRESS_LINE, ADDRESS_LINE_ADDITION, ZIP, CITY, COUNTRY)
-            assertEquals(result, address)
+            val result = addressService.saveAddress(
+                testAddress.addressLine,
+                testAddress.addressLineAddition,
+                testAddress.zip,
+                testAddress.city,
+                testAddress.country
+            )
+            assertEquals(testAddress, result)
 
             //verify
             verify(exactly = 1) {
                 addressRepository.findByData(
-                    ADDRESS_LINE,
-                    ADDRESS_LINE_ADDITION,
-                    ZIP,
-                    CITY,
-                    COUNTRY
+                    testAddress.addressLine,
+                    testAddress.addressLineAddition,
+                    testAddress.zip,
+                    testAddress.city,
+                    testAddress.country
                 )
             }
         }
 
-        @Test
-        fun saveAddressNewAddressSuccess() {
+        @ParameterizedTest
+        @MethodSource("com.partytime.service.AddressServiceUnitTest#addressProvider")
+        fun saveAddressNewAddressSuccess(testAddress: Address) {
             //setup - mock
             every {
                 addressRepository.findByData(
-                    ADDRESS_LINE,
-                    ADDRESS_LINE_ADDITION,
-                    ZIP,
-                    CITY,
-                    COUNTRY
+                    testAddress.addressLine,
+                    testAddress.addressLineAddition,
+                    testAddress.zip,
+                    testAddress.city,
+                    testAddress.country
                 )
             } returns Optional.empty()
 
@@ -81,21 +117,27 @@ class AddressServiceUnitTest : UnitTest() {
             }
 
             //execute
-            val result = addressService.saveAddress(ADDRESS_LINE, ADDRESS_LINE_ADDITION, ZIP, CITY, COUNTRY)
-            assertEquals(result.addressLine, ADDRESS_LINE)
-            assertEquals(result.addressLineAddition, ADDRESS_LINE_ADDITION)
-            assertEquals(result.zip, ZIP)
-            assertEquals(result.city, CITY)
-            assertEquals(result.country, COUNTRY)
+            val result = addressService.saveAddress(
+                testAddress.addressLine,
+                testAddress.addressLineAddition,
+                testAddress.zip,
+                testAddress.city,
+                testAddress.country
+            )
+            assertEquals(testAddress.addressLine, result.addressLine)
+            assertEquals(testAddress.addressLineAddition, result.addressLineAddition)
+            assertEquals(testAddress.zip, result.zip)
+            assertEquals(testAddress.city, result.city)
+            assertEquals(testAddress.country, result.country)
 
             //verify
             verify(exactly = 1) {
                 addressRepository.findByData(
-                    ADDRESS_LINE,
-                    ADDRESS_LINE_ADDITION,
-                    ZIP,
-                    CITY,
-                    COUNTRY
+                    testAddress.addressLine,
+                    testAddress.addressLineAddition,
+                    testAddress.zip,
+                    testAddress.city,
+                    testAddress.country
                 )
             }
             verify(exactly = 1) { addressRepository.save(any()) }
@@ -180,9 +222,5 @@ class AddressServiceUnitTest : UnitTest() {
             }
             verify(exactly = 1) { addressRepository.save(any()) }
         }
-    }
-
-    @Test
-    fun testSaveAddress() {
     }
 }

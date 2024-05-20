@@ -12,7 +12,7 @@ import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
 
-private val authLogger = KotlinLogging.logger {}
+private val authLogger = KotlinLogging.logger("AuthEntryPointJwt")
 @Component
 class AuthEntryPointJwt (
     private val objectMapper: ObjectMapper

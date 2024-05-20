@@ -34,11 +34,11 @@ class AddressService(
         zip: String,
         city: String,
         country: String
-    ): Address = addressRepository.findByData(addressLine, addressLineAddition.orEmpty(), zip, city, country)
+    ): Address = addressRepository.findByData(addressLine, addressLineAddition, zip, city, country)
         .orElseGet {
             Address(
                 addressLine = addressLine,
-                addressLineAddition = addressLineAddition.orEmpty(),
+                addressLineAddition = addressLineAddition,
                 zip = zip,
                 city = city,
                 country = country

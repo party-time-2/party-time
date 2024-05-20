@@ -16,7 +16,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.Optional
 
-private val accountServiceLogger = KotlinLogging.logger {}
+//Can't use the `KotlinLogging.logger {}` version because of unreported coverage
+private val accountServiceLogger = KotlinLogging.logger("AccountService")
 
 /**
  * A [Service] class for account related functionality.

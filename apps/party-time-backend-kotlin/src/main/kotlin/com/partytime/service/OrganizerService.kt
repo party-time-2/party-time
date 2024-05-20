@@ -26,7 +26,7 @@ import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-private val organizerServiceLogger = KotlinLogging.logger {}
+private val organizerServiceLogger = KotlinLogging.logger("OrganizerService")
 /**
  * A [Service] class for hosting events related functionality.
  *
@@ -305,7 +305,8 @@ class OrganizerService (
      * @return List of [Invitation] of the event with the provided id
      */
     fun getParticipants(eventId: Long, organizerEmail: String): List<Invitation> =
-        fetchOwnEvent(eventId, organizerEmail).invitations.sortedBy { it.account.name }
+        fetchOwnEvent(eventId, organizerEmail).invitations
+            .sortedWith(Comparator.comparing { it.account.name })
 
     private fun fetchOwnEvent(eventId: Long, email: String): Event {
         val event = eventRepository.findById(eventId)

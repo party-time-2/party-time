@@ -23,7 +23,7 @@ import java.io.FileOutputStream
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 
-private val mailLogger = KotlinLogging.logger {}
+private val mailLogger = KotlinLogging.logger("MailEventListener")
 
 /**
  * Listener for [MailEvent] events.
