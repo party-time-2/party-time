@@ -37,10 +37,16 @@ class AccountDeletionServiceUnitTest : UnitTest() {
     private val deleteThisAccountData = generateOrganizerAccount()
     private val deleteThisAccount = deleteThisAccountData.account
 
-    private val firstParticipantAccountData = generateParticipantAccount(true)
+    private val firstParticipantAccountData = generateParticipantAccount(
+        verified = true,
+        withVerificationCode = false
+    )
     private val firstParticipantAccount = firstParticipantAccountData.account
 
-    private val secondParticipantAccountData = generateParticipantAccount(true)
+    private val secondParticipantAccountData = generateParticipantAccount(
+        verified = true,
+        withVerificationCode = false
+    )
     private val secondParticipantAccount = secondParticipantAccountData.account
 
     private val firstOrganizedEvent = Event(deleteThisAccount, "FirstTestEvent", ZonedDateTime.now().plusMonths(3), address)
@@ -73,7 +79,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
     @Nested
     inner class DeleteAccountTest : UnitTest() {
         private val accountDeleteDTO = AccountDeleteDTO(
-            deleteThisAccountData.additionalTAccountTestInformation.passwordPlainText
+            deleteThisAccountData.additionalAccountTestInformation.passwordPlainText
         )
 
         private val authentication = mockk<AuthenticationToken>()
@@ -83,7 +89,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
             //setup - mock
             every { authentication.principal } returns deleteThisAccount.email
             every { accountService.getAccountByMail(deleteThisAccount.email) } returns deleteThisAccount
-            every { cryptService.passwordMatchesHash(deleteThisAccountData.additionalTAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) } returns true
+            every { cryptService.passwordMatchesHash(deleteThisAccountData.additionalAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) } returns true
             every { organizerService.getEvents(deleteThisAccount.email) } returns listOf(firstOrganizedEvent, secondOrganizedEvent)
             justRun { organizerService.deleteMultipleEvents(listOf(firstOrganizedEvent, secondOrganizedEvent), deleteThisAccount.email) }
             every { participantService.getParticipatingEvents(deleteThisAccount.email) } returns listOf(participatingEventParticipatingInvitation, declinedEventDeclinedInvitation)
@@ -97,7 +103,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
             //verify
             verify(exactly = 2) { authentication.principal }
             verify(exactly = 1) { accountService.getAccountByMail(deleteThisAccount.email) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(deleteThisAccountData.additionalTAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) }
+            verify(exactly = 1) { cryptService.passwordMatchesHash(deleteThisAccountData.additionalAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) }
             verify(exactly = 1) { organizerService.getEvents(deleteThisAccount.email) }
             verify(exactly = 1) { organizerService.deleteMultipleEvents(listOf(firstOrganizedEvent, secondOrganizedEvent), deleteThisAccount.email) }
             verify(exactly = 1) { participantService.getParticipatingEvents(deleteThisAccount.email) }
@@ -111,7 +117,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
             //setup - mock
             every { authentication.principal } returns deleteThisAccount.email
             every { accountService.getAccountByMail(deleteThisAccount.email) } returns deleteThisAccount
-            every { cryptService.passwordMatchesHash(deleteThisAccountData.additionalTAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) } returns false
+            every { cryptService.passwordMatchesHash(deleteThisAccountData.additionalAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) } returns false
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
@@ -124,7 +130,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
             //verify
             verify(exactly = 1) { authentication.principal }
             verify(exactly = 1) { accountService.getAccountByMail(deleteThisAccount.email) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(deleteThisAccountData.additionalTAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) }
+            verify(exactly = 1) { cryptService.passwordMatchesHash(deleteThisAccountData.additionalAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) }
         }
     }
 }

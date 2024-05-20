@@ -1,8 +1,5 @@
 package com.partytime.service
 
-import com.partytime.EMAIL
-import com.partytime.NAME
-import com.partytime.PASSWORD
 import com.partytime.URL
 import com.partytime.api.dto.account.AccountRegisterDTO
 import com.partytime.api.dto.changepassword.ChangePasswordDTO
@@ -17,6 +14,7 @@ import com.partytime.jpa.repository.AccountRepository
 import com.partytime.mail.model.MailEvent
 import com.partytime.mail.model.VerifyAccountData
 import com.partytime.testAbstraction.UnitTest
+import com.partytime.testUtility.generateParticipantAccount
 import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
@@ -31,9 +29,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.dao.OptimisticLockingFailureException
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.Optional
-import java.util.UUID
 
 class AccountServiceUnitTest : UnitTest() {
     private val accountRepository = mockk<AccountRepository>()
@@ -48,41 +44,32 @@ class AccountServiceUnitTest : UnitTest() {
         applicationEventPublisher
     )
 
-    private val testPasswordEncoder = BCryptPasswordEncoder()
-    private val encodedPassword = testPasswordEncoder.encode(PASSWORD)
-    private val verificationCode = UUID.randomUUID()
-
-    private val unverifiedAccount = Account(
-        EMAIL,
-        false,
-        NAME,
-        encodedPassword,
-        emailVerificationCode = verificationCode.toString()
+    private val unverifiedAccountData = generateParticipantAccount(
+        verified = false,
+        withVerificationCode = true
     )
+    private val unverifiedAccount = unverifiedAccountData.account
 
-    private val verifiedAccount = Account(
-        EMAIL,
-        true,
-        NAME,
-        encodedPassword
-    ).also {
-        it.id = 0L
-    }
+    private val verifiedAccountData = generateParticipantAccount(
+        verified = true,
+        withVerificationCode = false
+    )
+    private val verifiedAccount = verifiedAccountData.account
 
     @Nested
     inner class RegisterAccountTests: UnitTest() {
         private val accountRegisterDTO = AccountRegisterDTO(
-            NAME,
-            EMAIL,
-            PASSWORD
+            unverifiedAccount.name,
+            unverifiedAccount.email,
+            unverifiedAccountData.additionalAccountTestInformation.passwordPlainText
         )
 
         @Test
         fun registerAccountSuccess() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.empty()
-            every { cryptService.encodePassword(PASSWORD) } returns encodedPassword
-            every { cryptService.randomUUID() } returns verificationCode
+            every { accountRepository.findAccountByEmail(accountRegisterDTO.email) } returns Optional.empty()
+            every { cryptService.encodePassword(unverifiedAccountData.additionalAccountTestInformation.passwordPlainText) } returns unverifiedAccount.pwHash
+            every { cryptService.randomUUID() } returns unverifiedAccountData.additionalAccountTestInformation.randomUUID!!
             every { accountRepository.save(any()) } answers {
                 firstArg<Account>().also {
                     if (it.id == null) it.id = 0L
@@ -93,24 +80,24 @@ class AccountServiceUnitTest : UnitTest() {
 
             //execute
             val savedAccount = accountService.registerAccount(accountRegisterDTO)
-            assertEquals(EMAIL, savedAccount.email)
+            assertEquals(unverifiedAccount.email, savedAccount.email)
             assertFalse(savedAccount.emailVerified)
-            assertEquals(NAME, savedAccount.name)
-            assertEquals(encodedPassword, savedAccount.pwHash)
+            assertEquals(unverifiedAccount.name, savedAccount.name)
+            assertEquals(unverifiedAccount.pwHash, savedAccount.pwHash)
             assertEquals(0, savedAccount.id)
-            assertEquals(verificationCode.toString(), savedAccount.emailVerificationCode)
+            assertEquals(unverifiedAccount.emailVerificationCode, savedAccount.emailVerificationCode)
 
             //validate
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
-            verify(exactly = 1) { cryptService.encodePassword(PASSWORD) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(accountRegisterDTO.email) }
+            verify(exactly = 1) { cryptService.encodePassword(unverifiedAccountData.additionalAccountTestInformation.passwordPlainText) }
             verify(exactly = 1) { cryptService.randomUUID() }
             verify(exactly = 1) {
                 accountRepository.save(withArg {
-                    assertEquals(EMAIL, it.email)
-                    assertEquals(NAME, it.name)
-                    assertEquals(encodedPassword, it.pwHash)
+                    assertEquals(unverifiedAccount.email, it.email)
+                    assertEquals(unverifiedAccount.name, it.name)
+                    assertEquals(unverifiedAccount.pwHash, it.pwHash)
                     assertFalse(it.emailVerified)
-                    assertEquals(verificationCode.toString(), it.emailVerificationCode)
+                    assertEquals(unverifiedAccount.emailVerificationCode, it.emailVerificationCode)
                 })
             }
             verify(exactly = 2) { configurationProperties.url } //used twice for MailEvent construction
@@ -134,7 +121,7 @@ class AccountServiceUnitTest : UnitTest() {
         @Test
         fun registerAccountAlreadyExists() {
             //setup - mock
-            every { accountService.optAccountByMail(EMAIL) } returns Optional.of(unverifiedAccount)
+            every { accountRepository.findAccountByEmail(unverifiedAccount.email) } returns Optional.of(unverifiedAccount)
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
@@ -146,7 +133,7 @@ class AccountServiceUnitTest : UnitTest() {
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //verify
-            verify(exactly = 1) { accountService.optAccountByMail(EMAIL) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(unverifiedAccount.email) }
         }
     }
 
@@ -161,11 +148,11 @@ class AccountServiceUnitTest : UnitTest() {
 
         //execute
         val savedAccount = accountService.saveAccount(unverifiedAccount)
-        assertEquals(EMAIL, savedAccount.email)
+        assertEquals(unverifiedAccount.email, savedAccount.email)
         assertFalse(savedAccount.emailVerified)
-        assertEquals(NAME, savedAccount.name)
-        assertEquals(encodedPassword, savedAccount.pwHash)
-        assertEquals(0, savedAccount.id)
+        assertEquals(unverifiedAccount.name, savedAccount.name)
+        assertEquals(unverifiedAccount.pwHash, savedAccount.pwHash)
+        assertEquals(unverifiedAccount.id!!, savedAccount.id)
         assertNotNull(savedAccount.emailVerificationCode)
 
         //verify
@@ -206,10 +193,11 @@ class AccountServiceUnitTest : UnitTest() {
     @Nested
     inner class ChangePasswordTests: UnitTest() {
         private val newPassword = "Jkl?mno2pqr"
-        private val newEncodedPassword = testPasswordEncoder.encode(newPassword)
+        private val newEncodedPassword = verifiedAccountData.additionalAccountTestInformation
+            .passwordEncoder.encode(newPassword)
 
         private val validChangePasswordDTO = ChangePasswordDTO(
-            PASSWORD,
+            verifiedAccountData.additionalAccountTestInformation.passwordPlainText,
             newPassword
         )
 
@@ -220,14 +208,21 @@ class AccountServiceUnitTest : UnitTest() {
             newPassword
         )
 
+        val oldPwHash = verifiedAccount.pwHash
+
         private val authentication = mockk<AuthenticationToken>()
 
         @Test
         fun changePasswordSuccess() {
             //setup - mock
-            every { authentication.principal } returns EMAIL
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
-            every { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) } returns true
+            every { authentication.principal } returns verifiedAccount.email
+            every { accountRepository.findAccountByEmail(verifiedAccount.email) } returns Optional.of(verifiedAccount)
+            every {
+                cryptService.passwordMatchesHash(
+                    verifiedAccountData.additionalAccountTestInformation.passwordPlainText,
+                    oldPwHash
+                )
+            } returns true
             every { cryptService.encodePassword(newPassword) } returns newEncodedPassword
             every { accountRepository.save(any()) } answers {
                 firstArg<Account>().also {
@@ -241,16 +236,21 @@ class AccountServiceUnitTest : UnitTest() {
 
             //validate
             verify(exactly = 1) { authentication.principal }
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(verifiedAccount.email) }
+            verify(exactly = 1) {
+                cryptService.passwordMatchesHash(
+                    verifiedAccountData.additionalAccountTestInformation.passwordPlainText,
+                    oldPwHash
+                )
+            }
             verify(exactly = 1) { cryptService.encodePassword(newPassword) }
             verify(exactly = 1) {
                 accountRepository.save(withArg {
-                    assertEquals(EMAIL, it.email)
-                    assertEquals(NAME, it.name)
+                    assertEquals(verifiedAccount.email, it.email)
+                    assertEquals(verifiedAccount.name, it.name)
                     assertEquals(newEncodedPassword, it.pwHash)
                     assertTrue(it.emailVerified)
-                    assertEquals(0, it.id)
+                    assertEquals(verifiedAccount.id!!, it.id)
                 })
             }
         }
@@ -258,9 +258,14 @@ class AccountServiceUnitTest : UnitTest() {
         @Test
         fun changePasswordUnauthorized() {
             //setup - mock
-            every { authentication.principal } returns EMAIL
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
-            every { cryptService.passwordMatchesHash(wrongPassword, encodedPassword) } returns false
+            every { authentication.principal } returns verifiedAccount.email
+            every { accountRepository.findAccountByEmail(verifiedAccount.email) } returns Optional.of(verifiedAccount)
+            every {
+                cryptService.passwordMatchesHash(
+                    wrongPassword,
+                    oldPwHash
+                )
+            } returns false
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
@@ -271,8 +276,13 @@ class AccountServiceUnitTest : UnitTest() {
 
             //validate
             verify(exactly = 1) { authentication.principal }
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(wrongPassword, encodedPassword) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(verifiedAccount.email) }
+            verify(exactly = 1) {
+                cryptService.passwordMatchesHash(
+                    wrongPassword,
+                    oldPwHash
+                )
+            }
         }
     }
 
@@ -281,22 +291,22 @@ class AccountServiceUnitTest : UnitTest() {
         @Test
         fun getAccountByMailSuccess() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
+            every { accountRepository.findAccountByEmail(verifiedAccount.email) } returns Optional.of(verifiedAccount)
 
             //execute
-            val receivedAccount = accountService.getAccountByMail(EMAIL)
+            val receivedAccount = accountService.getAccountByMail(verifiedAccount.email)
             assertEquals(verifiedAccount, receivedAccount)
 
             //validate
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(verifiedAccount.email) }
         }
 
         @Test
         fun getAccountByMailNotFound() {
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.empty()
+            every { accountRepository.findAccountByEmail(verifiedAccount.email) } returns Optional.empty()
 
             val thrownException = assertThrows<ApiErrorException> {
-                accountService.getAccountByMail(EMAIL)
+                accountService.getAccountByMail(verifiedAccount.email)
             }
 
             val expectedException =
@@ -304,7 +314,7 @@ class AccountServiceUnitTest : UnitTest() {
 
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(verifiedAccount.email) }
         }
     }
 
@@ -313,27 +323,27 @@ class AccountServiceUnitTest : UnitTest() {
         @Test
         fun optAccountByMailSuccess() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.of(verifiedAccount)
+            every { accountRepository.findAccountByEmail(verifiedAccount.email) } returns Optional.of(verifiedAccount)
 
             //execute
-            val receivedAccount = accountService.optAccountByMail(EMAIL)
+            val receivedAccount = accountService.optAccountByMail(verifiedAccount.email)
             assertEquals(verifiedAccount, receivedAccount.get())
 
             //validate
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(verifiedAccount.email) }
         }
 
         @Test
         fun optAccountByMailNotFound() {
             //setup - mock
-            every { accountRepository.findAccountByEmail(EMAIL) } returns Optional.empty()
+            every { accountRepository.findAccountByEmail(verifiedAccount.email) } returns Optional.empty()
 
             //execute
-            val receivedAccount = accountService.optAccountByMail(EMAIL)
+            val receivedAccount = accountService.optAccountByMail(verifiedAccount.email)
             assertTrue(receivedAccount.isEmpty)
 
             //validate
-            verify(exactly = 1) { accountRepository.findAccountByEmail(EMAIL) }
+            verify(exactly = 1) { accountRepository.findAccountByEmail(verifiedAccount.email) }
         }
     }
 
@@ -343,27 +353,27 @@ class AccountServiceUnitTest : UnitTest() {
         @Test
         fun accountByEmailVerificationCodeNotEmpty() {
             //setup - mock
-            every { accountRepository.findByEmailVerificationCode(verificationCode.toString()) } returns Optional.of(unverifiedAccount)
+            every { accountRepository.findByEmailVerificationCode(unverifiedAccount.emailVerificationCode!!) } returns Optional.of(unverifiedAccount)
 
             //execute
-            val receivedAccount = accountService.accountByEmailVerificationCode(verificationCode.toString())
+            val receivedAccount = accountService.accountByEmailVerificationCode(unverifiedAccount.emailVerificationCode!!)
             assertEquals(unverifiedAccount, receivedAccount.get())
 
             //validate
-            verify(exactly = 1) { accountRepository.findByEmailVerificationCode(verificationCode.toString()) }
+            verify(exactly = 1) { accountRepository.findByEmailVerificationCode(unverifiedAccount.emailVerificationCode!!) }
         }
 
         @Test
         fun accountByEmailVerificationCodeEmpty() {
             //setup - mock
-            every { accountRepository.findByEmailVerificationCode(verificationCode.toString()) } returns Optional.empty()
+            every { accountRepository.findByEmailVerificationCode(unverifiedAccount.emailVerificationCode!!) } returns Optional.empty()
 
             //execute
-            val receivedAccount = accountService.accountByEmailVerificationCode(verificationCode.toString())
+            val receivedAccount = accountService.accountByEmailVerificationCode(unverifiedAccount.emailVerificationCode!!)
             assertTrue(receivedAccount.isEmpty)
 
             //validate
-            verify(exactly = 1) { accountRepository.findByEmailVerificationCode(verificationCode.toString()) }
+            verify(exactly = 1) { accountRepository.findByEmailVerificationCode(unverifiedAccount.emailVerificationCode!!) }
         }
     }
 }

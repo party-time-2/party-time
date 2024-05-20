@@ -62,8 +62,14 @@ class OrganizerServiceUnitTest : UnitTest() {
 
     private val organizerAccount = generateOrganizerAccount().account
 
-    private val firstParticipantAccount = generateParticipantAccount(true).account
-    private val secondParticipantAccount = generateParticipantAccount(true).account
+    private val firstParticipantAccount = generateParticipantAccount(
+        verified = true,
+        withVerificationCode = false
+    ).account
+    private val secondParticipantAccount = generateParticipantAccount(
+        verified = true,
+        withVerificationCode = false
+    ).account
 
     private val address = generateAddress(true)
 

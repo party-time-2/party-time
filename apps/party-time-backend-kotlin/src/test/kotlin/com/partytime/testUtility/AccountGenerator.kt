@@ -9,18 +9,20 @@ import com.partytime.PASSWORD
 import com.partytime.jpa.entity.Account
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import java.util.UUID
 
 private val passwordEncoder = BCryptPasswordEncoder()
 
 data class AdditionalTAccountTestInformation(
     val id: Long,
     val passwordPlainText: String,
-    val passwordEncoder: PasswordEncoder
+    val passwordEncoder: PasswordEncoder,
+    val randomUUID: UUID?
 )
 
 data class AccountTestData(
     val account: Account,
-    val additionalTAccountTestInformation: AdditionalTAccountTestInformation
+    val additionalAccountTestInformation: AdditionalTAccountTestInformation
 )
 
 private var organizerId = 0L
@@ -28,7 +30,8 @@ fun generateOrganizerAccount() = (organizerId++).let { currentId ->
     AdditionalTAccountTestInformation(
         currentId,
         "$currentId$ORGANIZER_PASSWORD",
-        passwordEncoder
+        passwordEncoder,
+        null
     )
 }.let { additionalInfo ->
     AccountTestData(
@@ -43,11 +46,12 @@ fun generateOrganizerAccount() = (organizerId++).let { currentId ->
 }
 
 private var participantId = 0L
-fun generateParticipantAccount(verified: Boolean) = (participantId++).let { currentId ->
+fun generateParticipantAccount(verified: Boolean, withVerificationCode: Boolean) = (participantId++).let { currentId ->
     AdditionalTAccountTestInformation(
         currentId,
         "$currentId$PASSWORD",
-        passwordEncoder
+        passwordEncoder,
+        if(withVerificationCode) UUID.randomUUID() else null
     )
 }.let { additionalInfo ->
     AccountTestData(
@@ -55,7 +59,8 @@ fun generateParticipantAccount(verified: Boolean) = (participantId++).let { curr
             "$additionalInfo$EMAIL",
             verified,
             "$additionalInfo$NAME",
-            passwordEncoder.encode(additionalInfo.passwordPlainText)
+            passwordEncoder.encode(additionalInfo.passwordPlainText),
+            emailVerificationCode = additionalInfo.randomUUID?.toString()
         ).apply { id = additionalInfo.id },
         additionalInfo
     )
