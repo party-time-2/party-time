@@ -1,15 +1,12 @@
 package com.partytime.service
 
-import com.partytime.EMAIL
-import com.partytime.NAME
-import com.partytime.PASSWORD
 import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.error.ApiError
 import com.partytime.api.error.ApiErrorException
 import com.partytime.api.error.asException
 import com.partytime.assertApiErrorExceptionEquals
-import com.partytime.jpa.entity.Account
 import com.partytime.testAbstraction.UnitTest
+import com.partytime.testUtility.generateParticipantAccount
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -20,7 +17,6 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.context.ApplicationEventPublisher
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.Optional
 import java.util.UUID
 
@@ -38,23 +34,15 @@ class AuthServiceUnitTest : UnitTest() {
         applicationEventPublisher
     )
 
-    private val testPasswordEncoder = BCryptPasswordEncoder()
-    private val encodedPassword = testPasswordEncoder.encode(PASSWORD)
-
     @Nested
     inner class VerifyAccountTests : UnitTest() {
         private val validVerificationCode = UUID.randomUUID().toString()
         private val invalidVerificationCode = UUID.randomUUID().toString()
 
-        private val account = Account(
-            EMAIL,
-            false,
-            NAME,
-            encodedPassword,
-            emailVerificationCode = validVerificationCode
-        ).apply {
-            id = 0
-        }
+        private val account = generateParticipantAccount(
+            verified = false,
+            withVerificationCode = true
+        ).account
 
         @Test
         fun verifyAccountSuccess() {
@@ -100,90 +88,87 @@ class AuthServiceUnitTest : UnitTest() {
 
     @Nested
     inner class LoginUserTests : UnitTest() {
-        private val verificationCode = UUID.randomUUID().toString()
         private val invalidPassword = "wrong!Password5unauthorized"
 
-        private val invalidLoginRequestDTO = LoginRequestDTO(
-            EMAIL,
+        private val verifiedAccountData = generateParticipantAccount(
+            verified = true,
+            withVerificationCode = false
+        )
+        private val verifiedAccount = verifiedAccountData.account
+
+        private val verifiedValidLoginRequestDTO = LoginRequestDTO(
+            verifiedAccount.email,
+            verifiedAccountData.additionalAccountTestInformation.passwordPlainText
+        )
+
+        private val verifiedInvalidLoginRequestDTO = LoginRequestDTO(
+            verifiedAccount.email,
             invalidPassword
         )
 
-        private val validLoginRequestDTO = LoginRequestDTO(
-            EMAIL,
-            PASSWORD
+        private val unverifiedAccountData = generateParticipantAccount(
+            verified = false,
+            withVerificationCode = true
         )
+        private val unverifiedAccount = unverifiedAccountData.account
 
-        private val verifiedAccount = Account(
-            EMAIL,
-            true,
-            NAME,
-            encodedPassword
-        ).apply {
-            id = 0
-        }
-
-        private val unverifiedAccount = Account(
-            EMAIL,
-            false,
-            NAME,
-            encodedPassword
-        ).apply {
-            id = 0
-            emailVerificationCode = verificationCode
-        }
+        private val unverifiedValidLoginRequestDTO = LoginRequestDTO(
+            unverifiedAccount.email,
+            unverifiedAccountData.additionalAccountTestInformation.passwordPlainText
+        )
 
         private val exampleJwtToken = "exampleToken"
 
         @Test
         fun loginUserSuccess() {
             //setup - mock
-            every { accountService.getAccountByMail(EMAIL) } returns verifiedAccount
-            every { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) } returns true
+            every { accountService.getAccountByMail(verifiedAccount.email) } returns verifiedAccount
+            every { cryptService.passwordMatchesHash(verifiedAccountData.additionalAccountTestInformation.passwordPlainText, verifiedAccount.pwHash) } returns true
             every { jwtService.createAccessToken(verifiedAccount) } returns exampleJwtToken
 
             //execute
-            val loginResponseDTO = authService.loginUser(validLoginRequestDTO)
+            val loginResponseDTO = authService.loginUser(verifiedValidLoginRequestDTO)
             assertEquals(exampleJwtToken, loginResponseDTO.token)
 
             //verify
-            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(PASSWORD, encodedPassword) }
+            verify(exactly = 1) { accountService.getAccountByMail(verifiedAccount.email) }
+            verify(exactly = 1) { cryptService.passwordMatchesHash(verifiedAccountData.additionalAccountTestInformation.passwordPlainText, verifiedAccount.pwHash) }
             verify(exactly = 1) { jwtService.createAccessToken(verifiedAccount) }
         }
 
         @Test
         fun loginUserForbidden() {
             //setup - mock
-            every { accountService.getAccountByMail(EMAIL) } returns unverifiedAccount
+            every { accountService.getAccountByMail(unverifiedAccount.email) } returns unverifiedAccount
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
                 //expected to throw a Forbidden exception because the account hasn't been verified yet
-                authService.loginUser(validLoginRequestDTO)
+                authService.loginUser(unverifiedValidLoginRequestDTO)
             }
             val expectedException = ApiError.forbidden().asException()
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //verify
-            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
+            verify(exactly = 1) { accountService.getAccountByMail(unverifiedAccount.email) }
         }
 
         @Test
         fun loginUserUnauthorized() {
             //setup - mock
-            every { accountService.getAccountByMail(EMAIL) } returns verifiedAccount
-            every { cryptService.passwordMatchesHash(invalidPassword, encodedPassword) } returns false
+            every { accountService.getAccountByMail(verifiedAccount.email) } returns verifiedAccount
+            every { cryptService.passwordMatchesHash(invalidPassword, verifiedAccount.pwHash) } returns false
 
             //execute
             val thrownException = assertThrows<ApiErrorException> {
-                authService.loginUser(invalidLoginRequestDTO)
+                authService.loginUser(verifiedInvalidLoginRequestDTO)
             }
             val expectedException = ApiError.unauthorized().asException()
             assertApiErrorExceptionEquals(expectedException, thrownException)
 
             //verify
-            verify(exactly = 1) { accountService.getAccountByMail(EMAIL) }
-            verify(exactly = 1) { cryptService.passwordMatchesHash(invalidPassword, encodedPassword) }
+            verify(exactly = 1) { accountService.getAccountByMail(verifiedAccount.email) }
+            verify(exactly = 1) { cryptService.passwordMatchesHash(invalidPassword, verifiedAccount.pwHash) }
         }
     }
 }
