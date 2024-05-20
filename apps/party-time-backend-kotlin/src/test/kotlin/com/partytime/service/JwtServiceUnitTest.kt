@@ -1,11 +1,8 @@
 package com.partytime.service
 
-import com.partytime.EMAIL
-import com.partytime.NAME
-import com.partytime.PASSWORD
 import com.partytime.configuration.PartyTimeConfigurationProperties
-import com.partytime.jpa.entity.Account
 import com.partytime.testAbstraction.UnitTest
+import com.partytime.testUtility.generateParticipantAccount
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.io.Decoders
@@ -21,7 +18,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.util.Calendar
 import java.util.Date
 import java.util.UUID
@@ -56,14 +52,11 @@ class JwtServiceUnitTest : UnitTest() {
     private val cryptService = mockk<CryptService>()
     private val jwtService = JwtService(configurationProperties, cryptService)
 
-    private val passwordEncoder = BCryptPasswordEncoder()
-    private val encodedPassword = passwordEncoder.encode(PASSWORD)
-    private val account = Account(
-        EMAIL,
-        true,
-        NAME,
-        encodedPassword
+    private val accountData = generateParticipantAccount(
+        verified = true,
+        withVerificationCode = false
     )
+    private val account = accountData.account
 
     private val randomUUID = UUID.randomUUID()
     private val secret = "pJADh3HysJ0dbNNnvfTub2vnus9pg7ddP894ZFcyKu72XmX78qU97yuvpOuwEcoe"
@@ -88,8 +81,8 @@ class JwtServiceUnitTest : UnitTest() {
         assertEquals(randomUUID.toString(), payload.id)
         assertEquals(JwtService.ISSUER, payload.issuer)
         assertEquals(randomUUID.toString(), payload.subject)
-        assertEquals(EMAIL, payload[JwtService.CLAIM_EMAIL])
-        assertEquals(NAME, payload[JwtService.CLAIM_NAME])
+        assertEquals(account.email, payload[JwtService.CLAIM_EMAIL])
+        assertEquals(account.name, payload[JwtService.CLAIM_NAME])
         assertEquals(true, payload[JwtService.CLAIM_EMAIL_VERIFIED])
 
         //verify
@@ -109,8 +102,8 @@ class JwtServiceUnitTest : UnitTest() {
         assertEquals(randomUUID.toString(), payload.id)
         assertEquals(JwtService.ISSUER, payload.issuer)
         assertEquals(randomUUID.toString(), payload.subject)
-        assertEquals(EMAIL, payload[JwtService.CLAIM_EMAIL])
-        assertEquals(NAME, payload[JwtService.CLAIM_NAME])
+        assertEquals(account.email, payload[JwtService.CLAIM_EMAIL])
+        assertEquals(account.name, payload[JwtService.CLAIM_NAME])
         assertEquals(true, payload[JwtService.CLAIM_EMAIL_VERIFIED])
 
         //verify
@@ -180,11 +173,11 @@ class JwtServiceUnitTest : UnitTest() {
     @Test
     fun getEmail() {
         //setup - mock
-        every { claims.get(JwtService.CLAIM_EMAIL, String::class.java) } returns EMAIL
+        every { claims.get(JwtService.CLAIM_EMAIL, String::class.java) } returns account.email
 
         //execute
         val email = jwtService.getEmail(claims)
-        assertEquals(EMAIL, email)
+        assertEquals(account.email, email)
 
         //verify
         verify(exactly = 1) { claims.get(JwtService.CLAIM_EMAIL, String::class.java) }
