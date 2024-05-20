@@ -92,7 +92,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
             every { cryptService.passwordMatchesHash(deleteThisAccountData.additionalAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) } returns true
             every { organizerService.getEvents(deleteThisAccount.email) } returns listOf(firstOrganizedEvent, secondOrganizedEvent)
             justRun { organizerService.deleteMultipleEvents(listOf(firstOrganizedEvent, secondOrganizedEvent), deleteThisAccount.email) }
-            every { participantService.getParticipatingEvents(deleteThisAccount.email) } returns listOf(participatingEventParticipatingInvitation, declinedEventDeclinedInvitation)
+            every { participantService.getInvitations(deleteThisAccount.email) } returns listOf(participatingEventParticipatingInvitation, declinedEventDeclinedInvitation)
             justRun { participantService.declineInvitation(participatingEvent.id!!, deleteThisAccount.email) }
             justRun { participantService.deleteAllInvitations(deleteThisAccount.email) }
             justRun { accountService.deleteAccount(deleteThisAccount) }
@@ -106,7 +106,7 @@ class AccountDeletionServiceUnitTest : UnitTest() {
             verify(exactly = 1) { cryptService.passwordMatchesHash(deleteThisAccountData.additionalAccountTestInformation.passwordPlainText, deleteThisAccount.pwHash) }
             verify(exactly = 1) { organizerService.getEvents(deleteThisAccount.email) }
             verify(exactly = 1) { organizerService.deleteMultipleEvents(listOf(firstOrganizedEvent, secondOrganizedEvent), deleteThisAccount.email) }
-            verify(exactly = 1) { participantService.getParticipatingEvents(deleteThisAccount.email) }
+            verify(exactly = 1) { participantService.getInvitations(deleteThisAccount.email) }
             verify(exactly = 1) { participantService.declineInvitation(participatingEvent.id!!, deleteThisAccount.email) }
             verify(exactly = 1) { participantService.deleteAllInvitations(deleteThisAccount.email) }
             verify(exactly = 1) { accountService.deleteAccount(deleteThisAccount) }

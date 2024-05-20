@@ -50,7 +50,7 @@ class AccountDeletionService(
         val events: List<Event> = organizerService.getEvents(account.email)
         organizerService.deleteMultipleEvents(events, authentication.principal)
 
-        val invitations = participantService.getParticipatingEvents(account.email)
+        val invitations = participantService.getInvitations(account.email)
         invitations.forEach { invitation ->
             if(invitation.status != Status.DECLINED)
                 participantService.declineInvitation(invitation.event.id!!, account.email)

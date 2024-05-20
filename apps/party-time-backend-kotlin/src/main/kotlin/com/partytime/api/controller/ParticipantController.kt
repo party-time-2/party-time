@@ -56,7 +56,7 @@ class ParticipantController (
         ]
     )
     fun getEvents(authentication: AuthenticationToken): List<ParticipantEventDTO> =
-        participantService.getParticipatingEvents(authentication.principal).map(Invitation::toParticipantEventDTO)
+        participantService.getInvitations(authentication.principal).map(Invitation::toParticipantEventDTO)
 
     /**
      * Fetches details of a single event the authenticated user has been invited to.

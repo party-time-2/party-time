@@ -24,13 +24,13 @@ class ParticipantService (
     /**
      * Implements F007
      *
-     * Fetches all events a user has been invited to (including events where the user has declined the invite).
+     * Fetches all invitations of a user (including declined invitations).
      *
      * @param participantEmail E-mail-address of the invitee
      * @return List of [Event] the user has been invited to
      */
     @Transactional(readOnly = true)
-    fun getParticipatingEvents(participantEmail: String): List<Invitation> =
+    fun getInvitations(participantEmail: String): List<Invitation> =
         invitationRepository.findAllByAccount_Email(participantEmail)
 
     /**
@@ -84,7 +84,8 @@ class ParticipantService (
      */
     @Transactional
     fun deleteAllInvitations(participantEmail: String) {
-        val invitations = getParticipatingEvents(participantEmail)
+        val invitations = getInvitations(participantEmail)
+        invitationRepository.flush()
         invitationRepository.deleteAllInBatch(invitations)
     }
 }
