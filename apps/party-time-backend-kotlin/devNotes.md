@@ -30,6 +30,8 @@
   - https://stackoverflow.com/a/54378384
 - Spring Validate/Valid Annotation
   - https://stackoverflow.com/a/56472166
+- Coverage of inline methods
+  - https://stackoverflow.com/a/56316739
 
 ## Maybe later
 

@@ -1,12 +1,13 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "3.2.5"
+	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.5"
-	kotlin("jvm") version "1.9.22"
-	kotlin("plugin.spring") version "1.9.24"
-	kotlin("plugin.jpa") version "1.9.24"
-    id("org.jetbrains.kotlinx.kover") version "0.7.6"
+	kotlin("jvm") version "2.0.0"
+	kotlin("plugin.spring") version "2.0.0"
+	kotlin("plugin.jpa") version "2.0.0"
+    id("org.jetbrains.kotlinx.kover") version "0.8.0"
 }
 
 group = "com.partytime"
@@ -24,7 +25,7 @@ dependencies {
     //web
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
-    val springdocVersion = "2.3.0"
+    val springdocVersion = "2.5.0"
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion")
 	implementation("org.springframework.boot:spring-boot-starter-mail")
 	implementation("org.springframework.boot:spring-boot-starter-mustache")
@@ -47,7 +48,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-jackson:$jwtAPIVersion")
 
     //validation
-    implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+    implementation("jakarta.validation:jakarta.validation-api:3.1.0")
 
     //logging
     implementation("io.github.oshai:kotlin-logging:6.0.9")
@@ -64,7 +65,7 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
     constraints {
-        testImplementation("io.mockk:mockk-jvm:1.13.10") {
+        testImplementation("io.mockk:mockk-jvm:1.13.11") {
             because("old version has \"atLeast = 0\" bug (mockk issue #969)")
         }
     }
@@ -72,11 +73,11 @@ dependencies {
 	//implementation("org.jetbrains.kotlin :kotlin-reflect")
 }
 
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs += "-Xjsr305=strict"
-		jvmTarget = "17"
-	}
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget = JvmTarget.JVM_17
+    }
 }
 
 tasks.withType<Test> {
@@ -85,14 +86,6 @@ tasks.withType<Test> {
 
 springBoot {
 	buildInfo()
-}
-
-koverReport {
-    filters {
-        excludes {
-            classes("io.github.oshai.kotlinlogging.KLogger")
-        }
-    }
 }
 
 /*
