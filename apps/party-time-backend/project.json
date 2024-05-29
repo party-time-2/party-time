@@ -19,13 +19,6 @@
       },
       "outputs": ["{workspaceRoot}/apps/party-time-backend/target"]
     },
-    "test": {
-      "executor": "@nxrocks/nx-spring-boot:test",
-      "options": {
-        "root": "apps/party-time-backend"
-      },
-      "outputs": ["{workspaceRoot}/apps/party-time-backend/target"]
-    },
     "clean": {
       "executor": "@nxrocks/nx-spring-boot:clean",
       "options": {

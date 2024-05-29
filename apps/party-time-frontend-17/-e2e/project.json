@@ -1,0 +1,29 @@
+{
+  "name": "party-time-frontend-17-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/party-time-frontend-17/-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/party-time-frontend-17/-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "party-time-frontend-17:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "party-time-frontend-17:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "party-time-frontend-17:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["party-time-frontend-17"]
+}

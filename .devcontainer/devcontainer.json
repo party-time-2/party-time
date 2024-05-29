@@ -34,6 +34,11 @@
     },
     "ghcr.io/rocker-org/devcontainer-features/pandoc:latest": {
       "version": "latest"
+    },
+    "ghcr.io/devcontainers-contrib/features/gradle-sdkman:2": {
+      "version": "latest",
+      "jdkVersion": "latest",
+      "jdkDistro": "ms"
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -61,7 +66,8 @@
         "github.vscode-pull-request-github",
         "tomoki1207.pdf",
         "ms-python.python",
-        "njpwerner.autodocstring"
+        "njpwerner.autodocstring",
+        "ritwickdey.LiveServer"
       ],
       "settings": {
         "prettier.configPath": ".prettierrc",
