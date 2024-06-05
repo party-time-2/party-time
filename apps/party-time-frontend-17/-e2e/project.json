@@ -17,6 +17,10 @@
         },
         "ci": {
           "devServerTarget": "party-time-frontend-17:serve-static"
+        },
+        "demo":{
+          "watch": true,
+          "command": "npx nx run wordle-time-backend-backend:serve & npx nx run party-time-frontend-17:serve:development"
         }
       }
     },
