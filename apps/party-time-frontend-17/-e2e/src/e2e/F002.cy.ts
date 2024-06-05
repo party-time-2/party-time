@@ -1,37 +1,241 @@
 import { getScreenshotPath } from '../support/utils';
 
-const insert_group = 'worteingabe';
-const error_group = 'worteingabe-error';
-describe(error_group, () => {
+const requiremnt = "F002";
+const event_group = 'change-event';
+describe(event_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const show_letter_input_test = 'should show letter_input';
-  it(show_letter_input_test, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('A');
-    cy.get('[data-cy="letter-0"]').should('have.value', 'A');
+  const change_success_test = 'should show change_success';
+  it(change_success_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, event_group, change_success_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+});
+
+
+const change_event_error_group = 'change-event-error';
+describe(change_event_error_group, () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  const party_addressLineAddition_long_test = 'should show party_addressLineAddition_long';
+  it(party_addressLineAddition_long_test, () => {
 
 
     cy.screenshot(
-      getScreenshotPath('F001', insert_group, show_letter_input_test),
+      getScreenshotPath(requiremnt, change_event_error_group, party_addressLineAddition_long_test),
       {
         overwrite: true,
       }
     );
   });
 
-  const show_non_letter_input = 'should show non_letter_input';
-  it(show_non_letter_input, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('1');
-    cy.get('[data-cy="letter-0"]').should('have.value', ''); // input field should be empty
-    cy.get('[data-cy="guess-button"]').should('be.disabled'); // guess button should be disabled
+  const party_address_long_test = 'should show party_address_long';
+  it(party_address_long_test, () => {
 
 
     cy.screenshot(
-      getScreenshotPath('F001', error_group, show_non_letter_input),
+      getScreenshotPath(requiremnt, change_event_error_group, party_address_long_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_address_required_test = 'should show party_address_required';
+  it(party_address_required_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_address_required_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_address_short_test = 'should show party_address_short';
+  it(party_address_short_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_address_short_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_city_long_test = 'should show party_city_long';
+  it(party_city_long_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_city_long_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_city_required_test = 'should show party_city_required';
+  it(party_city_required_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_city_required_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_city_short_test = 'should show party_city_short';
+  it(party_city_short_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_city_short_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_country_long_test = 'should show party_country_long';
+  it(party_country_long_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_country_long_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_country_required_test = 'should show party_country_required';
+  it(party_country_required_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_country_required_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_country_short_test = 'should show show party_country_short';
+  it(party_country_short_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_country_short_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_create_error_test = 'should show party_create_error';
+  it(party_create_error_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_create_error_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_name_long_test = 'should show party_name_long';
+  it(party_name_long_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_name_long_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_name_required_test = 'should show party_name_required';
+  it(party_name_required_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_name_required_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_name_short_test = 'should show party_name_short';
+  it(party_name_short_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_name_short_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+  
+  const party_zip_chars_test = 'should show party_zip_chars';
+  it(party_zip_chars_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_zip_chars_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_zip_long_test = 'should show party_zip_long';
+  it(party_zip_long_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_zip_long_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_zip_required_test = 'should show party_zip_required';
+  it(party_zip_required_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_zip_required_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const party_zip_short_test = 'should show party_zip_short';
+  it(party_zip_short_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, change_event_error_group, party_zip_short_test),
       {
         overwrite: true,
       }
