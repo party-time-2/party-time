@@ -1,28 +1,28 @@
 {
-    "id": "F004",
-    "title": "Gäste einladen",
-    "reference": "https://github.com/party-time-2/party-time/issues/4",
-    "description": "Die Plattform soll es Veranstaltern ermöglichen, Nutzer zu ihren Events einzuladen, indem sie deren E-Mail-Adresse eingeben. Die Plattform soll automatisch eine E-Mail-Einladung an die eingeladenen Nutzer senden und den Status der Einladung (zugesagt/abgesagt) verfolgen.",
-    "impact": "Diese Funktion ist wichtig, um sicherzustellen, dass Veranstalter die eingeladenen Nutzer einfach und effizient ohne Medienbruch einladen und den Status der Zu- und Absagen verfolgen könnnen. Die Möglichkeit, Nutzer einzuladen, kann zu einer positiven Benutzererfahrung beitragen und die Nutzerbindung erhöhen.",
-    "criteria": [
-      "Veranstalter sollten in der Lage sein, Nutzer zu ihren Events einzuladen, indem sie deren E-Mail-Adresse in ein entsprechendes Feld eingeben.",
-      "Die Plattform sollte automatisch eine E-Mail-Einladung an die eingeladenen Nutzer senden.",
-      "Die Plattform sollte den Status der Einladungen verfolgen und anzeigen, ob sie zu- oder abgesagt wurden."
-    ],
-    "testCases": [
-      {
-        "name": "Testfall 1",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe einen Buchstaben ein.",
-        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-        "testPic": "worteingabe -- should show letter_input.png"
-      },
-      {
-        "name": "Testfall 2",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe eine Zahl ein.",
-        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-        "testPic": "worteingabe-error -- should show non_letter_input.png"
-      }
-    ]
-  }
+  "id": "F004",
+  "title": "Gäste einladen",
+  "reference": "https://github.com/party-time-2/party-time/issues/4",
+  "description": "Die Plattform soll es Veranstaltern ermöglichen, Nutzer zu ihren Events einzuladen, indem sie deren E-Mail-Adresse eingeben. Die Plattform soll automatisch eine E-Mail-Einladung an die eingeladenen Nutzer senden und den Status der Einladung (zugesagt/abgesagt) verfolgen.",
+  "impact": "Diese Funktion ist wichtig, um sicherzustellen, dass Veranstalter die eingeladenen Nutzer einfach und effizient ohne Medienbruch einladen und den Status der Zu- und Absagen verfolgen könnnen. Die Möglichkeit, Nutzer einzuladen, kann zu einer positiven Benutzererfahrung beitragen und die Nutzerbindung erhöhen.",
+  "criteria": [
+    "Veranstalter sollten in der Lage sein, Nutzer zu ihren Events einzuladen, indem sie deren E-Mail-Adresse in ein entsprechendes Feld eingeben.",
+    "Die Plattform sollte automatisch eine E-Mail-Einladung an die eingeladenen Nutzer senden.",
+    "Die Plattform sollte den Status der Einladungen verfolgen und anzeigen, ob sie zu- oder abgesagt wurden."
+  ],
+  "testCases": [
+    {
+      "name": "Testfall 1",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe einen Buchstaben ein.",
+      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+      "testPic": "worteingabe -- should show letter_input.png"
+    },
+    {
+      "name": "Testfall 2",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe eine Zahl ein.",
+      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+      "testPic": "worteingabe-error -- should show non_letter_input.png"
+    }
+  ]
+}

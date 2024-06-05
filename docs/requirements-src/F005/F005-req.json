@@ -1,28 +1,28 @@
 {
-    "id": "F005",
-    "title": "Gäste ausladen",
-    "reference": "https://github.com/party-time-2/party-time/issues/5",
-    "description": "Die Plattform soll es Veranstaltern ermöglichen, eingeladene Nutzer von einem Event auszuladen.",
-    "impact": "Diese Funktion ermöglicht Veranstaltern, die Teilnehmerliste ihres Events zu verwalten und unerwünschte eingeladene Nutzer auszuladen. Dadurch kann die Organisation des Events erleichtert und die Zufriedenheit der anderen eingeladenen Nutzer erhöht werden.",
-    "criteria": [
-      "Veranstalter können einzelne eingeladene Nutzer ausladen.",
-      "Eingeladene Nutzer, die ausgeladen wurden, erhalten eine Benachrichtigung über ihre Ausladung.",
-      "Eingeladene Nutzer, die ausgeladen wurden, können das Event nicht mehr einsehen oder daran teilnehmen."
-    ],
-    "testCases": [
-      {
-        "name": "Testfall 1",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe einen Buchstaben ein.",
-        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-        "testPic": "worteingabe -- should show letter_input.png"
-      },
-      {
-        "name": "Testfall 2",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe eine Zahl ein.",
-        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-        "testPic": "worteingabe-error -- should show non_letter_input.png"
-      }
-    ]
-  }
+  "id": "F005",
+  "title": "Gäste ausladen",
+  "reference": "https://github.com/party-time-2/party-time/issues/5",
+  "description": "Die Plattform soll es Veranstaltern ermöglichen, eingeladene Nutzer von einem Event auszuladen.",
+  "impact": "Diese Funktion ermöglicht Veranstaltern, die Teilnehmerliste ihres Events zu verwalten und unerwünschte eingeladene Nutzer auszuladen. Dadurch kann die Organisation des Events erleichtert und die Zufriedenheit der anderen eingeladenen Nutzer erhöht werden.",
+  "criteria": [
+    "Veranstalter können einzelne eingeladene Nutzer ausladen.",
+    "Eingeladene Nutzer, die ausgeladen wurden, erhalten eine Benachrichtigung über ihre Ausladung.",
+    "Eingeladene Nutzer, die ausgeladen wurden, können das Event nicht mehr einsehen oder daran teilnehmen."
+  ],
+  "testCases": [
+    {
+      "name": "Testfall 1",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe einen Buchstaben ein.",
+      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+      "testPic": "worteingabe -- should show letter_input.png"
+    },
+    {
+      "name": "Testfall 2",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe eine Zahl ein.",
+      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+      "testPic": "worteingabe-error -- should show non_letter_input.png"
+    }
+  ]
+}

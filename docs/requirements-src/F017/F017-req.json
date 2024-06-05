@@ -1,28 +1,28 @@
 {
-    "id": "F017",
-    "title": "Benachrichtigungen zum Event",
-    "reference": "https://github.com/party-time-2/party-time/issues/17",
+  "id": "F017",
+  "title": "Benachrichtigungen zum Event",
+  "reference": "https://github.com/party-time-2/party-time/issues/17",
 
-    "description": "Die Benachrichtigungen sollen Veranstalter und Teilnehmer über wichtige Ereignisse im Zusammenhang mit dem Event informieren, z.B. bevorstehende Termine, Änderungen am Event.",
-    "impact": "Die Benachrichtigungen tragen dazu bei, dass Veranstalter und Teilnehmer stets auf dem Laufenden sind und keine wichtigen Informationen verpassen.",
-    "criteria": [
-      "Die Benachrichtigungen sollen automatisch generiert und an die betreffenden Personen gesendet werden.",
-      "Sie sollten prägnant und klar verständlich formuliert sein und die wichtigsten Informationen zu den jeweiligen Ereignissen enthalten."
-    ],
-    "testCases": [
-      {
-        "name": "Testfall 1",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe einen Buchstaben ein.",
-        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-        "testPic": "worteingabe -- should show letter_input.png"
-      },
-      {
-        "name": "Testfall 2",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe eine Zahl ein.",
-        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-        "testPic": "worteingabe-error -- should show non_letter_input.png"
-      }
-    ]
-  }
+  "description": "Die Benachrichtigungen sollen Veranstalter und Teilnehmer über wichtige Ereignisse im Zusammenhang mit dem Event informieren, z.B. bevorstehende Termine, Änderungen am Event.",
+  "impact": "Die Benachrichtigungen tragen dazu bei, dass Veranstalter und Teilnehmer stets auf dem Laufenden sind und keine wichtigen Informationen verpassen.",
+  "criteria": [
+    "Die Benachrichtigungen sollen automatisch generiert und an die betreffenden Personen gesendet werden.",
+    "Sie sollten prägnant und klar verständlich formuliert sein und die wichtigsten Informationen zu den jeweiligen Ereignissen enthalten."
+  ],
+  "testCases": [
+    {
+      "name": "Testfall 1",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe einen Buchstaben ein.",
+      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+      "testPic": "worteingabe -- should show letter_input.png"
+    },
+    {
+      "name": "Testfall 2",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe eine Zahl ein.",
+      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+      "testPic": "worteingabe-error -- should show non_letter_input.png"
+    }
+  ]
+}

@@ -1,26 +1,26 @@
 {
-    "id": "F014",
-    "title": "Konto verifizieren",
-    "reference": "https://github.com/party-time-2/party-time/issues/14",
-    "description": "Die Plattform muss in der Lage sein, Benutzerkonten zu verifizieren, um sicherzustellen, dass die angegebenen Informationen korrekt sind und dass die Benutzer echt sind.",
-    "impact": "Durch die Verifizierung von Benutzerkonten kann das Vertrauen der Benutzer in die Plattform gestärkt werden und es kann dazu beitragen, dass betrügerische Aktivitäten reduziert werden.",
-    "criteria": [
-      "Benutzer müssen bei der Registrierung Name und E-Mail-Adresse angeben."
-    ],
-    "testCases": [
-      {
-        "name": "Testfall 1",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe einen Buchstaben ein.",
-        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-        "testPic": "worteingabe -- should show letter_input.png"
-      },
-      {
-        "name": "Testfall 2",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe eine Zahl ein.",
-        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-        "testPic": "worteingabe-error -- should show non_letter_input.png"
-      }
-    ]
-  }
+  "id": "F014",
+  "title": "Konto verifizieren",
+  "reference": "https://github.com/party-time-2/party-time/issues/14",
+  "description": "Die Plattform muss in der Lage sein, Benutzerkonten zu verifizieren, um sicherzustellen, dass die angegebenen Informationen korrekt sind und dass die Benutzer echt sind.",
+  "impact": "Durch die Verifizierung von Benutzerkonten kann das Vertrauen der Benutzer in die Plattform gestärkt werden und es kann dazu beitragen, dass betrügerische Aktivitäten reduziert werden.",
+  "criteria": [
+    "Benutzer müssen bei der Registrierung Name und E-Mail-Adresse angeben."
+  ],
+  "testCases": [
+    {
+      "name": "Testfall 1",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe einen Buchstaben ein.",
+      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+      "testPic": "worteingabe -- should show letter_input.png"
+    },
+    {
+      "name": "Testfall 2",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe eine Zahl ein.",
+      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+      "testPic": "worteingabe-error -- should show non_letter_input.png"
+    }
+  ]
+}

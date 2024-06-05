@@ -1,29 +1,29 @@
 {
-    "id": "F019",
-    "title": "Karlendareintrag exportieren",
-    "reference": "https://github.com/party-time-2/party-time/issues/19",
-    "description": "Die Nutzer sollen die Möglichkeit haben, Kalendereinträge aus der Event-Plattform in andere Kalenderanwendungen zu exportieren.",
-    "impact": "Nutzer können den Kalendereintrag in anderen Anwendungen wie z.B. Outlook oder Google Kalender importieren und den Termin automatisch in ihrem eigenen Kalender verfügbar machen.",
-    "criteria": [
-      "Der Nutzer kann den Kalendereintrag aus der Event-Plattform exportieren",
-      "Der exportierte Kalendereintrag enthält alle relevanten Informationen wie z.B. Titel, Datum, Uhrzeit und Ort des Events.",
-      "Der exportierte Kalendereintrag ist in einem gängigen Dateiformat wie .ics verfügbar.",
-      "Der exportierte Kalendereintrag kann in anderen Kalenderanwendungen importiert werden."
-    ],
-    "testCases": [
-      {
-        "name": "Testfall 1",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe einen Buchstaben ein.",
-        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-        "testPic": "worteingabe -- should show letter_input.png"
-      },
-      {
-        "name": "Testfall 2",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe eine Zahl ein.",
-        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-        "testPic": "worteingabe-error -- should show non_letter_input.png"
-      }
-    ]
-  }
+  "id": "F019",
+  "title": "Karlendareintrag exportieren",
+  "reference": "https://github.com/party-time-2/party-time/issues/19",
+  "description": "Die Nutzer sollen die Möglichkeit haben, Kalendereinträge aus der Event-Plattform in andere Kalenderanwendungen zu exportieren.",
+  "impact": "Nutzer können den Kalendereintrag in anderen Anwendungen wie z.B. Outlook oder Google Kalender importieren und den Termin automatisch in ihrem eigenen Kalender verfügbar machen.",
+  "criteria": [
+    "Der Nutzer kann den Kalendereintrag aus der Event-Plattform exportieren",
+    "Der exportierte Kalendereintrag enthält alle relevanten Informationen wie z.B. Titel, Datum, Uhrzeit und Ort des Events.",
+    "Der exportierte Kalendereintrag ist in einem gängigen Dateiformat wie .ics verfügbar.",
+    "Der exportierte Kalendereintrag kann in anderen Kalenderanwendungen importiert werden."
+  ],
+  "testCases": [
+    {
+      "name": "Testfall 1",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe einen Buchstaben ein.",
+      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+      "testPic": "worteingabe -- should show letter_input.png"
+    },
+    {
+      "name": "Testfall 2",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe eine Zahl ein.",
+      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+      "testPic": "worteingabe-error -- should show non_letter_input.png"
+    }
+  ]
+}

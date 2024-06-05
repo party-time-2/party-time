@@ -1,26 +1,26 @@
 {
-    "id": "F001",
-    "title": "Events anlegen",
-    "reference": "https://github.com/party-time-2/party-time/issues/1",
-    "description": "Die Plattform soll es Benutzern ermöglichen, Events zu erstellen, indem sie folgende Informationen angeben: Name des Events, Datum, Uhrzeit, Veranstaltungsort",
-    "impact": "Die Möglichkeit, Events auf der Plattform zu erstellen, ist eine Kernfunktion, die es Veranstaltern ermöglicht Events zu planen und zu organisieren. Diese Funktion kann zu einer steigenden Nutzerzahl beitragen.",
-    "criteria": [
-      "Veranstalter sollten in der Lage sein, ein neues Event anzulegen, indem sie ein Formular ausfüllen, in dem sie alle relevanten Informationen angeben."
-    ],
-    "testCases": [
-      {
-        "name": "Testfall 1",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe einen Buchstaben ein.",
-        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-        "testPic": "worteingabe -- should show letter_input.png"
-      },
-      {
-        "name": "Testfall 2",
-        "requirement": "Das Spiel wurde gestartet.",
-        "action": "Ich gebe eine Zahl ein.",
-        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-        "testPic": "worteingabe-error -- should show non_letter_input.png"
-      }
-    ]
-  }
+  "id": "F001",
+  "title": "Events anlegen",
+  "reference": "https://github.com/party-time-2/party-time/issues/1",
+  "description": "Die Plattform soll es Benutzern ermöglichen, Events zu erstellen, indem sie folgende Informationen angeben: Name des Events, Datum, Uhrzeit, Veranstaltungsort",
+  "impact": "Die Möglichkeit, Events auf der Plattform zu erstellen, ist eine Kernfunktion, die es Veranstaltern ermöglicht Events zu planen und zu organisieren. Diese Funktion kann zu einer steigenden Nutzerzahl beitragen.",
+  "criteria": [
+    "Veranstalter sollten in der Lage sein, ein neues Event anzulegen, indem sie ein Formular ausfüllen, in dem sie alle relevanten Informationen angeben."
+  ],
+  "testCases": [
+    {
+      "name": "Testfall 1",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe einen Buchstaben ein.",
+      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+      "testPic": "worteingabe -- should show letter_input.png"
+    },
+    {
+      "name": "Testfall 2",
+      "requirement": "Das Spiel wurde gestartet.",
+      "action": "Ich gebe eine Zahl ein.",
+      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+      "testPic": "worteingabe-error -- should show non_letter_input.png"
+    }
+  ]
+}

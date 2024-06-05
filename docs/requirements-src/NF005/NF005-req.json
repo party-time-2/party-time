@@ -1,9 +1,10 @@
 {
   "id": "NF005",
-    "title": "Performance",
-    "reference": "https://github.com/party-time-2/party-time/issues/23",   
-    "description": "Das System muss eine akzeptable Performance unter der erwarteten Last bieten, um ein reibungsloses Benutzererlebnis zu gewährleisten.",
-    "impact": "Die Performance beeinflusst die Nutzerzufriedenheit und hat Auswirkungen auf die Produktivität.",
-    "criteria": [
-      "Das System sollte schnell reagieren, auch wenn es von vielen Benutzern verwendet wird. Es sollte keine langen Ladezeiten oder Verzögerungen geben. Die Antwortzeit sollte angemessen sein und innerhalb der erwarteten Grenzen liegen."        ]
-  }
+  "title": "Performance",
+  "reference": "https://github.com/party-time-2/party-time/issues/23",
+  "description": "Das System muss eine akzeptable Performance unter der erwarteten Last bieten, um ein reibungsloses Benutzererlebnis zu gewährleisten.",
+  "impact": "Die Performance beeinflusst die Nutzerzufriedenheit und hat Auswirkungen auf die Produktivität.",
+  "criteria": [
+    "Das System sollte schnell reagieren, auch wenn es von vielen Benutzern verwendet wird. Es sollte keine langen Ladezeiten oder Verzögerungen geben. Die Antwortzeit sollte angemessen sein und innerhalb der erwarteten Grenzen liegen."
+  ]
+}

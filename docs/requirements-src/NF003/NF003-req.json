@@ -1,11 +1,11 @@
 {
-    "id": "NF003",
-    "title": "Zuverlässigkeit",
-    "reference": "https://github.com/party-time-2/party-time/issues/22",
-    "description": "Das System muss zuverlässig sein und eine hohe Verfügbarkeit gewährleisten, um Ausfallzeiten zu minimieren und eine reibungslose Nutzung zu ermöglichen.",
-    "impact": "Eine geringe Zuverlässigkeit kann zu Ausfallzeiten, Datenverlust und einem negativen Nutzererlebnis führen.",
-    "criteria": [
-      "Es müssen regelmäßige Backups durchgeführt werden, um Datenverluste zu vermeiden.",
-      "Es sollten Mechanismen zur Überwachung und Fehlerbehebung implementiert werden, um schnell auf Ausfälle oder Störungen reagieren zu können."
-    ]
-  }
+  "id": "NF003",
+  "title": "Zuverlässigkeit",
+  "reference": "https://github.com/party-time-2/party-time/issues/22",
+  "description": "Das System muss zuverlässig sein und eine hohe Verfügbarkeit gewährleisten, um Ausfallzeiten zu minimieren und eine reibungslose Nutzung zu ermöglichen.",
+  "impact": "Eine geringe Zuverlässigkeit kann zu Ausfallzeiten, Datenverlust und einem negativen Nutzererlebnis führen.",
+  "criteria": [
+    "Es müssen regelmäßige Backups durchgeführt werden, um Datenverluste zu vermeiden.",
+    "Es sollten Mechanismen zur Überwachung und Fehlerbehebung implementiert werden, um schnell auf Ausfälle oder Störungen reagieren zu können."
+  ]
+}
