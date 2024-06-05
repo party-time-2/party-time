@@ -1,18 +1,18 @@
 import { getScreenshotPath } from '../support/utils';
 
-const requiremnt = "F001";
+const requirement = "F001";
 
-const event_group = 'create-event';
-describe(event_group, () => {
+const success_group = 'create-event-success';
+describe(success_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const create_success_test = 'should show create_success';
-  it(create_success_test, () => {
+  const create_test = 'should show create';
+  it(create_test, () => {
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_group, create_success_test),
+      getScreenshotPath(requirement, success_group, create_test),
       {
         overwrite: true,
       }
@@ -21,8 +21,8 @@ describe(event_group, () => {
 });
 
 
-const event_error_group = 'create-event-error';
-describe(event_error_group, () => {
+const error_group = 'create-event-error';
+describe(error_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
@@ -32,7 +32,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_addressLineAddition_long_test),
+      getScreenshotPath(requirement, error_group, party_addressLineAddition_long_test),
       {
         overwrite: true,
       }
@@ -44,7 +44,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_address_long_test),
+      getScreenshotPath(requirement, error_group, party_address_long_test),
       {
         overwrite: true,
       }
@@ -56,7 +56,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_address_required_test),
+      getScreenshotPath(requirement, error_group, party_address_required_test),
       {
         overwrite: true,
       }
@@ -68,7 +68,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_address_short_test),
+      getScreenshotPath(requirement, error_group, party_address_short_test),
       {
         overwrite: true,
       }
@@ -80,7 +80,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_city_long_test),
+      getScreenshotPath(requirement, error_group, party_city_long_test),
       {
         overwrite: true,
       }
@@ -92,7 +92,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_city_required_test),
+      getScreenshotPath(requirement, error_group, party_city_required_test),
       {
         overwrite: true,
       }
@@ -104,7 +104,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_city_short_test),
+      getScreenshotPath(requirement, error_group, party_city_short_test),
       {
         overwrite: true,
       }
@@ -116,7 +116,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_country_long_test),
+      getScreenshotPath(requirement, error_group, party_country_long_test),
       {
         overwrite: true,
       }
@@ -128,7 +128,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_country_required_test),
+      getScreenshotPath(requirement, error_group, party_country_required_test),
       {
         overwrite: true,
       }
@@ -140,7 +140,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_country_short_test),
+      getScreenshotPath(requirement, error_group, party_country_short_test),
       {
         overwrite: true,
       }
@@ -152,7 +152,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_create_error_test),
+      getScreenshotPath(requirement, error_group, party_create_error_test),
       {
         overwrite: true,
       }
@@ -164,7 +164,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_name_long_test),
+      getScreenshotPath(requirement, error_group, party_name_long_test),
       {
         overwrite: true,
       }
@@ -176,7 +176,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_name_required_test),
+      getScreenshotPath(requirement, error_group, party_name_required_test),
       {
         overwrite: true,
       }
@@ -188,7 +188,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_name_short_test),
+      getScreenshotPath(requirement, error_group, party_name_short_test),
       {
         overwrite: true,
       }
@@ -200,7 +200,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_zip_chars_test),
+      getScreenshotPath(requirement, error_group, party_zip_chars_test),
       {
         overwrite: true,
       }
@@ -212,7 +212,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_zip_long_test),
+      getScreenshotPath(requirement, error_group, party_zip_long_test),
       {
         overwrite: true,
       }
@@ -224,7 +224,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_zip_required_test),
+      getScreenshotPath(requirement, error_group, party_zip_required_test),
       {
         overwrite: true,
       }
@@ -236,7 +236,7 @@ describe(event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_error_group, party_zip_short_test),
+      getScreenshotPath(requirement, error_group, party_zip_short_test),
       {
         overwrite: true,
       }

@@ -1,37 +1,90 @@
 import { getScreenshotPath } from '../support/utils';
 
-const insert_group = 'worteingabe';
-const error_group = 'worteingabe-error';
+const requirement = "F013";
+const success_group = 'change success';
+describe(success_group, () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  const change_test = 'should show change';
+  it(change_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, success_group, change_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+});
+
+const error_group = 'change error';
 describe(error_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const show_letter_input_test = 'should show letter_input';
-  it(show_letter_input_test, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('A');
-    cy.get('[data-cy="letter-0"]').should('have.value', 'A');
-
+  const change_test = 'should show change';
+  it(change_test, () => {
 
     cy.screenshot(
-      getScreenshotPath('F001', insert_group, show_letter_input_test),
+      getScreenshotPath(requirement, error_group, change_test),
       {
         overwrite: true,
       }
     );
   });
 
-  const show_non_letter_input = 'should show non_letter_input';
-  it(show_non_letter_input, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('1');
-    cy.get('[data-cy="letter-0"]').should('have.value', ''); // input field should be empty
-    cy.get('[data-cy="guess-button"]').should('be.disabled'); // guess button should be disabled
-
+  const pw_new_long_test = 'should show pw_new_long';
+  it(pw_new_long_test, () => {
 
     cy.screenshot(
-      getScreenshotPath('F001', error_group, show_non_letter_input),
+      getScreenshotPath(requirement, error_group, pw_new_long_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const pw_new_required_test = 'should show pw_new_required';
+  it(pw_new_required_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, error_group, pw_new_required_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const pw_new_short_test = 'should show pw_new_short';
+  it(pw_new_short_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, error_group, pw_new_short_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const pw_new_wrong_chars_test = 'should show pw_new_wrong_chars';
+  it(pw_new_wrong_chars_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, error_group, pw_new_wrong_chars_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const pw_old_required_test = 'should show pw_old_required';
+  it(pw_old_required_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, error_group, pw_old_required_test),
       {
         overwrite: true,
       }

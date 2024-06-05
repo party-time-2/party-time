@@ -1,8 +1,8 @@
 import { getScreenshotPath } from '../support/utils';
 
-const requiremnt = "F004";
-const event_group = 'party-time-add-participant-success';
-describe(event_group, () => {
+const requirement = "F004";
+const success_group = 'party-time-add-participant-success';
+describe(success_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
@@ -11,7 +11,7 @@ describe(event_group, () => {
   it(participant_invite_test, () => {
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_group, participant_invite_test),
+      getScreenshotPath(requirement, success_group, participant_invite_test),
       {
         overwrite: true,
       }
@@ -20,8 +20,8 @@ describe(event_group, () => {
 });
 
 
-const party_time_add_participant_error_group = 'party-time-add-participant-error';
-describe(party_time_add_participant_error_group, () => {
+const error_group = 'party-time-add-participant-error';
+describe(error_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
@@ -31,7 +31,7 @@ describe(party_time_add_participant_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, party_time_add_participant_error_group, participant_already_invited_error_test),
+      getScreenshotPath(requirement, error_group, participant_already_invited_error_test),
       {
         overwrite: true,
       }
@@ -43,7 +43,7 @@ describe(party_time_add_participant_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, party_time_add_participant_error_group, participant_email_invalid_error_test),
+      getScreenshotPath(requirement, error_group, participant_email_invalid_error_test),
       {
         overwrite: true,
       }
@@ -55,7 +55,7 @@ describe(party_time_add_participant_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, party_time_add_participant_error_group, participant_unknown_error_test),
+      getScreenshotPath(requirement, error_group, participant_unknown_error_test),
       {
         overwrite: true,
       }

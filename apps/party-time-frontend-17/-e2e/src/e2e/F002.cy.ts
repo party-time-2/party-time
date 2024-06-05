@@ -1,17 +1,17 @@
 import { getScreenshotPath } from '../support/utils';
 
-const requiremnt = "F002";
-const event_group = 'change-event';
-describe(event_group, () => {
+const requirement = "F002";
+const success_group = 'change-event-success';
+describe(success_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const change_success_test = 'should show change_success';
+  const change_success_test = 'should show change';
   it(change_success_test, () => {
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, event_group, change_success_test),
+      getScreenshotPath(requirement, success_group, change_success_test),
       {
         overwrite: true,
       }
@@ -20,8 +20,8 @@ describe(event_group, () => {
 });
 
 
-const change_event_error_group = 'change-event-error';
-describe(change_event_error_group, () => {
+const error_group = 'change-event-error';
+describe(error_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
@@ -31,7 +31,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_addressLineAddition_long_test),
+      getScreenshotPath(requirement, error_group, party_addressLineAddition_long_test),
       {
         overwrite: true,
       }
@@ -43,7 +43,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_address_long_test),
+      getScreenshotPath(requirement, error_group, party_address_long_test),
       {
         overwrite: true,
       }
@@ -55,7 +55,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_address_required_test),
+      getScreenshotPath(requirement, error_group, party_address_required_test),
       {
         overwrite: true,
       }
@@ -67,7 +67,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_address_short_test),
+      getScreenshotPath(requirement, error_group, party_address_short_test),
       {
         overwrite: true,
       }
@@ -79,7 +79,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_city_long_test),
+      getScreenshotPath(requirement, error_group, party_city_long_test),
       {
         overwrite: true,
       }
@@ -91,7 +91,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_city_required_test),
+      getScreenshotPath(requirement, error_group, party_city_required_test),
       {
         overwrite: true,
       }
@@ -103,7 +103,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_city_short_test),
+      getScreenshotPath(requirement, error_group, party_city_short_test),
       {
         overwrite: true,
       }
@@ -115,7 +115,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_country_long_test),
+      getScreenshotPath(requirement, error_group, party_country_long_test),
       {
         overwrite: true,
       }
@@ -127,7 +127,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_country_required_test),
+      getScreenshotPath(requirement, error_group, party_country_required_test),
       {
         overwrite: true,
       }
@@ -139,7 +139,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_country_short_test),
+      getScreenshotPath(requirement, error_group, party_country_short_test),
       {
         overwrite: true,
       }
@@ -151,7 +151,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_create_error_test),
+      getScreenshotPath(requirement, error_group, party_create_error_test),
       {
         overwrite: true,
       }
@@ -163,7 +163,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_name_long_test),
+      getScreenshotPath(requirement, error_group, party_name_long_test),
       {
         overwrite: true,
       }
@@ -175,7 +175,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_name_required_test),
+      getScreenshotPath(requirement, error_group, party_name_required_test),
       {
         overwrite: true,
       }
@@ -187,7 +187,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_name_short_test),
+      getScreenshotPath(requirement, error_group, party_name_short_test),
       {
         overwrite: true,
       }
@@ -199,7 +199,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_zip_chars_test),
+      getScreenshotPath(requirement, error_group, party_zip_chars_test),
       {
         overwrite: true,
       }
@@ -211,7 +211,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_zip_long_test),
+      getScreenshotPath(requirement, error_group, party_zip_long_test),
       {
         overwrite: true,
       }
@@ -223,7 +223,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_zip_required_test),
+      getScreenshotPath(requirement, error_group, party_zip_required_test),
       {
         overwrite: true,
       }
@@ -235,7 +235,7 @@ describe(change_event_error_group, () => {
 
 
     cy.screenshot(
-      getScreenshotPath(requiremnt, change_event_error_group, party_zip_short_test),
+      getScreenshotPath(requirement, error_group, party_zip_short_test),
       {
         overwrite: true,
       }
