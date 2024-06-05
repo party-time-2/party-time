@@ -1,0 +1,58 @@
+@startuml F004_gaesteEinladen_act
+<style file=../../plantStyle.css>
+title "Gäste einladen"
+
+|Veranstaltender Nutzer|
+start
+:Party Time "Events Überblicken" Webseite öffnen;
+:"Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist, anklicken;
+repeat
+    :E-Mail-Adresse von einzuladendem Nutzer eingeben;
+    |Frontend Validator|
+    :Prüfe E-Mail Adresse;
+    backward:Fehlerhafte E-Mail Adresse markieren;
+    note right
+        participant_email_invalid: Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet.
+    end note
+repeat while ()
+|Veranstaltender Nutzer|
+:Mit "Hinzufügen" Knopf Eingabe bestätigen;
+:E-Mail-Adresse des einzuladenden Nutzers an Server übermitteln;
+|Gast einladen Controller|
+:E-Mail-Adresse auf Plattform registriert prüfen;
+if () then (Nutzer mit E-Mail-Adresse auf Plattform noch nicht registriert)
+    :Fehlermeldung bzgl. Gast nicht gefunden senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung bzgl. Gast nicht gefunden empfangen;
+    :Fehlermeldung bzgl. Gast nicht gefunden anzeigen;
+    note right
+        participant_unknown: Es kann kein Account mit dieser E-Mail gefunden werden.
+    end note
+    stop
+else (E-Mail-Adresse noch nicht eingeladen)
+endif
+|Gast einladen Controller|
+:E-Mail-Adresse noch nicht eingeladen prüfen;
+if () then (E-Mail-Adresse bereits eingeladen)
+    :Fehlermeldung bzgl. Gast bereits eingeladen senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung bzgl. Gast bereits eingeladen empfangen;
+    :Fehlermeldung bzgl. Gast bereits eingeladen anzeigen;
+    note right
+        participant_already_invited: Der Account mit der Email [participant_email]  wurde bereits eingeladen
+    end note
+    stop
+else (E-Mail-Adresse noch nicht eingeladen)
+endif
+|Gast einladen Controller|
+:Gasteinladung via E-Mail an einzuladenden Nutzer senden;
+:Information über Einladung persistieren;
+:Bestätigung der Einladung an Veranstaltenden Nutzer senden;
+|Veranstaltender Nutzer|
+:Bestätigung Gasteinladung empfangen;
+:Bestätigung Gasteinladung anzeigen;
+note right
+    participant_invite: //Eingeladene Person wird in der Liste der Gäste als eingeladen angezeigt
+end note
+stop
+@enduml

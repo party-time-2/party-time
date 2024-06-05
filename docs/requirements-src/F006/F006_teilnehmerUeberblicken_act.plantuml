@@ -1,0 +1,19 @@
+@startuml F006_teilnehmerUeberblicken_act
+<style file=../../plantStyle.css>
+title "Teilnehmer überblicken"
+
+|Veranstaltender Nutzer|
+start
+:"Teilnehmer bearbeiten" Button bei veranstaltetem Event anklicken;
+:Teilnehmerliste anfordern;
+|Teilnehmerübersicht Controller|
+:Teilnehmerliste zusammenstellen;
+:Teilnehmerliste übermitteln;
+|Veranstaltender Nutzer|
+:Teilnehmerliste empfangen;
+:Teilnehmerübersicht anzeigen;
+note right
+    view_participants: Teilnehmer überblicken
+end note
+stop
+@enduml

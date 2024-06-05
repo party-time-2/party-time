@@ -1,0 +1,11 @@
+{
+    "id": "NF001",
+    "title": "Variable Nutzeranzahl",
+    "reference": "https://github.com/party-time-2/party-time/issues/20",
+    "description": "Die Anwendung muss in der Lage sein, eine variable Anzahl von Nutzern zu verwalten und zu unterstützen.",
+    "impact": "Die Nutzerzahl kann stark schwanken und muss schnell und einfach skaliert werden können.",
+    "criteria": [
+      "Die Anwendung muss so gestaltet sein, dass sie in der Lage ist, die Nutzerzahl dynamisch anzupassen, ohne dass dabei die Leistung oder Stabilität der Anwendung beeinträchtigt wird.",
+      "Die Datenbank und die Serverarchitektur müssen so skaliert werden, dass sie mit der steigenden Nutzerzahl umgehen können."
+    ]
+  }

@@ -1,0 +1,15 @@
+@startuml F017_BenachrichtigungenZumEvent_act
+<style file=../../plantStyle.css>
+title "Benachrichtigungen zum Event"
+
+|Event-Änderung/Event-Absage Controller|
+start
+note right
+    Startet bei Event-Änderung oder -Absage
+end note
+:Informationen über geändertes Event zusammenstellen;
+:Informationen über geändertes Event an Teilnehmer via E-Mail senden;
+|Event-Teilnehmer|
+:Informationen über geändertes Event via E-Mail empfangen;
+stop
+@enduml

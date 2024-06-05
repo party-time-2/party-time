@@ -1,0 +1,18 @@
+@startuml F019_KalendereintragExportieren_act
+<style file=../../plantStyle.css>
+title "Kalendereintrag exportieren"
+
+|Event-Zusage/Event-Änderung Controller|
+start
+note right
+    Startet bei Event-Zusage oder -Änderung
+end note
+:Kalendereintrag exportieren Anfrage senden;
+|Kalendereintrag exportieren Controller|
+:Kalendereintrag exportieren Anfrage empfangen;
+:Kalendereintrag incl. .ics Datei erstellen;
+:Kalendereintrag via E-Mail an Nutzer senden;
+|Event-Teilnehmer|
+:Kalendereintrag via E-Mail empfangen;
+stop
+@enduml

@@ -1,0 +1,23 @@
+@startuml F008_zusageZumEventGeben_seq
+title "Zusage zum Event geben"
+
+actor "Eingeladener Nutzer" as user
+boundary "Nutzer Email" as userMail
+boundary "Zusagen Webseite" as acceptMask
+actor "Einladung Controller" as controller
+database "Datenbank" as db
+
+user -> userMail: Zusagen-Link anklicken
+activate user
+userMail -> acceptMask: Zusage Webseite öffnen
+activate acceptMask
+acceptMask -> controller: Zusage senden
+activate controller
+controller -> db: Zusage speichern
+controller <-- db: Zusage gespeichert
+controller <-- acceptMask: Zusage bestätigen
+deactivate controller
+user <-- acceptMask: Bestätigung der Zusage anzeigen
+deactivate acceptMask
+deactivate user
+@enduml

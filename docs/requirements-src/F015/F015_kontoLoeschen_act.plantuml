@@ -1,0 +1,41 @@
+@startuml F015_kontoLoeschen_act
+<style file=../../plantStyle.css>
+title "Konto löschen"
+
+|Angemeldeter Nutzer|
+start
+:Öffne Party Time "Konto löschen" Webseite;
+    repeat
+        :Passwort eingeben;
+        |Frontend Validator|
+        :Prüfe Passwort eingegeben;
+    backward: Leeres Passwort Feld markieren;
+    note right
+        password_required: Bitte gib dein Passwort ein.
+    end note
+repeat while () is (Passwort nicht eingegeben) not (Passwort eingegeben)
+:Aktiviere Konto löschen Formular-senden Knopf;
+|Angemeldeter Nutzer|
+:Betätige Konto löschen Formular-senden Knopf;
+|Frontend Validator|
+:Nachfragen ob Konto tatsächlich gelöscht werden soll;
+|Angemeldeter Nutzer|
+:Bestätige Konto tatsächlich löschen;
+|Registration Controller|
+:Gespeicherten Passwort Hash für angemeldeten Nutzer ermitteln;
+:Altes übermitteltes Passwort hashen und mit gespeichertem Passwort vergleichen;
+if () then (Hash altes Passwort und gespeicherter Passwort Hash gleich)
+    :Lösche Daten des angemeldeten Benutzers;
+    :Bestätige Löschung Benutzerkonto;
+    |Angemeldeter Nutzer|
+    :Lösche lokale Nutzerdaten;
+    :Zeige "Konto Löschen erfolgreich" Meldung;
+    stop
+else (Hash altes Passwort und gespeicherter Passwort Hash ungleich)
+endif
+|Registration Controller|
+:Übermittle Fehlermeldung;
+|Angemeldeter Nutzer|
+:Zeige "Konto löschen fehlgeschlagen" Meldung;
+stop
+@enduml

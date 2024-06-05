@@ -1,0 +1,32 @@
+@startuml F014_kontoVerifizieren_seq
+title "Konto verifizieren"
+
+actor "Validierung Controller" as controller
+database "Datenbank" as db
+boundary "Email-Validierung Webseite" as signupConfirm
+boundary "Nutzer Email" as userMail
+actor "Nutzer" as user
+
+
+'E-Mail Validierung
+activate controller
+controller -> controller: Generiere Verifizieren-Token für Nutzer
+userMail <- controller: Sende Verifizieren-Link und Verifizieren-Token
+deactivate controller
+
+userMail -> user: Informiere neue E-Mail
+activate user
+userMail <-- user: Prüfe Mail
+userMail -> signupConfirm: öffne verlinkte Verifizieren Webseite mit Verifizieren-Token
+signupConfirm -> controller: Übermittle Verifizieren-Token an Backend
+activate controller
+controller -> db: Prüfe Validität des Verifizieren-Tokens
+controller <-- db: Bestätige Validität des Verifizieren-Tokens mit zugehöriger E-Mail Adresse
+controller -> db: Persistiere Verifikation der E-Mail Adresse
+controller <-- db: Bestätige Speicherung der Verifikation der E-Mail Adresse
+signupConfirm <-- controller: Bestätige E-Mail Adresse Verifikation
+deactivate controller
+
+user <-- signupConfirm: Bestätige Konto-Verifizierung
+deactivate user
+@enduml

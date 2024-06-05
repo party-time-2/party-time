@@ -1,0 +1,10 @@
+{
+  "id": "NF006",
+  "title": "Kompatibilität",
+  "reference": "https://github.com/party-time-2/party-time/issues/24",   
+    "description": "Die Plattform muss auf verschiedenen Browsern (Chrome, Firefox, Safari, Edge) nutzbar sein.",
+    "impact": "Die Software kann von Benutzern auf verschiedenen Plattformen und Geräten verwendet werden, was die Reichweite erhöht und das Risiko von Kompatibilitätsproblemen verringert.",
+    "criteria": [
+      "Die Software wird auf den aktuellen Versionen der genannten Browser getestet."
+    ]
+  }

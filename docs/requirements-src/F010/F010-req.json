@@ -1,0 +1,29 @@
+{
+    "id": "F010",
+    "title": "Konto erstellen",
+    "reference": "https://github.com/party-time-2/party-time/issues/10",
+    "description": "Die Plattform soll es neuen Benutzern ermöglichen, ein Konto zu erstellen, indem sie ihre persönlichen Daten wie Name, E-Mail-Adresse und Passwort angeben.",
+    "impact": "Durch die Möglichkeit, ein Konto zu erstellen, können neue Benutzer auf die Funktionen der Plattform zugreifen und Zusagen oder selbst Events erstellen.",
+    "criteria": [
+      "Das Registrierungsformular muss alle erforderlichen Felder für die persönlichen Daten der Benutzer enthalten.",
+      "Nach der Registrierung muss eine Bestätigungsmail an die angegebene E-Mail-Adresse gesendet werden.",
+      "Das Passwort muss den Sicherheitsanforderungen entsprechen und verschlüsselt gespeichert werden.",
+      "Das Konto muss jederzeit durch den Benutzer gelöscht werden können."
+    ],
+    "testCases": [
+      {
+        "name": "Testfall 1",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe einen Buchstaben ein.",
+        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+        "testPic": "worteingabe -- should show letter_input.png"
+      },
+      {
+        "name": "Testfall 2",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe eine Zahl ein.",
+        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+        "testPic": "worteingabe-error -- should show non_letter_input.png"
+      }
+    ]
+  }

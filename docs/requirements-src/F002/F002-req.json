@@ -1,0 +1,25 @@
+{
+    "id": "F002",
+    "title": "Events bearbeiten",
+    "reference": "https://github.com/party-time-2/party-time/issues/2",
+    "description": "Die Plattform soll Veranstaltern die Möglichkeit geben, bereits erstellte Events zu bearbeiten und zu aktualisieren, indem sie die ursprünglich eingegebenen Informationen ändern oder ergänzen.",
+    "impact": "Diese Funktion ermöglicht es Veranstaltern, ihre Events flexibel an Veränderungen oder Fehler anzupassen, ohne dass sie ein neues Event erstellen müssen.",
+    "criteria": [
+      "Veranstalter können ein bereits erstelltes Event auswählen und die entsprechenden Informationen bearbeiten und speichern."    ],
+    "testCases": [
+      {
+        "name": "Testfall 1",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe einen Buchstaben ein.",
+        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+        "testPic": "worteingabe -- should show letter_input.png"
+      },
+      {
+        "name": "Testfall 2",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe eine Zahl ein.",
+        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+        "testPic": "worteingabe-error -- should show non_letter_input.png"
+      }
+    ]
+  }

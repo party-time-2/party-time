@@ -1,0 +1,11 @@
+{
+    "id": "NF004",
+    "title": "Benutzerfreundlichkeit",
+    "reference": "https://github.com/party-time-2/party-time/issues/122",
+    "description": "Die Benutzeroberfläche soll intuitiv und einfach zu bedienen sein, um die Akzeptanz und Zufriedenheit der Benutzer zu erhöhen.",
+    "impact": "Eine gute Benutzerfreundlichkeit führt zu einer höheren Nutzungsrate der Anwendung, was sich positiv auf die Nutzererfahrung auswirken kann.",
+    "criteria": [
+      "Die Benutzeroberfläche muss klar strukturiert, selbsterklärend und leicht zugänglich sein.",
+      "Es sollten keine überflüssigen oder unnötig komplexen Elemente vorhanden sein. Die Navigation sollte einfach und logisch sein und die Benutzer sollten in der Lage sein, ihre Ziele auf einfache und schnelle Weise zu erreichen."
+    ]
+  }

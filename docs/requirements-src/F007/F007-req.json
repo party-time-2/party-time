@@ -1,0 +1,28 @@
+{
+    "id": "F007",
+    "title": "Einladung erhalten",
+    "reference": "https://github.com/party-time-2/party-time/issues/7",
+    "description": "Die Plattform soll es Teilnehmern ermöglichen, Einladungen für Events zu erhalten.",
+    "impact": "Teilnehmer können über bevorstehende Events informiert werden und haben die Möglichkeit, daran teilzunehmen oder abzulehnen.",
+    "criteria": [
+      "Teilnehmer sollen eine Benachrichtigung über eine Einladung erhalten.",
+      "Einladungen sollten alle relevanten Informationen zum Event enthalten.",
+      "Teilnehmer sollten in der Lage sein, Einladungen anzunehmen oder abzulehnen."
+    ],
+    "testCases": [
+      {
+        "name": "Testfall 1",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe einen Buchstaben ein.",
+        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+        "testPic": "worteingabe -- should show letter_input.png"
+      },
+      {
+        "name": "Testfall 2",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe eine Zahl ein.",
+        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+        "testPic": "worteingabe-error -- should show non_letter_input.png"
+      }
+    ]
+  }

@@ -1,0 +1,35 @@
+@startuml F005_gaesteAusladen_act
+<style file=../../plantStyle.css>
+title "Gäste ausladen"
+
+|Veranstaltender Nutzer|
+start
+:Party Time "Events Überblicken" Webseite öffnen;
+:"Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist, anklicken;
+:"[Teilnehmername] ausladen" Link neben auszuladendem Nutzer anklicken;
+:E-Mail-Adresse des auszuladendem Nutzers an Server übermitteln;
+|Gast ausladen Controller|
+:E-Mail-Adresse bereits eingeladen prüfen;
+if () then (E-Mail-Adresse noch nicht eingeladen)
+    :Fehlermeldung senden;
+    |Veranstaltender Nutzer|
+    :Fehlermeldung Gastausladung empfangen;
+    :Fehlermeldung Gastausladung anzeigen;
+    note right
+        participant_not_invited: Es kann kein Account mit dieser E-Mail gefunden werden.
+    end note
+    stop
+else (E-Mail-Adresse bereits eingeladen)
+endif
+|Gast einladen Controller|
+:Gastausladung via E-Mail an auszuladenden Nutzer senden;
+:Information über Ausladung persistieren;
+:Bestätigung der Ausladung an Veranstaltenden Nutzer senden;
+|Veranstaltender Nutzer|
+:Bestätigung Gastausladung empfangen;
+:Bestätigung Gastausladung anzeigen;
+note right
+    participant_remove: //Teilnehmer überblicken Maske wird ohne ausgeladenen Teilnehmer angezeigt
+end note
+stop
+@enduml

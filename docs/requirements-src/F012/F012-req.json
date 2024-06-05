@@ -1,0 +1,27 @@
+{
+    "id": "F012",
+    "title": "Konto abmelden",
+    "reference": "https://github.com/party-time-2/party-time/issues/12",
+    "description": "Die Plattform muss Benutzern die Möglichkeit bieten, sich von ihrem Konto abzumelden.",
+    "impact": "Wenn Benutzer sich von ihrem Konto abmelden, werden ihre persönlichen Daten und Informationen nicht mehr auf der Plattform angezeigt. Dies ist wichtig für die Datensicherheit und den Datenschutz der Benutzer.",
+    "criteria": [
+      "Es muss eine klare und deutliche Möglichkeit geben, um sich von einem Konto abzumelden.",
+      "Nachdem ein Benutzer sich abgemeldet hat, kann er auf keine persönlichen Daten zugreifen bis er sich nicht wider angemeldet hat."
+    ],
+    "testCases": [
+      {
+        "name": "Testfall 1",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe einen Buchstaben ein.",
+        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+        "testPic": "worteingabe -- should show letter_input.png"
+      },
+      {
+        "name": "Testfall 2",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe eine Zahl ein.",
+        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+        "testPic": "worteingabe-error -- should show non_letter_input.png"
+      }
+    ]
+  }

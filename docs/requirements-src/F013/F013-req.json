@@ -1,0 +1,29 @@
+{
+    "id": "F013",
+    "title": "Passwort ändern",
+    "reference": "https://github.com/party-time-2/party-time/issues/13",
+    "description": "Die Plattform soll Benutzern die Möglichkeit geben, ihr Passwort zu ändern, um die Sicherheit ihres Kontos zu erhöhen.",
+    "impact": "Durch diese Funktion können Benutzer ihr Passwort bei Bedarf ändern, was die Sicherheit ihres Kontos erhöht und unbefugten Zugriff verhindert.",
+    "criteria": [
+      "Benutzer sollten in der Lage sein, ihr aktuelles Passwort einzugeben, um ihre Identität zu bestätigen.",
+      "Benutzer sollten in der Lage sein, ein neues Passwort einzugeben und zu bestätigen.",
+      "Das neue Passwort muss bestimmte Anforderungen erfüllen, z. B. eine Mindestlänge und die Verwendung von Sonderzeichen.",
+      "Nachdem das Passwort geändert wurde, sollte der Benutzer automatisch abgemeldet werden und sich mit dem neuen Passwort erneut anmelden müssen."
+    ],
+    "testCases": [
+      {
+        "name": "Testfall 1",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe einen Buchstaben ein.",
+        "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
+        "testPic": "worteingabe -- should show letter_input.png"
+      },
+      {
+        "name": "Testfall 2",
+        "requirement": "Das Spiel wurde gestartet.",
+        "action": "Ich gebe eine Zahl ein.",
+        "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
+        "testPic": "worteingabe-error -- should show non_letter_input.png"
+      }
+    ]
+  }

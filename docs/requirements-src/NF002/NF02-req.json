@@ -1,0 +1,11 @@
+{
+    "id": "NF002",
+    "title": "Sicherheit",
+    "reference": "https://github.com/party-time-2/party-time/issues/21",
+    "description": "Das System muss hohen Sicherheitsstandards entsprechen, um den Schutz von Daten und die Privatsphäre der Nutzer zu gewährleisten. Es sollen Sicherheitslücken minimiert und Angriffe durch unbefugte Dritte verhindert werden.",
+    "impact": "Die Auswirkungen von Sicherheitsproblemen können schwerwiegend sein und das Vertrauen der Nutzer in das System beeinträchtigen. Mögliche Folgen sind Datenverlust, Identitätsdiebstahl und unautorisierte Zugriffe auf vertrauliche Informationen.",
+    "criteria": [
+      "Einsatz von sicheren Verschlüsselungsmechanismen, um die Vertraulichkeit von Daten sicherzustellen.",
+      "Überprüfung von Sicherheitsanforderungen bei der Auswahl von Drittanbietern und Implementierung von Sicherheitsmaßnahmen bei der Integration externer Systeme."
+    ]
+  }

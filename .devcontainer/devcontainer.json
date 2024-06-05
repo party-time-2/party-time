@@ -74,12 +74,15 @@
         "prettier.resolveGlobalModules": true,
         "remote.restoreForwardedPorts": true,
         "java.configuration.updateBuildConfiguration": "interactive",
-        "plantuml.diagramsRoot": "docs",
+        "plantuml.diagramsRoot": "docs/requirements-src",
         "plantuml.exportFormat": "png",
-        "plantuml.exportOutDir": "docs/PNG",
+        "plantuml.exportOutDir": "docs/.requirements",
         "plantuml.exportIncludeFolderHeirarchy": true,
         "plantuml.exportSubFolder": false,
-        "plantuml.jarArgs": ["-DPLANTUML_LIMIT_SIZE=8192"],
+        "plantuml.jarArgs": [
+          "-DPLANTUML_LIMIT_SIZE=8192"
+        ],
+        "plantuml.jar": "plantuml-release.jar",
         "prettier.prettierPath": "./node_modules/prettier",
         "markdownlint.config": {
           "MD013": false,
