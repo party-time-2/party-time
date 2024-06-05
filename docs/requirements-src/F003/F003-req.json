@@ -6,21 +6,5 @@
   "impact": "Die Funktion erleichtert Veranstaltern die Verwaltung ihrer Events und sorgt dafür, dass Events, die nicht mehr stattfinden, von der Plattform entfernt werden.",
   "criteria": [
     "Veranstalter können ein Event löschen, indem sie auf der Plattform auf das entsprechende Event zugreifen und die Option 'Löschen' auswählen. Das Event wird dann dauerhaft von der Plattform entfernt."
-  ],
-  "testCases": [
-    {
-      "name": "Testfall 1",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe einen Buchstaben ein.",
-      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-      "testPic": "worteingabe -- should show letter_input.png"
-    },
-    {
-      "name": "Testfall 2",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe eine Zahl ein.",
-      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-      "testPic": "worteingabe-error -- should show non_letter_input.png"
-    }
   ]
 }

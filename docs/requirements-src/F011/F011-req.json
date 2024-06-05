@@ -6,21 +6,5 @@
   "impact": "Nutzer müssen ein Anmeldeformular ausfüllen, das ihre E-Mail-Adresse und ein Passwort erfordert.",
   "criteria": [
     "Teilnehmer sollten in der Lage sein, ihre Absage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken."
-  ],
-  "testCases": [
-    {
-      "name": "Testfall 1",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe einen Buchstaben ein.",
-      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-      "testPic": "worteingabe -- should show letter_input.png"
-    },
-    {
-      "name": "Testfall 2",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe eine Zahl ein.",
-      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-      "testPic": "worteingabe-error -- should show non_letter_input.png"
-    }
   ]
 }

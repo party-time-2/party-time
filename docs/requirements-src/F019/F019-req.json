@@ -9,21 +9,5 @@
     "Der exportierte Kalendereintrag enthält alle relevanten Informationen wie z.B. Titel, Datum, Uhrzeit und Ort des Events.",
     "Der exportierte Kalendereintrag ist in einem gängigen Dateiformat wie .ics verfügbar.",
     "Der exportierte Kalendereintrag kann in anderen Kalenderanwendungen importiert werden."
-  ],
-  "testCases": [
-    {
-      "name": "Testfall 1",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe einen Buchstaben ein.",
-      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-      "testPic": "worteingabe -- should show letter_input.png"
-    },
-    {
-      "name": "Testfall 2",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe eine Zahl ein.",
-      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-      "testPic": "worteingabe-error -- should show non_letter_input.png"
-    }
   ]
 }

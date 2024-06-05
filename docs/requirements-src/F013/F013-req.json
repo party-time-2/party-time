@@ -9,49 +9,5 @@
     "Benutzer sollten in der Lage sein, ein neues Passwort einzugeben und zu bestätigen.",
     "Das neue Passwort muss bestimmte Anforderungen erfüllen, z. B. eine Mindestlänge und die Verwendung von Sonderzeichen.",
     "Nachdem das Passwort geändert wurde, sollte der Benutzer automatisch abgemeldet werden und sich mit dem neuen Passwort erneut anmelden müssen."
-  ],
-  "testCases": [
-    {
-      "name": "Testfall 1",
-      "requirement": "Offene Party Time 'Passwort ändern' Seite",
-      "action": "Leeres altes Passwort Feld makieren.",
-      "expectation": "Bitte gib dein aktuelles Passwort ein.",
-      "testPic": "f013-error -- should show pw_old_required.png"
-    },
-    {
-      "name": "Testfall 2",
-      "requirement": "Offene Party Time 'Passwort ändern' Seite",
-      "action": "Fehlerhaftes neues Passwort markieren",
-      "expectation": "Bitte gib ein Passwort ein.",
-      "testPic": "f013-error -- should show pw_new_required.png"
-    },
-    {
-      "name": "Testfall 3",
-      "requirement": "Offene Party Time 'Passwort ändern' Seite",
-      "action": "Fehlerhaftes neues Passwort markieren",
-      "expectation": "Das Passwort muss mindestens 8 Zeichen lang sein.",
-      "testPic": "f013-error -- should show pw_new_short.png"
-    },
-    {
-      "name": "Testfall 4",
-      "requirement": "Offene Party Time 'Passwort ändern' Seite",
-      "action": "Fehlerhaftes neues Passwort markieren",
-      "expectation": "Das Passwort muss mindestens 1 Sonderzeichen [...]",
-      "testPic": "f013-error -- should show pw_new_wrong_chars.png"
-    },
-    {
-      "name": "Testfall 5",
-      "requirement": "Offene Party Time 'Passwort ändern' Seite",
-      "action": "Fehler wird angezeigt.",
-      "expectation": "Die Anfrage konnte nicht bearbeitet werden.",
-      "testPic": "f013-error -- should show change_error.png"
-    },
-    {
-      "name": "Testfall 6",
-      "requirement": "Offene Party Time 'Passwort ändern' Seite",
-      "action": "Erfolg wird angezeigt.",
-      "expectation": "Passwort wurde gändert.",
-      "testPic": "f013 -- should show change_success.png"
-    }
   ]
 }

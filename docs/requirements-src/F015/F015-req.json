@@ -6,21 +6,5 @@
   "impact": "Wenn Benutzer ihr Konto löschen können, können sie ihre persönlichen Informationen von der Plattform entfernen. Dies kann dazu beitragen, dass Benutzer sich sicherer fühlen und ihre Privatsphäre schützen.",
   "criteria": [
     "Benutzer sollten in der Lage sein, ihr Konto durch Ausfüllen eines Formulars auf der Plattform zu löschen. Das Formular sollte eine Bestätigungsoption für den Benutzer enthalten, um sicherzustellen, dass das Löschen des Kontos beabsichtigt ist."
-  ],
-  "testCases": [
-    {
-      "name": "Testfall 1",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe einen Buchstaben ein.",
-      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-      "testPic": "worteingabe -- should show letter_input.png"
-    },
-    {
-      "name": "Testfall 2",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe eine Zahl ein.",
-      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-      "testPic": "worteingabe-error -- should show non_letter_input.png"
-    }
   ]
 }

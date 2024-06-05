@@ -9,21 +9,5 @@
     "Nach der Registrierung muss eine Bestätigungsmail an die angegebene E-Mail-Adresse gesendet werden.",
     "Das Passwort muss den Sicherheitsanforderungen entsprechen und verschlüsselt gespeichert werden.",
     "Das Konto muss jederzeit durch den Benutzer gelöscht werden können."
-  ],
-  "testCases": [
-    {
-      "name": "Testfall 1",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe einen Buchstaben ein.",
-      "expectation": "Der Buchstabe wird in das erste Buchstaben-Feld eingetragen.",
-      "testPic": "worteingabe -- should show letter_input.png"
-    },
-    {
-      "name": "Testfall 2",
-      "requirement": "Das Spiel wurde gestartet.",
-      "action": "Ich gebe eine Zahl ein.",
-      "expectation": "Die Eingabe in das erste Buchstaben-Feld wird abgelehnt, das Feld ist leer, und die Schaltfläche zum absenden ist gesperrt.",
-      "testPic": "worteingabe-error -- should show non_letter_input.png"
-    }
   ]
 }
