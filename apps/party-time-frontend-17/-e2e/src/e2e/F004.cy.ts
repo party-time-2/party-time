@@ -1,37 +1,61 @@
 import { getScreenshotPath } from '../support/utils';
 
-const insert_group = 'worteingabe';
-const error_group = 'worteingabe-error';
-describe(error_group, () => {
+const requiremnt = "F004";
+const event_group = 'party-time-add-participant-success';
+describe(event_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const show_letter_input_test = 'should show letter_input';
-  it(show_letter_input_test, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('A');
-    cy.get('[data-cy="letter-0"]').should('have.value', 'A');
+  const participant_invite_test = 'should show participant_invite';
+  it(participant_invite_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, event_group, participant_invite_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+});
+
+
+const party_time_add_participant_error_group = 'party-time-add-participant-error';
+describe(party_time_add_participant_error_group, () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  const participant_already_invited_error_test = 'should show participant_already_invited';
+  it(participant_already_invited_error_test, () => {
 
 
     cy.screenshot(
-      getScreenshotPath('F001', insert_group, show_letter_input_test),
+      getScreenshotPath(requiremnt, party_time_add_participant_error_group, participant_already_invited_error_test),
       {
         overwrite: true,
       }
     );
   });
 
-  const show_non_letter_input = 'should show non_letter_input';
-  it(show_non_letter_input, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('1');
-    cy.get('[data-cy="letter-0"]').should('have.value', ''); // input field should be empty
-    cy.get('[data-cy="guess-button"]').should('be.disabled'); // guess button should be disabled
+  const participant_email_invalid_error_test = 'should show participant_email_invalid';
+  it(participant_email_invalid_error_test, () => {
 
 
     cy.screenshot(
-      getScreenshotPath('F001', error_group, show_non_letter_input),
+      getScreenshotPath(requiremnt, party_time_add_participant_error_group, participant_email_invalid_error_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const participant_unknown_error_test = 'should show participant_unknown';
+  it(participant_unknown_error_test, () => {
+
+
+    cy.screenshot(
+      getScreenshotPath(requiremnt, party_time_add_participant_error_group, participant_unknown_error_test),
       {
         overwrite: true,
       }
