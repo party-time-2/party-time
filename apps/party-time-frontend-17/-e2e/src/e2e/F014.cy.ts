@@ -1,37 +1,46 @@
 import { getScreenshotPath } from '../support/utils';
 
-const insert_group = 'worteingabe';
-const error_group = 'worteingabe-error';
+const requirement = "F014";
+const success_group = 'verify success';
+describe(success_group, () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
+  const verify_success_test = 'should show verify_success';
+  it(verify_success_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, success_group, verify_success_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+});
+
+const error_group = 'verify error';
 describe(error_group, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const show_letter_input_test = 'should show letter_input';
-  it(show_letter_input_test, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('A');
-    cy.get('[data-cy="letter-0"]').should('have.value', 'A');
-
+  const token_required_test = 'should show token_required';
+  it(token_required_test, () => {
 
     cy.screenshot(
-      getScreenshotPath('F001', insert_group, show_letter_input_test),
+      getScreenshotPath(requirement, error_group, token_required_test),
       {
         overwrite: true,
       }
     );
   });
 
-  const show_non_letter_input = 'should show non_letter_input';
-  it(show_non_letter_input, () => {
-    cy.get('[data-cy="letter-0"]').clear();
-    cy.get('[data-cy="letter-0"]').type('1');
-    cy.get('[data-cy="letter-0"]').should('have.value', ''); // input field should be empty
-    cy.get('[data-cy="guess-button"]').should('be.disabled'); // guess button should be disabled
-
+  const token_invalid_test = 'should show token_invalid';
+  it(token_invalid_test, () => {
 
     cy.screenshot(
-      getScreenshotPath('F001', error_group, show_non_letter_input),
+      getScreenshotPath(requirement, error_group, token_invalid_test),
       {
         overwrite: true,
       }
