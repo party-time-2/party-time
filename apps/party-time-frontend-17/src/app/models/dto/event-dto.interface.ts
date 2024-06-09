@@ -29,9 +29,10 @@ export interface OrganizerEventDTO {
 }
 
 export enum Status {
-  INVITED,
-  PARTICIPATING,
-  DECLINED,
+    INVITED = 'INVITED',
+    PARTICIPATING = 'PARTICIPATING',
+    DECLINED = 'DECLINED',
+  
 }
 
 export interface InvitationCreateDTO {

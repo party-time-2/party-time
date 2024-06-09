@@ -19,6 +19,7 @@ import {
   EventCreateDTO,
   EventDetailsDTO,
   OrganizerEventDTO,
+  Status,
 } from '../../../models/dto/event-dto.interface';
 import { BehaviorSubject } from 'rxjs';
 import { ParticipantsDialogComponent } from '../components/participants-dialog/participants-dialog.component';
@@ -175,8 +176,8 @@ export class OverviewComponent {
     });
   }
 
-  onParticipantStatusChange(event: { eventId: number; status: number }) {
-    if (event.status === 1) {
+  onParticipantStatusChange(event: { eventId: number; status: Status }) {
+    if (event.status === Status.PARTICIPATING) {
       this.eventParticipantsService
         .acceptEvent(event.eventId.toString())
         .subscribe({
