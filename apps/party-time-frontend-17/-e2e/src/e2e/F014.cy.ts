@@ -25,6 +25,18 @@ describe(error_group, () => {
     cy.visit('/');
   });
 
+  const verify_error_test = 'should show verify_error';
+  it(verify_error_test, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, error_group, verify_error_test),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+
   const token_required_test = 'should show token_required';
   it(token_required_test, () => {
 
