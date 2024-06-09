@@ -20,7 +20,7 @@
         },
         "demo":{
           "watch": true,
-          "command": "npx nx run wordle-time-backend-backend:serve & npx nx run party-time-frontend-17:serve:production"
+          "command": "npx nx run party-time-backend-kotlin:serve & npx nx run party-time-frontend-17-e2e:e2e"
         }
       }
     },
