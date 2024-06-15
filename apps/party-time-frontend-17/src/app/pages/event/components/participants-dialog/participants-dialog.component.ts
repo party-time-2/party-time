@@ -29,11 +29,15 @@ import { ApiError } from 'apps/party-time-frontend-17/src/app/models/error.inter
     <div class="p-4">
       <h2 class="text-xl font-bold mb-4">Teilnehmer verwalten</h2>
       <mat-list>
-        <mat-list-item *ngFor="let participant of accountInvitationDetailsDTO">
-          {{ participant.invitee.email }} - {{ getStatusText(participant.status) }}
-          <button mat-icon-button color="warn" (click)="uninviteParticipant(participant)">
-            <mat-icon>remove_circle</mat-icon>
-          </button>
+        <mat-list-item *ngFor="let participant of sortedParticipants" class="participant-item">
+          <div class="flex justify-between items-center w-full">
+            <div class="participant-info flex-1 overflow-hidden">
+              {{ participant.invitee.email }} - {{ getStatusText(participant.status) }}
+            </div>
+            <button mat-icon-button color="warn" (click)="uninviteParticipant(participant)">
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+          </div>
         </mat-list-item>
       </mat-list>
       <mat-divider class="mb-4"></mat-divider>
@@ -41,6 +45,19 @@ import { ApiError } from 'apps/party-time-frontend-17/src/app/models/error.inter
         <mat-form-field class="w-full">
           <mat-label>Email Adresse</mat-label>
           <input matInput formControlName="email" required />
+          <mat-error
+            *ngIf="participantForm.get('email')?.errors?.['required']"
+            data-cy="email-required-error"
+          >
+            E-Mail ist erforderlich.
+          </mat-error>
+
+          <mat-error
+            *ngIf="participantForm.get('email')?.errors?.['email']"
+            data-cy="email-invalid-error"
+          >
+            Bitte geben Sie eine gültige E-Mail-Adresse ein.
+          </mat-error>
         </mat-form-field>
         <button mat-raised-button color="primary" [disabled]="participantForm.invalid">Hinzufügen</button>
       </form>
@@ -56,6 +73,16 @@ import { ApiError } from 'apps/party-time-frontend-17/src/app/models/error.inter
     .w-full {
       width: 100%;
     }
+    .participant-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 1rem;
+    }
+    .participant-info {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   `],
 })
 export class ParticipantsDialogComponent {
@@ -65,7 +92,6 @@ export class ParticipantsDialogComponent {
   private eventHostService = inject(EventHostService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
   
-
   constructor(
     private dialogRef: MatDialogRef<ParticipantsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) data: { eventId: number; accountInvitationDetailsDTO: AccountInvitationDetailsDTO[] },
@@ -77,6 +103,16 @@ export class ParticipantsDialogComponent {
     this.participantForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
     });
+  }
+
+  get sortedParticipants(): AccountInvitationDetailsDTO[] {
+    if (!this.accountInvitationDetailsDTO) return [];
+    return this.accountInvitationDetailsDTO.sort((a, b) => this.compareStatus(a.status, b.status));
+  }
+
+  compareStatus(statusA: Status, statusB: Status): number {
+    const order = [Status.INVITED, Status.PARTICIPATING, Status.DECLINED];
+    return order.indexOf(statusA) - order.indexOf(statusB);
   }
 
   getStatusText(status: Status): string {
@@ -98,8 +134,11 @@ export class ParticipantsDialogComponent {
           }
 
           this.accountInvitationDetailsDTO = participants;
-          
-          this.participantForm.reset();
+                        const control = this.participantForm.get("email");
+                        this.participantForm.reset();
+              control?.markAsPristine();
+              control?.markAsUntouched();
+              control?.setErrors(null);
         },
         error: (apiError: ApiError) => {
           this.snackBar.open(apiError.message, 'OK', {
@@ -125,3 +164,4 @@ export class ParticipantsDialogComponent {
     }
   }
 }
+
