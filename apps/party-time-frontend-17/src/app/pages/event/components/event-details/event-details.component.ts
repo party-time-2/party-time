@@ -50,7 +50,7 @@ import { MatDividerModule } from '@angular/material/divider';
             @if (eventDetails.address.addressLineAddition) {
             <p>{{ eventDetails.address.addressLineAddition }}</p>
             }@else {
-            <p>-</p>
+            <!-- <p>-</p> -->
             }
             <p>
               {{ eventDetails.address.zip }} {{ eventDetails.address.city }}

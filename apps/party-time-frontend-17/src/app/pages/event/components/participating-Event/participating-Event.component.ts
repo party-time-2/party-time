@@ -41,12 +41,20 @@ import { MatCardModule } from '@angular/material/card';
               - {{ getStatusText(participantEvent.invitationDetailsDTO.status) }}
             </p>
             <p>
-              {{ participantEvent.organizedEventDetailsDTO.address.addressLine }},
+              {{ participantEvent.organizedEventDetailsDTO.address.addressLine }}
+            </p>
+            <p>
+              <p>
               {{
                 participantEvent.organizedEventDetailsDTO.address.addressLineAddition || ''
-              }},
+              }}
+              </p>
+              <p>
+                <p>
               {{ participantEvent.organizedEventDetailsDTO.address.zip }},
-              {{ participantEvent.organizedEventDetailsDTO.address.city }},
+              {{ participantEvent.organizedEventDetailsDTO.address.city }}
+            </p>
+            <p>
               {{ participantEvent.organizedEventDetailsDTO.address.country }}
             </p>
           </mat-card-content>
