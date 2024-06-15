@@ -167,7 +167,7 @@ export class OverviewComponent {
     this.eventHostService.getParticipants(eventId).subscribe({
       next: (accountInvitationDetailsDTO: AccountInvitationDetailsDTO[]) => {
         this.openDialog.open(ParticipantsDialogComponent, {
-          data: { accountInvitationDetailsDTO },
+          data: {eventId, accountInvitationDetailsDTO },
         });
       },
       error: (error: ApiError) => {

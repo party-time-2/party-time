@@ -54,7 +54,7 @@ export interface IEventHostService {
   inviteParticipant(
     eventId: number,
     participantEmail: string
-  ): Observable<InvitationCreateDTO[]>;
+  ): Observable<AccountInvitationDetailsDTO[]>;
 
   /**
    * Removes a participant from an event.

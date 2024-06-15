@@ -88,7 +88,7 @@ export class ParticipatingEventComponent {
     status: Status;
   }>();
 
-  Status = Status; // Expose Status enum to the template
+  Status = Status;
 
   onParticipantStatusChange(eventId: number, status: Status) {
     this.participantStatusChange.emit({ eventId, status });

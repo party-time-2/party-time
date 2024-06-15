@@ -36,7 +36,7 @@ export enum Status {
 }
 
 export interface InvitationCreateDTO {
-  string: string;
+  email: string;
 }
 
 export interface InvitationDetailsDTO {

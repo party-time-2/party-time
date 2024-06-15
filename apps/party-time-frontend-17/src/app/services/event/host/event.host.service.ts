@@ -83,13 +83,13 @@ export class EventHostService implements IEventHostService {
   inviteParticipant(
     eventId: number,
     participantEmail: string
-  ): Observable<InvitationCreateDTO[]> {
+  ): Observable<AccountInvitationDetailsDTO[]> {
     return this.http
-      .post<InvitationCreateDTO[]>(
+      .post<AccountInvitationDetailsDTO[]>(
         environment.api.endpoints.event.host.inviteParticipant(
           eventId.toString()
         ),
-        { participantEmail }
+        {email: participantEmail }
       )
       .pipe(
         catchError((error) => {
@@ -100,14 +100,14 @@ export class EventHostService implements IEventHostService {
 
   removeParticipant(
     eventId: number,
-    participantEmail: string
+    invitationId: string
   ): Observable<AccountInvitationDetailsDTO[]> {
+    console.log('removeParticipant', eventId, invitationId);
     return this.http
       .delete<AccountInvitationDetailsDTO[]>(
         environment.api.endpoints.event.host.removeParticipant(
-          eventId.toString(),
-          participantEmail
-        )
+          eventId.toString(), invitationId
+          ),
       )
       .pipe(
         catchError((error) => {
