@@ -43,19 +43,18 @@
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Python: Export work",
+            "name": "Python: Export other",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/tools/export.py",
+            "program": "${workspaceFolder}/tools/export_other.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
         {
-            "name": "Python: Check glossary",
+            "name": "Python: Export requirements",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/tools/export.py",
-            "args": ["-c"],
+            "program": "${workspaceFolder}/tools/export_requirements.py",
             "console": "integratedTerminal",
             "justMyCode": true
         },
