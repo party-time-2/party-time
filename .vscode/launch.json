@@ -58,5 +58,13 @@
             "console": "integratedTerminal",
             "justMyCode": true
         },
+        {
+            "name": "Python: Print md to pdf",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/tools/print_md_to_pdf.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
     ]
 }
