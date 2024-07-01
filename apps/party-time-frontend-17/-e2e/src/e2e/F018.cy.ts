@@ -1,17 +1,17 @@
 import { getScreenshotPath } from '../support/utils';
 
 const requirement = "F018";
-const success_group = 'location success';
-describe(success_group, () => {
+const eventDirections = 'Wegbeschreibung zum Event';
+describe(eventDirections, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const location_success_test = 'should show location_success';
-  it(location_success_test, () => {
+  const understandableDirectionsTest = 'Die Wegbeschreibung sollte klar, präzise und leicht verständlich sein.';
+  it(understandableDirectionsTest, () => {
 
     cy.screenshot(
-      getScreenshotPath(requirement, success_group, location_success_test),
+      getScreenshotPath(requirement, eventDirections, understandableDirectionsTest),
       {
         overwrite: true,
       }

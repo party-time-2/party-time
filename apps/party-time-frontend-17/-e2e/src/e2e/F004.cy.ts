@@ -8,7 +8,7 @@ describe(inviteGuests, () => {
     cy.visit('/');
   });
 
-  const inviteGuestByEmail = 'Gast mit Email einladen';
+  const inviteGuestByEmail = 'Veranstalter sollten in der Lage sein, Gäste zu ihren Events einzuladen, indem sie deren E-Mail-Adresse in ein entsprechendes Feld eingeben.';
   it(inviteGuestByEmail, () => {
 
     cy.screenshot(
@@ -19,7 +19,7 @@ describe(inviteGuests, () => {
     );
   });
 
-  const displayInvitationStatus = 'Status der Einladung anzeigen';
+  const displayInvitationStatus = ' Die Plattform sollte den Status der Einladung verfolgen und anzeigen, ob sie zu- oder abgesagt wurde.';
   it(displayInvitationStatus, () => {
 
     cy.screenshot(
@@ -30,47 +30,3 @@ describe(inviteGuests, () => {
     );
   });
 });
-
-
-// const error_group = 'party-time-add-participant-error';
-// describe(error_group, () => {
-//   beforeEach(() => {
-//     cy.visit('/');
-//   });
-
-//   const participant_already_invited_error_test = 'should show participant_already_invited';
-//   it(participant_already_invited_error_test, () => {
-
-
-//     cy.screenshot(
-//       getScreenshotPath(requirement, error_group, participant_already_invited_error_test),
-//       {
-//         overwrite: true,
-//       }
-//     );
-//   });
-
-//   const participant_email_invalid_error_test = 'should show participant_email_invalid';
-//   it(participant_email_invalid_error_test, () => {
-
-
-//     cy.screenshot(
-//       getScreenshotPath(requirement, error_group, participant_email_invalid_error_test),
-//       {
-//         overwrite: true,
-//       }
-//     );
-//   });
-
-//   const participant_unknown_error_test = 'should show participant_unknown';
-//   it(participant_unknown_error_test, () => {
-
-
-//     cy.screenshot(
-//       getScreenshotPath(requirement, error_group, participant_unknown_error_test),
-//       {
-//         overwrite: true,
-//       }
-//     );
-//   });
-// });

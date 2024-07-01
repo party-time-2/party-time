@@ -1,17 +1,28 @@
 import { getScreenshotPath } from '../support/utils';
 
 const requirement = "F016";
-const success_group = 'event success';
-describe(success_group, () => {
+const eventsSummary = 'Events überblicken';
+describe(eventsSummary, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const event_test = 'should show event';
-  it(event_test, () => {
+  const ownEventsListPageTest = 'Die Plattform sollte eine Liste von allen eigenen Events auf einer Seite bereitstellen.';
+  it(ownEventsListPageTest, () => {
 
     cy.screenshot(
-      getScreenshotPath(requirement, success_group, event_test),
+      getScreenshotPath(requirement, eventsSummary, ownEventsListPageTest),
+      {
+        overwrite: true,
+      }
+    );
+  });
+
+  const eventSummary = 'Die Liste sollte die wichtigsten Informationen über das Event, wie den Namen, das Datum, die Uhrzeit und den Veranstaltungsort, enthalten.';
+  it(eventSummary, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, eventsSummary, eventSummary),
       {
         overwrite: true,
       }

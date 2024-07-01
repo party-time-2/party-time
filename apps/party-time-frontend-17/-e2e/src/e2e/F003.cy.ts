@@ -2,51 +2,31 @@ import { getScreenshotPath } from '../support/utils';
 
 const requirement = "F003";
 
-const groupName = 'Events löschen';
-describe(groupName, () => {
+const deleteEvents = 'Events löschen';
+describe(deleteEvents, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const deleteEventTest = 'Event löschen';
-  it(deleteEventTest, () => {
+  const deleteEvent = 'Veranstalter können ein Event löschen, indem sie auf der Plattform auf das entsprechende Event zugreifen und die Option "Löschen" auswählen.';
+  it(deleteEvent, () => {
 
     cy.screenshot(
-      getScreenshotPath(requirement, groupName, deleteEventTest),
+      getScreenshotPath(requirement, deleteEvents, deleteEvent),
       {
         overwrite: true,
       }
     );
   });
 
-  const deletedEventMissingTest = 'Event nicht vorhanden';
-  it(deletedEventMissingTest, () => {
+  const eventDeletionTest = 'Das Event wird dann dauerhaft von der Plattform entfernt.';
+  it(eventDeletionTest, () => {
 
     cy.screenshot(
-      getScreenshotPath(requirement, groupName, deletedEventMissingTest),
+      getScreenshotPath(requirement, deleteEvents, eventDeletionTest),
       {
         overwrite: true,
       }
     );
   });
 });
-
-
-// const error_group = 'delete-event-error';
-// describe(error_group, () => {
-//   beforeEach(() => {
-//     cy.visit('/');
-//   });
-
-//   const delete_event_error_test = 'should show delete-event';
-//   it(delete_event_error_test, () => {
-
-
-//     cy.screenshot(
-//       getScreenshotPath(requirement, error_group, delete_event_error_test),
-//       {
-//         overwrite: true,
-//       }
-//     );
-//   });
-// });

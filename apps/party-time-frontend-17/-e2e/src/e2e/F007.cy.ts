@@ -1,17 +1,27 @@
 import { getScreenshotPath } from '../support/utils';
 
 const requirement = "F007";
-const success_group = 'party-time-access-event-success';
-describe(success_group, () => {
+const invitationReceivedGroup = 'Einladung erhalten';
+describe(invitationReceivedGroup, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const view_participants_test = 'should show view_participants';
-  it(view_participants_test, () => {
+   const eventDetails  = 'Einladungen sollten alle relevanten Informationen zum Event enthalten.';
+  it(eventDetails, () => {
 
     cy.screenshot(
-      getScreenshotPath(requirement, success_group, view_participants_test),
+      getScreenshotPath(requirement, invitationReceivedGroup, eventDetails),
+      {
+        overwrite: true,
+      }
+    );
+  });
+const inviteDecline = 'Teilnehmer sollten in der Lage sein, Einladungen anzunehmen oder abzulehnen.';
+  it(inviteDecline, () => {
+
+    cy.screenshot(
+      getScreenshotPath(requirement, invitationReceivedGroup, inviteDecline),
       {
         overwrite: true,
       }

@@ -1,17 +1,17 @@
 import { getScreenshotPath } from '../support/utils';
 
 const requirement = "F006";
-const success_group = 'party-time-view-participants-success';
-describe(success_group, () => {
+const participantsOverview = 'Teilnehmer überblicken';
+describe(participantsOverview, () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  const view_participants_test = 'should show view_participants';
-  it(view_participants_test, () => {
+  const showEventParticipantsTest = 'Veranstalter sollten in der Lage sein, eine Liste aller aktuell eingeladenen Teilnehmer eines Events anzuzeigen.';
+  it(showEventParticipantsTest, () => {
 
     cy.screenshot(
-      getScreenshotPath(requirement, success_group, view_participants_test),
+      getScreenshotPath(requirement, participantsOverview, showEventParticipantsTest),
       {
         overwrite: true,
       }
