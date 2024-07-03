@@ -89,7 +89,7 @@ export class EventHostService implements IEventHostService {
         environment.api.endpoints.event.host.inviteParticipant(
           eventId.toString()
         ),
-        {email: participantEmail }
+        { email: participantEmail }
       )
       .pipe(
         catchError((error) => {
@@ -106,8 +106,9 @@ export class EventHostService implements IEventHostService {
     return this.http
       .delete<AccountInvitationDetailsDTO[]>(
         environment.api.endpoints.event.host.removeParticipant(
-          eventId.toString(), invitationId
-          ),
+          eventId.toString(),
+          invitationId
+        )
       )
       .pipe(
         catchError((error) => {

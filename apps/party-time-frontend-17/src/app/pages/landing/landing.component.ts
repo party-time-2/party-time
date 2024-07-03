@@ -19,7 +19,12 @@ import { RouterLink } from '@angular/router';
     <section class="flex h-screen flex-col items-center justify-center">
       <h1 class="text-4xl font-bold">Willkommen bei Party Time</h1>
       <p class="mt-4 text-lg">Die Plattform für deine nächste Party</p>
-      <button mat-raised-button color="primary" class="mt-4" routerLink="/events">
+      <button
+        mat-raised-button
+        color="primary"
+        class="mt-4"
+        routerLink="/events"
+      >
         Party erstellen
       </button>
     </section>

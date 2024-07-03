@@ -24,9 +24,13 @@ import { MatIconModule } from '@angular/material/icon';
       <section
         class="m-5 max-w-md rounded-md border-2"
         [ngClass]="{
-          'border-blue-500': participantEvent.invitationDetailsDTO.status === Status.INVITED,
-          'border-green-500': participantEvent.invitationDetailsDTO.status === Status.PARTICIPATING,
-          'border-red-500': participantEvent.invitationDetailsDTO.status === Status.DECLINED
+          'border-blue-500':
+            participantEvent.invitationDetailsDTO.status === Status.INVITED,
+          'border-green-500':
+            participantEvent.invitationDetailsDTO.status ===
+            Status.PARTICIPATING,
+          'border-red-500':
+            participantEvent.invitationDetailsDTO.status === Status.DECLINED
         }"
       >
         <mat-card>
@@ -38,21 +42,25 @@ import { MatIconModule } from '@angular/material/icon';
             <p>
               {{
                 participantEvent.organizedEventDetailsDTO.dateTime
-                  | date: 'dd.MM.yyyy HH:mm'
+                  | date : 'dd.MM.yyyy HH:mm'
               }}
-              - {{ getStatusText(participantEvent.invitationDetailsDTO.status) }}
+              -
+              {{ getStatusText(participantEvent.invitationDetailsDTO.status) }}
             </p>
             <p>
-              {{ participantEvent.organizedEventDetailsDTO.address.addressLine }}
-            </p>
-            <p>
-              <p>
               {{
-                participantEvent.organizedEventDetailsDTO.address.addressLineAddition || ''
+                participantEvent.organizedEventDetailsDTO.address.addressLine
               }}
-              </p>
-              <p>
-                <p>
+            </p>
+            <p></p>
+            <p>
+              {{
+                participantEvent.organizedEventDetailsDTO.address
+                  .addressLineAddition || ''
+              }}
+            </p>
+            <p></p>
+            <p>
               {{ participantEvent.organizedEventDetailsDTO.address.zip }},
               {{ participantEvent.organizedEventDetailsDTO.address.city }}
             </p>
@@ -63,10 +71,16 @@ import { MatIconModule } from '@angular/material/icon';
           <mat-card-actions>
             <button
               [disabled]="
-                participantEvent.invitationDetailsDTO.status === Status.PARTICIPATING
+                participantEvent.invitationDetailsDTO.status ===
+                Status.PARTICIPATING
               "
               mat-button
-              (click)="onParticipantStatusChange(participantEvent.organizedEventDetailsDTO.id, Status.PARTICIPATING)"
+              (click)="
+                onParticipantStatusChange(
+                  participantEvent.organizedEventDetailsDTO.id,
+                  Status.PARTICIPATING
+                )
+              "
               color="primary"
             >
               Teilnehmen
@@ -76,12 +90,24 @@ import { MatIconModule } from '@angular/material/icon';
                 participantEvent.invitationDetailsDTO.status === Status.DECLINED
               "
               mat-button
-              (click)="onParticipantStatusChange(participantEvent.organizedEventDetailsDTO.id, Status.DECLINED)"
+              (click)="
+                onParticipantStatusChange(
+                  participantEvent.organizedEventDetailsDTO.id,
+                  Status.DECLINED
+                )
+              "
               color="warn"
             >
               Ablehnen
             </button>
-            <a [href]="'https://www.google.com/maps/search/?api=1&query=' +participantEvent.organizedEventDetailsDTO.address.addressLine + '+' + participantEvent.organizedEventDetailsDTO.address.city">
+            <a
+              [href]="
+                'https://www.google.com/maps/search/?api=1&query=' +
+                participantEvent.organizedEventDetailsDTO.address.addressLine +
+                '+' +
+                participantEvent.organizedEventDetailsDTO.address.city
+              "
+            >
               <mat-icon>map</mat-icon>
             </a>
           </mat-card-actions>

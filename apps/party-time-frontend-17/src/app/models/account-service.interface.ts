@@ -7,27 +7,39 @@ import {
 } from './dto/account-dto.interface';
 
 /**
- * Represents an account service.
+ * Controller for account related matters.
+ *
+ * @param accountService Service used for registering accounts and changing passwords
+ * @param accountDeletionService Service used for deleting accounts
  */
 export interface IAccountService {
   /**
-   * Changes the password for the account.
-   * @param changeRequestDTO - The change password request DTO.
-   * @returns An Observable that emits void or an ApiError.
+   * F013 - Passwort Ändern
+   *
+   * Changes the password of an authenticated user.
+   *
+   * @param body Information required for changing the password (old password & new password)
+   * @param authentication Authentication information of the authenticated user
    */
   changePassword(changeRequestDTO: ChangePasswordDTO): Observable<void>;
 
   /**
-   * Deletes the account.
-   * @param password - The password for account deletion.
-   * @returns An Observable that emits void or an ApiError.
+   * F015 - Konto Löschen
+   *
+   * Deletes the account of the authenticated user.
+   *
+   * @param body Information required for deleting the account (current password)
+   * @param authentication Authentication information of the authenticated user
    */
   deleteAccount(accountDeleteDTO: AccountDeleteDTO): Observable<void>;
 
   /**
-   * Registers a new user account with the provided account registration data.
-   * @param accountRegisterDTO - The account registration data.
-   * @returns An Observable that emits an AccountDTO if the registration is successful, or an ApiError if there is an error.
+   * F010 - Konto Erstellen
+   *
+   * Creates a new account with the provided information.
+   *
+   * @param body Information about the to-be-created account.
+   * @return Information about the registered account.
    */
   register(accountRegisterDTO: AccountRegisterDTO): Observable<AccountDTO>;
 }

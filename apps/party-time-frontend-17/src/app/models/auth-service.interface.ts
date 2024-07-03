@@ -3,7 +3,9 @@ import { LoginRequestDTO, LoginResponseDTO } from './dto/auth-dto.interface';
 import { ApiError } from './error.interface';
 
 /**
- * Represents the interface for an authentication service.
+ * Controller for authentication related matters.
+ *
+ * @param authService Service for authentication related matters (e.g. logging in)
  */
 export interface IAuthService {
   /**
@@ -13,20 +15,27 @@ export interface IAuthService {
   isAuthenticated(): Observable<boolean>;
 
   /**
-   * Logs in the user with the provided login request data.
-   * @param loginRequestDTO - The login request data.
-   * @returns An Observable that emits a LoginResponseDTO if the login is successful, or an ApiError if there is an error.
+   * F011 - Konto anmelden
+   *
+   * Logs a user into the plattform.
+   *
+   * @param body Information required for the log-in
+   * @return Information about the successful log-in (contains the auth-token for password-less authentication)
    */
   login(loginRequestDTO: LoginRequestDTO): Observable<LoginResponseDTO>;
 
   /**
-   * Verifies the user's email with the provided verification token.
-   * @param token - The verification token.
-   * @returns An Observable that emits void if the email verification is successful, or an ApiError if there is an error.
+   * F014 - Konto Verifizieren
+   *
+   * Verifies the validity of the provided e-mail address of an account.
+   *
+   * @param token The e-mail-verification token used to identify which account should be marked as e-mail-verified
+   * @param emptyBody An empty message body, as required by the HTTP POST method
    */
   verifyEmail(token: string): Observable<void | ApiError>;
 
   /**
+   * F012 Konto abmelden
    * Logs out the user.
    */
   logout(): void;

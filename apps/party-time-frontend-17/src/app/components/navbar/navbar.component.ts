@@ -21,7 +21,7 @@ import { Observable } from 'rxjs';
   ],
   providers: [AuthService],
   template: `
-    <mat-toolbar color="primary" class="flex justify-between items-center">
+    <mat-toolbar color="primary" class="flex items-center justify-between">
       <button
         mat-icon-button
         class="lg:hidden"
@@ -31,14 +31,16 @@ import { Observable } from 'rxjs';
         <mat-icon>menu</mat-icon>
       </button>
       <span class="text-xl font-bold">Party Time</span>
-      <div class="hidden lg:flex space-x-4">
+      <div class="hidden space-x-4 lg:flex">
         <button mat-button routerLink="/events">Events</button>
         <ng-container *ngIf="isAuthenticated$ | async; else guestLinks">
           <button mat-button [matMenuTriggerFor]="account">Account</button>
         </ng-container>
         <ng-template #guestLinks>
           <button mat-button routerLink="/auth/login">Login</button>
-          <button mat-button routerLink="/account/register">Regestrieren</button>
+          <button mat-button routerLink="/account/register">
+            Regestrieren
+          </button>
         </ng-template>
       </div>
     </mat-toolbar>
@@ -50,19 +52,27 @@ import { Observable } from 'rxjs';
       </ng-container>
       <ng-template #guestMenu>
         <button mat-menu-item routerLink="/auth/login">Login</button>
-        <button mat-menu-item routerLink="/account/register">Regestrieren</button>
+        <button mat-menu-item routerLink="/account/register">
+          Regestrieren
+        </button>
       </ng-template>
     </mat-menu>
 
     <mat-menu #account="matMenu">
       <ng-container *ngIf="isAuthenticated$ | async; else guest">
-        <button mat-menu-item routerLink="/account/change-password">Passwort ändern</button>
-        <button mat-menu-item routerLink="/account/delete">Account löschen</button>
+        <button mat-menu-item routerLink="/account/change-password">
+          Passwort ändern
+        </button>
+        <button mat-menu-item routerLink="/account/delete">
+          Account löschen
+        </button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </ng-container>
       <ng-template #guest>
         <button mat-menu-item routerLink="/auth/login">Login</button>
-        <button mat-menu-item routerLink="/account/register">Regestrieren</button>
+        <button mat-menu-item routerLink="/account/register">
+          Regestrieren
+        </button>
       </ng-template>
     </mat-menu>
   `,

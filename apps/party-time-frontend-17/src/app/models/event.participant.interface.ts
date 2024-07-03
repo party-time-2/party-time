@@ -6,16 +6,24 @@ import { ParticipantEventDTO } from './dto/event-dto.interface';
  */
 export interface IEventParticipantService {
   /**
-   * Declines an event invitation.
-   * @param eventId - The ID of the event.
-   * @returns An Observable that emits void or an ApiError.
+   * Implements F009
+   *
+   * Handles declining an event invitation.
+   *
+   * @param eventId id of the event for which to decline an invitation
+   * @param emptyBody An empty message body, as required by the HTTP POST method
+   * @param authentication Authentication details of the user declining an event invitation
    */
   declineEvent(eventId: string): Observable<void>;
 
   /**
-   * Accepts an event invitation.
-   * @param eventId - The ID of the event.
-   * @returns An Observable that emits void or an ApiError.
+   * Implements F008
+   *
+   * Handles accepting an event invitation.
+   *
+   * @param eventId id of the event for which to accept an invitation
+   * @param emptyBody An empty message body, as required by the HTTP POST method
+   * @param authentication Authentication details of the user accepting an event invitation
    */
   acceptEvent(eventId: string): Observable<void>;
 

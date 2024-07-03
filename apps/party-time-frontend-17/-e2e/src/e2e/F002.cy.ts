@@ -1,6 +1,6 @@
 import { getScreenshotPath } from '../support/utils';
 
-const requirement = "F002";
+const requirement = 'F002';
 
 const editEvents = 'Events bearbeiten';
 describe(editEvents, () => {
@@ -8,14 +8,11 @@ describe(editEvents, () => {
     cy.visit('/');
   });
 
-  const updateEvent = 'Veranstalter können ein bereits erstelltes Event auswählen und die entsprechenden Informationen bearbeiten und speichern.';
+  const updateEvent =
+    'Veranstalter können ein bereits erstelltes Event auswählen und die entsprechenden Informationen bearbeiten und speichern.';
   it(updateEvent, () => {
-
-    cy.screenshot(
-      getScreenshotPath(requirement, editEvents, updateEvent),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, editEvents, updateEvent), {
+      overwrite: true,
+    });
   });
 });

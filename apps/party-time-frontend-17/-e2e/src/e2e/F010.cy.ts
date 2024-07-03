@@ -1,6 +1,6 @@
 import { getScreenshotPath } from '../support/utils';
 
-const requirement = "F010";
+const requirement = 'F010';
 const createAccountGroup = 'Konto erstellen';
 describe(createAccountGroup, () => {
   beforeEach(() => {
@@ -9,7 +9,6 @@ describe(createAccountGroup, () => {
 
   const hasRequiredFields = 'alle erforderlichen Felder ';
   it(hasRequiredFields, () => {
-
     cy.screenshot(
       getScreenshotPath(requirement, createAccountGroup, hasRequiredFields),
       {
