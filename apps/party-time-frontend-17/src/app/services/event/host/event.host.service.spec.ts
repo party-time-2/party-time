@@ -129,7 +129,7 @@ describe('EventHostService', () => {
       environment.api.endpoints.event.host.inviteParticipant(eventId.toString())
     );
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ participantEmail });
+    expect(req.request.body).toEqual({ "email": "mockParticipantEmail" });
     req.flush([invidedParticipant]);
   });
 
@@ -296,7 +296,7 @@ describe('EventHostService', () => {
       environment.api.endpoints.event.host.inviteParticipant(eventId.toString())
     );
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ participantEmail });
+    expect(req.request.body).toEqual({"email": participantEmail });
     req.flush(mockError.error, {
       status: mockError.status,
       statusText: mockError.statusText,
