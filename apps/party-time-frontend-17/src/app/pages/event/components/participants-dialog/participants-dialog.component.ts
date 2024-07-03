@@ -1,3 +1,5 @@
+// F008 Zusage zum Event geben
+// F009 Absage zum Event geben
 import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {

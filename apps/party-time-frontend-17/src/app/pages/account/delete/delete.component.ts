@@ -1,3 +1,4 @@
+// F015 Konto löschen
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../services/account/account.service';

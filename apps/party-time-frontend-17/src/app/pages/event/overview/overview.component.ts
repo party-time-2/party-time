@@ -1,3 +1,10 @@
+// F001 Events anlegen
+// F002 Events bearbeiten
+// F003 Events löschen
+// F004 Gäste einladen
+// F005 Gäste ausladen
+// F016 Events überblicken
+// F018 Wegbeschreibung zum Event
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../../components/navbar/navbar.component';

@@ -1,3 +1,4 @@
+// F014 Konto verifizieren
 import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../../components/footer/footer.component';
