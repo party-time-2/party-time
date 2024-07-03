@@ -7,6 +7,7 @@ import {
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-participating-event',
@@ -16,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
     MatProgressSpinnerModule,
     MatButtonModule,
     MatCardModule,
+    MatIconModule,
   ],
   template: `
     <ng-container *ngIf="participantEvent; else loading">
@@ -79,6 +81,9 @@ import { MatCardModule } from '@angular/material/card';
             >
               Ablehnen
             </button>
+            <a [href]="'https://www.google.com/maps/search/?api=1&query=' +participantEvent.organizedEventDetailsDTO.address.addressLine + '+' + participantEvent.organizedEventDetailsDTO.address.city">
+              <mat-icon>map</mat-icon>
+            </a>
           </mat-card-actions>
         </mat-card>
       </section>
