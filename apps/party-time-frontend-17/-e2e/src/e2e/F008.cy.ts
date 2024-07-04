@@ -8,20 +8,15 @@ describe(eventAcceptanceGroup, () => {
     cy.login();
     cy.visit('/events');
   });
-  
+
   const acceptInvitation =
-  'Teilnehmer sollten in der Lage sein, ihre Zusage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken.';
+    'Teilnehmer sollten in der Lage sein, ihre Zusage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken.';
   it(acceptInvitation, () => {
     cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
       overwrite: true,
     });
-   cy.get('[data-cy="participate-button"]').first().click();
-     cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
-      overwrite: true,
-    });
-
-   cy.get('[data-cy="decline-button"]').first().click();
-  cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
+    cy.get('[data-cy="participate-button"]').first().click();
+    cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
       overwrite: true,
     });
   });
