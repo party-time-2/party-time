@@ -10,6 +10,7 @@ describe(createEventGroup, () => {
     cy.visit('/events');
     cy.screenshot(getScreenshotPath(requirement, createEventGroup, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 
@@ -25,10 +26,12 @@ describe(createEventGroup, () => {
     cy.get('[data-cy="country-input"]').type('Deutschland');
     cy.screenshot(getScreenshotPath(requirement, createEventGroup, '2'), {
       overwrite: true,
+      capture: 'viewport',
     });
     cy.get('[data-cy="save-button"]').click();
     cy.screenshot(getScreenshotPath(requirement, createEventGroup, '3'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });
