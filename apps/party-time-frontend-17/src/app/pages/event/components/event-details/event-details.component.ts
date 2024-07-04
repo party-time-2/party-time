@@ -69,6 +69,7 @@ import { MatDividerModule } from '@angular/material/divider';
           </button>
           <button
             mat-mini-fab
+            data-cy="participants-button"
             color="accent"
             (click)="onParticipantsClicked(eventDetails.id)"
           >

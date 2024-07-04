@@ -71,6 +71,7 @@ import { MatIconModule } from '@angular/material/icon';
           </mat-card-content>
           <mat-card-actions>
             <button
+              data-cy="participate-button"
               [disabled]="
                 participantEvent.invitationDetailsDTO.status ===
                 Status.PARTICIPATING
@@ -87,6 +88,7 @@ import { MatIconModule } from '@angular/material/icon';
               Teilnehmen
             </button>
             <button
+              data-cy="decline-button"
               [disabled]="
                 participantEvent.invitationDetailsDTO.status === Status.DECLINED
               "

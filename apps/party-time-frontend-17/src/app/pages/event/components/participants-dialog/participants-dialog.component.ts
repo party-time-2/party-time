@@ -66,7 +66,12 @@ import { ApiError } from 'apps/party-time-frontend-17/src/app/models/error.inter
       <form [formGroup]="participantForm" (ngSubmit)="addParticipant()">
         <mat-form-field class="w-full">
           <mat-label>Email Adresse</mat-label>
-          <input matInput formControlName="email" required />
+          <input
+            data-cy="email-input"
+            matInput
+            formControlName="email"
+            required
+          />
           <mat-error
             *ngIf="participantForm.get('email')?.errors?.['required']"
             data-cy="email-required-error"
@@ -84,6 +89,7 @@ import { ApiError } from 'apps/party-time-frontend-17/src/app/models/error.inter
         <button
           mat-raised-button
           color="primary"
+          data-cy="add-participant-button"
           [disabled]="participantForm.invalid"
         >
           Hinzufügen
