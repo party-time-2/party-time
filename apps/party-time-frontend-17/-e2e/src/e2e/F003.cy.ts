@@ -5,22 +5,23 @@ const requirement = 'F003';
 const deleteEvents = 'Events löschen';
 describe(deleteEvents, () => {
   beforeEach(() => {
-    cy.visit('/');
+        cy.viewport(1920, 1080);
+    cy.login();
+    cy.visit('/events');
+    cy.screenshot(
+      getScreenshotPath(requirement, deleteEvents, "1"),
+      {
+        overwrite: true,
+      }
+    );
   });
 
   const deleteEvent =
     'Veranstalter können ein Event löschen, indem sie auf der Plattform auf das entsprechende Event zugreifen und die Option "Löschen" auswählen.';
   it(deleteEvent, () => {
-    cy.screenshot(getScreenshotPath(requirement, deleteEvents, deleteEvent), {
-      overwrite: true,
-    });
-  });
-
-  const eventDeletionTest =
-    'Das Event wird dann dauerhaft von der Plattform entfernt.';
-  it(eventDeletionTest, () => {
+      cy.get('[data-cy="delete-button"]').first().click();
     cy.screenshot(
-      getScreenshotPath(requirement, deleteEvents, eventDeletionTest),
+      getScreenshotPath(requirement, deleteEvents, "2"),
       {
         overwrite: true,
       }

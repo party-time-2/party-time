@@ -77,6 +77,7 @@ import { MatDividerModule } from '@angular/material/divider';
           <button
             mat-mini-fab
             color="warn"
+            data-cy="delete-button"
             (click)="onDeleteClicked(eventDetails.id)"
           >
             <mat-icon fontIcon="delete"></mat-icon>
