@@ -256,7 +256,7 @@ class OrganizerService (
         invitationRepository.save(invitation)
 
         //Inform invited user about invitation
-        val baseLink: String = configurationProperties.url + eventId + "/invitation/"
+        val baseLink = "${configurationProperties.url}/$eventId/invitation"
         val acceptLink = "$baseLink/accept"
         val declineLink = "$baseLink/decline"
 
