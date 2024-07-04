@@ -7,6 +7,7 @@ import com.partytime.jpa.repository.AccountRepository
 import com.partytime.jpa.repository.EventRepository
 import com.partytime.service.AddressService
 import com.partytime.service.AuthService
+import com.partytime.service.CryptService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
@@ -15,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
-import java.util.UUID
 
 private val testDataLogger = KotlinLogging.logger("TestDataGenerator")
 
@@ -26,10 +26,12 @@ class TestDataGenerator(
     private val eventRepository: EventRepository,
     val addressService: AddressService,
     val passwordEncoder: PasswordEncoder,
-    val authService: AuthService
+    val authService: AuthService,
+    val cryptService: CryptService,
 ) : ApplicationRunner {
     companion object {
         const val DEBUG_PASSWORD: String = "Hallo123!party"
+        const val VERIFICATION_TOKEN_UNVERIFIED_1 = "4edc2ee0-260b-43d2-877a-e2016c14d164"
     }
 
     override fun run(args: ApplicationArguments?) {
@@ -89,7 +91,9 @@ class TestDataGenerator(
                 passwordEncoder.encode(DEBUG_PASSWORD)
             )
             if (!verified) {
-                account.emailVerificationCode = UUID.randomUUID().toString()
+                account.emailVerificationCode = if (email == "not_verified1@partytime.de") {
+                    VERIFICATION_TOKEN_UNVERIFIED_1
+                } else cryptService.randomUUID().toString()
             }
             accountRepository.save(account)
             testDataLogger.info {
