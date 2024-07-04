@@ -8,33 +8,23 @@ describe(editEvents, () => {
     cy.viewport(1920, 1080);
     cy.login();
     cy.visit('/events');
-    cy.screenshot(
-      getScreenshotPath(requirement, editEvents, "1"),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, editEvents, '1'), {
+      overwrite: true,
+    });
   });
 
   const updateEvent =
     'Veranstalter können ein bereits erstelltes Event auswählen und die entsprechenden Informationen bearbeiten und speichern.';
-it(updateEvent, () => {
+  it(updateEvent, () => {
     cy.get('[data-cy="edit-button"]').first().click();
-    cy.get('[data-cy="event-name-input"]').clear()
+    cy.get('[data-cy="event-name-input"]').clear();
     cy.get('[data-cy="event-name-input"]').type('Fußballspiel 2');
-    cy.screenshot(
-      getScreenshotPath(requirement, editEvents, "2"),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, editEvents, '2'), {
+      overwrite: true,
+    });
     cy.get('[data-cy="save-button"]').click();
-    cy.screenshot(
-      getScreenshotPath(requirement, editEvents, "3"),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, editEvents, '3'), {
+      overwrite: true,
+    });
   });
 });
-

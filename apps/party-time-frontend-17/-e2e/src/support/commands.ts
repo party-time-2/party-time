@@ -14,7 +14,7 @@
 declare namespace Cypress {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Chainable<Subject> {
-       login(): void;
+    login(): void;
   }
 }
 
@@ -26,7 +26,6 @@ Cypress.Commands.add('login', () => {
     );
   });
 });
-
 
 //
 // -- This is a child command --

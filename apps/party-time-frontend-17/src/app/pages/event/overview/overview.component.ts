@@ -47,44 +47,44 @@ import { ParticipantsDialogComponent } from '../components/participants-dialog/p
     EventDetailsComponent,
   ],
   template: `<app-navbar></app-navbar>
-  <section class="h-screen">
-    <app-page-header title="Events"></app-page-header>
-    <H2 class="text-center">Organisierte Events</H2>
-    <div class="flex flex-row justify-center pt-5">
-      <button mat-fab color="primary" (click)="addNewEvent()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
-    <div class="flex flex-wrap justify-center">
-      @if (organizedEvents$ | async) { @for (organizedEvent of organizedEvents$
-      | async; track $index) {
-      <app-event-details
-        (deleteClicked)="onEventDelete($event)"
-        (editClicked)="onEventEdit($event)"
-        (participantsClicked)="onParticipant($event)"
-        [eventDetails]="organizedEvent"
-      ></app-event-details>
-      }@empty {
-      <p>No events found</p>
-      } }@else {
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-      }
-    </div>
+    <section class="h-screen">
+      <app-page-header title="Events"></app-page-header>
+      <H2 class="text-center">Organisierte Events</H2>
+      <div class="flex flex-row justify-center pt-5">
+        <button mat-fab color="primary" (click)="addNewEvent()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div class="flex flex-wrap justify-center">
+        @if (organizedEvents$ | async) { @for (organizedEvent of
+        organizedEvents$ | async; track $index) {
+        <app-event-details
+          (deleteClicked)="onEventDelete($event)"
+          (editClicked)="onEventEdit($event)"
+          (participantsClicked)="onParticipant($event)"
+          [eventDetails]="organizedEvent"
+        ></app-event-details>
+        }@empty {
+        <p>No events found</p>
+        } }@else {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        }
+      </div>
 
-    <H2 class="text-center">Einladungen</H2>
-    <div class="flex flex-wrap justify-center">
-      @if (participatingEvents$ | async) { @for (participatingEvent of
-      participatingEvents$ | async; track $index) {
-      <app-participating-event
-        [participantEvent]="participatingEvent"
-        (participantStatusChange)="onParticipantStatusChange($event)"
-      />
-      }@empty {
-      <p>No events found</p>
-      }}@else {
-      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
-      }
-    </div>
+      <H2 class="text-center">Einladungen</H2>
+      <div class="flex flex-wrap justify-center">
+        @if (participatingEvents$ | async) { @for (participatingEvent of
+        participatingEvents$ | async; track $index) {
+        <app-participating-event
+          [participantEvent]="participatingEvent"
+          (participantStatusChange)="onParticipantStatusChange($event)"
+        />
+        }@empty {
+        <p>No events found</p>
+        }}@else {
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+        }
+      </div>
     </section>
     <app-footer></app-footer> `,
   styles: ``,

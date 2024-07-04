@@ -8,12 +8,9 @@ describe(createEventGroup, () => {
     cy.viewport(1920, 1080);
     cy.login();
     cy.visit('/events');
-    cy.screenshot(
-      getScreenshotPath(requirement, createEventGroup, "1"),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, createEventGroup, '1'), {
+      overwrite: true,
+    });
   });
 
   const generateEvent =
@@ -26,18 +23,12 @@ describe(createEventGroup, () => {
     cy.get('[data-cy="zip-input"]').type('81547');
     cy.get('[data-cy="city-input"]').type('München');
     cy.get('[data-cy="country-input"]').type('Deutschland');
-    cy.screenshot(
-      getScreenshotPath(requirement, createEventGroup, "2"),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, createEventGroup, '2'), {
+      overwrite: true,
+    });
     cy.get('[data-cy="save-button"]').click();
-    cy.screenshot(
-      getScreenshotPath(requirement, createEventGroup, "3"),
-      {
-        overwrite: true,
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, createEventGroup, '3'), {
+      overwrite: true,
+    });
   });
 });
