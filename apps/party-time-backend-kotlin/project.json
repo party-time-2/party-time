@@ -45,7 +45,12 @@
       "options": {
         "root": "apps/party-time-backend-kotlin"
       },
-      "dependsOn": ["^install"]
+      "dependsOn": ["^install"],
+      "configurations": {
+        "in-mem": {
+          "args": ["--args='--spring.profiles.active=mem'"]
+        }
+      }
     },
     "serve": {
       "executor": "@nxrocks/nx-spring-boot:serve",
