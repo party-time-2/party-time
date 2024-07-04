@@ -62,6 +62,7 @@ import { MatDividerModule } from '@angular/material/divider';
           <button
             color="primary"
             mat-mini-fab
+            data-cy="edit-button"
             (click)="onEditClicked(eventDetails)"
           >
             <mat-icon fontIcon="edit"></mat-icon>

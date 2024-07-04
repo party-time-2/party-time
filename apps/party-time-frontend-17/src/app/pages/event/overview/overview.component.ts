@@ -47,6 +47,7 @@ import { ParticipantsDialogComponent } from '../components/participants-dialog/p
     EventDetailsComponent,
   ],
   template: `<app-navbar></app-navbar>
+  <section class="h-screen">
     <app-page-header title="Events"></app-page-header>
     <H2 class="text-center">Organisierte Events</H2>
     <div class="flex flex-row justify-center pt-5">
@@ -84,6 +85,7 @@ import { ParticipantsDialogComponent } from '../components/participants-dialog/p
       <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
       }
     </div>
+    </section>
     <app-footer></app-footer> `,
   styles: ``,
   providers: [EventHostService, EventParticipantsService],
