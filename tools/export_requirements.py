@@ -66,8 +66,7 @@ def copy_requirements():
             else:
                 print(f"No sequence diagram for dir {dir_name} found.")
             
-
-            test_pics = find_test_png(out_dir)
+            test_pics = sorted(find_test_png(out_dir), key=lambda x: x.stem)
             if test_pics:
                 md_file_blocks.append("## Bilder")
                 md_file_blocks.append("")
