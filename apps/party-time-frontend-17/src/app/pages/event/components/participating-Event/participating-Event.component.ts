@@ -104,6 +104,7 @@ import { MatIconModule } from '@angular/material/icon';
               Ablehnen
             </button>
             <a
+              data-cy="map-button"
               [href]="
                 'https://www.google.com/maps/search/?api=1&query=' +
                 participantEvent.organizedEventDetailsDTO.address.addressLine +
