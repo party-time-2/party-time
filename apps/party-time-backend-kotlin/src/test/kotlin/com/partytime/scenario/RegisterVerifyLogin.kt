@@ -38,9 +38,9 @@ class RegisterVerifyLogin (
         //verify account
 
         val mailEvent: MailEvent =
-            applicationEvents.stream()
-                .filter { it is MailEvent && it.data is VerifyAccountData }
-                .findFirst().orElseThrow() as MailEvent
+            applicationEvents.stream(MailEvent::class.java)
+                .filter { it.data is VerifyAccountData }
+                .findFirst().orElseThrow()
 
         val verificationLink = (mailEvent.data as VerifyAccountData).verificationLink
         val token = verificationLink.substringAfter("token=")
