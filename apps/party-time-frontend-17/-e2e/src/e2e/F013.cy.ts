@@ -4,6 +4,8 @@ const requirement = 'F013';
 const passwordChange = 'Passwort ändern';
 describe(passwordChange, () => {
   beforeEach(() => {
+    cy.viewport(1920, 1080);
+    cy.login();
     cy.visit('/');
   });
 

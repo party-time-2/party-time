@@ -20,6 +20,7 @@ import { RouterLink } from '@angular/router';
       <h1 class="text-4xl font-bold">Willkommen bei Party Time</h1>
       <p class="mt-4 text-lg">Die Plattform für deine nächste Party</p>
       <button
+      data-cy="create-event-button"
         mat-raised-button
         color="primary"
         class="mt-4"

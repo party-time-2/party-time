@@ -34,7 +34,7 @@ import { Observable } from 'rxjs';
       <div class="hidden space-x-4 lg:flex">
         <button mat-button routerLink="/events">Events</button>
         <ng-container *ngIf="isAuthenticated$ | async; else guestLinks">
-          <button mat-button [matMenuTriggerFor]="account">Account</button>
+          <button data-cy="user-menu" mat-button [matMenuTriggerFor]="account">Account</button>
         </ng-container>
         <ng-template #guestLinks>
           <button mat-button routerLink="/auth/login">Login</button>
@@ -66,7 +66,7 @@ import { Observable } from 'rxjs';
         <button mat-menu-item routerLink="/account/delete">
           Account löschen
         </button>
-        <button mat-menu-item (click)="logout()">Logout</button>
+        <button data-cy="sign-out-button" mat-menu-item (click)="logout()">Logout</button>
       </ng-container>
       <ng-template #guest>
         <button mat-menu-item routerLink="/auth/login">Login</button>
