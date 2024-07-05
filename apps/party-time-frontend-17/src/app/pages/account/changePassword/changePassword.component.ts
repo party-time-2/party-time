@@ -158,7 +158,7 @@ export class ChangePasswordComponent {
               },
               { emitEvent: false }
             );
-            
+
             Object.keys(this.changePasswordForm.controls).forEach((key) => {
               const control = this.changePasswordForm.get(key);
               control?.markAsPristine();

@@ -12,20 +12,14 @@ describe(uninviteGuest, () => {
   const uninviteGuestTest = 'Veranstalter können einzelne Gäste ausladen.';
   it(uninviteGuestTest, () => {
     cy.get('[data-cy="participants-button"]').first().click();
-    cy.screenshot(
-      getScreenshotPath(requirement, uninviteGuest, "1"),
-      {
-        overwrite: true,
-        capture: 'viewport',
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, uninviteGuest, '1'), {
+      overwrite: true,
+      capture: 'viewport',
+    });
     cy.get('[data-cy="uninvite-button"]').first().click();
-    cy.screenshot(
-      getScreenshotPath(requirement, uninviteGuest, '2'),
-      {
-        overwrite: true,
-        capture: 'viewport',
-      }
-    );
+    cy.screenshot(getScreenshotPath(requirement, uninviteGuest, '2'), {
+      overwrite: true,
+      capture: 'viewport',
+    });
   });
 });

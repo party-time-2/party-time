@@ -77,7 +77,7 @@ export class AuthService implements IAuthService {
 
   logout(): void {
     this.storageService.removeAuthToken();
-    this.authStatus$.next(this.hasToken()); 
+    this.authStatus$.next(this.hasToken());
     this.router.navigate(['/auth/login']);
   }
 }
