@@ -4,13 +4,23 @@ const requirement = 'F005';
 const uninviteGuest = 'Gäste ausladen';
 describe(uninviteGuest, () => {
   beforeEach(() => {
-    cy.visit('/');
+    cy.login();
+    cy.visit('/events');
   });
 
   const uninviteGuestTest = 'Veranstalter können einzelne Gäste ausladen.';
   it(uninviteGuestTest, () => {
+    cy.get('[data-cy="participants-button"]').first().click();
     cy.screenshot(
-      getScreenshotPath(requirement, uninviteGuest, uninviteGuestTest),
+      getScreenshotPath(requirement, uninviteGuest, "1"),
+      {
+        overwrite: true,
+        capture: 'viewport',
+      }
+    );
+    cy.get('[data-cy="uninvite-button"]').first().click();
+    cy.screenshot(
+      getScreenshotPath(requirement, uninviteGuest, '2'),
       {
         overwrite: true,
         capture: 'viewport',

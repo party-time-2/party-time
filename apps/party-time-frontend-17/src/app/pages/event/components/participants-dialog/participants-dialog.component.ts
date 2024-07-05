@@ -53,6 +53,7 @@ import { ApiError } from 'apps/party-time-frontend-17/src/app/models/error.inter
               {{ getStatusText(participant.status) }}
             </div>
             <button
+              data-cy="uninvite-button"
               mat-icon-button
               color="warn"
               (click)="uninviteParticipant(participant)"
