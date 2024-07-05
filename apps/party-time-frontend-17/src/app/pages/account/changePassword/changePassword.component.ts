@@ -19,6 +19,7 @@ import { NavbarComponent } from '../../../components/navbar/navbar.component';
 import { PageHeaderComponent } from '../../../components/page-header/page-header.component';
 import { ChangePasswordDTO } from '../../../models/dto/account-dto.interface';
 import { ApiError } from '../../../models/error.interface';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -119,11 +120,12 @@ import { ApiError } from '../../../models/error.interface';
     </section>
     <app-footer></app-footer>`,
 
-  providers: [AccountService],
+  providers: [AccountService, AuthService],
   styles: ``,
 })
 export class ChangePasswordComponent {
   private accountService: IAccountService = inject(AccountService);
+  private authService: AuthService = inject(AuthService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
 
   changePasswordForm = new FormGroup({
@@ -156,13 +158,14 @@ export class ChangePasswordComponent {
               },
               { emitEvent: false }
             );
-
+            
             Object.keys(this.changePasswordForm.controls).forEach((key) => {
               const control = this.changePasswordForm.get(key);
               control?.markAsPristine();
               control?.markAsUntouched();
               control?.setErrors(null);
             });
+            this.authService.logout();
           },
           error: (apiError: ApiError) => {
             console.error('Password change error:', apiError);

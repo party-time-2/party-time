@@ -16,6 +16,7 @@ import {
   LoginResponseDTO,
 } from '../../models/dto/auth-dto.interface';
 import { ApiError } from '../../models/error.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class AuthService implements IAuthService {
   private http: HttpClient = inject(HttpClient);
   private storageService: StorageService = inject(StorageService);
   private authStatus$ = new BehaviorSubject<boolean>(this.hasToken());
+  private router: Router = inject(Router);
 
   isAuthenticated(): Observable<boolean> {
     return this.authStatus$.asObservable();
@@ -75,6 +77,7 @@ export class AuthService implements IAuthService {
 
   logout(): void {
     this.storageService.removeAuthToken();
-    this.authStatus$.next(this.hasToken());
+    this.authStatus$.next(this.hasToken()); 
+    this.router.navigate(['/auth/login']);
   }
 }
