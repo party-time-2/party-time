@@ -544,7 +544,7 @@ class OrganizerServiceUnitTest : UnitTest() {
                             assertEquals(EVENT_NAME, mustacheData.event.eventName)
                             assertEquals(address.toMultiLineString(), mustacheData.event.location)
                             assertEquals(eventZonedDateTime.toEmailFormat(), mustacheData.event.startTime)
-                            val baseLink = "$URL$eventID/invitation/"
+                            val baseLink = "$URL/$eventID/invitation"
                             assertEquals("$baseLink/accept", mustacheData.acceptLink)
                             assertEquals("$baseLink/decline", mustacheData.declineLink)
                             assertEquals(URL, mustacheData.homepage)

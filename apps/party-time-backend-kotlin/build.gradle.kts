@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	id("org.springframework.boot") version "3.3.0"
@@ -61,6 +60,7 @@ dependencies {
     //test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-webflux")
 
 	testImplementation("org.springframework.security:spring-security-test")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
@@ -81,6 +81,7 @@ kotlin {
 }
 
 tasks.withType<Test> {
+    systemProperty("spring.profiles.active", "mem")
 	useJUnitPlatform()
 }
 
