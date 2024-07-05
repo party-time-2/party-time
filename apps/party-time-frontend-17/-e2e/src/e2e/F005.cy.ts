@@ -4,6 +4,7 @@ const requirement = 'F005';
 const uninviteGuest = 'Gäste ausladen';
 describe(uninviteGuest, () => {
   beforeEach(() => {
+    cy.viewport(1920, 1080);
     cy.login();
     cy.visit('/events');
   });
