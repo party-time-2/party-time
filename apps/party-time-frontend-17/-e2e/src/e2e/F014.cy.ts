@@ -21,8 +21,6 @@ describe(verifyAccount, () => {
     });
     cy.get('[data-cy="verify-button"]').click();
 
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait();
     cy.screenshot(getScreenshotPath(requirement, verifyAccount, '2'), {
       overwrite: true,
       capture: 'viewport',
