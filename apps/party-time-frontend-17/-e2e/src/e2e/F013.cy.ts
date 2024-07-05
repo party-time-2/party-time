@@ -50,6 +50,7 @@ describe(passwordChange, () => {
       capture: 'viewport',
     });
     cy.get('[data-cy="submit-button"]').click();
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(1000);
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '5'), {
       overwrite: true,
