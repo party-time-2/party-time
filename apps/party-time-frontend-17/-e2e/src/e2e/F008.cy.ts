@@ -14,10 +14,12 @@ describe(eventAcceptanceGroup, () => {
   it(acceptInvitation, () => {
     cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
     cy.get('[data-cy="participate-button"]').first().click();
     cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });

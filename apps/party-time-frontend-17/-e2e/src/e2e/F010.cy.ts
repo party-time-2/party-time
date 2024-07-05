@@ -13,6 +13,7 @@ describe(createAccountGroup, () => {
       getScreenshotPath(requirement, createAccountGroup, hasRequiredFields),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

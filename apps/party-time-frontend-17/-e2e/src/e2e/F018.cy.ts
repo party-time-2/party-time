@@ -15,6 +15,7 @@ describe(eventDirections, () => {
     cy.get('[data-cy="map-button"]').first().click();
     cy.screenshot(getScreenshotPath(requirement, eventDirections, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });

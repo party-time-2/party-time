@@ -14,6 +14,7 @@ describe(deleteAccount, () => {
       getScreenshotPath(requirement, deleteAccount, accountDeletionSuccessTest),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });
@@ -28,6 +29,7 @@ describe(deleteAccount, () => {
       ),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

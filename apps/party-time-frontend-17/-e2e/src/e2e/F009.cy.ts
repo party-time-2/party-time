@@ -15,6 +15,7 @@ describe(eventCancelation, () => {
     cy.get('[data-cy="decline-button"]').first().click();
     cy.screenshot(getScreenshotPath(requirement, eventCancelation, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });

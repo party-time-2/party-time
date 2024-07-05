@@ -14,6 +14,7 @@ describe(signOutGroup, () => {
       getScreenshotPath(requirement, signOutGroup, logoutLinkPresence),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });
@@ -25,6 +26,7 @@ describe(signOutGroup, () => {
       getScreenshotPath(requirement, signOutGroup, unavailableDataAfterLogout),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

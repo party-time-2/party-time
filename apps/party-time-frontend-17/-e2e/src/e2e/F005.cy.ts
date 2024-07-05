@@ -13,6 +13,7 @@ describe(uninviteGuest, () => {
       getScreenshotPath(requirement, uninviteGuest, uninviteGuestTest),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

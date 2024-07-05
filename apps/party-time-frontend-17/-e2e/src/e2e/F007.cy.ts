@@ -16,6 +16,7 @@ describe(invitationReceivedGroup, () => {
       getScreenshotPath(requirement, invitationReceivedGroup, '1'),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });
@@ -26,6 +27,7 @@ describe(invitationReceivedGroup, () => {
       getScreenshotPath(requirement, invitationReceivedGroup, '2'),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

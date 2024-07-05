@@ -16,11 +16,13 @@ describe(inviteGuests, () => {
     cy.get('[data-cy="participants-button"]').first().click();
     cy.screenshot(getScreenshotPath(requirement, inviteGuests, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
     cy.get('[data-cy="email-input"]').type('verified1@partytime.de');
     cy.get('[data-cy="add-participant-button"]').click();
     cy.screenshot(getScreenshotPath(requirement, inviteGuests, '2'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 

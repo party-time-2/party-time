@@ -10,6 +10,7 @@ describe(deleteEvents, () => {
     cy.visit('/events');
     cy.screenshot(getScreenshotPath(requirement, deleteEvents, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 
@@ -19,6 +20,7 @@ describe(deleteEvents, () => {
     cy.get('[data-cy="delete-button"]').first().click();
     cy.screenshot(getScreenshotPath(requirement, deleteEvents, '2'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });

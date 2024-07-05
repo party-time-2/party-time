@@ -14,6 +14,7 @@ describe(login_account_success, () => {
       getScreenshotPath(requirement, login_account_success, loginFormTest),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

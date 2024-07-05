@@ -14,6 +14,7 @@ describe(verifyAccount, () => {
       getScreenshotPath(requirement, verifyAccount, nameAndEmailRequired),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

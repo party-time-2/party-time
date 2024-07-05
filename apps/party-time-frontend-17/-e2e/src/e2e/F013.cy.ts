@@ -14,6 +14,7 @@ describe(passwordChange, () => {
       getScreenshotPath(requirement, passwordChange, confirmPassword),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });
@@ -23,6 +24,7 @@ describe(passwordChange, () => {
   it(newPassword, () => {
     cy.screenshot(getScreenshotPath(requirement, passwordChange, newPassword), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 
@@ -33,6 +35,7 @@ describe(passwordChange, () => {
       getScreenshotPath(requirement, passwordChange, newPasswordConstraints),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });
@@ -44,6 +47,7 @@ describe(passwordChange, () => {
       getScreenshotPath(requirement, passwordChange, passwordChangeLogout),
       {
         overwrite: true,
+        capture: 'viewport',
       }
     );
   });

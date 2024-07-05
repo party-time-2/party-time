@@ -15,6 +15,7 @@ describe(participantsOverview, () => {
     cy.get('[data-cy="participants-button"]').first().click();
     cy.screenshot(getScreenshotPath(requirement, participantsOverview, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });

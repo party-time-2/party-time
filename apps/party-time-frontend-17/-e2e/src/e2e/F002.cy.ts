@@ -10,6 +10,7 @@ describe(editEvents, () => {
     cy.visit('/events');
     cy.screenshot(getScreenshotPath(requirement, editEvents, '1'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 
@@ -21,10 +22,12 @@ describe(editEvents, () => {
     cy.get('[data-cy="event-name-input"]').type('Fußballspiel 2');
     cy.screenshot(getScreenshotPath(requirement, editEvents, '2'), {
       overwrite: true,
+      capture: 'viewport',
     });
     cy.get('[data-cy="save-button"]').click();
     cy.screenshot(getScreenshotPath(requirement, editEvents, '3'), {
       overwrite: true,
+      capture: 'viewport',
     });
   });
 });
