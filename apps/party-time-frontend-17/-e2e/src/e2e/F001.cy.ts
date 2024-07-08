@@ -17,6 +17,7 @@ describe(createEventGroup, () => {
   const generateEvent =
     'Veranstalter sollten in der Lage sein, ein neues Event anzulegen, indem sie ein Formular ausfüllen, in dem sie alle relevanten Informationen zum Event (Name des Events, Datum, Uhrzeit, Veranstaltungsort) angeben.';
   it(generateEvent, () => {
+    cy.wait(300);
     cy.get('.flex-row > .mdc-fab > .mat-mdc-button-touch-target').click();
     cy.get('[data-cy="event-name-input"]').type('Fußballspiel');
     cy.get('[data-cy="address-line-input"]').type('Grünwalder Str. 2');
