@@ -3,5 +3,5 @@ export function getScreenshotPath(
   groupName: string,
   testname: string
 ) {
-  return `/${requirementNr}/${groupName} -- ${testname}`;
+  return `/${requirementNr}/${requirementNr} - ${groupName} -- ${testname}`;
 }
