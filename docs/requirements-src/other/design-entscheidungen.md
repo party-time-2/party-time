@@ -115,16 +115,6 @@ Die Verwendung von _NPM_ bietet mehrere Vorteile für das Projekt, einschließli
 - Ökosystem: _NPM_ verfügt über ein Ökosystem von Bibliotheken und Tools, die die Entwicklung und Wartung von Anwendungen erleichtern.
 - Skalierbarkeit: _NPM_ ist skalierbar und kann mit der Größe und Komplexität des Projekts wachsen, wodurch eine einfache Verwaltung und Entwicklung des Projekts möglich wird.
 
-## Verwendung von NGRX
-
-Das Projekt verwendet das _NGRX_-Framework zur Implementierung eines Stores und zur Verwaltung des Anwendungsstatus in der _Angular_-_Komponenten_.
-
-**Begründung**:
-Die Verwendung von _NGRX_ bietet mehrere Vorteile für das Projekt, einschließlich:
-
-- Vorhersehbarkeit: _NGRX_ basiert auf dem Redux-Muster, das eine klare Trennung von Anwendungsstatus und Benutzerinteraktion ermöglicht. Dadurch wird die Vorhersehbarkeit des Verhaltens der _Anwendung_ verbessert und das erstellen von Tests erleichtert.
-- Architektur: _NGRX_ bietet eine klare Architektur für die Implementierung der _Frontend_-_Anwendung_, welche die Wartbarkeit erhöht und die Entwicklung erleichtert (z. B. automatisches Starten von _API_ Anfragen und Verarbeiten von _API_ Antworten).
-
 ## Verwendung von Cypress
 
 Das Projekt verwendet das _Cypress_-Testing-Framework für die Automatisierung von _E2E-Tests_ im _Frontend_.
