@@ -106,21 +106,21 @@ Eine _API_ ist eine Schnittstelle, die verwendet wird, um mit einer _Anwendung_ 
 
 _RESTful-Webservices_ sind Webservices, welche HTTP-Methoden verwenden um Ressourcen zu erstellen, zu lesen, zu aktualisieren oder zu löschen.
 
-## Java
+## Kotlin
 
-_Java_ ist eine Programmiersprache, die von Oracle bereitgestellt wird. _Java_ ist eine objektorientierte Programmiersprache, deren Bytecode auf einer Plattform-spezifischen JVM (Java Virtual Machine) ausgeführt wird.
+_Kotlin_ ist eine Programmiersprache, die von Jetbrains bereitgestellt wird. _Kotlin_ ist eine objektorientierte Programmiersprache und unterstützt viele Konzepte der funktionalen Programmierung. Im Rahmen dieses Projekts wird Kotlin-Bytecode auf einer Plattform-spezifischen JVM (Java Virtual Machine) ausgeführt, allerdings unterstützt Kotlin auch die Entwicklung von Plattform-Nativen-Anwendungen und Web-Anwendungen (JavaScript und/oder WASM).
 
 ## Spring Boot
 
-_Spring Boot_ ist ein _Framework_ für die Entwicklung von _Java_-Anwendungen. Es vereinfacht die Entwicklung von _Java_-Anwendungen, indem es eine Reihe von Bibliotheken und Werkzeugen bereitstellt, die häufig in _Java_-Anwendungen verwendet werden.
+_Spring Boot_ ist ein _Framework_ für die Entwicklung von _Kotlin_-Anwendungen. Es vereinfacht die Entwicklung von _Kotlin_-Anwendungen, indem es eine Reihe von Bibliotheken und Werkzeugen bereitstellt, die häufig in _Kotlin_-Anwendungen verwendet werden.
 
 [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
 
-## Maven
+## Gradle
 
-_Maven_ ist ein Build-Management-Tool für _Java_-Anwendungen. Es wird verwendet, um die Abhängigkeiten einer _Anwendung_ zu verwalten und die _Anwendung_ zu bauen.
+_Gradle_ ist ein Build-Management-Tool für _Kotlin_, Java und Scala Anwendungen. Es wird für Build-Lifecycle-Management verwendet (Abhängigkeiten einer _Anwendung_ verwalten, die _Anwendung_ bauen, _Anwendung_ testen, etc.).
 
-[https://maven.apache.org/](https://maven.apache.org/)
+[https://gradle.org/](https://gradle.org/)
 
 ## H2
 

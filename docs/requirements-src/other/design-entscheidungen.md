@@ -34,16 +34,16 @@ Die Verwendung eines _RESTful-Webservices_ bietet mehrere Vorteile für das Proj
 - Skalierbarkeit: _RESTful-Webservices_ ermöglichen die Skalierung der _Anwendung_, indem sie das _Frontend_ und das _Backend_ entkoppeln und es dem _Backend_ ermöglichen, mehrere Anfragen gleichzeitig zu verarbeiten. Unabhängig davon wie viele Clients das _Frontend_ der Party Time _Anwendung_ verwenden, kann das _Backend_ die Anfragen verarbeiten.
 - Einfachheit: _RESTful-Webservices_ sind einfach zu implementieren und zu nutzen, da sie auf standardisierten Methoden und Datenformaten basieren.
 
-## Verwendung von Java
+## Verwendung von Kotlin
 
-Die _Anwendung_ verwendet _Java_ als Programmiersprache für die Implementierung des _Backend_.
+Die _Anwendung_ verwendet _Kotlin_ als Programmiersprache für die Implementierung des _Backend_.
 
 **Begründung**:
 
-Die Verwendung von _Java_ bietet mehrere Vorteile für das Projekt, einschließlich:
+Die Verwendung von _Kotlin_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Interoperabilität: _Java_ ist eine Programmiersprache, die es ermöglicht, mit dem _Spring Boot_-_Framework_ für die Implementierung des _Backend_-Servers zu arbeiten.
-- Wiederverwendbarkeit: _Java_ ist eine objektorientierte Programmiersprache, die die Wiederverwendung von Code und _Komponenten_ fördert. Authentifizierung ist beispielsweise ein Baustein vieler unserer Anforderungen, die nur einmal zentral im Java-_Backend_ implementiert werden muss.
+- Interoperabilität: _Kotlin_ ist eine Programmiersprache, die es ermöglicht, mit dem _Spring Boot_-_Framework_ für die Implementierung des _Backend_-Servers zu arbeiten.
+- Wiederverwendbarkeit: _Kotlin_ ist eine objektorientierte Programmiersprache, die die Wiederverwendung von Code und _Komponenten_ fördert. Authentifizierung ist beispielsweise ein Baustein vieler unserer Anforderungen, die nur einmal zentral im _Kotlin_-_Backend_ implementiert werden muss.
 
 ## Verwendung von Spring Boot
 
@@ -56,16 +56,27 @@ Die Verwendung von _Spring Boot_ bietet mehrere Vorteile für das Projekt, einsc
 - Einfache Konfiguration: _Spring Boot_ verwendet Konventionen und automatisierte Konfigurationen für die einfache Konfiguration verschiedener Aspekte der _Anwendung_, ohne dass manuelle Eingriffe erforderlich sind.
 - Erweiterbarkeit: _Spring Boot_ ist einfach zu erweitern und bietet eine Vielzahl von Erweiterungen und Plugins, welche die Implementierung von zusätzlichen Funktionen erleichtern.
 
-## Verwendung von Maven
+## Verwendung von Gradle
 
-Das Projekt verwendet Apache _Maven_ als Build-Management-Tool des _Java_-_Backend_-Servers, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung des _Backend_-Servers zu erleichtern.
+Das Projekt verwendet _Gradle__ als Build-Management-Tool des _Kotlin_-_Backend_-Servers, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung des _Backend_-Servers zu erleichtern.
 
 **Begründung**:
-Die Verwendung von _Maven_ bietet mehrere Vorteile für das Projekt, einschließlich:
+Die Verwendung von _Gradle_ bietet mehrere Vorteile für das Projekt, einschließlich:
 
-- Automatisierung: _Maven_ automatisiert den Build-Prozess und ermöglicht eine schnelle, zuverlässige und wiederholbare Erstellung der _Anwendung_.
-- Abhängigkeitsverwaltung: _Maven_ verwaltet die Abhängigkeiten der _Backend_-_Anwendung_ automatisch und stellt sicher, dass die richtigen Versionen von Abhängigkeiten verwendet werden.
-- Erweiterbarkeit: _Maven_ bietet eine Vielzahl von Plugins, die es einfach machen, zusätzliche Funktionalitäten zu integrieren, z.B. zur Code-Qualitätsprüfung, Testausführung oder Dokumentation.
+- Automatisierung: _Gradle_ automatisiert den Build-Prozess und ermöglicht eine schnelle, zuverlässige und wiederholbare Erstellung der _Anwendung_.
+- Abhängigkeitsverwaltung: _Gradle_ verwaltet die Abhängigkeiten der _Backend_-_Anwendung_ automatisch und stellt sicher, dass die richtigen Versionen von Abhängigkeiten verwendet werden.
+- Erweiterbarkeit: _Gradle_ bietet eine Vielzahl von Plugins, die es einfach machen, zusätzliche Funktionalitäten zu integrieren, z.B. zur Code-Qualitätsprüfung, Testausführung oder Dokumentation.
+
+## Verwendung von Kover
+
+Das Projekt verwendet _Kover_ als Code-Coverage-Tool für die _Backend_-Tests.
+
+**Begründung**:
+Die Verwendung von _Kover_ bietet mehrere Vorteile für das Projekt, einschließlich:
+
+- Code-Coverage: _Kover_ ermöglicht es, die Code-Coverage der _Backend_-Tests zu messen und sicherzustellen, dass der Code ausreichend getestet ist.
+- Automatisierung: _Kover_ kann in den Build-Prozess integriert werden, um die Code-Coverage automatisch zu messen und sicherzustellen, dass sie kontinuierlich überwacht wird.
+- Berichterstattung: _Kover_ erstellt detaillierte Berichte über die Code-Coverage der _Backend_-Tests, die Entwicklern helfen, Bereiche des Codes zu identifizieren, die nicht ausreichend getestet sind.
 
 ## Verwendung von H2
 
