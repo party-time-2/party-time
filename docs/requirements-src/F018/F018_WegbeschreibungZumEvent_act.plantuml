@@ -25,7 +25,7 @@ endif
 :Adresse empfangen;
 :Wegbeschreibung anzeigen;
 note right
-    map: //Karte wird angezeigt
+    Screenshot 1
 end note
 stop
 @enduml

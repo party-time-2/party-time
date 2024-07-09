@@ -80,7 +80,7 @@
         "plantuml.exportIncludeFolderHeirarchy": true,
         "plantuml.exportSubFolder": false,
         "plantuml.jarArgs": ["-DPLANTUML_LIMIT_SIZE=8192"],
-        "plantuml.jar": "./plantuml-release.jar",
+        "plantuml.jar": "plantuml-release.jar",
         "prettier.prettierPath": "./node_modules/prettier",
         "markdownlint.config": {
           "MD013": false,

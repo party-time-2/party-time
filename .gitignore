@@ -42,3 +42,5 @@ Thumbs.db
 var
 
 .nx/cache
+
+/plantuml-release.jar

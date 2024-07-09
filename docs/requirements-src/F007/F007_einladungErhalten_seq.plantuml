@@ -2,22 +2,29 @@
 title "Einladung erhalten"
 
 actor "Einladung Controller" as controller
-boundary "Nutzer Email" as userMail
 database "Datenbank" as db
+boundary "Nutzer Email" as userMail
 actor "Eingeladener Nutzer" as user
+boundary "Einladungen Maske" as inviteMask
 
 controller -> userMail: Einladung verschicken
 activate controller
-controller <-- userMail: Einladung empfangen
+activate userMail
+controller <-- userMail: Rückmeldung: hat Einladung empfangen
 par
 controller -> db: Einladung speichern
 controller <-- db: Einladung gespeichert
 deactivate controller
 else
-userMail --> user: Einladung erhalten
+userMail --> user: Einladung Email erhalten
 activate user
-userMail <- user: Einladung öffnen
-userMail --> user: Einladung anzeigen
+userMail <- user: Einladung Email öffnen
+userMail --> user: Einladung Email anzeigen
+deactivate userMail
+user -> inviteMask: Einladungen öffnen
+activate inviteMask
+user <-- inviteMask: Einladungen anzeigen
+deactivate inviteMask
 deactivate user
 end
 @enduml

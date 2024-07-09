@@ -7,5 +7,10 @@ start
 :Einladung via E-Mail an Gast senden;
 |Eingeladener Gast|
 :Einladung via E-Mail empfangen;
+:Einladung via E-Mail öffnen;
+:Einladung auf "Einladungen" Webseite sehen;
+note right
+    Screenshot 1
+end note
 stop
 @enduml

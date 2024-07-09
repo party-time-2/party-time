@@ -5,6 +5,9 @@ title "Events überblicken"
 |Angemeldeter Nutzer|
 start
 :Öffne Party Time "Events überblicken" Webseite;
+note right
+    Screenshot 1
+end note
 :Sende automatische "Events überblicken"-Anfrage mit JSON Web Token;
 |Events überblicken Controller|
 :Suche Events von Nutzer;
@@ -12,7 +15,7 @@ start
 |Angemeldeter Nutzer|
 :Aktualisiere "Events überblicken" Webseiten-Inhalt;
 note right
-    events
+    Screenshot 2
 end note
 stop
 @enduml

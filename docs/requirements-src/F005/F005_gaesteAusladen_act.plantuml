@@ -4,8 +4,11 @@ title "Gäste ausladen"
 
 |Veranstaltender Nutzer|
 start
-:Party Time "Events Überblicken" Webseite öffnen;
+:Öffne Party Time "Organisierte Events" Webseite;
 :"Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist, anklicken;
+note right
+    Screenshot 1
+end note
 :"[Teilnehmername] ausladen" Link neben auszuladendem Nutzer anklicken;
 :E-Mail-Adresse des auszuladendem Nutzers an Server übermitteln;
 |Gast ausladen Controller|
@@ -29,7 +32,7 @@ endif
 :Bestätigung Gastausladung empfangen;
 :Bestätigung Gastausladung anzeigen;
 note right
-    participant_remove: //Teilnehmer überblicken Maske wird ohne ausgeladenen Teilnehmer angezeigt
+    Screenshot 2
 end note
 stop
 @enduml

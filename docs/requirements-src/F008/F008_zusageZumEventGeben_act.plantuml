@@ -15,10 +15,6 @@ if () then (Validieren nicht erfolgreich)
     |Eingeladener Nutzer|
     :Fehlermeldung Zusage empfangen;
     :Fehlermeldung Zusage anzeigen;
-    note right
-        event_not_found: Das Event wurde nicht gefunden.
-        participant_not_invited: Du bist nicht zu diesem Event eingeladen.
-    end note
     stop
 else (Validieren erfolgreich)
 endif
@@ -29,7 +25,7 @@ endif
 :Bestätigung der Zusage empfangen;
 :Bestätigung der Zusage anzeigen;
 note right
-    invite_accepted: Wir haben deine Zusage gespeichert.
+    Screenshot 1
 end note
 stop
 @enduml

@@ -4,16 +4,16 @@ title "Gäste einladen"
 
 |Veranstaltender Nutzer|
 start
-:Party Time "Events Überblicken" Webseite öffnen;
+:Öffne Party Time "Organisierte Events" Webseite;
 :"Gäste bearbeiten" Button von Event, für welches Nutzer Veranstalter ist, anklicken;
+note right
+    Screenshot 1
+end note
 repeat
     :E-Mail-Adresse von einzuladendem Nutzer eingeben;
     |Frontend Validator|
     :Prüfe E-Mail Adresse;
     backward:Fehlerhafte E-Mail Adresse markieren;
-    note right
-        participant_email_invalid: Bitte gib eine Valide E-Mail Adresse ein. Es wird eine Einladung an diese Adresse gesendet.
-    end note
 repeat while ()
 |Veranstaltender Nutzer|
 :Mit "Hinzufügen" Knopf Eingabe bestätigen;
@@ -25,9 +25,6 @@ if () then (Nutzer mit E-Mail-Adresse auf Plattform noch nicht registriert)
     |Veranstaltender Nutzer|
     :Fehlermeldung bzgl. Gast nicht gefunden empfangen;
     :Fehlermeldung bzgl. Gast nicht gefunden anzeigen;
-    note right
-        participant_unknown: Es kann kein Account mit dieser E-Mail gefunden werden.
-    end note
     stop
 else (E-Mail-Adresse noch nicht eingeladen)
 endif
@@ -38,9 +35,6 @@ if () then (E-Mail-Adresse bereits eingeladen)
     |Veranstaltender Nutzer|
     :Fehlermeldung bzgl. Gast bereits eingeladen empfangen;
     :Fehlermeldung bzgl. Gast bereits eingeladen anzeigen;
-    note right
-        participant_already_invited: Der Account mit der Email [participant_email]  wurde bereits eingeladen
-    end note
     stop
 else (E-Mail-Adresse noch nicht eingeladen)
 endif
@@ -52,7 +46,7 @@ endif
 :Bestätigung Gasteinladung empfangen;
 :Bestätigung Gasteinladung anzeigen;
 note right
-    participant_invite: //Eingeladene Person wird in der Liste der Gäste als eingeladen angezeigt
+    Screenshot 2
 end note
 stop
 @enduml

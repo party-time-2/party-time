@@ -4,6 +4,7 @@ title "Teilnehmer überblicken"
 
 |Veranstaltender Nutzer|
 start
+:Öffne Party Time "Organisierte Events" Webseite;
 :"Teilnehmer bearbeiten" Button bei veranstaltetem Event anklicken;
 :Teilnehmerliste anfordern;
 |Teilnehmerübersicht Controller|
@@ -13,7 +14,7 @@ start
 :Teilnehmerliste empfangen;
 :Teilnehmerübersicht anzeigen;
 note right
-    view_participants: Teilnehmer überblicken
+    Screenshot 1
 end note
 stop
 @enduml
