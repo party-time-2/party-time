@@ -25,6 +25,7 @@ describe(editEvents, () => {
       capture: 'viewport',
     });
     cy.get('[data-cy="save-button"]').click();
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, editEvents, '3'), {
       overwrite: true,
       capture: 'viewport',
