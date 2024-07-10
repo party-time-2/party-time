@@ -17,6 +17,7 @@ describe(createEventGroup, () => {
   const generateEvent =
     'Veranstalter sollten in der Lage sein, ein neues Event anzulegen, indem sie ein Formular ausfüllen, in dem sie alle relevanten Informationen zum Event (Name des Events, Datum, Uhrzeit, Veranstaltungsort) angeben.';
   it(generateEvent, () => {
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(300);
     cy.get('.flex-row > .mdc-fab > .mat-mdc-button-touch-target').click();
     cy.get('[data-cy="event-name-input"]').type('Fußballspiel');
@@ -30,6 +31,7 @@ describe(createEventGroup, () => {
       capture: 'viewport',
     });
     cy.get('[data-cy="save-button"]').click();
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, createEventGroup, '3'), {
       overwrite: true,
       capture: 'viewport',
