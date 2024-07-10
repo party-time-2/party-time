@@ -6,95 +6,48 @@ Pfade werden in `inline Code` angegeben. Die Pfade sind relativ zum Stammverzeic
 
 Innerhalb des Ordners `/docs` befindet sich die Dokumentation der Anforderungen.
 
-Alle Bilder im Order `/docs/PNG` sind ...
+Alle Bilder im Order `/docs/requiremnts-src/F**` sind ...
 
-- Exporte aus der `*.plantuml`-Dateien, welche in `/docs/F**` Ordnern gefunden werden können
-- Screenshots welche im Verlauf von Cypress E2E-Tests erzeugt wurden. (Die Tests sind vom Stammverzeichnis aus in `/apps/party-time-frontend-e2e/src/e2e/` zu finden)
+- Exporte aus der `*.plantuml`-Dateien, welche in `/docs/requirements-src/F**` Ordnern gefunden werden können
+- Screenshots welche im Verlauf von Cypress E2E-Tests erzeugt wurden. (Die Tests sind vom Stammverzeichnis aus in `/apps/party-time-frontend-17/-e2e/src/e2e/` zu finden)
 
-Sowohl die PlantUML Quellen als auch die Cypress Tests wurden im Rahmen des Praxisprojekts II von uns erstellt.
+Sowohl die PlantUML Quellen als auch die Cypress Tests wurden im Rahmen des Praxisprojekts II & III von uns erstellt.
 
 Anschauen sollten Sie sich in folgender Reihenfolge:
 
-1. `/docs/Anforderungen/anforderungen.pdf` -> umzusetzende Anforderungen
-1. `/docs/Design-Entscheidungen/design-entscheidungen.pdf` & `/docs/Glossar/glossar.pdf` -> getroffene Designentscheidungen und Begründungen (kursive Begriffe können im Glossar nachgeschlagen werden)
-1. `/docs/PNG/Er-Modell/er-modell.png` -> ER-Modell der Datenbank
-1. `/docs/PNG/OpenAPI-Spec/api-docs.json` -> OpenAPI-Spezifikation der REST-API
+1. `/docs/_Anforderungen/anforderungen.pdf` -> umzusetzende Anforderungen
+1. `/docs/other/design-entscheidungen.md` & `/docs/other/glossar.md` -> getroffene Designentscheidungen und Begründungen (kursive Begriffe können im Glossar nachgeschlagen werden)
+1. `/docs/other/er-modell.plantuml` -> ER-Modell der Datenbank
+1. jeden Ordner und den Inhalt`/docs/requirements-src/F**` -> Quell- Anforderungen und Diagramme zu den Anforderungen
+1. jeden Ordner `/docs/.requirements/F**` -> Generierte Anforderungen und Diagramme zu den Anforderungen
 
-In den Ordnern `/docs/PNG/F**` werden an anderer Stelle referenzierte Bilder gesammelt.
+In den Ordnern `/docs/requirements-src/F**` werden Bilder, Anforderungen als JSON und plantuml Diagramme gesammelt, welche mit den Tools im Ordner `/tools` zu den .requirements generiert wurden.
 Das Sichten dieser Ordner wäre redundant.
-
-## /libs -> Bibliotheken
-
-In dem Ordner `/libs` befinden sich die Dokumentation und Implementierung der Bibliotheken des Frontends.
-
-Anschauen sollten Sie sich in folgender Reihenfolge (Sortierung nach Meilensteine):
-
-1 - Basisfunktionalität der Plattform:
-
-- `/libs/register`: implementiert F010
-
-  1. `/libs/register/README.pdf`: Beschreibung der Library
-  1. `/libs/register/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/register` zur Verfügung gestellt werden.  
-     &#x200B;
-
-- `/libs/verify`: implementiert F014
-
-  1. `/libs/verify/README.pdf`: Beschreibung der Library
-  1. `/libs/verify/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/verify` zur Verfügung gestellt werden.  
-     &#x200B;
-
-- `/libs/account`: implementiert F013, F015
-
-  1. `/libs/account/README.pdf`: Beschreibung der Library
-  1. `/libs/account/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/account` zur Verfügung gestellt werden.  
-     &#x200B;
-
-- `/libs/auth`: implementiert F011, F012
-  1. `/libs/auth/README.pdf`: Beschreibung der Library
-  1. `/libs/auth/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/auth` zur Verfügung gestellt werden.
-     &#x200B;
-
-2 - Eventfunktionalität (Veranstalter):
-
-- `/libs/event`: implementiert F001, F002, F003, F004, F005, F006, F016
-  1. `/libs/event/README.pdf`: Beschreibung der Library
-  1. `/libs/event/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/event` zur Verfügung gestellt werden.
-     &#x200B;
-
-3 - Eventfunktionalität (eingeladener Nutzer):
-
-- `/libs/invitation`: implementiert F008, F009
-  1. `/libs/invitation/README.pdf`: Beschreibung der Library
-  1. `/libs/invitation/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/invitation` zur Verfügung gestellt werden.
-     &#x200B;
-
-4 - Eventfunktionalität (Teilnehmer eines Events):
-
-- `/libs/event`: implementiert F018
-  1. `/libs/event/README.pdf`: Beschreibung der Library
-  1. `/libs/event/src/lib/*`: Implementierung der Library -> Hier finden Sie die Implementierung der Komponenten, den State, die Services und die Routen welche in der Library `/libs/event` zur Verfügung gestellt werden.
-     &#x200B;
 
 ## /apps -> Anwendungen
 
-- `/apps/party-time-frontend`: Die Libraries werden dynamisch an den benötigten Stellen in die Anwendungen eingebunden. Die Anwendung party-time-frontend ist das eigentliche Frontend.
+### /apps/party-time-frontend-17
 
-  1. `/apps/party-time-frontend/src/app/app.routes.*`: Haupt-Routen der Anwendung
-  1. `/apps/party-time-frontend/src/app/app.component.*`: Hauptkomponente der Anwendung
-  1. `/apps/party-time-frontend/src/main/`: Startpunkt der Anwendung
-  1. `/apps/party-time-frontend/src/styles.*`: Styling der Anwendung
-  1. `/apps/party-time-frontend/src/assets/*`: Statische Bilder oder Icons der Anwendung
-  1. `/apps/party-time-frontend/src/index.html`: Root-HTML der Anwendung
-  1. `/apps/party-time-frontend/src/favicon.ico`: Favicon der Anwendung
-     &#x200B;
+In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Frontends.
 
-- `/apps/party-time-frontend-e2e`: Testet die Anwendung auf der Oberfläche
+1. `/apps/party-time-frontend-17/src/app` -> Implementierung des Frontends
+1. `/apps/party-time-frontend-17/src/models` -> Interfaces und Typen 
+1. `/apps/party-time-frontend-17/src/services` -> Services & Tests für Service für die Kommunikation mit dem Backend (die Dokumentation wird vom Interface vererbt und wird in der Implementierung nicht aufgeführt da redundant; die Test erreichen 100% Code Coverage; alle Pfade wurden getestet; spiegeln Swagger Dokumentation wieder)
+1. `/apps/party-time-frontend-17/src/components` -> Globale Komponenten (Komponenten welche von jedem verwendet werden können)
+1. `/apps/party-time-frontend-17/src/pages` -> Seitenkomponenten (Komponenten welche von den Routern verwendet werden; werden nur bei Bedarf geladen)
+1. `/apps/party-time-frontend-17/src/validators` -> Validatoren für Formulare (Testet die Passwörter auf einhaltung der Regeln)
 
-  1. `/apps/party-time-frontend-e2e/src/fixtures/*`: Statische Daten für die E2E-Tests
-  1. `/apps/party-time-frontend-e2e/src/support/*`: Hilfsfunktionen für die E2E-Tests
-  1. `/apps/party-time-frontend-e2e/src/e2e/*`: Implementierung der E2E-Tests
+#### Anmerkungen zum Fornend
 
-  &#x200B;
+- es wurde auf eine Lazy Loading Strategie gesetzt, um die Ladezeiten zu minimieren
+- die Anwendung ist vollständig responsive
+- die Anwendung wurde mit TailwindCSS gestaltet
+- die Anwendung wurde mit Angular 17 erstellt
+- eine Seite kann lokale Komponenten verwenden, welche von anderen Seiten nicht verwendet werden
+
+### /apps/party-time-backend-kotlin
+
+<!-- TODO Kay -->
 
 ## Sonstiges
 
@@ -107,14 +60,7 @@ Anschauen sollten Sie sich in folgender Reihenfolge (Sortierung nach Meilenstein
 
 Folgende Anmerkungen sind zu beachten:
 
-- F007 (Einladung erhalten), F017 (Benachrichtigung zum Event), F019 (Kalendereintrag exportieren) haben keinen Frontend-Teil. Die entsprechenden Ablauf- und Sequenzdiagramme werden der Vollständigkeit halber trotzdem mit ausgeliefert in
-  - `/docs/PNG/F07/*`
-  - `/docs/PNG/F17/*`
-  - `/docs/PNG/F19/*`
-- `/libs/event` implementiert Anforderungen aus dem Meilenstein 2 - Eventfunktionalität (Veranstalter) & 4 - Eventfunktionalität (Teilnehmer eines Events)
-- jede Datei die sich einer Anforderung zuordnen lässt, ist mit der entsprechenden Anforderungsnummer versehen
-  - .html -> `<!-- implements FXXX -->`
-  - .ts -> `// implements FXXX`
+- F007 (Einladung erhalten), F017 (Benachrichtigung zum Event), F019 (Kalendereintrag exportieren) haben keinen Frontend-Teil und können nicht E2E getestet werden
 - Folgende Daten, welche sich keinen Anforderungen direkt zuordnen lassen, haben weder Anforderungsnummer noch Kommentar:
   - generierte Dateien
   - config Dateien
