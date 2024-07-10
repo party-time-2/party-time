@@ -25,12 +25,12 @@ import { MatIconModule } from '@angular/material/icon';
       <section
         class="m-5 max-w-md rounded-md border-2"
         [ngClass]="{
-          'border-blue-500':
+          'bg-blue-500':
             participantEvent.invitationDetailsDTO.status === Status.INVITED,
-          'border-green-500':
+          'bg-green-500':
             participantEvent.invitationDetailsDTO.status ===
             Status.PARTICIPATING,
-          'border-red-500':
+          'bg-red-500':
             participantEvent.invitationDetailsDTO.status === Status.DECLINED
         }"
       >
@@ -40,7 +40,15 @@ import { MatIconModule } from '@angular/material/icon';
             {{ participantEvent.organizedEventDetailsDTO.organizer.name }}
           </mat-card-header>
           <mat-card-content>
-            <p>
+            <p [ngClass]="{
+          'bg-blue-500':
+            participantEvent.invitationDetailsDTO.status === Status.INVITED,
+          'bg-green-500':
+            participantEvent.invitationDetailsDTO.status ===
+            Status.PARTICIPATING,
+          'bg-red-500':
+            participantEvent.invitationDetailsDTO.status === Status.DECLINED
+        }">
               {{
                 participantEvent.organizedEventDetailsDTO.dateTime
                   | date : 'dd.MM.yyyy HH:mm'
