@@ -13,6 +13,7 @@ describe(deleteAccount, () => {
     'Benutzer sollten in der Lage sein, ihr Konto durch Ausfüllen eines Formulars auf der Plattform zu löschen.';
   it(accountDeletionSuccessTest, () => {
     cy.get('[data-cy="password-input"]').type('Hallo123!party');
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, deleteAccount, '1'), {
       overwrite: true,
       capture: 'viewport',
@@ -25,6 +26,7 @@ describe(deleteAccount, () => {
     cy.get('[data-cy="delete-account-button"]').click();
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(300);
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, deleteAccount, '2'), {
       overwrite: true,
       capture: 'viewport',
