@@ -52,15 +52,11 @@ describe(passwordChange, () => {
     cy.get('[data-cy="old-password-input"]').type('Hallo123!party');
     cy.get('[data-cy="new-password-input"]').type('Hallo123!party');
     cy.scrollTo('top');
-    cy.screenshot(getScreenshotPath(requirement, passwordChange, '4'), {
-      overwrite: true,
-      capture: 'viewport',
-    });
     cy.get('[data-cy="submit-button"]').click();
     cy.scrollTo('top');
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(500);
-    cy.screenshot(getScreenshotPath(requirement, passwordChange, '5'), {
+    cy.screenshot(getScreenshotPath(requirement, passwordChange, '4'), {
       overwrite: true,
       capture: 'viewport',
     });
