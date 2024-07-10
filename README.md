@@ -31,11 +31,11 @@ Das Sichten dieser Ordner wäre redundant.
 In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Frontends.
 
 1. `/apps/party-time-frontend-17/src/app` -> Implementierung des Frontends
-1. `/apps/party-time-frontend-17/src/models` -> Interfaces und Typen 
-1. `/apps/party-time-frontend-17/src/services` -> Services & Tests für Service für die Kommunikation mit dem Backend (die Dokumentation wird vom Interface vererbt und wird in der Implementierung nicht aufgeführt da redundant; die Test erreichen 100% Code Coverage; alle Pfade wurden getestet; spiegeln Swagger Dokumentation wieder)
-1. `/apps/party-time-frontend-17/src/components` -> Globale Komponenten (Komponenten welche von jedem verwendet werden können)
-1. `/apps/party-time-frontend-17/src/pages` -> Seitenkomponenten (Komponenten welche von den Routern verwendet werden; werden nur bei Bedarf geladen)
-1. `/apps/party-time-frontend-17/src/validators` -> Validatoren für Formulare (Testet die Passwörter auf einhaltung der Regeln)
+1. `/apps/party-time-frontend-17/src/app/models` -> Interfaces und Typen
+1. `/apps/party-time-frontend-17/src/app/services` -> Services & Tests für Service für die Kommunikation mit dem Backend (die Dokumentation wird vom Interface vererbt und wird in der Implementierung nicht aufgeführt da redundant; die Test erreichen 100% Code Coverage; alle Pfade wurden getestet; spiegeln Swagger Dokumentation wieder)
+1. `/apps/party-time-frontend-17/src/app/components` -> Globale Komponenten (Komponenten welche von jedem verwendet werden können)
+1. `/apps/party-time-frontend-17/src/app/pages` -> Seitenkomponenten (Komponenten welche von den Routern verwendet werden; werden nur bei Bedarf geladen)
+1. `/apps/party-time-frontend-17/src/app/validators` -> Validatoren für Formulare (Testet die Passwörter auf einhaltung der Regeln)
 
 #### Anmerkungen zum Fornend
 
@@ -48,6 +48,8 @@ In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Fron
 ### /apps/party-time-backend-kotlin
 
 <!-- TODO Kay -->
+
+#### Anmerkungen zum Backend
 
 ## Sonstiges
 
