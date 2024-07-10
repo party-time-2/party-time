@@ -5,20 +5,15 @@ import com.partytime.api.dto.login.LoginRequestDTO
 import com.partytime.api.dto.login.LoginResponseDTO
 import com.partytime.mail.model.MailEvent
 import com.partytime.mail.model.VerifyAccountData
+import com.partytime.testAbstraction.ScenarioTest
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.event.ApplicationEvents
-import org.springframework.test.context.event.RecordApplicationEvents
-import org.springframework.test.web.servlet.client.MockMvcWebTestClient
 import org.springframework.web.context.WebApplicationContext
 
-@SpringBootTest
-@RecordApplicationEvents
 class RegisterVerifyLogin (
     wac: WebApplicationContext,
-) {
-    val client = MockMvcWebTestClient.bindToApplicationContext(wac).build()
+): ScenarioTest(wac) {
 
     @Test
     fun testRegisterAndVerify(applicationEvents: ApplicationEvents) {
@@ -29,7 +24,7 @@ class RegisterVerifyLogin (
             "Hallo123!party"
         )
 
-        client.post().uri("/api/account")
+        unauthenticatedClient.post().uri("/api/account")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(accountRegisterDTO)
             .exchange()
@@ -45,7 +40,7 @@ class RegisterVerifyLogin (
         val verificationLink = (mailEvent.data as VerifyAccountData).verificationLink
         val token = verificationLink.substringAfter("token=")
 
-        client.post().uri("/api/auth/verify?token=$token")
+        unauthenticatedClient.post().uri("/api/auth/verify?token=$token")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(object {})
             .exchange()
@@ -57,7 +52,7 @@ class RegisterVerifyLogin (
             accountRegisterDTO.password,
         )
 
-        client.post().uri("/api/auth/login")
+        unauthenticatedClient.post().uri("/api/auth/login")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(loginRequestDTO)
             .exchange()
