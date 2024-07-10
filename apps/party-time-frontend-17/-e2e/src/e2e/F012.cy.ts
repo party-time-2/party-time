@@ -15,14 +15,14 @@ describe(signOutGroup, () => {
     cy.visit('/');
 
     cy.get('[data-cy="user-menu"]').click();
-
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, signOutGroup, '1'), {
       overwrite: true,
       capture: 'viewport',
     });
 
     cy.get('[data-cy="sign-out-button"]').click();
-
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, signOutGroup, '2'), {
       overwrite: true,
       capture: 'viewport',
@@ -33,11 +33,13 @@ describe(signOutGroup, () => {
     ' Nachdem ein Benutzer sich abgemeldet hat, kann er auf keine persönlichen Daten zugreifen, bis er sich nicht wieder angemeldet hat.';
   it(unavailableDataAfterLogout, () => {
     cy.visit('/');
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, signOutGroup, '3'), {
       overwrite: true,
       capture: 'viewport',
     });
     cy.get('[data-cy="create-event-button"]').click();
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, signOutGroup, '4'), {
       overwrite: true,
       capture: 'viewport',

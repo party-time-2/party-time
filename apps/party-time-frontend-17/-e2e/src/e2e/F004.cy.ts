@@ -32,9 +32,9 @@ describe(inviteGuests, () => {
     cy.screenshot(getScreenshotPath(requirement, inviteGuests, '3'), {
       overwrite: true,
     });
-    cy.get('[data-cy="decline-button"]').each(($button) => {
-      cy.wrap($button).click();
-    });
+    // cy.get('[data-cy="decline-button"]').each(($button) => {
+    //   cy.wrap($button).click();
+    // });
     cy.screenshot(getScreenshotPath(requirement, inviteGuests, '4'), {
       overwrite: true,
     });

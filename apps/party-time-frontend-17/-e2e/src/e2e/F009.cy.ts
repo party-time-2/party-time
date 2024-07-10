@@ -13,6 +13,7 @@ describe(eventCancelation, () => {
     'Teilnehmer sollten in der Lage sein, ihre Absage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken.';
   it(declineInvitation, () => {
     cy.get('[data-cy="decline-button"]').first().click();
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, eventCancelation, '1'), {
       overwrite: true,
       capture: 'viewport',

@@ -25,12 +25,12 @@ import { MatIconModule } from '@angular/material/icon';
       <section
         class="m-5 max-w-md rounded-md border-2"
         [ngClass]="{
-          'bg-blue-500':
+          'border-blue-500':
             participantEvent.invitationDetailsDTO.status === Status.INVITED,
-          'bg-green-500':
+          'border-green-500':
             participantEvent.invitationDetailsDTO.status ===
             Status.PARTICIPATING,
-          'bg-red-500':
+          'border-red-500':
             participantEvent.invitationDetailsDTO.status === Status.DECLINED
         }"
       >

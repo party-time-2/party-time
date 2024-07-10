@@ -15,12 +15,13 @@ describe(verifyAccount, () => {
     cy.get('[data-cy="token-input"]').type(
       '4edc2ee0-260b-43d2-877a-e2016c14d164'
     );
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, verifyAccount, '1'), {
       overwrite: true,
       capture: 'viewport',
     });
     cy.get('[data-cy="verify-button"]').click();
-
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, verifyAccount, '2'), {
       overwrite: true,
       capture: 'viewport',

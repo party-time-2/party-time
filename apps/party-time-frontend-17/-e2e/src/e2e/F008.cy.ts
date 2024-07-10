@@ -12,11 +12,13 @@ describe(eventAcceptanceGroup, () => {
   const acceptInvitation =
     'Teilnehmer sollten in der Lage sein, ihre Zusage zum Event auf der Plattform zu geben, indem sie auf eine Schaltfläche klicken.';
   it(acceptInvitation, () => {
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
       overwrite: true,
       capture: 'viewport',
     });
     cy.get('[data-cy="participate-button"]').first().click();
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, eventAcceptanceGroup, '1'), {
       overwrite: true,
       capture: 'viewport',

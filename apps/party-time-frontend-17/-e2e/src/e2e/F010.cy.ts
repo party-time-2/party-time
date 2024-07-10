@@ -18,7 +18,9 @@ describe(createAccountGroup, () => {
     );
     cy.get('[data-cy="password-input"]').type('Hallo123!party');
     cy.get('[data-cy="register-submit-btn"]').click();
-
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
+cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, createAccountGroup, '1'), {
       overwrite: true,
       capture: 'viewport',
