@@ -18,7 +18,7 @@ describe(deleteEvents, () => {
     'Veranstalter können ein Event löschen, indem sie auf der Plattform auf das entsprechende Event zugreifen und die Option "Löschen" auswählen.';
   it(deleteEvent, () => {
     cy.get('[data-cy="delete-button"]').first().click();
-cy.scrollTo('top');
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, deleteEvents, '2'), {
       overwrite: true,
       capture: 'viewport',

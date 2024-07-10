@@ -40,15 +40,19 @@ import { MatIconModule } from '@angular/material/icon';
             {{ participantEvent.organizedEventDetailsDTO.organizer.name }}
           </mat-card-header>
           <mat-card-content>
-            <p [ngClass]="{
-          'bg-blue-500':
-            participantEvent.invitationDetailsDTO.status === Status.INVITED,
-          'bg-green-500':
-            participantEvent.invitationDetailsDTO.status ===
-            Status.PARTICIPATING,
-          'bg-red-500':
-            participantEvent.invitationDetailsDTO.status === Status.DECLINED
-        }">
+            <p
+              [ngClass]="{
+                'bg-blue-500':
+                  participantEvent.invitationDetailsDTO.status ===
+                  Status.INVITED,
+                'bg-green-500':
+                  participantEvent.invitationDetailsDTO.status ===
+                  Status.PARTICIPATING,
+                'bg-red-500':
+                  participantEvent.invitationDetailsDTO.status ===
+                  Status.DECLINED
+              }"
+            >
               {{
                 participantEvent.organizedEventDetailsDTO.dateTime
                   | date : 'dd.MM.yyyy HH:mm'

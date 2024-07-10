@@ -58,7 +58,7 @@ Die Verwendung von _Spring Boot_ bietet mehrere Vorteile für das Projekt, einsc
 
 ## Verwendung von Gradle
 
-Das Projekt verwendet _Gradle__ als Build-Management-Tool des _Kotlin_-_Backend_-Servers, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung des _Backend_-Servers zu erleichtern.
+Das Projekt verwendet _Gradle\_\_ als Build-Management-Tool des \_Kotlin_-_Backend_-Servers, um den Build-Prozess zu automatisieren, die Abhängigkeiten zu verwalten und die Bereitstellung des _Backend_-Servers zu erleichtern.
 
 **Begründung**:
 Die Verwendung von _Gradle_ bietet mehrere Vorteile für das Projekt, einschließlich:

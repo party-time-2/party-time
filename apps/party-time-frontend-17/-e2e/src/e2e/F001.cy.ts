@@ -31,7 +31,7 @@ describe(createEventGroup, () => {
       capture: 'viewport',
     });
     cy.get('[data-cy="save-button"]').click();
-cy.scrollTo('top');
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, createEventGroup, '3'), {
       overwrite: true,
       capture: 'viewport',

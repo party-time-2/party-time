@@ -13,7 +13,7 @@ describe(passwordChange, () => {
     'Benutzer sollten in der Lage sein, ihr aktuelles Passwort einzugeben, um ihre Identität zu bestätigen.';
   it(confirmPassword, () => {
     cy.get('[data-cy="old-password-input"]').type('Hallo123!party');
-cy.scrollTo('top');
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '1'), {
       overwrite: true,
       capture: 'viewport',
@@ -23,13 +23,12 @@ cy.scrollTo('top');
   const newPasswordConstraints =
     ' Das neue Passwort muss bestimmte Anforderungen erfüllen, z. B. eine Mindestlänge und die Verwendung von Sonderzeichen.';
   it(newPasswordConstraints, () => {
-
     cy.get('[data-cy="old-password-input"]').type('Hallo123!party');
     cy.get('[data-cy="new-password-input"]').type('prty');
     cy.get('[data-cy="old-password-input"]').focus();
-cy.scrollTo('top');
-// eslint-disable-next-line cypress/no-unnecessary-waiting
-cy.wait(500);
+    cy.scrollTo('top');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '2'), {
       overwrite: true,
       capture: 'viewport',
@@ -40,7 +39,7 @@ cy.wait(500);
   it(newPassword, () => {
     cy.get('[data-cy="old-password-input"]').type('Hallo123!party');
     cy.get('[data-cy="new-password-input"]').type('Hallo123!party');
-cy.scrollTo('top');
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '3'), {
       overwrite: true,
       capture: 'viewport',
@@ -52,15 +51,15 @@ cy.scrollTo('top');
   it(passwordChangeLogout, () => {
     cy.get('[data-cy="old-password-input"]').type('Hallo123!party');
     cy.get('[data-cy="new-password-input"]').type('Hallo123!party');
-cy.scrollTo('top');
+    cy.scrollTo('top');
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '4'), {
       overwrite: true,
       capture: 'viewport',
     });
     cy.get('[data-cy="submit-button"]').click();
-cy.scrollTo('top');
-// eslint-disable-next-line cypress/no-unnecessary-waiting
-cy.wait(500);
+    cy.scrollTo('top');
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(500);
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '5'), {
       overwrite: true,
       capture: 'viewport',

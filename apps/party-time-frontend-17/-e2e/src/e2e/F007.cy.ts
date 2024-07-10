@@ -12,7 +12,7 @@ describe(invitationReceivedGroup, () => {
   const eventDetails =
     'Einladungen sollten alle relevanten Informationen zum Event enthalten.';
   it(eventDetails, () => {
-cy.scrollTo('top');
+    cy.scrollTo('top');
     cy.screenshot(
       getScreenshotPath(requirement, invitationReceivedGroup, '1'),
       {
@@ -21,16 +21,16 @@ cy.scrollTo('top');
       }
     );
   });
-//   const inviteDecline =
-//     'Teilnehmer sollten in der Lage sein, Einladungen anzunehmen oder abzulehnen.';
-//   it(inviteDecline, () => {
-// cy.scrollTo('top');
-//     cy.screenshot(
-//       getScreenshotPath(requirement, invitationReceivedGroup, '2'),
-//       {
-//         overwrite: true,
-//         capture: 'viewport',
-//       }
-//     );
-//   });
+  //   const inviteDecline =
+  //     'Teilnehmer sollten in der Lage sein, Einladungen anzunehmen oder abzulehnen.';
+  //   it(inviteDecline, () => {
+  // cy.scrollTo('top');
+  //     cy.screenshot(
+  //       getScreenshotPath(requirement, invitationReceivedGroup, '2'),
+  //       {
+  //         overwrite: true,
+  //         capture: 'viewport',
+  //       }
+  //     );
+  //   });
 });
