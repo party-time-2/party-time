@@ -28,6 +28,7 @@ cy.scrollTo('top');
     cy.get('[data-cy="new-password-input"]').type('prty');
     cy.get('[data-cy="old-password-input"]').focus();
 cy.scrollTo('top');
+// eslint-disable-next-line cypress/no-unnecessary-waiting
 cy.wait(500);
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '2'), {
       overwrite: true,
@@ -58,6 +59,7 @@ cy.scrollTo('top');
     });
     cy.get('[data-cy="submit-button"]').click();
 cy.scrollTo('top');
+// eslint-disable-next-line cypress/no-unnecessary-waiting
 cy.wait(500);
     cy.screenshot(getScreenshotPath(requirement, passwordChange, '5'), {
       overwrite: true,
