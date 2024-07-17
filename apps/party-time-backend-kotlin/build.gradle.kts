@@ -90,6 +90,21 @@ springBoot {
 	buildInfo()
 }
 
+kover {
+    reports {
+        filters {
+            excludes {
+                classes(
+                    "com.partytime.jpa.DatabaseConstants",
+                    "com.partytime.PartyTimeBackendKotlinApplicationKt",
+                    "com.partytime.api.ApiConstants",
+                    "com.partytime.configuration.security.AuthEntryPointJwtKt" //contains logger
+                )
+            }
+        }
+    }
+}
+
 /*
 publishing {
 	publications {
