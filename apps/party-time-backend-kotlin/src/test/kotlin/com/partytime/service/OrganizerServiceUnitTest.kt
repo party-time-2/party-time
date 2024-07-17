@@ -152,7 +152,9 @@ class OrganizerServiceUnitTest : UnitTest() {
         verify(exactly = 1) { eventRepository.findById(eventID) }
     }
 
-
+    /**
+     * Implements F001
+     */
     @Nested
     inner class CreateEventTest : UnitTest() {
         private val eventCreateDTO = EventCreateDTO(
@@ -210,7 +212,9 @@ class OrganizerServiceUnitTest : UnitTest() {
         }
     }
 
-
+    /**
+     * Implements F016
+     */
     @Nested
     inner class GetEvent : UnitTest() {
         @Test
@@ -237,6 +241,9 @@ class OrganizerServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F002
+     */
     @Nested
     inner class UpdateEvent : UnitTest() {
         private val eventDetailsDTO = EventDetailsDTO(
@@ -312,6 +319,9 @@ class OrganizerServiceUnitTest : UnitTest() {
     }
 
 
+    /**
+     * Implements F003
+     */
     @Nested
     inner class DeleteEventById : UnitTest() {
         @Test
@@ -367,6 +377,9 @@ class OrganizerServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F015
+     */
     @Nested
     inner class DeleteMultipleEvents : UnitTest() {
         private val events = listOf(savedEvent)
@@ -425,6 +438,9 @@ class OrganizerServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F005
+     */
     @Nested
     inner class UninviteParticipant: UnitTest() {
         @Test
@@ -500,6 +516,9 @@ class OrganizerServiceUnitTest : UnitTest() {
     }
 
 
+    /**
+     * Implements F004
+     */
     @Nested
     inner class InviteParticipant: UnitTest() {
         private val invitationCreateDTO = InvitationCreateDTO(
@@ -601,6 +620,9 @@ class OrganizerServiceUnitTest : UnitTest() {
         verify(exactly = 1) { eventRepository.findByOrganizer_Email(organizerAccount.email) }
     }
 
+    /**
+     * Implements F006
+     */
     @Nested
     inner class GetParticipants: UnitTest() {
         @Test

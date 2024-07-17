@@ -76,6 +76,9 @@ class AccountDeletionServiceUnitTest : UnitTest() {
         declinedEvent.invitations.add(it)
     }
 
+    /**
+     * Implements F015
+     */
     @Nested
     inner class DeleteAccountTest : UnitTest() {
         private val accountDeleteDTO = AccountDeleteDTO(

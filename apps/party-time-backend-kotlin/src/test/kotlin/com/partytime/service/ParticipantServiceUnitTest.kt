@@ -53,6 +53,9 @@ class ParticipantServiceUnitTest : UnitTest() {
         Status.INVITED
     )
 
+    /**
+     * Implements F016
+     */
     @Test
     fun getInvitations() {
         //setup - mock
@@ -66,6 +69,9 @@ class ParticipantServiceUnitTest : UnitTest() {
         verify(exactly = 1) { invitationRepository.findAllByAccount_Email(participantAccount.email) }
     }
 
+    /**
+     * Implements F007
+     */
     @Nested
     inner class GetInvitation {
         @Test
@@ -122,6 +128,9 @@ class ParticipantServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F008
+     */
     @Test
     fun acceptInvitation() {
         //setup - mock
@@ -161,6 +170,9 @@ class ParticipantServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F009
+     */
     @Test
     fun declineInvitation() {
         //setup - mock
@@ -200,6 +212,9 @@ class ParticipantServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F015
+     */
     @Test
     fun deleteAllInvitations() {
         //setup - mock

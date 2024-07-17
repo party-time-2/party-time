@@ -56,6 +56,9 @@ class AccountServiceUnitTest : UnitTest() {
     )
     private val verifiedAccount = verifiedAccountData.account
 
+    /**
+     * Implements F010
+     */
     @Nested
     inner class RegisterAccountTests: UnitTest() {
         private val accountRegisterDTO = AccountRegisterDTO(
@@ -159,6 +162,9 @@ class AccountServiceUnitTest : UnitTest() {
         verify(exactly = 1) { accountRepository.save(unverifiedAccount) }
     }
 
+    /**
+     * Implements F015
+     */
     @Nested
     inner class DeleteAccountTests: UnitTest() {
         @Test
@@ -190,6 +196,9 @@ class AccountServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F013
+     */
     @Nested
     inner class ChangePasswordTests: UnitTest() {
         private val newPassword = "Jkl?mno2pqr"

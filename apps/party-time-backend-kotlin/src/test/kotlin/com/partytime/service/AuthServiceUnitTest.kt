@@ -34,6 +34,9 @@ class AuthServiceUnitTest : UnitTest() {
         applicationEventPublisher
     )
 
+    /**
+     * Implements F014
+     */
     @Nested
     inner class VerifyAccountTests : UnitTest() {
         private val validVerificationCode = UUID.randomUUID().toString()
@@ -86,6 +89,9 @@ class AuthServiceUnitTest : UnitTest() {
         }
     }
 
+    /**
+     * Implements F011
+     */
     @Nested
     inner class LoginUserTests : UnitTest() {
         private val invalidPassword = "wrong!Password5unauthorized"
