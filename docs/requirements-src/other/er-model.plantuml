@@ -3,44 +3,44 @@ title "Party Time ER-Modell"
 skinparam linetype ortho
 
 entity Account {
-    * id: bigint <<generated>>
+    * id: Long <<generated>>
     --
-    * email: character varying(255)
+    * email: varchar(255)
     * emailVerified: boolean
-    * name: character varying(255)
-    * pwHash: character varying(255)
-    * emailVerificationCode: character varying(255)
-    * passwordVerificationCode: character varying(255)
+    * name: varchar(255)
+    * pwHash: varachar(255)
+    * emailVerificationCode: varachar(255)
+    * passwordVerificationCode: varachar(255)
 }
 
-entity EventParticipant {
-    * account_id: bigint <<Account FK>>
-    * event_id: bigint <<Event FK>>
+entity Invitation {
+    * account_id: Long <<Account FK>>
+    * event_id: Long <<Event FK>>
     --
     * status: ENUM('INVITED', 'PARTICIPATING', 'REJECTED')
 }
 
 entity Event {
-    * id: bigint <<generated>>
+    * id: Long <<generated>>
     --
-    * organizer_id: bigint <<Account FK>>
-    * name: character varying(255)
+    * organizer_id: Long <<Account FK>>
+    * name: varachar(255)
     * dateTime: timestamp
-    * address: bigint <<Address FK>>
+    * address: Long <<Address FK>>
 }
 
 entity Address {
-    * id: bigint <<generated>>
+    * id: Long <<generated>>
     --
-    * addressLine: character varying(255)
-    * addressAddition: character varying(255)
-    * zip: character varying(255)
-    * city: character varying(255)
-    * country: character varying(255)
+    * addressLine: varachar(255)
+    * addressAddition: varachar(255)
+    * zip: varachar(255)
+    * city: varachar(255)
+    * country: varachar(255)
 }
 
 Account ||--o{ Event
-Account }o--o{ EventParticipant
-EventParticipant }o--o{ Event
+Account }o--o{ Invitation
+Invitation }o--o{ Event
 Event }o--|| Address
 @enduml
