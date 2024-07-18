@@ -18,4 +18,5 @@ const val COUNTRY = "Test Country"
 const val EVENT_NAME = "TestEvent"
 
 const val VERIFIED_EMAIL = "verified1@partytime.de"
+const val OTHER_VERIFIED_EMAIL = "verified2@partytime.de"
 
