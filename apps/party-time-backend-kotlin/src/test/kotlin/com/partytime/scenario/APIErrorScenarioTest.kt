@@ -32,4 +32,14 @@ class APIErrorScenarioTest @Autowired constructor(
                 assertEquals("Validation failed for Parameter 'body'", it.message)
             }
     }
+
+    @Test
+    fun testUnauthorized() {
+        //unauthenticated client tries to access organized parties
+        wtc.unauthenticatedClient
+            .get()
+            .uri("/api/host/events")
+            .exchange()
+            .expectStatus().isUnauthorized
+    }
 }
