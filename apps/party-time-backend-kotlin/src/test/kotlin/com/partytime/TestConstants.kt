@@ -16,7 +16,10 @@ const val CITY = "Test City"
 const val COUNTRY = "Test Country"
 
 const val EVENT_NAME = "TestEvent"
+const val ALT_EVENT_NAME = "TestEvent Other"
 
 const val VERIFIED_EMAIL = "verified1@partytime.de"
 const val OTHER_VERIFIED_EMAIL = "verified2@partytime.de"
+
+const val TO_DELETE_VERIFIED_EMAIL = "verified4@partytime.de"
 

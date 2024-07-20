@@ -1,8 +1,10 @@
 package com.partytime.scenario
 
+import com.partytime.ALT_EVENT_NAME
 import com.partytime.EVENT_NAME
 import com.partytime.OTHER_VERIFIED_EMAIL
 import com.partytime.VERIFIED_EMAIL
+import com.partytime.api.dto.event.AccountInvitationDetailsDTO
 import com.partytime.api.dto.event.EventCreateDTO
 import com.partytime.api.dto.event.EventDetailsDTO
 import com.partytime.api.dto.event.InvitationCreateDTO
@@ -45,6 +47,19 @@ class OrganizerAndParticipantScenarioTest @Autowired constructor(
             .single()
             .block() ?: throw IllegalStateException("OrganizerEventDTO not retrieved")
 
+        val eventDetailsDTOChangedTitle = organizerEventDTO.eventDetailsDTO.copy(name = ALT_EVENT_NAME)
+
+        organizerWebTestClient
+            .patch()
+            .uri("/api/host/event")
+            .bodyValue(eventDetailsDTOChangedTitle)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(OrganizerEventDTO::class.java)
+            .value {
+                assertEquals(ALT_EVENT_NAME, it.eventDetailsDTO.name)
+            }
+
         val eventId = organizerEventDTO.eventDetailsDTO.id
 
         //check if event in organized events
@@ -69,6 +84,7 @@ class OrganizerAndParticipantScenarioTest @Autowired constructor(
                 assertEquals(eventId, responseOrganizerEventDTO.eventDetailsDTO.id)
             }
 
+        //invite participant
         val invitationCreateDTO = InvitationCreateDTO(OTHER_VERIFIED_EMAIL)
 
         organizerWebTestClient
@@ -77,8 +93,43 @@ class OrganizerAndParticipantScenarioTest @Autowired constructor(
             .bodyValue(invitationCreateDTO)
             .exchange()
             .expectStatus().isOk
+            .expectBody(Array<AccountInvitationDetailsDTO>::class.java)
+            .value { invitations ->
+                assertNotNull(invitations.firstOrNull {
+                    it.invitee.email == OTHER_VERIFIED_EMAIL
+                })
+            }
 
+        //check invitees with organizer
+
+        organizerWebTestClient
+            .get()
+            .uri("/api/host/event/$eventId/participants")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(Array<AccountInvitationDetailsDTO>::class.java)
+            .value { invitations ->
+                assertNotNull(invitations.firstOrNull {
+                    it.invitee.email == OTHER_VERIFIED_EMAIL
+                })
+            }
+
+        //check all events of invitee
         val inviteeClient = wtc.authenticatedClientByEmail(OTHER_VERIFIED_EMAIL)
+
+        inviteeClient
+            .get()
+            .uri("/api/participant/events")
+            .exchange()
+            .expectStatus().isOk
+            .expectBody(Array<ParticipantEventDTO>::class.java)
+            .value { events ->
+                assertNotNull(events.firstOrNull {
+                    it.organizedEventDetailsDTO.id == eventId
+                })
+            }
+
+        //check invite with invitee
 
         val invitation = inviteeClient
             .get()
@@ -96,6 +147,24 @@ class OrganizerAndParticipantScenarioTest @Autowired constructor(
             .responseBody
             .single()
             .block()!!
+
+        //invitee accepts invite
+
+        inviteeClient
+            .post()
+            .uri("/api/participant/event/$eventId/invitation/accept")
+            .bodyValue(Unit)
+            .exchange()
+            .expectStatus().isOk
+
+        //invitee declines invite
+
+        inviteeClient
+            .post()
+            .uri("/api/participant/event/$eventId/invitation/decline")
+            .bodyValue(Unit)
+            .exchange()
+            .expectStatus().isOk
 
         //organizer uninvites participant
         organizerWebTestClient
