@@ -100,6 +100,7 @@ kover {
                     "com.partytime.api.ApiConstants",
                     "com.partytime.configuration.security.AuthEntryPointJwtKt" //contains logger
                 )
+                annotatedBy("com.partytime.annotations.ExcludeFromCoverage")
             }
         }
     }

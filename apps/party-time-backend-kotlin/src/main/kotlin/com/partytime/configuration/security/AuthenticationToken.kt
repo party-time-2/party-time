@@ -1,5 +1,6 @@
 package com.partytime.configuration.security
 
+import com.partytime.annotations.ExcludeFromCoverage
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import java.util.Objects
 
@@ -29,6 +30,7 @@ class AuthenticationToken(private val details: PartyTimeUserDetails) : AbstractA
      */
     override fun getPrincipal(): String = details.username
 
+    @ExcludeFromCoverage
     override fun equals(other: Any?): Boolean = when {
         this === other -> true
         other == null || javaClass != other.javaClass -> false
@@ -36,5 +38,6 @@ class AuthenticationToken(private val details: PartyTimeUserDetails) : AbstractA
         else -> other is AuthenticationToken && Objects.equals(details, other.details)
     }
 
+    @ExcludeFromCoverage
     override fun hashCode(): Int = Objects.hash(super.hashCode(), details)
 }
