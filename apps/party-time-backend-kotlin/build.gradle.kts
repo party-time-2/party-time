@@ -7,6 +7,7 @@ plugins {
 	kotlin("plugin.spring") version "2.0.0"
 	kotlin("plugin.jpa") version "2.0.0"
     id("org.jetbrains.kotlinx.kover") version "0.8.3"
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 group = "com.partytime"
@@ -36,8 +37,6 @@ dependencies {
     //database
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
-	//runtimeOnly("io.r2dbc:r2dbc-h2")
-    //implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
 
     //security
 	implementation("org.springframework.boot:spring-boot-starter-security")
@@ -55,7 +54,6 @@ dependencies {
     //dev
 	implementation("org.springframework.boot:spring-boot-devtools")
 	implementation("org.springframework.boot:spring-boot-configuration-processor")
-    //implementation("org.projectlombok:lombok")
 
     //test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -71,7 +69,14 @@ dependencies {
         }
     }
 
-	//implementation("org.jetbrains.kotlin :kotlin-reflect")
+    //fix from https://github.com/Kotlin/dokka/issues/3472#issuecomment-1929712374
+    configurations.matching { it.name.startsWith("dokka") }.configureEach {
+        resolutionStrategy.eachDependency {
+            if (requested.group.startsWith("com.fasterxml.jackson")) {
+                useVersion("2.15.3")
+            }
+        }
+    }
 }
 
 kotlin {

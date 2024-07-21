@@ -14,7 +14,7 @@ class MailEvent(
     val icsEvent: Event? = null
 ): ApplicationEvent(source) {
     val template by lazy {
-        when(data) {
+        when(data) { //exhaustive when block due to sealed nature of the MustacheData interface
             is InvitationData -> MailEventListener.TEMPLATE_INVITATION
             is EventChangeData -> MailEventListener.TEMPLATE_CHANGE
             is CancellationData -> MailEventListener.TEMPLATE_DELETE
