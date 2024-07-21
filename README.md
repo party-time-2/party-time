@@ -37,7 +37,7 @@ In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Fron
 1. `/apps/party-time-frontend-17/src/app/pages` -> Seitenkomponenten (Komponenten welche von den Routern verwendet werden; werden nur bei Bedarf geladen, Anbhängigkeiten haben keine weitere Anforderungszugehörigkeit da sich diese transitiv ergibt)
 1. `/apps/party-time-frontend-17/src/app/validators` -> Validatoren für Formulare (Testet die Passwörter auf einhaltung der Regeln)
 
-#### Anmerkungen zum Fornend
+#### Anmerkungen zum Frontend
 
 - es wurde auf eine Lazy Loading Strategie gesetzt, um die Ladezeiten zu minimieren
 - die Anwendung ist vollständig responsive
@@ -47,9 +47,42 @@ In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Fron
 
 ### /apps/party-time-backend-kotlin
 
-<!-- TODO Kay -->
+In dem Ordner befinden sich die Implementierung & Tests des Backends.
+
+Das Spring-basierte Backend folgt einem Model-View-Controller Design.
+
+Implementierung:
+
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime` -> Implementierung des Backends
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/api/dto` -> Data-Transfer-Objects, welche das Backend für Serialisierung und Deserialisierung von Daten verwendet, welche mit dem Frontend ausgetauscht werden
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/api/controller` -> Controller des Backends, enthalten API Routen welche dem Frontend zur Verfügung gestellt werden
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/api/error` -> DTO und Exceptions für Fehler, sowie Funktionalität welche Kotlin-Excpetions in Fehler-DTO umwandeln kann
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/service` -> Services des Backends, werden von Controllern verwendet um die Anfragen zu bearbeiten
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/jpa` -> Datenbank-Definitionen des Backends, werden von Services verwendet um Datenbankzugriffe zu tätigen
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/configuration` -> OpenAPI Konfiguration, sowie diverse Sicherheits-Konfigurationen (Json-Web-Token, Spring-Security, etc.)
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/mail` -> Zentrales Mail-handling des Backendes, implementiert mit Spring ApplicationEvent
+1. `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/util` -> Daten-Gemerator, welcher in Anwendungen die nicht mit Spring "prod" (Produktion) Profil laufen, Daten der Datenbank hinzufügt. Dies erleichtert das Testen und Entwickeln des Backends und Frontends, da bei einem Start der Anwendung nicht erst manuell Datensätze angelegt werden müssen
+1. `/apps/party-time-backend-kotlin/src/main/resources` -> Enthällt Properties-Dateien (in der Form von YAML-Dateien), welche das Backend nutzt um Konfigurationen zu laden. Die Haupt-Datei `application.yml` wird dabei von zusätzlichen `.yml` Dateien in bestimmten Einsazt-Szenarien unterstützt. Beispielsweise ermöglicht es die `application-mem.yml` das Backend mit einer In-Memory Datenbank zu starten.
+1. `/apps/party-time-backend-kotlin/src/main/resources/mail` -> Enthällt Mustache Templates für die E-Mails, welche das Backend versenden kann
+
+Tests:
+
+1. `/apps/party-time-backend-kotlin/src/test/kotlin/com/partytime` -> Tests des Backends
+1. `/apps/party-time-backend-kotlin/src/test/kotlin/com/partytime/service` -> Tests der Services (100% Code Coverage)
+1. `/apps/party-time-backend-kotlin/src/test/kotlin/com/partytime/scenario` -> Tests die mithilfe von Szenarien im Stil von Customer-Journeys die Funktionalität des Backends testen. Ähneln integration-tests stark, aber haben mehr die Absicht die Interaktion von verschiedenen Nutzern (Beispiel: ein Nutzer erstellt ein Event, lädt einen anderen Nutzer ein, der andere Nutzer akzeptiert die Einladung, etc.) zu testen. (für 100% Code Coverage der Controller verantwortlich)
+1. `/apps/party-time-backend-kotlin/src/test/kotlin/com/partytime/testAbstraction` -> Enthällt abstrakte Klassen die bereits mit benötigten Annotationen versehen wurden. Werden von den tatsächlichen Tests verwendet um die Test-Struktur zu vereinheitlichen.
 
 #### Anmerkungen zum Backend
+
+- Der E-Mail Versand funktioniert in der Theorie. Im Praxis-Projekt II funktionierte der E-Mail Versand mit vergleichbarem Code, der sich jetzt auch im Backend befindet, allerdings ist Herr Dangl nicht mehr Teil des Projektteams und er war derjenige, dem sich um den API Key des Backends kümmerte. Das Backend gibt "versendete" E-Mail Inhalte aktuell in nicht "prod" Profil-starts auf der Konsole aus. Aus diesem Grund ist die Code-Coverage in `/apps/party-time-backend-kotlin/src/main/kotlin/com/partytime/mail` nicht 100%. Wir bitten um Verständnis für diesen Umstand und uns ist natürlich bewusst, das für ein Produktivsystem der E-Mail Versand funktionieren muss und getestet werden muss.
+
+- Die Code-Coverage mittels Tests ist im Backend sehr hoch. Sie ist nicht 100% da nicht alle Inhalte getestet werden können. Manche Code-Abschnitte entsprechen einfach Best-Practices (Bsp.: isEquals und hashCode von Klassen überschreiben, ohne das wir jemals von diesen Funktionen gebrauch machen) und  werden so gut wie möglich von dem Coverage Report ausgeschlossen. Vom Report ausgeschlossen werden Inhalte, die mit `@ExcludeFromCoverage` annotiert sind, sowie Inhalte, die in `/apps/party-time-backend-kotlin/build.gradle.kts` in Zeile 97 - 103 konfiguriert sind.
+  - `DatabaseConstants` und `APIConstants` sind Konstanten, die nicht getestet werden können, da sie nur Konstanten enthalten
+  - `PartyTimeBackendKotlinApplicationKt` enhällt den Spring-Boot-Startpunkt und wird von Spring-Boot beim Applikations-Start aufgerufen. Spring-Boot Tests führen diesen Code nicht aus. Es wurde sich bei dem Code so stark an die Vorgaben des Frameworks gehalten, dass er eigentlich unter die "Nicht die Framework-Funktionalität-testen" Regel von Ihnen fällt.
+  - `AuthEntryPointJwtKt` ist **nicht** das gleiche wie `AuthEntryPointJwt`. `AuthEntryPointJwt` wird getestet, wohingegen die mit `Kt` endende Klasse nur eine von Kotlin erstellte Klasse ist, die `AuthEntryPointJwt`-externe Inhalte enthält. In diesem Fall ist dies nur ein Logger, dessen initialisierung in Tests nicht getestet werden kann.
+
+
+<!-- TODO Kay -->
 
 ## Sonstiges
 
