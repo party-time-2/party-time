@@ -41,7 +41,6 @@ class AccountDeletionService(
         // Check Password
         val account = accountService.getAccountByMail(authentication.principal)
         if (!cryptService.passwordMatchesHash(deleteDTO.password, account.pwHash)) {
-            //FIXME better error message
             throw ApiError.unauthorized().asException()
         }
 
