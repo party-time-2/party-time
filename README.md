@@ -109,3 +109,8 @@ Folgende Anmerkungen sind zu beachten:
   - Typen
 - Code-nahe Dokumentation / Datenbankmodell ist in englisch gehalten
 - Diagramme welche sich auf die Anforderungen beziehen sind in deutsch gehalten
+
+## Präsentation
+
+Die Präsentation wurde ergänzt und kann zusätzlich zur Dokumentation eingesehen werden (Reihenfolge egal).
+Die Präsentation enthält eine Zusammenfassung der Anforderungen und deren Tests inklusive der Ablauf- und Sequenzdiagramme sowie Screenshots der Anwendung.

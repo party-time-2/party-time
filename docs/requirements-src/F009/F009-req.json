@@ -1,6 +1,6 @@
 {
   "id": "F009",
-  "title": "Worteingabe",
+  "title": "Absage zum Event geben",
   "reference": "https://github.com/party-time-2/party-time/issues/9",
   "description": "Die Plattform soll es Teilnehmern ermöglichen, ihre Absage zum Event zu geben.",
   "impact": "Teilnehmer können ihre Nicht-Teilnahme am Event bestätigen, was dem Veranstalter eine bessere Planung ermöglicht.",
