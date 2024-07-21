@@ -3,6 +3,15 @@ package com.partytime.api.dto.address
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.Size
 
+/**
+ * Data transfer object used for address data
+ *
+ * @param addressLine First line of the address
+ * @param addressLineAddition (Optional) second line of the address
+ * @param zip Zip/PLZ of the city
+ * @param city Name of the city
+ * @param country Country name of the address
+ */
 data class AddressDTO(
     @field:Size(min = 4, max = 25)
     val addressLine: String,
