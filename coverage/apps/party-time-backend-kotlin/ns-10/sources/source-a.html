@@ -1,0 +1,448 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > OrganizerServiceKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.service</a>
+</div>
+
+<h1>Coverage Summary for Class: OrganizerServiceKt (com.partytime.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrganizerServiceKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.service
+&nbsp;
+&nbsp;import com.partytime.api.dto.event.EventCreateDTO
+&nbsp;import com.partytime.api.dto.event.EventDetailsDTO
+&nbsp;import com.partytime.api.dto.event.InvitationCreateDTO
+&nbsp;import com.partytime.api.error.ApiError
+&nbsp;import com.partytime.api.error.asException
+&nbsp;import com.partytime.configuration.PartyTimeConfigurationProperties
+&nbsp;import com.partytime.jpa.entity.Account
+&nbsp;import com.partytime.jpa.entity.Address
+&nbsp;import com.partytime.jpa.entity.Event
+&nbsp;import com.partytime.jpa.entity.Invitation
+&nbsp;import com.partytime.jpa.entity.Status
+&nbsp;import com.partytime.jpa.mapper.toEmailFormat
+&nbsp;import com.partytime.jpa.mapper.toMultiLineString
+&nbsp;import com.partytime.jpa.repository.EventRepository
+&nbsp;import com.partytime.jpa.repository.InvitationRepository
+&nbsp;import com.partytime.mail.model.CancellationData
+&nbsp;import com.partytime.mail.model.EventChangeData
+&nbsp;import com.partytime.mail.model.EventData
+&nbsp;import com.partytime.mail.model.InvitationData
+&nbsp;import com.partytime.mail.model.MailEvent
+&nbsp;import com.partytime.mail.model.UninviteData
+&nbsp;import io.github.oshai.kotlinlogging.KotlinLogging
+&nbsp;import org.springframework.context.ApplicationEventPublisher
+&nbsp;import org.springframework.stereotype.Service
+&nbsp;import org.springframework.transaction.annotation.Transactional
+&nbsp;
+<b class="fc">&nbsp;private val organizerServiceLogger = KotlinLogging.logger(&quot;OrganizerService&quot;)</b>
+&nbsp;/**
+&nbsp; * A [Service] class for hosting events related functionality.
+&nbsp; *
+&nbsp; * @param eventRepository Repository where event related information can be stored
+&nbsp; * @param invitationRepository Repository where event-participation related information can be stored.
+&nbsp; * @param accountService Service used fetch accounts (for e-mail recipient information and event organizer ownership checks)
+&nbsp; * @param addressService Service used to store, retrieve and update the location of events
+&nbsp; * @param configurationProperties Properties used to retrieve the url of the server for e-mail content
+&nbsp; * @param applicationEventPublisher Used to send [MailEvent] for event invite/uninvite/changed/canceled information
+&nbsp; * @constructor Constructs a new [OrganizerService]
+&nbsp; */
+&nbsp;@Service
+&nbsp;class OrganizerService (
+&nbsp;    private val eventRepository: EventRepository,
+&nbsp;    private val invitationRepository: InvitationRepository,
+&nbsp;    private val accountService: AccountService,
+&nbsp;    private val addressService: AddressService,
+&nbsp;    private val configurationProperties: PartyTimeConfigurationProperties,
+&nbsp;    private val applicationEventPublisher: ApplicationEventPublisher
+&nbsp;) {
+&nbsp;    /**
+&nbsp;     * Implements F001
+&nbsp;     *
+&nbsp;     * Creates a new [Event].
+&nbsp;     *
+&nbsp;     * @param body contains information about the to be created event
+&nbsp;     * @param organizerEmail E-mail-address of the event organizer
+&nbsp;     * @return newly created and saved [Event]
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun createEvent(body: EventCreateDTO, organizerEmail: String): Event {
+&nbsp;        val account = accountService.optAccountByMail(organizerEmail)
+&nbsp;            .orElseThrow {
+&nbsp;                ApiError.badRequest(
+&nbsp;                    &quot;Ein Account mit dieser Mail existiert nicht&quot;
+&nbsp;                ).asException()
+&nbsp;            }
+&nbsp;
+&nbsp;        val address: Address = addressService.saveAddress(body.address)
+&nbsp;
+&nbsp;        val event = Event(
+&nbsp;            organizer = account,
+&nbsp;            name = body.name,
+&nbsp;            dateTime = body.dateTime,
+&nbsp;            address = address
+&nbsp;        )
+&nbsp;
+&nbsp;        return eventRepository.save(event)
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F016
+&nbsp;     *
+&nbsp;     * Retrieves an organized event by [eventId].
+&nbsp;     *
+&nbsp;     * @param email E-Mail of the event organizer
+&nbsp;     * @param eventId id of the Event whose details should be fetched
+&nbsp;     * @return The organized event
+&nbsp;     */
+&nbsp;    fun getEvent(email: String, eventId: Long): Event = fetchOwnEvent(eventId, email)
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F002
+&nbsp;     *
+&nbsp;     * Updates the details of an existing organized event.
+&nbsp;     *
+&nbsp;     * @param body New event details
+&nbsp;     * @param organizerEmail E-Mail of the event organizer
+&nbsp;     * @return The [Event] with the changed event details
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun updateEvent(body: EventDetailsDTO, organizerEmail: String): Event {
+&nbsp;        val ownEvent: Event = fetchOwnEvent(body.id, organizerEmail)
+&nbsp;
+&nbsp;        ownEvent.address = addressService.saveAddress(body.address)
+&nbsp;        ownEvent.name = body.name
+&nbsp;        ownEvent.dateTime = body.dateTime
+&nbsp;
+&nbsp;        val event = eventRepository.save(ownEvent)
+&nbsp;
+&nbsp;        //inform participants about the updated event details
+&nbsp;        for (invitation in event.invitations) {
+&nbsp;            val participant: Account = invitation.account
+&nbsp;            val mailEvent = MailEvent(
+&nbsp;                this,
+&nbsp;                participant.email,
+&nbsp;                &quot;Änderungen am Event ${event.name}&quot;,
+&nbsp;                EventChangeData(
+&nbsp;                    participant.name,
+&nbsp;                    EventData(
+&nbsp;                        event.organizer.name,
+&nbsp;                        event.name,
+&nbsp;                        event.address.toMultiLineString(),
+&nbsp;                        event.dateTime.toEmailFormat()
+&nbsp;                    ),
+&nbsp;                    configurationProperties.url
+&nbsp;                ),
+&nbsp;                event
+&nbsp;            )
+&nbsp;            applicationEventPublisher.publishEvent(mailEvent)
+&nbsp;        }
+&nbsp;
+&nbsp;        return event
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F003
+&nbsp;     *
+&nbsp;     * Deletes an organized [Event]. Informs participants about the event cancellation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event to be deleted
+&nbsp;     * @param organizerEmail e-mail address of the event organizer
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun deleteEventById(eventId: Long, organizerEmail: String) {
+&nbsp;        val event: Event = fetchOwnEvent(eventId, organizerEmail)
+&nbsp;
+&nbsp;        val eventParticipants = event.invitations
+&nbsp;
+&nbsp;        eventRepository.delete(event)
+&nbsp;
+&nbsp;        //inform participants about event cancellation
+&nbsp;        for (eventParticipant in eventParticipants) {
+&nbsp;            val account: Account = eventParticipant.account
+&nbsp;            val mailEvent = MailEvent(
+&nbsp;                this,
+&nbsp;                account.email,
+&nbsp;                &quot;Absage des Events ${event.name}&quot;,
+&nbsp;                CancellationData(
+&nbsp;                    EventData(
+&nbsp;                        event.organizer.name,
+&nbsp;                        event.name,
+&nbsp;                        event.address.toMultiLineString(),
+&nbsp;                        event.dateTime.toEmailFormat()
+&nbsp;                    ),
+&nbsp;                    account.name,
+&nbsp;                    configurationProperties.url
+&nbsp;                )
+&nbsp;            )
+&nbsp;            applicationEventPublisher.publishEvent(mailEvent)
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F003
+&nbsp;     *
+&nbsp;     * Deletes multiple events. Participants of the event will be informed about the cancellations.
+&nbsp;     *
+&nbsp;     * @param events List of events to be deleted
+&nbsp;     * @param organizerEmail E-mail-address of the organizer of all [events]
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun deleteMultipleEvents(events: List&lt;Event&gt;, organizerEmail: String) {
+&nbsp;        events.forEach {
+&nbsp;            deleteEventById(it.id!!, organizerEmail)
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F005
+&nbsp;     *
+&nbsp;     * Uninvites an invitee of an event and informs the invitee about the uninviting.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which an invitee should be univited
+&nbsp;     * @param inviteId id of the invitation whose account should be uninvited
+&nbsp;     * @param organizerEmail E-mail-address of the event organizer
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun uninviteParticipant(eventId: Long, inviteId: Long, organizerEmail: String) {
+&nbsp;        val event: Event = fetchOwnEvent(eventId, organizerEmail)
+&nbsp;
+&nbsp;        val invitation = invitationRepository
+&nbsp;            .findByEvent_IdAndId(eventId, inviteId)
+&nbsp;            .orElseThrow {
+&nbsp;                ApiError
+&nbsp;                    .badRequest(&quot;Eine Einladung mit der id $inviteId existiert nicht für das Event mit der id $eventId&quot;)
+&nbsp;                    .asException()
+&nbsp;            }
+&nbsp;
+&nbsp;        invitationRepository.delete(invitation)
+&nbsp;
+&nbsp;        //inform uninvited participant about the uninviting
+&nbsp;        val mailEvent = MailEvent(
+&nbsp;            this,
+&nbsp;            invitation.account.email,
+&nbsp;            &quot;Du wurdest beim Event ${event.name} ausgeladen.&quot;,
+&nbsp;            UninviteData(
+&nbsp;                invitation.account.name,
+&nbsp;                EventData(
+&nbsp;                    event.organizer.name,
+&nbsp;                    event.name,
+&nbsp;                    event.address.toMultiLineString(),
+&nbsp;                    event.dateTime.toEmailFormat()
+&nbsp;                ),
+&nbsp;                configurationProperties.url
+&nbsp;            )
+&nbsp;        )
+&nbsp;        applicationEventPublisher.publishEvent(mailEvent)
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F004
+&nbsp;     * Implements F007
+&nbsp;     *
+&nbsp;     * Invites an account to an event and informs the invited participant about the invitation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which an account should be invited
+&nbsp;     * @param invitationCreateDTO E-mail address container with e-mail of the invitee account
+&nbsp;     * @param organizerEmail E-mail-address of the event organizer
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun inviteParticipant(eventId: Long, invitationCreateDTO: InvitationCreateDTO, organizerEmail: String) {
+&nbsp;        val ownEvent: Event = fetchOwnEvent(eventId, organizerEmail)
+&nbsp;        val invitedAccount = accountService.getAccountByMail(invitationCreateDTO.email)
+&nbsp;
+&nbsp;        if (invitationRepository.existsByEvent_IdAndAccount_Id(eventId, invitedAccount.id!!)) {
+&nbsp;            throw ApiError.badRequest(&quot;Der Account mit der Email ${invitationCreateDTO.email} wurde bereits eingeladen&quot;)
+&nbsp;                .asException()
+&nbsp;        }
+&nbsp;
+&nbsp;        val invitation = Invitation(
+&nbsp;            invitedAccount,
+&nbsp;            ownEvent,
+&nbsp;            Status.INVITED
+&nbsp;        )
+&nbsp;
+&nbsp;        invitationRepository.save(invitation)
+&nbsp;
+&nbsp;        //Inform invited user about invitation
+&nbsp;        val baseLink = &quot;${configurationProperties.url}/$eventId/invitation&quot;
+&nbsp;        val acceptLink = &quot;$baseLink/accept&quot;
+&nbsp;        val declineLink = &quot;$baseLink/decline&quot;
+&nbsp;
+&nbsp;        val mailEvent = MailEvent(
+&nbsp;            this,
+&nbsp;            invitation.account.email,
+&nbsp;            &quot;Einladung zum Event ${ownEvent.name}&quot;,
+&nbsp;            InvitationData(
+&nbsp;                invitedAccount.name,
+&nbsp;                EventData(
+&nbsp;                    ownEvent.organizer.name,
+&nbsp;                    ownEvent.name,
+&nbsp;                    ownEvent.address.toMultiLineString(),
+&nbsp;                    ownEvent.dateTime.toEmailFormat()
+&nbsp;                ),
+&nbsp;                acceptLink,
+&nbsp;                declineLink,
+&nbsp;                configurationProperties.url
+&nbsp;            ),
+&nbsp;            ownEvent
+&nbsp;        )
+&nbsp;        applicationEventPublisher.publishEvent(mailEvent)
+&nbsp;
+&nbsp;        organizerServiceLogger.info { &quot;Accept Link: $acceptLink&quot; }
+&nbsp;        organizerServiceLogger.info { &quot;Decline Link: $declineLink&quot; }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F016
+&nbsp;     *
+&nbsp;     * Fetches the events organized by a user
+&nbsp;     *
+&nbsp;     * @param organizerEmail E-mail-address of the event organizer
+&nbsp;     * @return List of [Event] organized by the organizer
+&nbsp;     */
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    fun getEvents(organizerEmail: String): List&lt;Event&gt; = eventRepository.findByOrganizer_Email(organizerEmail)
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F006
+&nbsp;     *
+&nbsp;     * Fetches all participation information of an event.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which a participation information should be fetched
+&nbsp;     * @param organizerEmail E-mail-address of the event organizer
+&nbsp;     * @return List of [Invitation] of the event with the provided id
+&nbsp;     */
+&nbsp;    fun getParticipants(eventId: Long, organizerEmail: String): List&lt;Invitation&gt; =
+&nbsp;        fetchOwnEvent(eventId, organizerEmail).invitations
+&nbsp;            .sortedWith(Comparator.comparing { it.account.name })
+&nbsp;
+&nbsp;    private fun fetchOwnEvent(eventId: Long, email: String): Event {
+&nbsp;        val event = eventRepository.findById(eventId)
+&nbsp;            .orElseThrow {
+&nbsp;                ApiError
+&nbsp;                    .notFound(&quot;Ein Event mit der ID $eventId konnte nicht gefunden werden.&quot;).asException()
+&nbsp;            }
+&nbsp;
+&nbsp;        if (email != event.organizer.email) {
+&nbsp;            // Authenticated User is not Event Organizer
+&nbsp;            throw ApiError.forbidden().asException()
+&nbsp;        }
+&nbsp;
+&nbsp;        // return event where id = id and organizer = email
+&nbsp;        return event
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

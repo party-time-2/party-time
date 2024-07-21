@@ -1,0 +1,100 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > AddressRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.jpa.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: AddressRepository (com.partytime.jpa.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddressRepository</td>
+    <td class="coverageStat"/>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.jpa.repository
+&nbsp;
+&nbsp;import com.partytime.jpa.entity.Address
+&nbsp;import org.springframework.data.jpa.repository.JpaRepository
+&nbsp;import org.springframework.data.jpa.repository.Query
+&nbsp;import org.springframework.stereotype.Repository
+&nbsp;import java.util.Optional
+&nbsp;
+&nbsp;@Repository
+&nbsp;interface AddressRepository : JpaRepository&lt;Address, Long&gt; {
+&nbsp;
+&nbsp;    @Query(
+&nbsp;        &quot;select a from Address a &quot; +
+&nbsp;                &quot;where a.addressLine = ?1 &quot; +
+&nbsp;                &quot;and a.addressLineAddition = ?2 &quot; +
+&nbsp;                &quot;and a.zip = ?3 &quot; +
+&nbsp;                &quot;and a.city = ?4 &quot; +
+&nbsp;                &quot;and a.country = ?5&quot;
+&nbsp;    )
+&nbsp;    fun findByData(
+&nbsp;        addressLine: String,
+&nbsp;        addressLineAddition: String?,
+&nbsp;        zip: String,
+&nbsp;        city: String,
+&nbsp;        country: String
+&nbsp;    ): Optional&lt;Address&gt;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

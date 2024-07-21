@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > AddressService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.service</a>
+</div>
+
+<h1>Coverage Summary for Class: AddressService (com.partytime.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">AddressService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (56/56)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.service
+&nbsp;
+&nbsp;import com.partytime.api.dto.address.AddressDTO
+&nbsp;import com.partytime.jpa.entity.Address
+&nbsp;import com.partytime.jpa.repository.AddressRepository
+&nbsp;import org.springframework.stereotype.Service
+&nbsp;
+&nbsp;/**
+&nbsp; * A [Service] class for address related functionality.
+&nbsp; *
+&nbsp; * @param addressRepository A repository where addresses can be stored
+&nbsp; * @constructor Constructs a new [AddressService]
+&nbsp; */
+&nbsp;@Service
+<b class="fc">&nbsp;class AddressService(</b>
+<b class="fc">&nbsp;    private val addressRepository: AddressRepository</b>
+&nbsp;) {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implemented during F001
+&nbsp;     *
+&nbsp;     * Saves a new address to the database if it has not been saved before.
+&nbsp;     *
+&nbsp;     * @param addressLine Address line containing the street name and house number
+&nbsp;     * @param addressLineAddition Additional (optional) address line
+&nbsp;     * @param zip Postal code of the city
+&nbsp;     * @param city Name of the city
+&nbsp;     * @param country Name of the country
+&nbsp;     * @return A newly stored [Address] or a matching [Address] that has been stored before
+&nbsp;     */
+&nbsp;    fun saveAddress(
+&nbsp;        addressLine: String,
+&nbsp;        addressLineAddition: String?,
+&nbsp;        zip: String,
+&nbsp;        city: String,
+&nbsp;        country: String
+<b class="fc">&nbsp;    ): Address = addressRepository.findByData(addressLine, addressLineAddition, zip, city, country)</b>
+<b class="fc">&nbsp;        .orElseGet {</b>
+<b class="fc">&nbsp;            Address(</b>
+<b class="fc">&nbsp;                addressLine = addressLine,</b>
+<b class="fc">&nbsp;                addressLineAddition = addressLineAddition,</b>
+<b class="fc">&nbsp;                zip = zip,</b>
+<b class="fc">&nbsp;                city = city,</b>
+<b class="fc">&nbsp;                country = country</b>
+<b class="fc">&nbsp;            ).let(addressRepository::save)</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Saves the address stored in an [AddressDTO].
+&nbsp;     *
+&nbsp;     * @param address Address information to be saved
+&nbsp;     * @return A newly stored [Address] or a matching [Address] that has been stored before
+&nbsp;     */
+<b class="fc">&nbsp;    fun saveAddress(address: AddressDTO) = saveAddress(</b>
+<b class="fc">&nbsp;        address.addressLine,</b>
+<b class="fc">&nbsp;        address.addressLineAddition,</b>
+<b class="fc">&nbsp;        address.zip,</b>
+<b class="fc">&nbsp;        address.city,</b>
+<b class="fc">&nbsp;        address.country</b>
+&nbsp;    )
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

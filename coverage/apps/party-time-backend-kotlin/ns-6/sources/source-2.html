@@ -1,0 +1,217 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > EventCreateDTO</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.api.dto.event</a>
+</div>
+
+<h1>Coverage Summary for Class: EventCreateDTO (com.partytime.api.dto.event)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">EventCreateDTO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.api.dto.event
+&nbsp;
+&nbsp;import com.partytime.api.dto.account.AccountDTO
+&nbsp;import com.partytime.api.dto.address.AddressDTO
+&nbsp;import jakarta.validation.Valid
+&nbsp;import jakarta.validation.constraints.FutureOrPresent
+&nbsp;import jakarta.validation.constraints.NotEmpty
+&nbsp;import jakarta.validation.constraints.Size
+&nbsp;import java.time.ZonedDateTime
+&nbsp;
+&nbsp;/**
+&nbsp; * Data container for creating new events.
+&nbsp; *
+&nbsp; * @param name The name of the new event
+&nbsp; * @param dateTime The date and time of the new event
+&nbsp; * @param address The address of the new event
+&nbsp; */
+<b class="fc">&nbsp;data class EventCreateDTO(</b>
+<b class="fc">&nbsp;    @field:NotEmpty</b>
+&nbsp;    @field:Size(min = 5, max = 20)
+&nbsp;    val name: String,
+<b class="fc">&nbsp;    @field:FutureOrPresent</b>
+&nbsp;    val dateTime: ZonedDateTime,
+<b class="fc">&nbsp;    @field:Valid</b>
+&nbsp;    val address: AddressDTO
+&nbsp;)
+&nbsp;
+&nbsp;/**
+&nbsp; * Interface specifying the fields of EventDetails container
+&nbsp; */
+&nbsp;sealed interface EventDetails {
+&nbsp;    /** The eventId */
+&nbsp;    val id: Long
+&nbsp;    /** The name of the event */
+&nbsp;    val name: String
+&nbsp;    /** The date and time of the event */
+&nbsp;    val dateTime: ZonedDateTime
+&nbsp;    /** The address of the event */
+&nbsp;    val address: AddressDTO
+&nbsp;}
+&nbsp;
+&nbsp;/**
+&nbsp; * Implementation of [EventDetails], notably lacking any organizer information.
+&nbsp; */
+&nbsp;data class EventDetailsDTO(
+&nbsp;    override val id: Long,
+&nbsp;    @field:NotEmpty
+&nbsp;    @field:Size(min = 5, max=20)
+&nbsp;    override val name: String,
+&nbsp;    @field:FutureOrPresent
+&nbsp;    override val dateTime: ZonedDateTime,
+&nbsp;    @field:Valid
+&nbsp;    override val address: AddressDTO
+&nbsp;) : EventDetails
+&nbsp;
+&nbsp;/**
+&nbsp; * Everything [EventDetails] entails + organizer information
+&nbsp; *
+&nbsp; * @param organizer The organizer of the event
+&nbsp; */
+&nbsp;data class OrganizedEventDetailsDTO(
+&nbsp;    override val id: Long,
+&nbsp;    @field:NotEmpty
+&nbsp;    @field:Size(min = 5, max=20)
+&nbsp;    override val name: String,
+&nbsp;    @field:Valid
+&nbsp;    @field:FutureOrPresent
+&nbsp;    override val dateTime: ZonedDateTime,
+&nbsp;    @field:Valid
+&nbsp;    override val address: AddressDTO,
+&nbsp;    @field:Valid
+&nbsp;    val organizer: AccountDTO
+&nbsp;): EventDetails
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * Combination of invitation details (no info who got invited, just status) and event details (including organizer)
+&nbsp; *
+&nbsp; * @param invitationDetailsDTO Information about the invitation status, without any account information
+&nbsp; * @param organizedEventDetailsDTO Information about the event, with organizer information
+&nbsp; */
+&nbsp;data class ParticipantEventDTO(
+&nbsp;    val invitationDetailsDTO: InvitationDetailsDTO,
+&nbsp;    val organizedEventDetailsDTO: OrganizedEventDetailsDTO
+&nbsp;)
+&nbsp;
+&nbsp;/**
+&nbsp; * Combination of invitation details (who got invited and just status) and event details (no organizer account)
+&nbsp; *
+&nbsp; * @param accountInvitationDetailsDTO Information about the invitation status of participants, with account information
+&nbsp; * @param eventDetailsDTO Information about the event, without organizer information
+&nbsp; */
+&nbsp;data class OrganizerEventDTO(
+&nbsp;    val accountInvitationDetailsDTO: List&lt;AccountInvitationDetailsDTO&gt;,
+&nbsp;    val eventDetailsDTO: EventDetailsDTO
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

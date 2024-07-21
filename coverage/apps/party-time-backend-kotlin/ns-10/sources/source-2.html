@@ -1,0 +1,279 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > AccountService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.service</a>
+</div>
+
+<h1>Coverage Summary for Class: AccountService (com.partytime.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">AccountService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (42/42)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (169/169)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.service
+&nbsp;
+&nbsp;import com.partytime.api.dto.account.AccountRegisterDTO
+&nbsp;import com.partytime.api.dto.changepassword.ChangePasswordDTO
+&nbsp;import com.partytime.api.error.ApiError
+&nbsp;import com.partytime.api.error.asException
+&nbsp;import com.partytime.configuration.PartyTimeConfigurationProperties
+&nbsp;import com.partytime.configuration.security.AuthenticationToken
+&nbsp;import com.partytime.jpa.entity.Account
+&nbsp;import com.partytime.jpa.repository.AccountRepository
+&nbsp;import com.partytime.mail.model.MailEvent
+&nbsp;import com.partytime.mail.model.VerifyAccountData
+&nbsp;import io.github.oshai.kotlinlogging.KotlinLogging
+&nbsp;import org.springframework.context.ApplicationEventPublisher
+&nbsp;import org.springframework.stereotype.Service
+&nbsp;import org.springframework.transaction.annotation.Transactional
+&nbsp;import java.util.Optional
+&nbsp;
+&nbsp;//Can&#39;t use the `KotlinLogging.logger {}` version because of unreported coverage
+&nbsp;private val accountServiceLogger = KotlinLogging.logger(&quot;AccountService&quot;)
+&nbsp;
+&nbsp;/**
+&nbsp; * A [Service] class for account related functionality.
+&nbsp; *
+&nbsp; * @param accountRepository Repository where account related information can be stored
+&nbsp; * @param cryptService Used to encode passwords and check if passwords match hashes
+&nbsp; * @param configurationProperties Used to retrieve the server url for verification requests
+&nbsp; * @param applicationEventPublisher Used to send [MailEvent] for verification requests
+&nbsp; * @constructor Constructs a new [AccountService]
+&nbsp; */
+&nbsp;@Service
+<b class="fc">&nbsp;class AccountService(</b>
+<b class="fc">&nbsp;    private val accountRepository: AccountRepository,</b>
+<b class="fc">&nbsp;    private val cryptService: CryptService,</b>
+<b class="fc">&nbsp;    private val configurationProperties: PartyTimeConfigurationProperties,</b>
+<b class="fc">&nbsp;    private val applicationEventPublisher: ApplicationEventPublisher</b>
+&nbsp;) {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * F010 - Konto Erstellen
+&nbsp;     * F014 - Konto Verifizieren
+&nbsp;     *
+&nbsp;     * Registers an account if the provided e-mail address isn&#39;t associated with an existing account already.
+&nbsp;     * @param accountRegisterDTO Information about the to-be-registered account
+&nbsp;     * @return The registered account.
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun registerAccount(accountRegisterDTO: AccountRegisterDTO): Account {
+<b class="fc">&nbsp;        if (optAccountByMail(accountRegisterDTO.email).isPresent) {</b>
+&nbsp;            // Account already exists!
+<b class="fc">&nbsp;            throw ApiError.badRequest(&quot;Ein Account mit dieser E-Mail existiert bereits!&quot;)</b>
+<b class="fc">&nbsp;                .asException()</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        val account = Account(</b>
+<b class="fc">&nbsp;            accountRegisterDTO.email,</b>
+<b class="fc">&nbsp;            false,</b>
+<b class="fc">&nbsp;            accountRegisterDTO.name,</b>
+<b class="fc">&nbsp;            cryptService.encodePassword(accountRegisterDTO.password),</b>
+<b class="fc">&nbsp;            emailVerificationCode = cryptService.randomUUID().toString()</b>
+&nbsp;        )
+&nbsp;
+<b class="fc">&nbsp;        val savedAccount = accountRepository.save(account)</b>
+&nbsp;
+&nbsp;        // F014 - Konto Verifizieren
+<b class="fc">&nbsp;        val mailEvent = MailEvent(</b>
+<b class="fc">&nbsp;            this,</b>
+<b class="fc">&nbsp;            savedAccount.email,</b>
+<b class="fc">&nbsp;            &quot;Verifiziere deinen Account!&quot;,</b>
+<b class="fc">&nbsp;            VerifyAccountData(</b>
+<b class="fc">&nbsp;                configurationProperties.url,</b>
+<b class="fc">&nbsp;                savedAccount.name,</b>
+<b class="fc">&nbsp;                &quot;${configurationProperties.url}/auth/verify/?token=${savedAccount.emailVerificationCode}&quot;</b>
+&nbsp;            )
+&nbsp;        )
+&nbsp;
+<b class="fc">&nbsp;        applicationEventPublisher.publishEvent(mailEvent)</b>
+&nbsp;
+<b class="fc">&nbsp;        accountServiceLogger.info {</b>
+<b class="fc">&nbsp;            &quot;Account created! Verification Code: &quot; + account.emailVerificationCode</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return savedAccount</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Saves an [Account] in the [accountRepository].
+&nbsp;     *
+&nbsp;     * @param account to be stored in the [accountRepository]
+&nbsp;     * @return Result of saving the [Account]. Has a non-null [Account.id]
+&nbsp;     */
+<b class="fc">&nbsp;    fun saveAccount(account: Account) = accountRepository.save(account)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes an [Account] in the [accountRepository].
+&nbsp;     *
+&nbsp;     * @param account Entry to be deleted in the [accountRepository]
+&nbsp;     */
+<b class="fc">&nbsp;    fun deleteAccount(account: Account) = accountRepository.delete(account)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F013
+&nbsp;     *
+&nbsp;     * Changes the password of an authenticated user.
+&nbsp;     * Succeeds if the hash of the old, user-provided password matches the saved password hash.
+&nbsp;     *
+&nbsp;     * @param changePasswordDTO contains user-provided information about their current old password and desired new password
+&nbsp;     * @param authentication Instance of [AuthenticationToken] of the current user who wishes to change their password.
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun changePassword(changePasswordDTO: ChangePasswordDTO, authentication: AuthenticationToken) {
+<b class="fc">&nbsp;        val email = authentication.principal</b>
+<b class="fc">&nbsp;        val account = getAccountByMail(email)</b>
+<b class="fc">&nbsp;        val oldPasswordMatches = cryptService.passwordMatchesHash(changePasswordDTO.oldPassword, account.pwHash)</b>
+<b class="fc">&nbsp;        if (!oldPasswordMatches) {</b>
+<b class="fc">&nbsp;            throw ApiError.unauthorized(&quot;Das alte Passwort ist falsch. Bitte versuche es erneut.&quot;).asException()</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        val newPasswordHash = cryptService.encodePassword(changePasswordDTO.newPassword)</b>
+<b class="fc">&nbsp;        account.pwHash = newPasswordHash</b>
+<b class="fc">&nbsp;        accountRepository.save(account)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Finds an [Account] by e-mail address.
+&nbsp;     *
+&nbsp;     * @param email The e-mail address of the user whose account should be fetched.
+&nbsp;     * @return [Account] with matching e-mail address.
+&nbsp;     */
+<b class="fc">&nbsp;    fun getAccountByMail(email: String): Account = optAccountByMail(email)</b>
+<b class="fc">&nbsp;        .orElseThrow { ApiError.notFound(&quot;Es kann kein Account mit dieser E-Mail gefunden werden.&quot;).asException() }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Finds an [Account] that may not necessarily exist by e-mail address.
+&nbsp;     * The optional will be empty if an account with the provided e-mail address couldn&#39;t be found.
+&nbsp;     *
+&nbsp;     * @param email The e-mail address of the user whose account should be fetched
+&nbsp;     * @return [Optional] potentially containing an [Account] if the e-mail address is registered for an [Account]
+&nbsp;     */
+<b class="fc">&nbsp;    fun optAccountByMail(email: String): Optional&lt;Account&gt; = accountRepository.findAccountByEmail(email)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Finds an [Account] that may not necessarily exist by e-mail-verification code.
+&nbsp;     * The optional will be empty if an account with the provided e-mail-verification code.
+&nbsp;     *
+&nbsp;     * @param emailVerificationCode The e-mail-verification code of the user whose account should be fetched
+&nbsp;     * @return [Optional] potentially containing an [Account] if the e-mail-verification code is registered for an [Account].
+&nbsp;     */
+<b class="fc">&nbsp;    fun accountByEmailVerificationCode(emailVerificationCode: String) = accountRepository</b>
+<b class="fc">&nbsp;        .findByEmailVerificationCode(emailVerificationCode)</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

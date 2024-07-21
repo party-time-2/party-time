@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > MailEventListenerKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.mail</a>
+</div>
+
+<h1>Coverage Summary for Class: MailEventListenerKt (com.partytime.mail)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">MailEventListenerKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.mail
+&nbsp;
+&nbsp;import com.partytime.configuration.PartyTimeConfigurationProperties
+&nbsp;import com.partytime.jpa.mapper.toIcsEventData
+&nbsp;import com.partytime.mail.model.IcsEventData
+&nbsp;import com.partytime.mail.model.MailEvent
+&nbsp;import com.partytime.mail.model.MustacheData
+&nbsp;import com.samskivert.mustache.Mustache
+&nbsp;import io.github.oshai.kotlinlogging.KotlinLogging
+&nbsp;import jakarta.mail.BodyPart
+&nbsp;import jakarta.mail.Message
+&nbsp;import jakarta.mail.Multipart
+&nbsp;import jakarta.mail.internet.InternetAddress
+&nbsp;import jakarta.mail.internet.MimeBodyPart
+&nbsp;import jakarta.mail.internet.MimeMultipart
+&nbsp;import org.springframework.boot.autoconfigure.mustache.MustacheResourceTemplateLoader
+&nbsp;import org.springframework.context.ApplicationListener
+&nbsp;import org.springframework.mail.javamail.JavaMailSender
+&nbsp;import org.springframework.stereotype.Component
+&nbsp;import org.springframework.util.StreamUtils
+&nbsp;import java.io.File
+&nbsp;import java.io.FileOutputStream
+&nbsp;import java.nio.charset.StandardCharsets
+&nbsp;import java.nio.file.Files
+&nbsp;
+<b class="fc">&nbsp;private val mailLogger = KotlinLogging.logger(&quot;MailEventListener&quot;)</b>
+&nbsp;
+&nbsp;/**
+&nbsp; * Listener for [MailEvent] events.
+&nbsp; *
+&nbsp; * @param javaMailSender Sender for mails, configured by Spring with application configuration details
+&nbsp; * @param loader Loader for mustache mail templates
+&nbsp; * @param mustacheCompiler Compiler for inserting information into mustache mail templates
+&nbsp; * @param configurationProperties Used to check if actual mail sending is enabled (or just logging) and server url retrieval
+&nbsp; */
+&nbsp;@Component
+&nbsp;class MailEventListener(
+&nbsp;    private val javaMailSender: JavaMailSender,
+&nbsp;    private val loader: MustacheResourceTemplateLoader,
+&nbsp;    private val mustacheCompiler: Mustache.Compiler,
+&nbsp;    private val configurationProperties: PartyTimeConfigurationProperties
+&nbsp;): ApplicationListener&lt;MailEvent&gt; {
+&nbsp;    companion object {
+&nbsp;        /** Mail template for e-mail verification */
+&nbsp;        const val TEMPLATE_VERIFY_ACCOUNT: String = &quot;verify_account&quot;
+&nbsp;        /** Mail template for event invitation */
+&nbsp;        const val TEMPLATE_INVITATION: String = &quot;invitation&quot;
+&nbsp;        /** Mail template for changed event details */
+&nbsp;        const val TEMPLATE_CHANGE: String = &quot;change-event&quot;
+&nbsp;        /** Mail template for event cancellation */
+&nbsp;        const val TEMPLATE_DELETE: String = &quot;delete-event&quot;
+&nbsp;        /** Mail template for event uninviting */
+&nbsp;        const val TEMPLATE_UNINVITE: String = &quot;uninvite&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Handles [MailEvent] sent through the event system.
+&nbsp;     *
+&nbsp;     * @param event The [MailEvent] containing information about the e-mail to be sent
+&nbsp;     */
+&nbsp;    override fun onApplicationEvent(event: MailEvent) {
+&nbsp;        val mustacheRenderResult = renderMustache(event.template, event.data)
+&nbsp;
+&nbsp;        if (configurationProperties.mail.enabled) {
+&nbsp;            val mimeMessage = javaMailSender.createMimeMessage().apply {
+&nbsp;                setFrom(&quot;noreply@partytime.com&quot;)
+&nbsp;                addRecipient(Message.RecipientType.TO, InternetAddress(event.recipientEmail))
+&nbsp;                this.subject = event.subject
+&nbsp;            }
+&nbsp;
+&nbsp;            val messageBodyPart: BodyPart = MimeBodyPart()
+&nbsp;            messageBodyPart.setText(mustacheRenderResult)
+&nbsp;
+&nbsp;            var file: File? = null
+&nbsp;
+&nbsp;            val attachmentBodyPart = event.icsEvent?.let { icsEvent -&gt;
+&nbsp;                Files.createTempFile(&quot;ical&quot;, &quot;ics&quot;).toFile().let { realFile -&gt;
+&nbsp;                    file = realFile
+&nbsp;
+&nbsp;                    FileOutputStream(realFile).use { out -&gt;
+&nbsp;                        val build: IcsEventData = icsEvent.toIcsEventData(configurationProperties.url)
+&nbsp;                        val reader = loader.getTemplate(&quot;event-ics&quot;)
+&nbsp;                        val icsText = mustacheCompiler.compile(reader)
+&nbsp;                            .execute(build)
+&nbsp;                        StreamUtils.copy(icsText, StandardCharsets.UTF_8, out)
+&nbsp;                        out.flush()
+&nbsp;                    }
+&nbsp;
+&nbsp;                    MimeBodyPart().also { attachment -&gt;
+&nbsp;                        attachment.attachFile(realFile)
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            val multipart: Multipart = MimeMultipart().apply {
+&nbsp;                addBodyPart(messageBodyPart)
+&nbsp;                attachmentBodyPart?.let { addBodyPart(it) }
+&nbsp;            }
+&nbsp;
+&nbsp;            mimeMessage.setContent(multipart)
+&nbsp;
+&nbsp;            javaMailSender.send(mimeMessage)
+&nbsp;            file?.delete()
+&nbsp;        } else {
+&nbsp;            mailLogger.info { &quot;Would send a Mail now ;)&quot; }
+&nbsp;            mailLogger.info { &quot;TO: ${event.recipientEmail}&quot; }
+&nbsp;            mailLogger.info { &quot;SUBJECT: ${event.subject}&quot; }
+&nbsp;
+&nbsp;            if (event.icsEvent != null) {
+&nbsp;                val build: IcsEventData = event.icsEvent.toIcsEventData(configurationProperties.url)
+&nbsp;                val reader = loader.getTemplate(&quot;event-ics&quot;)
+&nbsp;                val icsText = mustacheCompiler.compile(reader)
+&nbsp;                    .execute(build)
+&nbsp;                mailLogger.info { &quot;ICAL Attachment: $icsText&quot; }
+&nbsp;            }
+&nbsp;            mailLogger.info { &quot;BODY: $mustacheRenderResult&quot; }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private fun renderMustache(template: String, data: MustacheData): String {
+&nbsp;        val reader = loader.getTemplate(template)
+&nbsp;        val compile = mustacheCompiler.compile(reader)
+&nbsp;        return compile.execute(data)
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

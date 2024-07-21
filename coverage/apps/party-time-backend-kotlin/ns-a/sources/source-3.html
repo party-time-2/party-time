@@ -1,0 +1,189 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > JwtAuthenticationFilter</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.configuration.security</a>
+</div>
+
+<h1>Coverage Summary for Class: JwtAuthenticationFilter (com.partytime.configuration.security)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">JwtAuthenticationFilter</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (6/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    92.9%
+  </span>
+  <span class="absValue">
+    (13/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.2%
+  </span>
+  <span class="absValue">
+    (62/68)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.configuration.security
+&nbsp;
+&nbsp;import com.partytime.service.JwtService
+&nbsp;import io.jsonwebtoken.Claims
+&nbsp;import jakarta.servlet.FilterChain
+&nbsp;import jakarta.servlet.http.HttpServletRequest
+&nbsp;import jakarta.servlet.http.HttpServletResponse
+&nbsp;import org.springframework.http.HttpHeaders
+&nbsp;import org.springframework.security.core.context.SecurityContextHolder
+&nbsp;import org.springframework.security.core.userdetails.UserDetailsService
+&nbsp;import org.springframework.web.filter.OncePerRequestFilter
+&nbsp;
+&nbsp;/**
+&nbsp; * Filter that transforms a Jwt-based authentication header into a code-accessible [AuthenticationToken]
+&nbsp; *
+&nbsp; * @param jwtService Service for processing Jwt information
+&nbsp; * @param userDetailsService Service for loading user details (mainly the password hash)
+&nbsp; * @constructor Constructs a new [JwtAuthenticationFilter]
+&nbsp; */
+&nbsp;class JwtAuthenticationFilter(
+<b class="fc">&nbsp;    private val jwtService: JwtService,</b>
+<b class="fc">&nbsp;    private val userDetailsService: UserDetailsService</b>
+<b class="fc">&nbsp;): OncePerRequestFilter() {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Filter that transforms an auth-header into a code-accessible [AuthenticationToken]
+&nbsp;     *
+&nbsp;     * @param request Incoming request that contains the auth-header
+&nbsp;     * @param response Outgoing response that won&#39;t be modified by this function
+&nbsp;     * @param filterChain used to proceed with the request
+&nbsp;     */
+&nbsp;    override fun doFilterInternal(
+&nbsp;        request: HttpServletRequest,
+&nbsp;        response: HttpServletResponse,
+&nbsp;        filterChain: FilterChain
+&nbsp;    ) {
+<b class="fc">&nbsp;        val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)</b>
+&nbsp;
+&nbsp;        try {
+<b class="pc">&nbsp;            if (authHeader != null &amp;&amp; authHeader.isNotBlank()) {</b>
+<b class="fc">&nbsp;                val claims: Claims = jwtService.extractClaims(authHeader)</b>
+<b class="fc">&nbsp;                val valid: Boolean = jwtService.isValid(claims)</b>
+<b class="pc">&nbsp;                if (valid &amp;&amp; SecurityContextHolder.getContext().authentication == null) {</b>
+&nbsp;                    // Token Valid and no Authentication present
+<b class="fc">&nbsp;                    val userDetails = userDetailsService.loadUserByUsername(jwtService.getEmail(claims))</b>
+&nbsp;
+<b class="pc">&nbsp;                    if (userDetails is PartyTimeUserDetails) {</b>
+<b class="fc">&nbsp;                        val auth = AuthenticationToken(userDetails)</b>
+&nbsp;
+<b class="fc">&nbsp;                        SecurityContextHolder.getContext().authentication = auth</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } catch (e: Exception) {
+&nbsp;            // Any Exception in Token parsing results in 401
+<b class="nc">&nbsp;            logger.debug(&quot;Failed to Parse Token&quot;, e)</b>
+&nbsp;        }
+<b class="fc">&nbsp;        filterChain.doFilter(request, response)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

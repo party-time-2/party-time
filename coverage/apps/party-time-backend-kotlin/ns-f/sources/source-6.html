@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > MailEvent</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.mail.model</a>
+</div>
+
+<h1>Coverage Summary for Class: MailEvent (com.partytime.mail.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">MailEvent</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.9%
+  </span>
+  <span class="absValue">
+    (62/66)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.mail.model
+&nbsp;
+&nbsp;import com.partytime.jpa.entity.Event
+&nbsp;import com.partytime.mail.MailEventListener
+&nbsp;import org.springframework.context.ApplicationEvent
+&nbsp;
+&nbsp;sealed interface MustacheData
+&nbsp;
+&nbsp;class MailEvent(
+&nbsp;    source: Any,
+<b class="fc">&nbsp;    val recipientEmail: String,</b>
+<b class="fc">&nbsp;    val subject: String,</b>
+<b class="fc">&nbsp;    val data: MustacheData,</b>
+<b class="fc">&nbsp;    val icsEvent: Event? = null</b>
+<b class="fc">&nbsp;): ApplicationEvent(source) {</b>
+<b class="fc">&nbsp;    val template by lazy {</b>
+<b class="fc">&nbsp;        when(data) { //exhaustive when block due to sealed nature of the MustacheData interface</b>
+<b class="fc">&nbsp;            is InvitationData -&gt; MailEventListener.TEMPLATE_INVITATION</b>
+<b class="pc">&nbsp;            is EventChangeData -&gt; MailEventListener.TEMPLATE_CHANGE</b>
+<b class="pc">&nbsp;            is CancellationData -&gt; MailEventListener.TEMPLATE_DELETE</b>
+<b class="fc">&nbsp;            is UninviteData -&gt; MailEventListener.TEMPLATE_UNINVITE</b>
+<b class="fc">&nbsp;            is VerifyAccountData -&gt; MailEventListener.TEMPLATE_VERIFY_ACCOUNT</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;data class EventData(
+&nbsp;    val organizerName: String,
+&nbsp;    val eventName: String,
+&nbsp;    val location: String,
+&nbsp;    val startTime: String
+&nbsp;)
+&nbsp;
+&nbsp;data class IcsEventData(
+&nbsp;    val event: EventData,
+&nbsp;    val website: String,
+&nbsp;    val generatedTimestamp: String,
+&nbsp;    val organizerEmail: String,
+&nbsp;    val uid: String
+&nbsp;)
+&nbsp;
+&nbsp;data class InvitationData(
+&nbsp;    var recipientName: String,
+&nbsp;    val event: EventData,
+&nbsp;    val acceptLink: String,
+&nbsp;    val declineLink: String,
+&nbsp;    val homepage: String
+&nbsp;): MustacheData
+&nbsp;
+&nbsp;data class EventChangeData(
+&nbsp;    var recipientName: String,
+&nbsp;    val event: EventData,
+&nbsp;    val homepage: String
+&nbsp;): MustacheData
+&nbsp;
+&nbsp;data class CancellationData(
+&nbsp;    val event: EventData,
+&nbsp;    var recipientName: String,
+&nbsp;    val homepage: String
+&nbsp;): MustacheData
+&nbsp;
+&nbsp;data class UninviteData(
+&nbsp;    val name: String,
+&nbsp;    val event: EventData,
+&nbsp;    val homepage: String,
+&nbsp;): MustacheData
+&nbsp;
+&nbsp;data class VerifyAccountData(
+&nbsp;    val homepage: String,
+&nbsp;    val name: String,
+&nbsp;    val verificationLink: String
+&nbsp;): MustacheData
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

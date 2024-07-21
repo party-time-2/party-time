@@ -1,0 +1,235 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > TestDataGeneratorKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.util</a>
+</div>
+
+<h1>Coverage Summary for Class: TestDataGeneratorKt (com.partytime.util)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">TestDataGeneratorKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.util
+&nbsp;
+&nbsp;import com.partytime.api.dto.login.LoginRequestDTO
+&nbsp;import com.partytime.jpa.entity.Account
+&nbsp;import com.partytime.jpa.entity.Event
+&nbsp;import com.partytime.jpa.repository.AccountRepository
+&nbsp;import com.partytime.jpa.repository.EventRepository
+&nbsp;import com.partytime.service.AddressService
+&nbsp;import com.partytime.service.AuthService
+&nbsp;import com.partytime.service.CryptService
+&nbsp;import io.github.oshai.kotlinlogging.KotlinLogging
+&nbsp;import org.springframework.boot.ApplicationArguments
+&nbsp;import org.springframework.boot.ApplicationRunner
+&nbsp;import org.springframework.context.annotation.Profile
+&nbsp;import org.springframework.security.crypto.password.PasswordEncoder
+&nbsp;import org.springframework.stereotype.Component
+&nbsp;import java.time.ZoneOffset
+&nbsp;import java.time.ZonedDateTime
+&nbsp;
+<b class="fc">&nbsp;private val testDataLogger = KotlinLogging.logger(&quot;TestDataGenerator&quot;)</b>
+&nbsp;
+&nbsp;@Component
+&nbsp;@Profile(&quot;!prod&quot;)
+&nbsp;class TestDataGenerator(
+&nbsp;    private val accountRepository: AccountRepository,
+&nbsp;    private val eventRepository: EventRepository,
+&nbsp;    val addressService: AddressService,
+&nbsp;    val passwordEncoder: PasswordEncoder,
+&nbsp;    val authService: AuthService,
+&nbsp;    val cryptService: CryptService,
+&nbsp;) : ApplicationRunner {
+&nbsp;    companion object {
+&nbsp;        const val DEBUG_PASSWORD: String = &quot;Hallo123!party&quot;
+&nbsp;        const val VERIFICATION_TOKEN_UNVERIFIED_1 = &quot;4edc2ee0-260b-43d2-877a-e2016c14d164&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;    override fun run(args: ApplicationArguments?) {
+&nbsp;        createAccount(&quot;Verified User 1&quot;, &quot;verified1@partytime.de&quot;, true)
+&nbsp;        createAccount(&quot;Verified User 2&quot;, &quot;verified2@partytime.de&quot;, true)
+&nbsp;        createAccount(&quot;Verified User 3&quot;, &quot;verified3@partytime.de&quot;, true)
+&nbsp;        createAccount(&quot;Verified User 4&quot;, &quot;verified4@partytime.de&quot;, true)
+&nbsp;
+&nbsp;        createAccount(&quot;Not Verified User 1&quot;, &quot;not_verified1@partytime.de&quot;, false)
+&nbsp;        createAccount(&quot;Not Verified User 2&quot;, &quot;not_verified2@partytime.de&quot;, false)
+&nbsp;        createAccount(&quot;Not Verified User 3&quot;, &quot;not_verified3@partytime.de&quot;, false)
+&nbsp;        createAccount(&quot;Not Verified User 4&quot;, &quot;not_verified4@partytime.de&quot;, false)
+&nbsp;
+&nbsp;        createEvent(&quot;Test Event 1&quot;, 1)
+&nbsp;        createEvent(&quot;Test Event 2&quot;, 2)
+&nbsp;        createEvent(&quot;Test Event 3&quot;, 3)
+&nbsp;        createEvent(&quot;Test Event 4&quot;, 4)
+&nbsp;
+&nbsp;        createEvent(&quot;Test Event 5&quot;, 1)
+&nbsp;        createEvent(&quot;Test Event 6&quot;, 2)
+&nbsp;        createEvent(&quot;Test Event 7&quot;, 3)
+&nbsp;        createEvent(&quot;Test Event 8&quot;, 4)
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F002
+&nbsp;     */
+&nbsp;    fun createEvent(name: String, rand: Int) {
+&nbsp;        if (!eventRepository.existsByName(name)) {
+&nbsp;            eventRepository.save(
+&nbsp;                Event(
+&nbsp;                    accountRepository.findAccountByEmail(&quot;verified$rand@partytime.de&quot;).orElseThrow(),
+&nbsp;                    name,
+&nbsp;                    ZonedDateTime.now(ZoneOffset.UTC).plusMonths(3),
+&nbsp;                    addressService.saveAddress(
+&nbsp;                        &quot;Teststraße $rand&quot;,
+&nbsp;                        null,
+&nbsp;                        rand.toString() + &quot;0000&quot;,
+&nbsp;                        &quot;Teststadt&quot;,
+&nbsp;                        &quot;Testland&quot;
+&nbsp;                    )
+&nbsp;                )
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F011
+&nbsp;     */
+&nbsp;    // Test Data not used in Production
+&nbsp;    private fun createAccount(name: String, email: String, verified: Boolean) {
+&nbsp;        if (!accountRepository.existsByEmail(email)) {
+&nbsp;            val account = Account(
+&nbsp;                email,
+&nbsp;                verified,
+&nbsp;                name,
+&nbsp;                passwordEncoder.encode(DEBUG_PASSWORD)
+&nbsp;            )
+&nbsp;            if (!verified) {
+&nbsp;                account.emailVerificationCode = if (email == &quot;not_verified1@partytime.de&quot;) {
+&nbsp;                    VERIFICATION_TOKEN_UNVERIFIED_1
+&nbsp;                } else cryptService.randomUUID().toString()
+&nbsp;            }
+&nbsp;            accountRepository.save(account)
+&nbsp;            testDataLogger.info {
+&nbsp;                &quot;Created a ${if (verified) &quot;verified&quot; else &quot;not verified&quot;} Test Account with Email $email&quot;
+&nbsp;            }
+&nbsp;        }
+&nbsp;        if (verified) {
+&nbsp;            // TODO Remove me before Abgabe
+&nbsp;            val response = authService.loginUser(
+&nbsp;                LoginRequestDTO(
+&nbsp;                    email,
+&nbsp;                    DEBUG_PASSWORD
+&nbsp;                )
+&nbsp;            )
+&nbsp;            testDataLogger.info { &quot;Token for $email:\n ${response.token}&quot; }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

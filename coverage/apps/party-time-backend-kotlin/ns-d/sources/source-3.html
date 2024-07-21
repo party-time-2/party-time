@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > EventMapperKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.jpa.mapper</a>
+</div>
+
+<h1>Coverage Summary for Class: EventMapperKt (com.partytime.jpa.mapper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">EventMapperKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (105/105)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.jpa.mapper
+&nbsp;
+&nbsp;import com.partytime.api.dto.event.EventDetailsDTO
+&nbsp;import com.partytime.api.dto.event.OrganizedEventDetailsDTO
+&nbsp;import com.partytime.api.dto.event.OrganizerEventDTO
+&nbsp;import com.partytime.jpa.entity.Account
+&nbsp;import com.partytime.jpa.entity.Event
+&nbsp;import com.partytime.jpa.entity.Invitation
+&nbsp;import com.partytime.mail.model.EventData
+&nbsp;import com.partytime.mail.model.IcsEventData
+&nbsp;import java.time.ZoneOffset
+&nbsp;import java.time.ZonedDateTime
+&nbsp;import java.util.UUID
+&nbsp;
+&nbsp;/**
+&nbsp; * Transforms an [Event] entity into a (serializable) [EventDetailsDTO]
+&nbsp; *
+&nbsp; * @receiver transformation subject
+&nbsp; * @return transformation result, ready for serialization and transmission to the client
+&nbsp; */
+<b class="fc">&nbsp;fun Event.toEventDetailsDTO(): EventDetailsDTO = EventDetailsDTO(</b>
+<b class="fc">&nbsp;    id!!,</b>
+<b class="fc">&nbsp;    name,</b>
+<b class="fc">&nbsp;    dateTime,</b>
+<b class="fc">&nbsp;    address.toAddressDTO()</b>
+&nbsp;)
+&nbsp;
+&nbsp;/**
+&nbsp; * Transforms an [Event] entity into a (serializable) [OrganizedEventDetailsDTO]
+&nbsp; *
+&nbsp; * @receiver transformation subject
+&nbsp; * @return transformation result, ready for serialization and transmission to the client
+&nbsp; */
+<b class="fc">&nbsp;fun Event.toOrganizedEventDetailsDTO(): OrganizedEventDetailsDTO = OrganizedEventDetailsDTO(</b>
+<b class="fc">&nbsp;    id!!,</b>
+<b class="fc">&nbsp;    name,</b>
+<b class="fc">&nbsp;    dateTime,</b>
+<b class="fc">&nbsp;    address.toAddressDTO(),</b>
+<b class="fc">&nbsp;    organizer.toAccountDTO()</b>
+&nbsp;)
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * Transforms an [Event] entity into a (serializable) [OrganizerEventDTO]
+&nbsp; *
+&nbsp; * @receiver transformation subject
+&nbsp; * @return transformation result, ready for serialization and transmission to the client
+&nbsp; */
+<b class="fc">&nbsp;fun Event.toOrganizerEventDTO(): OrganizerEventDTO = OrganizerEventDTO(</b>
+<b class="fc">&nbsp;    invitations.map(Invitation::toAccountInvitationDTO),</b>
+<b class="fc">&nbsp;    toEventDetailsDTO()</b>
+&nbsp;)
+&nbsp;
+&nbsp;/**
+&nbsp; * Implements F019
+&nbsp; *
+&nbsp; * Transforms an [Event] entity into [IcsEventData], to be rendered by mustache into an attachable ICS event
+&nbsp; *
+&nbsp; * @receiver transformation subject
+&nbsp; * @return transformation result, ready for mustache-rendering
+&nbsp; */
+&nbsp;fun Event.toIcsEventData(url: String): IcsEventData {
+<b class="fc">&nbsp;    val organizer: Account = organizer</b>
+<b class="fc">&nbsp;    return IcsEventData(</b>
+<b class="fc">&nbsp;        EventData(</b>
+<b class="fc">&nbsp;            organizer.name,</b>
+<b class="fc">&nbsp;            name,</b>
+<b class="fc">&nbsp;            address.toMultiLineString(),</b>
+<b class="fc">&nbsp;            formatTimestamp(dateTime)</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        url,</b>
+<b class="fc">&nbsp;        formatTimestamp(ZonedDateTime.now(ZoneOffset.UTC)),</b>
+<b class="fc">&nbsp;        organizer.email,</b>
+<b class="fc">&nbsp;        UUID.randomUUID().toString().replace(&quot;-&quot;, &quot;&quot;)</b>
+&nbsp;    )
+&nbsp;}
+&nbsp;
+&nbsp;private fun formatTimestamp(ts: ZonedDateTime): String =
+<b class="fc">&nbsp;    &quot;${ts.year}${ts.monthValue}${ts.dayOfMonth}T${ts.hour}${ts.minute}${ts.second}Z&quot;</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

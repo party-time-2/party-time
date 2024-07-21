@@ -1,0 +1,240 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > AuthController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.api.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: AuthController (com.partytime.api.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">AuthController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AuthController$Companion</td>
+    <td class="coverageStat"/>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (13/13)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.api.controller
+&nbsp;
+&nbsp;import com.partytime.api.dto.login.LoginRequestDTO
+&nbsp;import com.partytime.api.dto.login.LoginResponseDTO
+&nbsp;import com.partytime.service.AuthService
+&nbsp;import io.swagger.v3.oas.annotations.Operation
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse
+&nbsp;import io.swagger.v3.oas.annotations.security.SecurityRequirements
+&nbsp;import io.swagger.v3.oas.annotations.tags.Tag
+&nbsp;import jakarta.validation.Valid
+&nbsp;import jakarta.validation.constraints.NotEmpty
+&nbsp;import jakarta.validation.constraints.NotNull
+&nbsp;import org.springframework.validation.annotation.Validated
+&nbsp;import org.springframework.web.bind.annotation.PostMapping
+&nbsp;import org.springframework.web.bind.annotation.RequestBody
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping
+&nbsp;import org.springframework.web.bind.annotation.RequestParam
+&nbsp;import org.springframework.web.bind.annotation.RestController
+&nbsp;
+&nbsp;/**
+&nbsp; * Controller for authentication related matters.
+&nbsp; *
+&nbsp; * @param authService Service for authentication related matters (e.g. logging in)
+&nbsp; * @constructor Constructs a new [AuthController]
+&nbsp; */
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/auth&quot;)
+&nbsp;@Validated
+&nbsp;@Tag(
+&nbsp;    name = AuthController.TAG,
+&nbsp;    description = &quot;API endpoints providing all required logic for authentication&quot;
+&nbsp;)
+<b class="fc">&nbsp;class AuthController(</b>
+<b class="fc">&nbsp;    private val authService: AuthService</b>
+&nbsp;) {
+&nbsp;    companion object {
+&nbsp;        /** Tag information for OpenAPI documentation */
+&nbsp;        const val TAG: String = &quot;Authentication API&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F011
+&nbsp;     *
+&nbsp;     * Logs a user into the plattform.
+&nbsp;     *
+&nbsp;     * @param body Information required for the log-in
+&nbsp;     * @return Information about the successful log-in (contains the auth-token for password-less authentication)
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/login&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Login an account&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Login success&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ), ApiResponse(
+&nbsp;                description = &quot;Login failed&quot;,
+&nbsp;                responseCode = &quot;401&quot;
+&nbsp;            ), ApiResponse(
+&nbsp;                description = &quot;Account not verified&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ), ApiResponse(description = &quot;Account doesn&#39;t exist&quot;, responseCode = &quot;404&quot;)
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    @SecurityRequirements
+&nbsp;    fun login(@Valid @NotNull @RequestBody body: LoginRequestDTO): LoginResponseDTO =
+<b class="fc">&nbsp;        authService.loginUser(body)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * F014 - Konto Verifizieren
+&nbsp;     *
+&nbsp;     * Verifies the validity of the provided e-mail address of an account.
+&nbsp;     *
+&nbsp;     * @param token The e-mail-verification token used to identify which account should be marked as e-mail-verified
+&nbsp;     * @param emptyBody An empty message body, as required by the HTTP POST method
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/verify&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Verify the e-mail of an account&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Verification success. User account is active now!&quot;,
+&nbsp;                responseCode = &quot;200&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Account verification failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    @SecurityRequirements
+&nbsp;    fun verifyMail(
+&nbsp;        @RequestParam token: @NotNull @NotEmpty String,
+&nbsp;        @RequestBody emptyBody: Unit
+&nbsp;    ) {
+<b class="fc">&nbsp;        authService.verifyAccount(token)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

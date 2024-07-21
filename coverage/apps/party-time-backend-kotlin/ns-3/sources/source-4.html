@@ -1,0 +1,307 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > ParticipantController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.api.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: ParticipantController (com.partytime.api.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">ParticipantController</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    13.5%
+  </span>
+  <span class="absValue">
+    (5/37)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ParticipantController$Companion</td>
+    <td class="coverageStat"/>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (2/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    13.5%
+  </span>
+  <span class="absValue">
+    (5/37)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.api.controller
+&nbsp;
+&nbsp;import com.partytime.api.dto.event.ParticipantEventDTO
+&nbsp;import com.partytime.configuration.security.AuthenticationToken
+&nbsp;import com.partytime.jpa.entity.Invitation
+&nbsp;import com.partytime.jpa.mapper.toParticipantEventDTO
+&nbsp;import com.partytime.service.ParticipantService
+&nbsp;import io.swagger.v3.oas.annotations.Operation
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse
+&nbsp;import io.swagger.v3.oas.annotations.tags.Tag
+&nbsp;import jakarta.validation.constraints.NotNull
+&nbsp;import org.springframework.validation.annotation.Validated
+&nbsp;import org.springframework.web.bind.annotation.GetMapping
+&nbsp;import org.springframework.web.bind.annotation.PathVariable
+&nbsp;import org.springframework.web.bind.annotation.PostMapping
+&nbsp;import org.springframework.web.bind.annotation.RequestBody
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping
+&nbsp;import org.springframework.web.bind.annotation.RestController
+&nbsp;
+&nbsp;/**
+&nbsp; * Controller for event participation related matters.
+&nbsp; *
+&nbsp; * @param participantService Service for managing event participation related matters (e.g. accepting invites)
+&nbsp; * @constructor Constructs a new [ParticipantController]
+&nbsp; */
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/participant&quot;)
+&nbsp;@Validated
+&nbsp;@Tag(
+&nbsp;    name = ParticipantController.TAG,
+&nbsp;    description = &quot;API endpoints providing all required logic for event participants&quot;
+&nbsp;)
+<b class="fc">&nbsp;class ParticipantController (</b>
+<b class="fc">&nbsp;    private val participantService: ParticipantService</b>
+&nbsp;) {
+&nbsp;    companion object {
+&nbsp;        /** Tag information for OpenAPI documentation */
+&nbsp;        const val TAG: String = &quot;Event Participant API&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Fetches all events an authenticated user has a participation status for.
+&nbsp;     *
+&nbsp;     * @param authentication Authentication information of the user requesting the events they&#39;ve a participation status for
+&nbsp;     * @return List of [ParticipantEventDTO] containing information about the events invited in.
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/events&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Get all participating events&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event data&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun getEvents(authentication: AuthenticationToken): List&lt;ParticipantEventDTO&gt; =
+<b class="nc">&nbsp;        participantService.getInvitations(authentication.principal).map(Invitation::toParticipantEventDTO)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Fetches details of a single event the authenticated user has been invited to.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which to fetch details
+&nbsp;     * @param authentication Authentication details of the user requesting event details
+&nbsp;     * @return Details about a single the authenticated user has been invited to
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/event/{eventId}&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Get a single participating event&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event data&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun getEvent(
+&nbsp;        @PathVariable(&quot;eventId&quot;) eventId: @NotNull Long,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): ParticipantEventDTO =
+<b class="nc">&nbsp;        participantService.getInvitation(eventId, authentication.principal).toParticipantEventDTO()</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F008
+&nbsp;     *
+&nbsp;     * Handles accepting an event invitation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which to accept an invitation
+&nbsp;     * @param emptyBody An empty message body, as required by the HTTP POST method
+&nbsp;     * @param authentication Authentication details of the user accepting an event invitation
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/event/{eventId}/invitation/accept&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Accept invitation for an event&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event invitation accepted&quot;,
+&nbsp;                responseCode = &quot;200&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Invitation accept failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not invited&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun acceptInvitation(
+&nbsp;        @PathVariable(&quot;eventId&quot;) eventId: @NotNull Long,
+&nbsp;        @RequestBody emptyBody: Unit,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ) {
+<b class="nc">&nbsp;        participantService.acceptInvitation(eventId, authentication.principal)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F009
+&nbsp;     *
+&nbsp;     * Handles declining an event invitation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which to decline an invitation
+&nbsp;     * @param emptyBody An empty message body, as required by the HTTP POST method
+&nbsp;     * @param authentication Authentication details of the user declining an event invitation
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/event/{eventId}/invitation/decline&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Decline invitation for an event&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event invitation declined&quot;,
+&nbsp;                responseCode = &quot;200&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Invitation decline failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not invited&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun declineInvitation(
+&nbsp;        @PathVariable(&quot;eventId&quot;) eventId: @NotNull Long,
+&nbsp;        @RequestBody emptyBody: Unit,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ) {
+<b class="nc">&nbsp;        participantService.declineInvitation(eventId, authentication.principal)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-05 16:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > AuthService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.service</a>
+</div>
+
+<h1>Coverage Summary for Class: AuthService (com.partytime.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">AuthService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (98/98)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.service
+&nbsp;
+&nbsp;import com.partytime.api.dto.login.LoginRequestDTO
+&nbsp;import com.partytime.api.dto.login.LoginResponseDTO
+&nbsp;import com.partytime.api.error.ApiError
+&nbsp;import com.partytime.api.error.asException
+&nbsp;import com.partytime.configuration.security.AuthenticationToken
+&nbsp;import com.partytime.jpa.entity.Account
+&nbsp;import com.partytime.mail.model.MailEvent
+&nbsp;import io.github.oshai.kotlinlogging.KotlinLogging
+&nbsp;import org.springframework.context.ApplicationEventPublisher
+&nbsp;import org.springframework.stereotype.Service
+&nbsp;import org.springframework.transaction.annotation.Transactional
+&nbsp;
+&nbsp;private val authServiceLogger = KotlinLogging.logger(&quot;AuthService&quot;)
+&nbsp;/**
+&nbsp; *  A [Service] class for authentication related functionality.
+&nbsp; *
+&nbsp; *  @param accountService used for retrieving Accounts and storing changed Account information
+&nbsp; *  @param cryptService Used to encode passwords and check if passwords match hashes
+&nbsp; *  @param jwtService Used to create [AuthenticationToken] for successfully logged-in users
+&nbsp; *  @param applicationEventPublisher Used to send [MailEvent] for verification requests
+&nbsp; *  @constructor Constructs a new [AuthService]
+&nbsp; */
+&nbsp;@Service
+<b class="fc">&nbsp;class AuthService(</b>
+<b class="fc">&nbsp;    private val accountService: AccountService,</b>
+<b class="fc">&nbsp;    private val cryptService: CryptService,</b>
+<b class="fc">&nbsp;    private val jwtService: JwtService,</b>
+<b class="fc">&nbsp;    private val applicationEventPublisher: ApplicationEventPublisher</b>
+&nbsp;) {
+&nbsp;    /**
+&nbsp;     * F014 - Konto Verifizieren
+&nbsp;     *
+&nbsp;     * Verifies an account by e-mail-verification code
+&nbsp;     * @param emailVerificationCode E-mail-verification code provided by the link the user clicked on
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun verifyAccount(emailVerificationCode: String) {
+<b class="fc">&nbsp;        val account = accountService.accountByEmailVerificationCode(emailVerificationCode)</b>
+<b class="fc">&nbsp;            .orElseThrow {</b>
+<b class="fc">&nbsp;                ApiError.badRequest(&quot;E-Mail Verifizierung fehlgeschlagen&quot;).asException()</b>
+&nbsp;            }
+<b class="fc">&nbsp;        account.emailVerified = true</b>
+<b class="fc">&nbsp;        account.emailVerificationCode = null</b>
+<b class="fc">&nbsp;        accountService.saveAccount(account)</b>
+<b class="fc">&nbsp;        authServiceLogger.info { &quot;Account ${account.email} verified.&quot; }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F011
+&nbsp;     *
+&nbsp;     * Performs a login for the user by transforming their [LoginRequestDTO] into a [LoginResponseDTO].
+&nbsp;     * The login will only succeed if the data contained in [LoginResponseDTO] can be associated with a
+&nbsp;     *
+&nbsp;     * - registered
+&nbsp;     * - e-mail-verified
+&nbsp;     * - password matching
+&nbsp;     *
+&nbsp;     * saved [Account].
+&nbsp;     * @param dto Information provided by the user that wants to log in
+&nbsp;     * @return Authentication token
+&nbsp;     */
+&nbsp;    fun loginUser(dto: LoginRequestDTO): LoginResponseDTO {
+<b class="fc">&nbsp;        val account = accountService.getAccountByMail(dto.email)</b>
+<b class="fc">&nbsp;        if (!account.emailVerified) {</b>
+<b class="fc">&nbsp;            throw ApiError.forbidden().asException()</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        val passwordMatch = cryptService.passwordMatchesHash(dto.password, account.pwHash)</b>
+<b class="fc">&nbsp;        if (!passwordMatch) {</b>
+<b class="fc">&nbsp;            throw ApiError.unauthorized().asException()</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        val accessToken = jwtService.createAccessToken(account)</b>
+<b class="fc">&nbsp;        authServiceLogger.info { &quot;Account ${account.email} JWT created.&quot; }</b>
+<b class="fc">&nbsp;        return LoginResponseDTO(accessToken)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

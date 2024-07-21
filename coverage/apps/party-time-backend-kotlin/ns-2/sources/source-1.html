@@ -1,0 +1,261 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > AccountController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.api.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: AccountController (com.partytime.api.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">AccountController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/23)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AccountController$Companion</td>
+    <td class="coverageStat"/>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (23/23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.api.controller
+&nbsp;
+&nbsp;import com.partytime.api.dto.account.AccountDTO
+&nbsp;import com.partytime.api.dto.account.AccountDeleteDTO
+&nbsp;import com.partytime.api.dto.account.AccountRegisterDTO
+&nbsp;import com.partytime.api.dto.changepassword.ChangePasswordDTO
+&nbsp;import com.partytime.configuration.security.AuthenticationToken
+&nbsp;import com.partytime.jpa.mapper.toAccountDTO
+&nbsp;import com.partytime.service.AccountDeletionService
+&nbsp;import com.partytime.service.AccountService
+&nbsp;import io.swagger.v3.oas.annotations.Operation
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse
+&nbsp;import io.swagger.v3.oas.annotations.security.SecurityRequirements
+&nbsp;import io.swagger.v3.oas.annotations.tags.Tag
+&nbsp;import jakarta.validation.Valid
+&nbsp;import jakarta.validation.constraints.NotNull
+&nbsp;import org.springframework.validation.annotation.Validated
+&nbsp;import org.springframework.web.bind.annotation.DeleteMapping
+&nbsp;import org.springframework.web.bind.annotation.PostMapping
+&nbsp;import org.springframework.web.bind.annotation.RequestBody
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping
+&nbsp;import org.springframework.web.bind.annotation.RestController
+&nbsp;
+&nbsp;/**
+&nbsp; * Controller for account related matters.
+&nbsp; *
+&nbsp; * @param accountService Service used for registering accounts and changing passwords
+&nbsp; * @param accountDeletionService Service used for deleting accounts
+&nbsp; * @constructor Constructs a new [AuthController]
+&nbsp; */
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/account&quot;)
+&nbsp;@Validated
+&nbsp;@Tag(
+&nbsp;    name = AccountController.TAG,
+&nbsp;    description = &quot;API Endpoints providing all required logic for an Account&quot;
+&nbsp;)
+<b class="fc">&nbsp;class AccountController (</b>
+<b class="fc">&nbsp;    private val accountService: AccountService,</b>
+<b class="fc">&nbsp;    private val accountDeletionService: AccountDeletionService</b>
+&nbsp;) {
+&nbsp;    companion object {
+&nbsp;        /** Tag information for OpenAPI documentation */
+&nbsp;        const val TAG = &quot;Account API&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * F010 - Konto Erstellen
+&nbsp;     *
+&nbsp;     * Creates a new account with the provided information.
+&nbsp;     *
+&nbsp;     * @param body Information about the to-be-created account.
+&nbsp;     * @return Information about the registered account.
+&nbsp;     */
+&nbsp;    @PostMapping
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Register a new account&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;The account object of the newly created account&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Account with e-mail already exists&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    @SecurityRequirements
+&nbsp;    fun register(@Valid @NotNull @RequestBody body:  AccountRegisterDTO): AccountDTO =
+<b class="fc">&nbsp;        accountService.registerAccount(body).toAccountDTO()</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F015
+&nbsp;     *
+&nbsp;     * Deletes the account of the authenticated user.
+&nbsp;     *
+&nbsp;     * @param body Information required for deleting the account (current password)
+&nbsp;     * @param authentication Authentication information of the authenticated user
+&nbsp;     */
+&nbsp;    @DeleteMapping
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Deletes the Account of the Logged In User&quot;,
+&nbsp;        responses = [ApiResponse(
+&nbsp;            description = &quot;Account deleted with success&quot;,
+&nbsp;            responseCode = &quot;200&quot;,
+&nbsp;            useReturnTypeSchema = true
+&nbsp;        ), ApiResponse(description = &quot;The Old Password is Wrong&quot;, responseCode = &quot;401&quot;)]
+&nbsp;    )
+&nbsp;    fun deleteOwnAccount(
+&nbsp;        @Valid @NotNull @RequestBody body: AccountDeleteDTO,
+&nbsp;        authentication: AuthenticationToken
+<b class="fc">&nbsp;    ) = accountDeletionService.deleteAccount(body, authentication)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F013
+&nbsp;     *
+&nbsp;     * Changes the password of an authenticated user.
+&nbsp;     *
+&nbsp;     * @param body Information required for changing the password (old password &amp; new password)
+&nbsp;     * @param authentication Authentication information of the authenticated user
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/pwchange&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Change the password of an account&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Password change success&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ), ApiResponse(
+&nbsp;                description = &quot;The old password is wrong&quot;,
+&nbsp;                responseCode = &quot;401&quot;
+&nbsp;            ), ApiResponse(description = &quot;New password does not match requirements&quot;, responseCode = &quot;409&quot;)
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun changePassword(@Valid @NotNull @RequestBody body: ChangePasswordDTO, authentication: AuthenticationToken) =
+<b class="fc">&nbsp;        accountService.changePassword(body, authentication)</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>

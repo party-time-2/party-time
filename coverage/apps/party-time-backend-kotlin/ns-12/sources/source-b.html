@@ -1,0 +1,212 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > ParticipantService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.service</a>
+</div>
+
+<h1>Coverage Summary for Class: ParticipantService (com.partytime.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">ParticipantService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (81/81)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.service
+&nbsp;
+&nbsp;import com.partytime.api.error.ApiError
+&nbsp;import com.partytime.api.error.asException
+&nbsp;import com.partytime.jpa.entity.Event
+&nbsp;import com.partytime.jpa.entity.Invitation
+&nbsp;import com.partytime.jpa.entity.Status
+&nbsp;import com.partytime.jpa.repository.InvitationRepository
+&nbsp;import org.springframework.stereotype.Service
+&nbsp;import org.springframework.transaction.annotation.Transactional
+&nbsp;
+&nbsp;/**
+&nbsp; * A [Service] class for event related functionality.
+&nbsp; *
+&nbsp; * @param invitationRepository Repository where event-participation related information can be stored.
+&nbsp; * @param accountService Service used fetch accounts (for e-mail recipient information and event organizer ownership checks)
+&nbsp; * @constructor Constructs a new [ParticipantService]
+&nbsp; */
+&nbsp;@Service
+<b class="fc">&nbsp;class ParticipantService (</b>
+<b class="fc">&nbsp;    private val invitationRepository: InvitationRepository,</b>
+<b class="fc">&nbsp;    private val accountService: AccountService,</b>
+&nbsp;) {
+&nbsp;    /**
+&nbsp;     * Implements F007
+&nbsp;     *
+&nbsp;     * Fetches all invitations of a user (including declined invitations).
+&nbsp;     *
+&nbsp;     * @param participantEmail E-mail-address of the invitee
+&nbsp;     * @return List of [Event] the user has been invited to
+&nbsp;     */
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    fun getInvitations(participantEmail: String): List&lt;Invitation&gt; =
+<b class="fc">&nbsp;        invitationRepository.findAllByAccount_Email(participantEmail)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F007
+&nbsp;     *
+&nbsp;     * Fetches information about an Event invitation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which a participant has been invited
+&nbsp;     * @param participantEmail E-mail-address of the invitee
+&nbsp;     */
+&nbsp;    fun getInvitation(eventId: Long, participantEmail: String): Invitation =
+<b class="fc">&nbsp;        accountService.getAccountByMail(participantEmail).let { account -&gt;</b>
+<b class="fc">&nbsp;            invitationRepository.findByEvent_IdAndAccount_Id(eventId, account.id!!)</b>
+<b class="fc">&nbsp;                .orElseThrow {</b>
+<b class="fc">&nbsp;                    ApiError.notFound(&quot;Die Einladung konnte nicht gefunden werden&quot;).asException()</b>
+<b class="fc">&nbsp;                }</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F008
+&nbsp;     *
+&nbsp;     * Updates an event invitation with information about accepting the invitation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which a participant has accepted the invitation
+&nbsp;     * @param participantEmail E-mail-address of the accepting invitee
+&nbsp;     */
+&nbsp;    fun acceptInvitation(eventId: Long, participantEmail: String) {
+<b class="fc">&nbsp;        val eventParticipant = getInvitation(eventId, participantEmail)</b>
+<b class="fc">&nbsp;        eventParticipant.status = Status.PARTICIPATING</b>
+<b class="fc">&nbsp;        invitationRepository.save(eventParticipant)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F009
+&nbsp;     *
+&nbsp;     * Updates an event invitation with information about declining the invitation.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event for which a participant has accepted the invitation
+&nbsp;     * @param participantEmail E-mail-address of the rejecting invitee
+&nbsp;     */
+&nbsp;    fun declineInvitation(eventId: Long, participantEmail: String) {
+<b class="fc">&nbsp;        val eventParticipant = getInvitation(eventId, participantEmail)</b>
+<b class="fc">&nbsp;        eventParticipant.status = Status.DECLINED</b>
+<b class="fc">&nbsp;        invitationRepository.save(eventParticipant)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Deletes all invitations of a user
+&nbsp;     *
+&nbsp;     * @param participantEmail E-mail-address of the user whose invitations should be deleted
+&nbsp;     */
+&nbsp;    @Transactional
+&nbsp;    fun deleteAllInvitations(participantEmail: String) {
+<b class="fc">&nbsp;        val invitations = getInvitations(participantEmail)</b>
+<b class="fc">&nbsp;        invitationRepository.flush()</b>
+<b class="fc">&nbsp;        invitationRepository.deleteAllInBatch(invitations)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-05 16:04</div>
+</div>
+</body>
+</html>

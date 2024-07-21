@@ -1,0 +1,469 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>party-time-backend Coverage Report > OrganizerController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope: party-time-backend<span class="separator">|</span>    <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.partytime.api.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: OrganizerController (com.partytime.api.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+<th class="coverageStat 
+">
+  Instruction, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrganizerController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (101/101)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">OrganizerController$Companion</td>
+    <td class="coverageStat"/>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+    <td class="coverageStat"/>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (101/101)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.partytime.api.controller
+&nbsp;
+&nbsp;import com.partytime.api.dto.event.AccountInvitationDetailsDTO
+&nbsp;import com.partytime.api.dto.event.EventCreateDTO
+&nbsp;import com.partytime.api.dto.event.EventDetailsDTO
+&nbsp;import com.partytime.api.dto.event.InvitationCreateDTO
+&nbsp;import com.partytime.api.dto.event.OrganizerEventDTO
+&nbsp;import com.partytime.configuration.security.AuthenticationToken
+&nbsp;import com.partytime.jpa.entity.Event
+&nbsp;import com.partytime.jpa.entity.Invitation
+&nbsp;import com.partytime.jpa.mapper.toAccountInvitationDTO
+&nbsp;import com.partytime.jpa.mapper.toEventDetailsDTO
+&nbsp;import com.partytime.jpa.mapper.toOrganizerEventDTO
+&nbsp;import com.partytime.service.OrganizerService
+&nbsp;import io.swagger.v3.oas.annotations.Operation
+&nbsp;import io.swagger.v3.oas.annotations.Parameter
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse
+&nbsp;import io.swagger.v3.oas.annotations.tags.Tag
+&nbsp;import jakarta.validation.Valid
+&nbsp;import jakarta.validation.constraints.NotNull
+&nbsp;import org.springframework.validation.annotation.Validated
+&nbsp;import org.springframework.web.bind.annotation.DeleteMapping
+&nbsp;import org.springframework.web.bind.annotation.GetMapping
+&nbsp;import org.springframework.web.bind.annotation.PatchMapping
+&nbsp;import org.springframework.web.bind.annotation.PathVariable
+&nbsp;import org.springframework.web.bind.annotation.PostMapping
+&nbsp;import org.springframework.web.bind.annotation.RequestBody
+&nbsp;import org.springframework.web.bind.annotation.RequestMapping
+&nbsp;import org.springframework.web.bind.annotation.RestController
+&nbsp;
+&nbsp;/**
+&nbsp; * Controller for event organization related matters.
+&nbsp; *
+&nbsp; * @param organizerService Service for managing event-organizing related matters (e.g. creating an event)
+&nbsp; * @constructor Constructs a new [OrganizerController]
+&nbsp; */
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/host&quot;)
+&nbsp;@Validated
+&nbsp;@Tag(
+&nbsp;    name = OrganizerController.TAG,
+&nbsp;    description = &quot;API endpoints for event organizer&quot;
+&nbsp;)
+<b class="fc">&nbsp;class OrganizerController(</b>
+<b class="fc">&nbsp;    private val organizerService: OrganizerService</b>
+&nbsp;) {
+&nbsp;    companion object {
+&nbsp;        /** Tag information for OpenAPI documentation */
+&nbsp;        const val TAG: String = &quot;Event Organizer API&quot;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F016
+&nbsp;     *
+&nbsp;     * Fetches event information of events organized by the user.
+&nbsp;     *
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return List of Event information (missing Organizer name, since that&#39;s the authenticated user)
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/events&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Get events wherever the authenticated user is the organizer&quot;,
+&nbsp;        responses = [ApiResponse(description = &quot;Data&quot;, responseCode = &quot;200&quot;, useReturnTypeSchema = true)]
+&nbsp;    )
+&nbsp;    fun getEvents(authentication: AuthenticationToken): List&lt;EventDetailsDTO&gt; =
+<b class="fc">&nbsp;        organizerService.getEvents(authentication.principal).map(Event::toEventDetailsDTO)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F016
+&nbsp;     *
+&nbsp;     * Fetches event information of event organized by the user.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event organized by the user
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return Details of a single Event (missing Organizer info, since that&#39;s the authenticated user)
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/event/{id}&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Get event by id if the authenticated user is the organizer&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Data&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not organizer&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ), ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun getEvent(
+&nbsp;        @Parameter(description = &quot;The id of the event&quot;) @PathVariable(&quot;id&quot;) eventId: Long,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): OrganizerEventDTO =
+<b class="fc">&nbsp;        organizerService.getEvent(authentication.principal, eventId).toOrganizerEventDTO()</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F001
+&nbsp;     *
+&nbsp;     * Creates an event organized by the user.
+&nbsp;     *
+&nbsp;     * @param body Information about the event to be created
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return Details about the newly created event (missing Organizer info, since that&#39;s the authenticated user)
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/event&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Create an event as authenticated user&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event successfully created&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event creation failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun createEvent(
+&nbsp;        @Valid @NotNull @RequestBody body: EventCreateDTO,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): OrganizerEventDTO =
+<b class="fc">&nbsp;        organizerService.createEvent(body, authentication.principal).toOrganizerEventDTO()</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F002
+&nbsp;     *
+&nbsp;     * Updates event information for an event organized by the user.
+&nbsp;     *
+&nbsp;     * @param body Information about the event to be updated. Must contain the eventId of a saved event.
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return Details about the updated event (missing Organizer info, since that&#39;s the authenticated user)
+&nbsp;     */
+&nbsp;    @PatchMapping(&quot;/event&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Update own event if the authenticated user is the organizer&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event successfully updated&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event update failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not organizer&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun updateEvent(
+&nbsp;        @Valid @NotNull @RequestBody body: EventDetailsDTO,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): OrganizerEventDTO =
+<b class="fc">&nbsp;        organizerService.updateEvent(body, authentication.principal).toOrganizerEventDTO()</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F003
+&nbsp;     *
+&nbsp;     * Deletes an event organized by the user.
+&nbsp;     *
+&nbsp;     * @param eventId id of the to-be-canceled event organized by the user
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     */
+&nbsp;    @DeleteMapping(&quot;/event/{eventId}&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Delete own event if the authenticated user is the organizer&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event successfully deleted&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event deletion failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not organizer&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun deleteEvent(
+&nbsp;        @Parameter(description = &quot;The id of the event&quot;) @PathVariable(&quot;eventId&quot;) eventId: Long,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ) {
+<b class="fc">&nbsp;        organizerService.deleteEventById(eventId, authentication.principal)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F006
+&nbsp;     *
+&nbsp;     * Fetches an invitation list of an event organized by the user.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event organized by the user
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return List of invites of a specific event
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/event/{eventId}/participants&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Get participants of given event if the authenticated user is the organizer&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Data&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not organizer&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun getParticipants(
+&nbsp;        @Parameter(description = &quot;The id of the event&quot;) @PathVariable(&quot;eventId&quot;) eventId: Long,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): List&lt;AccountInvitationDetailsDTO&gt; =
+<b class="fc">&nbsp;        organizerService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F004
+&nbsp;     * Implements F007
+&nbsp;     *
+&nbsp;     * Invites an account to an event organized by the user.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event organized by the user
+&nbsp;     * @param body E-mail address container with e-mail of the invitee account
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return List of all event invitees after the new invitee has been invited
+&nbsp;     */
+&nbsp;    @PostMapping(&quot;/event/{eventId}/participants&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Invite account if the authenticated user is the organizer&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Invitation e-mail sent&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Invitation failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not organizer&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun inviteParticipant(
+&nbsp;        @Parameter(description = &quot;The id of the event&quot;) @PathVariable(&quot;eventId&quot;) eventId: Long,
+&nbsp;        @Valid @NotNull @RequestBody body: InvitationCreateDTO,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): List&lt;AccountInvitationDetailsDTO&gt; {
+<b class="fc">&nbsp;        organizerService.inviteParticipant(eventId, body, authentication.principal)</b>
+<b class="fc">&nbsp;        return organizerService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Implements F005
+&nbsp;     *
+&nbsp;     * Uninvites an account from an event organized by the user.
+&nbsp;     *
+&nbsp;     * @param eventId id of the event organized by the user
+&nbsp;     * @param inviteId id of the invitation whose account should be uninvited
+&nbsp;     * @param authentication Authentication information of the event organizer
+&nbsp;     * @return List of all event invitees after the previous invitee has been uninvited
+&nbsp;     */
+&nbsp;    @DeleteMapping(&quot;/event/{eventId}/participants/{inviteId}&quot;)
+&nbsp;    @Operation(
+&nbsp;        description = &quot;Cancel invitation of account to own event if the authenticated user is the organizer&quot;,
+&nbsp;        responses = [
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Account uninvited&quot;,
+&nbsp;                responseCode = &quot;200&quot;,
+&nbsp;                useReturnTypeSchema = true
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Uninvite failed&quot;,
+&nbsp;                responseCode = &quot;400&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Not organizer&quot;,
+&nbsp;                responseCode = &quot;403&quot;
+&nbsp;            ),
+&nbsp;            ApiResponse(
+&nbsp;                description = &quot;Event not found&quot;,
+&nbsp;                responseCode = &quot;404&quot;
+&nbsp;            )
+&nbsp;        ]
+&nbsp;    )
+&nbsp;    fun uninviteParticipant(
+&nbsp;        @Parameter(description = &quot;The id of the event&quot;) @PathVariable(&quot;eventId&quot;) eventId: Long,
+&nbsp;        @Parameter(description = &quot;The id of the invitation&quot;) @PathVariable(&quot;inviteId&quot;) inviteId: Long,
+&nbsp;        authentication: AuthenticationToken
+&nbsp;    ): List&lt;AccountInvitationDetailsDTO&gt; {
+<b class="fc">&nbsp;        organizerService.uninviteParticipant(eventId, inviteId, authentication.principal)</b>
+<b class="fc">&nbsp;        return organizerService.getParticipants(eventId, authentication.principal).map(Invitation::toAccountInvitationDTO)</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 19:35</div>
+</div>
+</body>
+</html>
