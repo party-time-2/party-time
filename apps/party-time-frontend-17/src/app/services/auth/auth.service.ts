@@ -1,3 +1,7 @@
+// F011 - Konto anmelden
+// F012 Konto abmelden
+// F014 - Konto Verifizieren
+
 import { inject, Injectable } from '@angular/core';
 import { IAuthService } from '../../models/auth-service.interface';
 import {

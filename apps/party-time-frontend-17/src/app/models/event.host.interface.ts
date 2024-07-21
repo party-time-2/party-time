@@ -12,7 +12,7 @@ import {
  */
 export interface IEventHostService {
   /**
-   * Implements F016
+   * F016 Events überblicken
    *
    * Fetches event information of events organized by the user.
    *
@@ -22,7 +22,7 @@ export interface IEventHostService {
   getOrganizedEvents(): Observable<EventDetailsDTO[]>;
 
   /**
-   * Implements F016
+   * F016 Events überblicken
    *
    * Fetches event information of event organized by the user.
    *
@@ -33,7 +33,7 @@ export interface IEventHostService {
   getEvent(eventId: number): Observable<OrganizerEventDTO>;
 
   /**
-   * Implements F003
+   * F003 Events löschen
    *
    * Deletes an event organized by the user.
    *
@@ -43,7 +43,7 @@ export interface IEventHostService {
   deleteEvent(eventId: number): Observable<void>;
 
   /**
-   * Implements F002
+   * F002 Events bearbeiten
    *
    * Updates event information for an event organized by the user.
    *
@@ -54,7 +54,7 @@ export interface IEventHostService {
   updateEvent(event: EventDetailsDTO): Observable<OrganizerEventDTO>;
 
   /**
-   * Implements F001
+   * F001 Events anlegen
    *
    * Creates an event organized by the user.
    *
@@ -65,8 +65,8 @@ export interface IEventHostService {
   createEvent(event: EventCreateDTO): Observable<OrganizerEventDTO>;
 
   /**
-   * Implements F004
-   * Implements F007
+   * F004 Gäste einladen
+   * F007 Einladung erhalten
    *
    * Invites an account to an event organized by the user.
    *
@@ -81,7 +81,7 @@ export interface IEventHostService {
   ): Observable<AccountInvitationDetailsDTO[]>;
 
   /**
-   * Implements F005
+   * F005 Gäste ausladen
    *
    * Uninvites an account from an event organized by the user.
    *
@@ -96,7 +96,7 @@ export interface IEventHostService {
   ): Observable<AccountInvitationDetailsDTO[]>;
 
   /**
-   * Implements F006
+   * F006 Teilnehmer überblicken
    *
    * Fetches an invitation list of an event organized by the user.
    *

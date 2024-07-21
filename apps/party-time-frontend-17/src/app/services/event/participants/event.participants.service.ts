@@ -1,3 +1,6 @@
+// F008 Zusage zum Event geben
+// F009 Absage zum Event geben
+
 import { Injectable, inject } from '@angular/core';
 import { IEventParticipantService } from '../../../models/event.participant.interface';
 import { Observable, catchError, of, throwError } from 'rxjs';

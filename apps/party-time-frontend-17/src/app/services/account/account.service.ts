@@ -1,3 +1,7 @@
+// F013 - Passwort Ändern
+// F015 - Konto Löschen
+// F010 - Konto Erstellen
+
 import { Injectable, inject } from '@angular/core';
 import { IAccountService } from '../../models/account-service.interface';
 import { Observable, map } from 'rxjs';
