@@ -4,18 +4,21 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.filter.CommonsRequestLoggingFilter
 
-
+/**
+ * Filter configuration for request logging.
+ */
 @Configuration
 class RequestLoggingFilterConfig {
 
+    /**
+     * Configures a filter that logs requests to console.
+     */
     @Bean
-    fun logFilter(): CommonsRequestLoggingFilter {
-        val filter = CommonsRequestLoggingFilter()
-        filter.setIncludeQueryString(true)
-        filter.setIncludePayload(true)
-        filter.setMaxPayloadLength(10000)
-        filter.setIncludeHeaders(true)
-        filter.setAfterMessagePrefix("REQUEST DATA: ")
-        return filter
+    fun logFilter(): CommonsRequestLoggingFilter = CommonsRequestLoggingFilter().apply {
+        setIncludeQueryString(true)
+        setIncludePayload(true)
+        setMaxPayloadLength(10000)
+        setIncludeHeaders(true)
+        setAfterMessagePrefix("REQUEST DATA: ")
     }
 }

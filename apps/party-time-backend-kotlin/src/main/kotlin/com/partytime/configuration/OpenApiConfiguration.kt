@@ -18,7 +18,9 @@ import io.swagger.v3.oas.models.responses.ApiResponse
 import org.springdoc.core.customizers.OpenApiCustomizer
 import org.springframework.context.annotation.Configuration
 
-
+/**
+ * Configuration used to customize the OpenAPI documentation generated and served by the server.
+ */
 @Configuration
 @OpenAPIDefinition(
     info = Info(
