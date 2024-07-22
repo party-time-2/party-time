@@ -18,9 +18,6 @@ if () then (E-Mail-Adresse noch nicht eingeladen)
     |Veranstaltender Nutzer|
     :Fehlermeldung Gastausladung empfangen;
     :Fehlermeldung Gastausladung anzeigen;
-    note right
-        participant_not_invited: Es kann kein Account mit dieser E-Mail gefunden werden.
-    end note
     stop
 else (E-Mail-Adresse bereits eingeladen)
 endif
