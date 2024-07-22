@@ -5,13 +5,14 @@ title "Passwort ändern"
 |Angemeldeter Nutzer|
 start
 :Öffne Party Time "Passwort ändern" Webseite;
-note right
-    Screenshot 1
-end note
+
 repeat
     repeat
         split
             :Altes Passwort eingeben;
+            note right
+                Screenshot 1
+            end note
         split again
             :Neues Passwort eingeben;
         end split
@@ -21,11 +22,14 @@ repeat
     repeat while () is (Altes Passwort nicht eingegeben) not (Altes Passwort eingegeben)
     :Prüfe neues Passwort;
     backward: Fehlerhaftes neues Passwort markieren;
+    note right
+        Screenshot 2
+    end note
 repeat while () is (Neues Passwort fehlerhaft) not (Neues Passwort fehlerfrei)
 |Angemeldeter Nutzer|
 :Passwort ändern Formular senden;
 note right
-    Screenshot 2
+    Screenshot 3
 end note
 |Registration Controller|
 :Gespeicherten Passwort Hash für angemeldeten Nutzer ermitteln;
@@ -39,7 +43,7 @@ if () then (Hash altes Passwort und gespeicherter Passwort Hash gleich)
     |Angemeldeter Nutzer|
     :Zeige "Passwort Änderung erfolgreich" Meldung;
     note right
-        Screenshot 3
+        Screenshot 4
     end note
     stop
     else (Übermittelter und gespeicherter Hash nicht gleich)

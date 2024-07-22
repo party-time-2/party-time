@@ -13,9 +13,6 @@ if () then (Event nicht gefunden)
     :Fehlermeldung senden;
     |Event-Teilnehmer|
     :Fehlermeldung anzeigen;
-    note right
-        event_not_found: Das Event wurde nicht gefunden.
-    end note
     stop
 else (Event gefunden)
 endif

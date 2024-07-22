@@ -5,6 +5,9 @@ title "Konto erstellen"
 |Nutzer|
 start
 :Öffne Party Time "Registrieren" Webseite;
+note right
+    Screenshot 1
+end note
 repeat
     repeat
         repeat
@@ -17,6 +20,9 @@ repeat
             end split
             |Frontend Validator|
             :Prüfe Anzeigenamen;
+            note right
+                Screenshot 2
+            end note
             backward:Fehlerhaften Anzeigenamen markieren;
         repeat while () is (Anzeigename fehlerhaft) not (Anzeigename fehlerfrei)
         :Prüfe E-Mail Adresse;
@@ -28,7 +34,7 @@ repeat while () is (Passwort fehlerhaft) not (Passwort fehlerfrei)
 |Nutzer|
 :Registration-Formular senden;
 note right
-    Screenshot 1
+    Screenshot 3
 end note
 |Registration Controller|
 :E-Mail-Adresse in Verwendung prüfen;
