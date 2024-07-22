@@ -25,18 +25,4 @@ describe(inviteGuests, () => {
       capture: 'viewport',
     });
   });
-
-  const displayInvitationStatus =
-    'Die Plattform sollte den Status der Einladung verfolgen und anzeigen, ob sie zu- oder abgesagt wurde.';
-  it(displayInvitationStatus, () => {
-    cy.screenshot(getScreenshotPath(requirement, inviteGuests, '3'), {
-      overwrite: true,
-    });
-    // cy.get('[data-cy="decline-button"]').each(($button) => {
-    //   cy.wrap($button).click();
-    // });
-    cy.screenshot(getScreenshotPath(requirement, inviteGuests, '4'), {
-      overwrite: true,
-    });
-  });
 });
