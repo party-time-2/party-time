@@ -38,7 +38,6 @@ In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Fron
 1. `/apps/party-time-frontend-17/src/app/validators` -> Validatoren für Formulare (Testet die Passwörter auf einhaltung der Regeln)
 1. `/apps/party-time-frontend-17/tailwind.config.ts` -> Konfiguration für TailwindCSS
 
-
 #### Anmerkungen zum Frontend
 
 - es wurde auf eine Lazy Loading Strategie gesetzt, um die Ladezeiten zu minimieren
@@ -46,6 +45,7 @@ In dem Ordner befinden sich Unit-Test, E2E-Test und die Implementierung des Fron
 - die Anwendung wurde mit TailwindCSS gestaltet
 - die Anwendung wurde mit Angular 17 erstellt
 - eine Seite kann lokale Komponenten verwenden, welche von anderen Seiten nicht verwendet werden
+- in einer Produktivumgebung würden wir den JWT-Token in einem HttpOnly-Cookie speichern, um XSS-Angriffe zu verhindern. Da wir aber nur eine lokale Entwicklungsumgebung haben, speichern wir den Token im LocalStorage
 
 ### /apps/party-time-backend-kotlin
 
